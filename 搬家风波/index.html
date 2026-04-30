@@ -799,6 +799,17 @@
                 return lines.slice(1).join('\n').trim();
             }
 
+            function enforceSectionBreaks(rawText) {
+                const text = preprocessRichText(rawText);
+                if (!text) {
+                    return '';
+                }
+                return text
+                    .replace(/\s*(错误原因|解析|知识点)\s*[:：]\s*/g, '\n\n$1：')
+                    .replace(/\n{3,}/g, '\n\n')
+                    .trim();
+            }
+
             function getChoiceButtonLabel(node) {
                 if (node && node.metadata && node.metadata.choice_option) {
                     return node.metadata.choice_option;
@@ -831,12 +842,16 @@
                     return '';
                 }
 
-                const knownLabels = ['Analysis', 'Knowledge Point', 'Cause of Error', 'Reason for Error', 'Failure Analysis', 'Explanation'];
+                const knownLabels = [
+                    'Analysis', 'Knowledge Point', 'Cause of Error', 'Reason for Error', 'Failure Analysis', 'Explanation',
+                    '解析', '知识点', '错误原因'
+                ];
                 const normalizedText = text
-                    .replace(/\*\*\s*(Analysis|Knowledge Point|Cause of Error|Reason for Error|Failure Analysis|Explanation)\s*:\s*\*\*/gi, '**$1:** ')
-                    .replace(/(\*\*(?:Analysis|Knowledge Point|Cause of Error|Reason for Error|Failure Analysis|Explanation):\*\*)\s*\*\*\s*/gi, '$1 ')
-                    .replace(/([^\n])(\*\*\s*(?:Analysis|Knowledge Point|Cause of Error|Reason for Error|Failure Analysis|Explanation)\s*:\s*)/gi, '$1\n$2')
-                    .replace(/([^\n])((?:Analysis|Knowledge Point|Cause of Error|Reason for Error|Failure Analysis|Explanation)\s*:)/gi, '$1\n$2')
+                    .replace(/\*\*\s*(Analysis|Knowledge Point|Cause of Error|Reason for Error|Failure Analysis|Explanation|解析|知识点|错误原因)\s*[:：]\s*\*\*/gi, '**$1:** ')
+                    .replace(/(\*\*(?:Analysis|Knowledge Point|Cause of Error|Reason for Error|Failure Analysis|Explanation|解析|知识点|错误原因)[:：]\*\*)\s*\*\*\s*/gi, '$1 ')
+                    .replace(/([^\n])(\*\*\s*(?:Analysis|Knowledge Point|Cause of Error|Reason for Error|Failure Analysis|Explanation|解析|知识点|错误原因)\s*[:：]\s*)/gi, '$1\n$2')
+                    .replace(/([^\n])((?:Analysis|Knowledge Point|Cause of Error|Reason for Error|Failure Analysis|Explanation|解析|知识点|错误原因)\s*[:：])/gi, '$1\n$2')
+                    .replace(/([。！？；;])\s*((?:Analysis|Knowledge Point|Cause of Error|Reason for Error|Failure Analysis|Explanation|解析|知识点|错误原因)\s*[:：])/gi, '$1\n$2')
                     .replace(/\n{3,}/g, '\n\n');
                 const lines = normalizedText.split('\n');
                 const htmlParts = [];
@@ -848,7 +863,9 @@
                     if (!looseParagraphs.length) {
                         return;
                     }
-                    const paragraphHtml = decorateInlineEmphasis(escapeHtml(looseParagraphs.join(' ').trim()));
+                    const paragraphHtml = decorateInlineEmphasis(
+                        escapeHtml(looseParagraphs.join('\n').trim()).replace(/\n/g, '<br>')
+                    );
                     if (paragraphHtml) {
                         htmlParts.push(`<div class="formatted-paragraph">${paragraphHtml}</div>`);
                     }
@@ -880,8 +897,8 @@
                     line = line.replace(/^\*\*\s+(?=[^*])/, '');
                     line = line.replace(/\s+\*\*$/, '');
 
-                    const headingMatch = line.match(/^\*\*\s*(Analysis|Knowledge Point|Cause of Error|Reason for Error|Failure Analysis|Explanation)\s*:\s*\*\*?\s*(.*)$/i)
-                        || line.match(/^(Analysis|Knowledge Point|Cause of Error|Reason for Error|Failure Analysis|Explanation)\s*:\s*(.*)$/i);
+                    const headingMatch = line.match(/^\*\*\s*(Analysis|Knowledge Point|Cause of Error|Reason for Error|Failure Analysis|Explanation|解析|知识点|错误原因)\s*[:：]\s*\*\*?\s*(.*)$/i)
+                        || line.match(/^(Analysis|Knowledge Point|Cause of Error|Reason for Error|Failure Analysis|Explanation|解析|知识点|错误原因)\s*[:：]\s*(.*)$/i);
 
                     if (headingMatch) {
                         pushLooseParagraphs();
@@ -1053,7 +1070,12 @@
                                 gameContainerEl.classList.add('blur-background');
                                 
                                 physicsKnowledgeTitleEl.textContent = (node.metadata && node.metadata.knowledge_point) || '';
-                                const physicsKnowledgeText = stripDuplicateLeadingTitle(node.metadata.physics_knowledge, (node.metadata && node.metadata.knowledge_point) || '');
+                                const physicsKnowledgeText = enforceSectionBreaks(
+                                    stripDuplicateLeadingTitle(
+                                        node.metadata.physics_knowledge,
+                                        (node.metadata && node.metadata.knowledge_point) || ''
+                                    )
+                                );
                                 physicsKnowledgeTextEl.innerHTML = formatRichText(physicsKnowledgeText, { mode: 'knowledge' });
                                 
                                 // 显示物理知识点覆盖层
@@ -1144,7 +1166,12 @@
                             const failureSource = node.metadata && (node.metadata.failure_analysis || node.metadata.physics_knowledge);
                             if (failureSource) {
                                 failureAnalysisSubtitleEl.textContent = (node.metadata && node.metadata.knowledge_point) || '';
-                                const failureText = stripDuplicateLeadingTitle(failureSource, (node.metadata && node.metadata.knowledge_point) || '');
+                                const failureText = enforceSectionBreaks(
+                                    stripDuplicateLeadingTitle(
+                                        failureSource,
+                                        (node.metadata && node.metadata.knowledge_point) || ''
+                                    )
+                                );
                                 failureAnalysisTextEl.innerHTML = formatRichText(failureText, { mode: 'failure' });
                                 
                                 // 显示失败分析覆盖层
