@@ -1,0 +1,1292 @@
+{
+  "nodes": [
+    {
+      "id": "node_1",
+      "content": "清晨的校园被彩旗和欢笑声唤醒，一年一度的科技大展正式拉开帷幕。你作为一名充满好奇的中学生，在校门口领取了一张金灿灿的“科技探索集章卡”。工作人员告诉你，今天的压轴戏是体育馆副馆里的巨型“科技之光”灯群，但它目前正处于‘待唤醒’状态。你需要穿过实验楼走廊、走过综合实践教室，在各个有趣的展位收集科学能量印章，最后才能运用一路上积累的‘智慧火种’，亲手点亮那座代表科技梦想的璀璨灯群。",
+      "type": "normal",
+      "metadata": {
+        "image_prompt": "清晨彩旗飘扬的校门口，人物神情好奇，双手捧着金灿灿的集章卡，开启探索之旅。吉卜力风格，氛围温馨怀旧，中景构图。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 1,
+        "image_url": "https://file3.aitohumanize.com/file/a9d0838e5d80431d876c3dfcaf481f0f.png",
+        "image_path": "./images/node_1.png"
+      }
+    },
+    {
+      "id": "node_2",
+      "content": "你站在巨大的透明水槽前，一枚沉重的铁球静静躺在水底。奇怪的是，前面的挑战者正对着铁球夹去，却总是落空。你注意到水槽上方写着‘视觉陷阱’，意识到水下的铁球并非看起来那么简单，必须用科学原理校准你的瞄准点。",
+      "type": "ep_start",
+      "metadata": {
+        "chapter_title": "第1关 水中取宝：穿透视觉的迷雾",
+        "knowledge_point": "光的折射",
+        "primary_knowledge_point": "光的折射",
+        "supporting_knowledge_points": [],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "image_prompt": "中景视角下，人物俯身注视着透明水槽底部的沉重铁球。室内洒满柔和的晨光，营造出温馨怀旧的吉卜力氛围。人物神情专注，握着长柄工具悬在水面上方。人物形象参考输入的第一张，背景参考第二张（如果有的话）",
+        "scene_transition": 1,
+        "image_url": "https://file2.aitohumanize.com/file/36df56ee33ee4256b41a5dddb38e9460.png",
+        "image_path": "./images/node_2.png"
+      }
+    },
+    {
+      "id": "node_3",
+      "content": "面对水中的“视觉陷阱”，你应该如何调整长柄夹具的瞄准点，才能准确抓取到铁球？",
+      "type": "normal",
+      "metadata": {
+        "knowledge_point": "光的折射",
+        "primary_knowledge_point": "光的折射",
+        "supporting_knowledge_points": [],
+        "image_prompt": "中景画面。吉卜力风格，阳光洒在温馨的展厅。人物神情专注，握着长柄夹具探入透明水槽深处，水底静静躺着一枚重铁球。人物形象参考输入的第一张，背景参考第二张（如果有的话）",
+        "scene_transition": 1,
+        "image_url": "https://file3.aitohumanize.com/file/a6a5c210ecc74ffabedd184e77eb5e84.png",
+        "image_path": "./images/node_3.png"
+      }
+    },
+    {
+      "id": "node_4",
+      "content": "你屏住呼吸，有意识地让夹具越过视觉中的“铁球”，向更深处探去，直到感受到了坚硬的阻力。",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "瞄准虚像下方，修正光从水进入空气时偏离法线产生的向下位移。",
+        "image_prompt": "人物屏息俯身，操纵长柄夹具越过水下铁球的幻影，向深处探索。温润阳光洒在透明水槽，映衬着少年专注的脸庞，呈现吉卜力式温馨怀旧感。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file1.aitohumanize.com/file/e11ac3e0495543948022c94d62123822.png",
+        "image_path": "./images/node_4.png"
+      }
+    },
+    {
+      "id": "node_5",
+      "content": "随着“咔哒”一声，夹具稳稳扣住了铁球。当你将其拉出水面时，围观同学发出惊叹，你获得了第一枚印章。",
+      "type": "ep_end",
+      "metadata": {
+        "physics_knowledge": "光的折射\n\n解析：在这一场景中，你识别出了“池水变浅”的折射幻觉。光线从水底铁球斜射入空气时，在水面发生偏折并远离法线，导致人眼逆着折射光线看到的虚像位置比实际位置偏高。因此，必须向下修正瞄准点，才能触碰到真实的物体，成功克服了介质交界面产生的视觉位移。\n\n知识点：光的折射是指光从一种介质斜射入另一种介质时，传播方向发生偏折。当光从水斜射入空气时，折射角大于入射角，人眼看到的物体虚像会比实际位置更接近水面。其核心在于光在不同介质中的传播速度不同，导致光路在界面处发生转折。",
+        "chapter_title": "第1关 水中取宝：穿透视觉的迷雾",
+        "knowledge_point": "光的折射",
+        "primary_knowledge_point": "光的折射",
+        "supporting_knowledge_points": [],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "image_prompt": "人物面带惊喜，双手提着长柄金属夹，从水中拎出一枚布满红锈的沉重铁球。晨光洒在热闹的展厅，同学们正欢呼喝彩，画风温馨且怀旧。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 1,
+        "image_url": "https://file1.aitohumanize.com/file/808fce808c3940f0a1816a782cc09752.png",
+        "image_path": "./images/node_5.png"
+      }
+    },
+    {
+      "id": "node_4_branch_1_decision",
+      "content": "你选择相信自己的眼睛，操纵夹具精准地对准视野中那枚闪着微光的铁球中心，快速用力合拢夹具柄。",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "直接瞄准虚像，认为光在透明的水中始终沿直线传播而不偏折。",
+        "image_prompt": "吉卜力风格。人物神情专注，俯身稳稳操控长柄夹具探入水中，目光锁定水底微光果断合拢；阳光洒进温馨怀旧的实验室，巨大的水槽波光粼粼，满室洋溢着科技展明快温暖的气息。中景。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file5.aitohumanize.com/file/ccbea881429348d78aa2e0d5c4972347.png",
+        "image_path": "./images/node_4_branch_1_decision.png"
+      }
+    },
+    {
+      "id": "node_4_branch_1_fatal",
+      "content": "夹具在水中发出一声空响，只是抓住了虚幻的光影，夹具尖端实际停留的位置比真实的铁球高出了一截。",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "这是一种典型的直觉误区，忽略了光在水面（界面）发生的折射现象。由于光线进入空气时会远离法线偏折，导致你看到的铁球只是一个“浮起来”的虚像。如果正对着视觉中心抓取，夹具只会落在实物的上方。我们需要明白，“眼见为实”在跨介质观测时并不成立。",
+        "physics_knowledge": "光的折射\n\n错误原因：这是一种典型的直觉误区，忽略了光在水面（界面）发生的折射现象。由于光线进入空气时会远离法线偏折，导致你看到的铁球只是一个“浮起来”的虚像。如果正对着视觉中心抓取，夹具只会落在实物的上方。我们需要明白，“眼见为实”在跨介质观测时并不成立。\n\n知识点：光的折射是指光从一种介质斜射入另一种介质时，传播方向发生改变。根据折射定律，当光从水斜射入空气时，折射角大于入射角。水下物体发出的光线在水面处偏离法线，导致人眼逆着光线看到的虚像位置高于实物。若直接对准视觉中心抓取，会因忽略光路转折而导致落点偏高；准确的操作应指向虚像下方。该现象本质上源于光在不同介质中传播速度的差异。",
+        "knowledge_point": "光的折射",
+        "primary_knowledge_point": "光的折射",
+        "supporting_knowledge_points": [],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "wrong_explanation": "这是一种典型的直觉误区，忽略了光在水面（界面）发生的折射现象。由于光线进入空气时会远离法线偏折，导致你看到的铁球只是一个“浮起来”的虚像。如果正对着视觉中心抓取，夹具只会落在实物的上方。我们需要明白，“眼见为实”在跨介质观测时并不成立。",
+        "correct_knowledge_ref": "光的折射是指光从一种介质斜射入另一种介质时，传播方向发生偏折。当光从水斜射入空气时，折射角大于入射角，人眼看到的物体虚像会比实际位置更接近水面。其核心在于光在不同介质中的传播速度不同，导致光路在界面处发生转折。",
+        "image_prompt": "吉卜力风格，人物俯身在水槽旁，神情错愕，长夹具在水中合拢却只抓住了铁球上方的虚影。阳光洒在水波与展台，氛围温馨怀旧。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file5.aitohumanize.com/file/642362fb592f40a4b8a862fdbb7981a6.png",
+        "image_path": "./images/node_4_branch_1_fatal.png"
+      }
+    },
+    {
+      "id": "node_4_branch_2_decision",
+      "content": "你推测水可能会产生某种放大或下沉效果，于是将夹具悬停在视觉所见位置的上方，试图拦截它。",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "瞄准虚像上方，认为水面像凸透镜一样产生了向下的视觉位移。",
+        "image_prompt": "吉卜力风格中景，人物神情专注地弯腰，控制长柄夹具悬停在水底铁球幻影上方。透明水槽折射着温润阳光，画面色彩清新怀旧。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file3.aitohumanize.com/file/5ff3342815d64454b6475235524e6e36.png",
+        "image_path": "./images/node_4_branch_2_decision.png"
+      }
+    },
+    {
+      "id": "node_4_branch_2_fatal",
+      "content": "你的夹具在靠近水面的地方就合拢了，距离水底的铁球还有很长一段距离，挑战遗憾以失败告终。",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "这一方案混淆了折射导致位移的方向。根据折射定律，光从水进入空气后，折射光线会偏离法线，使人产生物体“变浅”的错觉，即虚像在实像的上方。如果你向上修正瞄准点，反而会离位于深处的真实铁球越来越远。科学决策需要基于准确的几何光学规律，而非凭空的猜测。",
+        "physics_knowledge": "光的折射\n\n错误原因：这一方案混淆了折射导致位移的方向。根据折射定律，光从水进入空气后，折射光线会偏离法线，使人产生物体“变浅”的错觉，即虚像在实像的上方。如果你向上修正瞄准点，反而会离位于深处的真实铁球越来越远。科学决策需要基于准确的几何光学规律，而非凭空的猜测。\n\n知识点：光的折射指光从一种介质斜射入另一种介质时，传播方向在界面处发生偏折的现象。其核心规律遵循斯涅尔定律：\n$$n_1 \\sin\\theta_1 = n_2 \\sin\\theta_2$$\n当光从水（高折射率）进入空气（低折射率）时，折射光线偏离法线，折射角大于入射角。\n\n\n\n由于人眼习惯沿直线反向追溯光路，物体发出的光线经折射后进入人眼，会导致视觉成像点高于实际物理位置，即形成“浅化”的虚像。若向上修正瞄准点，将进一步偏离深处的真实物体；科学的做法应是向虚像的下方瞄准，以抵消折射产生的向上位移。位移。",
+        "knowledge_point": "光的折射",
+        "primary_knowledge_point": "光的折射",
+        "supporting_knowledge_points": [],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "wrong_explanation": "这一方案混淆了折射导致位移的方向。根据折射定律，光从水进入空气后，折射光线会偏离法线，使人产生物体“变浅”的错觉，即虚像在实像的上方。如果你向上修正瞄准点，反而会离位于深处的真实铁球越来越远。科学决策需要基于准确的几何光学规律，而非凭空的猜测。",
+        "correct_knowledge_ref": "光的折射是指光从一种介质斜射入另一种介质时，传播方向发生偏折。当光从水斜射入空气时，折射角大于入射角，人眼看到的物体虚像会比实际位置更接近水面。其核心在于光在不同介质中的传播速度不同，导致光路在界面处发生转折。",
+        "image_prompt": "吉卜力画风，中景。人物神情失落地握着长柄夹在水面合拢，离水底生锈铁球尚远。室内阳光柔和，氛围温馨怀旧。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file5.aitohumanize.com/file/dccb9a80203f4213842629f0999da7dc.png",
+        "image_path": "./images/node_4_branch_2_fatal.png"
+      }
+    },
+    {
+      "id": "node_6",
+      "content": "你费力地将铁球拎出水槽，却发现它由于长期浸泡，表面布满了厚厚的暗红色铁锈。这种粗糙的质感显然无法进行后续的精密实验，你抬头看向指示牌，朝着“旧物修复工坊”走去。 你带着那枚锈迹斑斑的铁球来到修复工坊。铁球表面覆盖着厚厚的氧化层，手感十分粗糙。老师告诉你，只有彻底去除这些氧化物，让铁球恢复平整光洁的金属表面，它才能在后续的精密轨道上顺畅滚动，避免因摩擦力过大而停滞。",
+      "type": "ep_start",
+      "metadata": {
+        "chapter_title": "第2关 旧物焕新：红锈消失术",
+        "knowledge_point": "金属的化学性质",
+        "primary_knowledge_point": "金属的化学性质",
+        "supporting_knowledge_points": [
+          "光的折射"
+        ],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "image_prompt": "人物费力地捧着满是红锈的沉重铁球，好奇地走进洒满阳光的温馨工坊。中景视角下，木桌与古朴工具宁静而怀旧。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 1,
+        "image_url": "https://file3.aitohumanize.com/file/e4d1f5e8ff864c71b9653f998d62fd7d.png",
+        "image_path": "./images/node_6.png"
+      }
+    },
+    {
+      "id": "node_7",
+      "content": "面对实验台上三瓶无色透明的化学试剂，你应该选择哪种方案来处理铁球表面的铁锈？",
+      "type": "normal",
+      "metadata": {
+        "knowledge_point": "金属的化学性质",
+        "primary_knowledge_point": "金属的化学性质",
+        "supporting_knowledge_points": [
+          "光的折射"
+        ],
+        "image_prompt": "中景镜头，人物俯身观察木桌上三瓶无色透明的药瓶，身旁搁着那枚粗糙暗红的铁球。暖阳洒满怀旧工坊，光影斑驳温馨，人物神情认真。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file1.aitohumanize.com/file/8eb48342d7cb434abfbd2e33efee9eb9.png",
+        "image_path": "./images/node_7.png"
+      }
+    },
+    {
+      "id": "node_8",
+      "content": "你戴上手套，小心地将锈铁球浸入稀盐酸中，观察到铁球表面冒出细小气泡，红锈逐渐溶解。",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "选用稀盐酸浸泡，利用酸能与金属氧化物发生化学反应的性质。",
+        "image_prompt": "吉卜力风格。人物戴着手套，全神贯注将锈球浸入清澈液体，细密气泡在木桌上的透明容器里升起，氛围温馨怀旧。中景构图，光线柔和。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "recurring_characters": [
+          "小心"
+        ],
+        "image_url": "https://file2.aitohumanize.com/file/7d027bab86fb49d69cfb238dcef3e947.png",
+        "image_path": "./images/node_8.png"
+      }
+    },
+    {
+      "id": "node_9",
+      "content": "暗红色的锈层完全消失，铁球露出了银白色的金属光泽，表面变得极其平滑，获得了第二枚印章。",
+      "type": "ep_end",
+      "metadata": {
+        "physics_knowledge": "金属的化学性质\n\n解析：铁锈的主要成分是氧化铁（Fe₂O₃），属于金属氧化物。稀盐酸作为强酸，能与这种氧化物发生复分解反应，生成可溶性的氯化铁和水。这一过程能从分子层面将附着在铁表面的氧化层剥离，且在控制好时间的情况下不会过度损伤铁单质，是实验室和工业除锈的标准科学方法。\n\n知识点：酸的化学通性之一是能与碱性氧化物（金属氧化物）反应生成盐和水。反应方程式为：Fe₂O₃ + 6HCl = 2FeCl₃ + 3H₂O。这种性质广泛应用于金属表面清理，通过化学反应将不溶于水的固体锈迹转化为可溶性的离子，从而实现表面的彻底净化。",
+        "chapter_title": "第2关 旧物焕新：红锈消失术",
+        "knowledge_point": "金属的化学性质",
+        "primary_knowledge_point": "金属的化学性质",
+        "supporting_knowledge_points": [
+          "光的折射"
+        ],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "image_prompt": "中景视角下，人物在阳光明媚的工坊内，欣喜地捧起一颗平滑如镜、闪烁着银光的铁球。木桌上工具陈旧而温馨，整体氛围恬静怀旧，铁球表面映照出柔和的光晕。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file3.aitohumanize.com/file/89134f48becc4f8596864f85744cf82c.png",
+        "image_path": "./images/node_9.png"
+      }
+    },
+    {
+      "id": "node_8_branch_1_decision",
+      "content": "你将铁球放入氢氧化钠溶液中，屏息观察液面的变化，希望能看到锈迹被强力腐蚀剥落的场景。",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "选用高浓度碱液，利用其强腐蚀性剥离金属表面的氧化层。",
+        "image_prompt": "吉卜力风格。近景中人物屏息凝神，将暗红锈球缓缓浸入清澈液体，阳光洒在堆满瓶罐的木质工作台。人物形象参考输入的第一张，背景参考第二张（如果有的话）",
+        "scene_transition": 0,
+        "image_url": "https://file1.aitohumanize.com/file/c1830a83faad4fd388851949be256ec3.png",
+        "image_path": "./images/node_8_branch_1_decision.png"
+      }
+    },
+    {
+      "id": "node_8_branch_1_fatal",
+      "content": "经过漫长的等待，铁球表面的红锈依然牢固附着，甚至因为碱液的挂杯显得更加黏糊，实验被迫中断。",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "这是一个关于酸碱性质的认知误区。虽然高浓度碱液具有强腐蚀性，但它主要针对有机物（如皮肤、毛发）或某些两性金属（如铝）。氧化铁（铁锈）属于碱性氧化物，它不与碱溶液发生反应。因此，使用碱液不仅无法除锈，还可能在表面留下难以清理的残留物，完全无法达到净化金属表面的目的。",
+        "physics_knowledge": "金属的化学性质\n\n错误原因：这是一个关于酸碱性质的认知误区。虽然高浓度碱液具有强腐蚀性，但它主要针对有机物（如皮肤、毛发）或某些两性金属（如铝）。氧化铁（铁锈）属于碱性氧化物，它不与碱溶液发生反应。因此，使用碱液不仅无法除锈，还可能在表面留下难以清理的残留物，完全无法达到净化金属表面的目的。\n\n知识点：金属表面的锈蚀产物主要为氧化铁，属于**碱性氧化物**。根据酸的化学通性，酸能与金属氧化物反应生成盐和水，其反应原理为：\n$$Fe_2O_3 + 6HCl = 2FeCl_3 + 3H_2O$$\n通过该反应，不溶性的固体锈迹转化为可溶性离子随溶液除去，从而实现金属净化。\n\n\n\n相比之下，碱液虽具强腐蚀性，但主要作用于有机物或铝等两性金属，无法与氧化铁发生化学反应。因此，在金属除锈工艺中，通常利用酸的化学性质而非碱液来清理表面氧化层。",
+        "knowledge_point": "金属的化学性质",
+        "primary_knowledge_point": "金属的化学性质",
+        "supporting_knowledge_points": [
+          "光的折射"
+        ],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "wrong_explanation": "这是一个关于酸碱性质的认知误区。虽然高浓度碱液具有强腐蚀性，但它主要针对有机物（如皮肤、毛发）或某些两性金属（如铝）。氧化铁（铁锈）属于碱性氧化物，它不与碱溶液发生反应。因此，使用碱液不仅无法除锈，还可能在表面留下难以清理的残留物，完全无法达到净化金属表面的目的。",
+        "correct_knowledge_ref": "酸的化学通性之一是能与碱性氧化物（金属氧化物）反应生成盐和水。反应方程式为：Fe₂O₃ + 6HCl = 2FeCl₃ + 3H₂O。这种性质广泛应用于金属表面清理，通过化学反应将不溶于水的固体锈迹转化为可溶性的离子，从而实现表面的彻底净化。",
+        "image_prompt": "人物垂头丧气地站在桌前，看着罐里依然锈红且黏糊的铁球，眼神失落。昏暗工坊洒满黄昏余晖，四周寂静，透着实验中断的沮丧。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file4.aitohumanize.com/file/5e72edf0129d4a9f94874150153d525d.png",
+        "image_path": "./images/node_8_branch_1_fatal.png"
+      }
+    },
+    {
+      "id": "node_8_branch_2_decision",
+      "content": "你将铁球浸泡在84消毒液中，期待强氧化剂能快速分解铁锈。",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "选用84消毒液，利用其强氧化性将铁锈氧化分解。",
+        "image_prompt": "人物俯身在温馨的工坊内，小心地将暗红锈球没入盛满清液的玻璃瓶，阳光柔和。氛围怀旧，中景构图。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file5.aitohumanize.com/file/87173557d99f4c5cb03cc46d78a5373b.png",
+        "image_path": "./images/node_8_branch_2_decision.png"
+      }
+    },
+    {
+      "id": "node_8_branch_2_fatal",
+      "content": "经过一段时间，铁锈几乎没有变化，且铁球表面开始出现腐蚀斑点。往外挥发着刺激性气体。",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "这是一个关于氧化剂作用的认知误区。84消毒液的主要成分是次氯酸钠，具有强氧化性，但铁锈（氧化铁）中的铁已经是最高氧化态（+3价），强氧化剂无法进一步氧化它。更重要的是，84消毒液对金属有强腐蚀性，会腐蚀铁球基体，反而破坏金属表面。",
+        "physics_knowledge": "金属的化学性质\n\n错误原因：这属于将“物理清理”与“化学除锈”混淆的错误。润滑剂主要用于减小摩擦或松动锈死的螺栓，它并不能改变铁锈的化学性质，也无法溶解氧化铁。对于厚且牢固的氧化层，物理渗透的效果极其有限，无法使铁球恢复精密实验所需的高光洁度表面，导致实验结果不符合预期。\n\n知识点：金属表面的锈蚀产物主要由金属氧化物（如 $Fe_2O_3$）构成。**金属的化学性质**决定了清除这类物质需通过化学反应将其转化。根据**酸的化学通性**，稀盐酸或稀硫酸能与碱性氧化物反应生成可溶性盐和水，反应方程式为：\n\n$$Fe_2O_3 + 6HCl = 2FeCl_3 + 3H_2O$$\n\n\n\n与之相比，润滑剂仅能通过物理渗透减小摩擦力，无法从分子层面移除氧化物晶格。只有利用化学除锈，将不溶的固体锈层转化为离子状态并随溶液剥离，才能使金属表面恢复至分子级的平整度与洁净度，从而满足精密实验对材料表面的物理性能要求。",
+        "knowledge_point": "金属的化学性质",
+        "primary_knowledge_point": "金属的化学性质",
+        "supporting_knowledge_points": [
+          "光的折射"
+        ],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "wrong_explanation": "这是一个关于氧化剂作用的认知误区。84消毒液的主要成分是次氯酸钠，具有强氧化性，但铁锈（氧化铁）中的铁已经是最高氧化态（+3价），强氧化剂无法进一步氧化它。更重要的是，84消毒液对金属有强腐蚀性，会腐蚀铁球基体，反而破坏金属表面。",
+        "correct_knowledge_ref": "酸的化学通性之一是能与碱性氧化物（金属氧化物）反应生成盐和水。反应方程式为：Fe₂O₃ + 6HCl = 2FeCl₃ + 3H₂O。这种性质广泛应用于金属表面清理，通过化学反应将不溶于水的固体锈迹转化为可溶性的离子，从而实现表面的彻底净化。",
+        "image_prompt": "人物掩住口鼻，担忧地看着台上的玻璃缸。缸内锈球冒出刺鼻白烟，表面浮现斑驳黑点。暖阳洒在堆满器皿的木桌上，恬静工坊里透着操作失误的无措感。\n\n人物形象参考输入的第一张，背景参考第二张（如果有的话）",
+        "scene_transition": 0,
+        "image_url": "https://file5.aitohumanize.com/file/f10a29277dea41f796fb82587759b1d5.png",
+        "image_path": "./images/node_8_branch_2_fatal.png"
+      }
+    },
+    {
+      "id": "node_10",
+      "content": "看着手中焕然一新的铁球，你满意地将其收好。光滑的表面意味着更低的摩擦阻力，你信心满满地走向了不远处的轨道挑战区。 你来到“机械动力区”，面前是一座垂直圆轨道。光滑的轨道泛着冷光，提示牌写着：铁球在最高点时，若速度不足，会因重力脱离轨道。为了保证系统安全，释放高度不仅要让球通过顶点，还不能因速度过快撞坏后续的精密感应器。",
+      "type": "ep_start",
+      "metadata": {
+        "chapter_title": "第3关 环形冲刺：轨道临界点",
+        "knowledge_point": "动能与势能转化",
+        "primary_knowledge_point": "动能与势能转化",
+        "supporting_knowledge_points": [
+          "向心力与圆周运动",
+          "金属的化学性质"
+        ],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "image_prompt": "人物端详着手中银白锃亮的圆球，满怀信心走向前方高耸的环形轨道。午后阳光照进温馨怀旧的工坊，金属轨道泛着柔和冷光。中景视角捕捉到人物充满期待的侧影。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file3.aitohumanize.com/file/c4157dac202e4c5797b64eb3978ee869.png",
+        "image_path": "./images/node_10.png"
+      }
+    },
+    {
+      "id": "node_11",
+      "content": "观察轨道结构，为了让铁球在不脱轨的前提下顺畅通过半径为 R 的圆环顶点，你应该将铁球置于起始斜坡的最小高度是多少？",
+      "type": "normal",
+      "metadata": {
+        "knowledge_point": "动能与势能转化",
+        "primary_knowledge_point": "动能与势能转化",
+        "supporting_knowledge_points": [
+          "向心力与圆周运动",
+          "金属的化学性质"
+        ],
+        "image_prompt": "人物手托银色小球，神情专注地打量着身前的圆弧轨道，在起点与圆环间反复比对。午后柔光轻抚着金属器械，画面充满温馨怀旧的质感，中景视角侧拍其认真的姿态。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file1.aitohumanize.com/file/c85d0a26b86b41ad84c3ed65ccb461cf.png",
+        "image_path": "./images/node_11.png"
+      }
+    },
+    {
+      "id": "node_12",
+      "content": "你精准地将铁球对准标有“2.5R”刻度的卡槽，深吸一口气，指尖轻轻一松。",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "从2.5倍半径高度释放，确保势能转化后能提供刚好足够的向心力。",
+        "image_prompt": "人物眼神专注，指尖在轨道高处轻轻松开一颗银色球体。温暖侧光洒在蜿蜒平滑的金属轨道上，氛围静谧而温馨。中景视角定格了球体滑落的瞬间。人物形象参考输入的第一张，背景参考第二张。",
+        "scene_transition": 0,
+        "image_url": "https://file5.aitohumanize.com/file/99089d3e65a14ba287e10c4e8d0cb12a.png",
+        "image_path": "./images/node_12.png"
+      }
+    },
+    {
+      "id": "node_13",
+      "content": "铁球呼啸而下，在最高点处稳稳贴合轨道划过，随后顺滑地冲过终点，你获得了第三枚印章。",
+      "type": "ep_end",
+      "metadata": {
+        "physics_knowledge": "动能与势能转化\n\n解析：根据机械能守恒定律，铁球下落时重力势能转化为动能。要使铁球不脱离圆轨道最高点，其在顶点的速度必须满足重力刚好提供向心力的临界条件（v=√gR）。通过计算（mgh = mg*2R + 1/2mv²），得出理论最小释放高度为半径的2.5倍。这是兼顾物理规律与实验效率的最优解。\n\n知识点：机械能守恒定律指出，在只有重力做功的情况下，物体的动能和势能可以相互转化，总能量保持不变。在垂直圆周运动中，物体要过最高点，必须具备一定的最小动能来对抗重力的“拽离”作用。这一临界状态是动能与重力势能定量分配的典型体现。",
+        "chapter_title": "第3关 环形冲刺：轨道临界点",
+        "knowledge_point": "动能与势能转化",
+        "primary_knowledge_point": "动能与势能转化",
+        "supporting_knowledge_points": [
+          "向心力与圆周运动",
+          "金属的化学性质"
+        ],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "image_prompt": "人物惊喜地注视着银球冲过终点，笑容灿烂。温馨怀旧的展馆内，暖阳斜照在圆环轨道上，氛围静谧治愈。中景视角捕捉到获得印章时的纯粹喜悦。人物形象参考输入的第一张，背景参考第二张（如果有的话）",
+        "scene_transition": 0,
+        "image_url": "https://file1.aitohumanize.com/file/03eb65bb084d4446977d8dc8415d1045.png",
+        "image_path": "./images/node_13.png"
+      }
+    },
+    {
+      "id": "node_12_branch_1_decision",
+      "content": "你觉得只要位置刚好等于圆环最高点，球就一定能翻过去，于是将球放置在较低的位置释放。",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "从2倍半径高度释放，认为高度刚好等于圆环最高点就能通过。",
+        "image_prompt": "人物神情专注地俯身，将银亮铁球置于低矮坡道。中景视角下，柔和阳光斜照在巨大的圆型金属轨道上，氛围温馨而怀旧。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file3.aitohumanize.com/file/b9203d20b8034c858419f795e0952d06.png",
+        "image_path": "./images/node_12_branch_1_decision.png"
+      }
+    },
+    {
+      "id": "node_12_branch_1_fatal",
+      "content": "铁球冲上斜坡，但在尚未到达顶点时就速度耗尽，像断了线的风筝一样直接从半空垂直坠落。",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "这是典型的“静止能量平衡”误区。虽然2倍半径看起来高于圆心，但物体的机械能不足以让它在到达2倍半径的高度时还保留必要的向心速度。在动态运动中，翻越障碍不仅需要势能高度，还需要预留一部分能量转化为顶点动能，否则铁球会在动能归零前就因重力大于向心力而脱轨。",
+        "physics_knowledge": "动能与势能转化\n\n错误原因：这是典型的“静止能量平衡”误区。虽然1.5倍半径看起来高于圆心，但物体的机械能不足以让它在到达2倍半径的高度时还保留必要的向心速度。在动态运动中，翻越障碍不仅需要势能高度，还需要预留一部分能量转化为顶点动能，否则铁球会在动能归零前就因重力大于向心力而脱轨。\n\n知识点：\n机械能守恒定律描述了动能（$E_k = \\frac{1}{2}mv^2$）与重力势能（$E_p = mgh$）在理想状态下的转化关系。在垂直圆周运动中，物体通过最高点不仅需要转化为势能以克服高度，还需保留一部分动能以提供必要的向心力。单纯依据高度相等的“静态平衡”逻辑进行推导，往往会忽略动态运动中维持轨道所需的临界速度。准确的物理分析应基于总机械能同时满足顶点势能提升与最小向心动能的需求。",
+        "knowledge_point": "动能与势能转化",
+        "primary_knowledge_point": "动能与势能转化",
+        "supporting_knowledge_points": [
+          "向心力与圆周运动",
+          "金属的化学性质"
+        ],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "wrong_explanation": "这是典型的“静止能量平衡”误区。虽然2倍半径看起来高于圆心，但物体的机械能不足以让它在到达2倍半径的高度时还保留必要的向心速度。在动态运动中，翻越障碍不仅需要势能高度，还需要预留一部分能量转化为顶点动能，否则铁球会在动能归零前就因重力大于向心力而脱轨。",
+        "correct_knowledge_ref": "机械能守恒定律指出，在只有重力做功的情况下，物体的动能和势能可以相互转化，总能量保持不变。在垂直圆周运动中，物体要过最高点，必须具备一定的最小动能来对抗重力的“拽离”作用。这一临界状态是动能与重力势能定量分配的典型体现。",
+        "image_prompt": "中景，人物惊愕地伸手，注视着铁球从圆轨半空垂直坠落。阳光洒在怀旧的巨大轨道上，氛围宁静而温馨。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file3.aitohumanize.com/file/99129951930f42718e3b92ef87650213.png",
+        "image_path": "./images/node_12_branch_1_fatal.png"
+      }
+    },
+    {
+      "id": "node_12_branch_2_decision",
+      "content": "你选择了比正确答案略高的位置，试图用适度的能量冗余通过挑战。",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "从3倍半径高度释放，保证高度有适度冗余确保不脱轨。",
+        "image_prompt": "吉卜力风格中，人物神情专注地俯身，双手稳稳将银亮圆球停在轨道较高处。午后暖阳洒向圆环轨道，室内弥漫着温馨怀旧的实验气息。中景视角定格下这一充满期待的瞬间。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file3.aitohumanize.com/file/66144103c5aa4d79b583f0268147ba2f.png",
+        "image_path": "./images/node_12_branch_2_decision.png"
+      }
+    },
+    {
+      "id": "node_12_branch_2_fatal",
+      "content": "铁球虽然通过了圆环，但因速度过快在弯道处产生剧烈撞击，触发了系统的过载保护，实验宣告失败。",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "这属于“能量冗余”导致的安全性误区。虽然极高的高度能通过顶点，但科学探索追求的是对规律的定量感知。过大的能量会产生极高的压力和摩擦热，可能损坏轨道或感应设备。在物理实验中，不顾系统负荷、盲目追求冗余而不进行临界值计算，是不符合严谨科学精神的。",
+        "physics_knowledge": "动能与势能转化\n\n错误原因：这属于“能量冗余”导致的安全性误区。虽然极高的高度能通过顶点，但科学探索追求的是对规律的定量感知。过大的能量会产生极高的压力和摩擦热，可能损坏轨道或感应设备。在物理实验中，不顾系统负荷、盲目追求冗余而不进行临界值计算，是不符合严谨科学精神的。\n\n知识点：\n机械能守恒定律指出，在只有重力做功的理想系统中，动能（$E_k=\\frac{1}{2}mv^2$）与重力势能（$E_p=mgh$）相互转化，总量保持恒定。以垂直圆周运动为例，物体通过轨道顶点需满足特定的速度临界值，这体现了能量定量分配的严谨性。科学分析应基于临界状态的精准计算，而非依赖“能量冗余”。尽管过量能量能确保物体通过，但会引发额外的压力与摩擦损耗，偏离了对物理规律边界的本质探讨。",
+        "knowledge_point": "动能与势能转化",
+        "primary_knowledge_point": "动能与势能转化",
+        "supporting_knowledge_points": [
+          "向心力与圆周运动",
+          "金属的化学性质"
+        ],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "wrong_explanation": "这属于“能量冗余”导致的安全性误区。虽然极高的高度能通过顶点，但科学探索追求的是对规律的定量感知。过大的能量会产生极高的压力和摩擦热，可能损坏轨道或感应设备。在物理实验中，不顾系统负荷、盲目追求冗余而不进行临界值计算，是不符合严谨科学精神的。",
+        "correct_knowledge_ref": "机械能守恒定律指出，在只有重力做功的情况下，物体的动能和势能可以相互转化，总能量保持不变。在垂直圆周运动中，物体要过最高点，必须具备一定的最小动能来对抗重力的“拽离”作用。这一临界状态是动能与重力势能定量分配的典型体现。",
+        "image_prompt": "人物双手抱头，懊恼地蹲在垂直轨道旁，铁球在弯道处猛烈撞击后静止，轨道亮起红灯。背景是吉卜力风的温馨实验室，阳光透过窗户照在复杂的木质器械上。中景镜头。人物形象参考输入的第一张，背景参考第二张。",
+        "scene_transition": 0,
+        "image_url": "https://file1.aitohumanize.com/file/eec8bc36c4d344c7a54f9eb0c38c77e9.png",
+        "image_path": "./images/node_12_branch_2_fatal.png"
+      }
+    },
+    {
+      "id": "node_14",
+      "content": "铁球顺着轨道冲过终点，撞击在金属挡板上发出清脆的响声。这阵响声引导你注意到了不远处的人群，那里正在进行一场关于“声音”的实验，你收起印章走去。 你循着响声来到了“声学体验区”。两名同学正拿着纸杯电话焦急地喊着，但中间那根棉绳无力地耷拉在地上，他们只能听到模糊的噪音。你快步上前准备帮忙，你需要确保振动能量能跨越这段物理距离，让你听清那个关乎下一关的关键密语。",
+      "type": "ep_start",
+      "metadata": {
+        "chapter_title": "第4关 弦上心声：纸杯间的密语",
+        "knowledge_point": "声音的产生与传播",
+        "primary_knowledge_point": "声音的产生与传播",
+        "supporting_knowledge_points": [
+          "动能与势能转化"
+        ],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "image_prompt": "中景视角，人物怀着好奇走入洒满暖光的实验室。前方两个学生正拿着纸杯电话焦急呼喊，细棉绳无力地耷拉在木地板上。画面色彩柔和，充满吉卜力式的温馨怀旧感。人物形象参考输入的第一张，背景参考第二张（如果有的话）",
+        "scene_transition": 1,
+        "image_url": "https://file1.aitohumanize.com/file/39104a167391496fa16b5f0b88623a2d.png",
+        "image_path": "./images/node_14.png"
+      }
+    },
+    {
+      "id": "node_15",
+      "content": "为了让纸杯电话能够清晰地传递通话声音，你应该如何调整连接两个纸杯的棉绳状态？",
+      "type": "normal",
+      "metadata": {
+        "knowledge_point": "声音的产生与传播",
+        "primary_knowledge_point": "声音的产生与传播",
+        "supporting_knowledge_points": [
+          "动能与势能转化"
+        ],
+        "image_prompt": "中景视角，人物在温馨展区内俯身，伸手靠近一段垂落在桌上的细棉绳。身旁伙伴紧握纸杯，满脸期待。柔和阳光洒在木桌上，光影斑驳，空气中透着怀旧而静谧的探索气息。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 1,
+        "image_url": "https://file5.aitohumanize.com/file/e9cad489746443968730cf98822d9ef8.png",
+        "image_path": "./images/node_15.png"
+      }
+    },
+    {
+      "id": "node_16",
+      "content": "你示意两名同学同时向后退，直到中间的棉绳像琴弦一样被拉成一条笔直的紧绷直线。",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "保持棉绳绷紧直顺，确保纸杯底部的微小振动能高效传导至彼端。",
+        "image_prompt": "中景视角，人物引导伙伴后退，阳光洒满怀旧展厅。两人间的细绳被拉成一条笔直紧绷的直线，透着微光，画风治愈温馨。人物形象参考输入的第一张，背景参考第二张。",
+        "scene_transition": 0,
+        "image_url": "https://file5.aitohumanize.com/file/c95d840a0ccc4f0a9109a1694295be42.png",
+        "image_path": "./images/node_16.png"
+      }
+    },
+    {
+      "id": "node_17",
+      "content": "纸杯里立刻传来了清晰的声音，你成功听到了通关密语：“气流产生压力差”，获得了第四枚印章。",
+      "type": "ep_end",
+      "metadata": {
+        "physics_knowledge": "声音的产生与传播\n\n解析：在这个场景中，声音作为机械波需要介质传播。绷紧的棉绳具有较高的张力，能够将纸杯底部因声带振动产生的微小位移高效地传递出去。如果介质松散，振动能量会在传播过程中因内摩擦迅速耗散，只有处于张紧状态的固体介质，才能确保机械波的长距离、低损耗传输。\n\n知识点：声音是由物体的振动产生的，且传播需要介质（固体、液体或气体）。在固体中传播时，介质的物理状态（如张紧程度）直接影响波的传递效率。张力越高，分子间的相互作用越紧密，能量传递的响应速度越快，衰减也越小。",
+        "chapter_title": "第4关 弦上心声：纸杯间的密语",
+        "knowledge_point": "声音的产生与传播",
+        "primary_knowledge_point": "声音的产生与传播",
+        "supporting_knowledge_points": [
+          "动能与势能转化"
+        ],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "image_prompt": "人物侧头专注地将纸杯贴在耳边，笔直紧绷的棉绳穿过光影，他露出惊喜的微笑。午后暖阳洒在怀旧温馨的展厅，空气中充满治愈的科学气息，吉卜力式恬静画面。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file1.aitohumanize.com/file/adeb58090fee464686d8a0f4fc25c624.png",
+        "image_path": "./images/node_17.png"
+      }
+    },
+    {
+      "id": "node_16_branch_1_decision",
+      "content": "你让同学们相互靠近，使棉绳弯曲并垂落在地面上，认为这样绳子摆动起来更容易、更灵活。",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "保持棉绳松弛弯曲，给声波在介质中留出更宽阔的机械摆动空间。",
+        "image_prompt": "吉卜力风格。中景视角，人物温和地示意同学们靠近，纸杯间的棉绳松垮地垂落在地。阳光洒入温馨怀旧的展位，氛围恬静。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file3.aitohumanize.com/file/3e71ded7622c4da980f42d8836552eec.png",
+        "image_path": "./images/node_16_branch_1_decision.png"
+      }
+    },
+    {
+      "id": "node_16_branch_1_fatal",
+      "content": "对方即便大声呼喊，你手中的纸杯也毫无动静，声音在松垮的绳节间彻底消失了。",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "这反映了对波动现象的宏观误解，认为声音靠的是绳子的整体摆动。实际上，声音是微观分子的受迫振动。松弛的绳子具有极大的阻尼，波在经过弯曲或松散的纤维时，动能会迅速转化为内能（热能）而消失。只有消除松弛带来的干涉，波才能顺着绳索进行有效的纵向或横向传递。",
+        "physics_knowledge": "声音的产生与传播\n\n错误原因：这反映了对波动现象的宏观误解，认为声音靠的是绳子的整体摆动。实际上，声音是微观分子的受迫振动。松弛的绳子具有极大的阻尼，波在经过弯曲或松散的纤维时，动能会迅速转化为内能（热能）而消失。只有消除松弛带来的干涉，波才能顺着绳索进行有效的纵向或横向传递。\n\n知识点：声音由物体振动产生，其传播依赖于介质分子的受迫振动而非宏观位移。在固体介质中，声波的传递效率受物理状态显著影响。松弛的绳索因纤维间的干涉产生极大阻尼，导致机械能在传递过程中迅速转化为内能而耗散。当绳索处于张紧状态时，分子间相互作用增强，能量传递的响应速度加快且衰减减小，从而确保声波能够有效传导。",
+        "knowledge_point": "声音的产生与传播",
+        "primary_knowledge_point": "声音的产生与传播",
+        "supporting_knowledge_points": [
+          "动能与势能转化"
+        ],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "wrong_explanation": "这反映了对波动现象的宏观误解，认为声音靠的是绳子的整体摆动。实际上，声音是微观分子的受迫振动。松弛的绳子具有极大的阻尼，波在经过弯曲或松散的纤维时，动能会迅速转化为内能（热能）而消失。只有消除松弛带来的干涉，波才能顺着绳索进行有效的纵向或横向传递。",
+        "correct_knowledge_ref": "声音是由物体的振动产生的，且传播需要介质（固体、液体或气体）。在固体中传播时，介质的物理状态（如张紧程度）直接影响波的传递效率。张力越高，分子间的相互作用越紧密，能量传递的响应速度越快，衰减也越小。",
+        "image_prompt": "吉卜力风格中景。人物神情困惑地倾听纸杯，脚边棉绳松垮垂地。背景是暖阳下的怀旧科技馆，氛围温馨寂静。人物形象参考输入的第一张，背景参考第二张。",
+        "scene_transition": 0,
+        "image_url": "https://file5.aitohumanize.com/file/4965912c9bad48e0a8753260324610e9.png",
+        "image_path": "./images/node_16_branch_1_fatal.png"
+      }
+    },
+    {
+      "id": "node_16_branch_2_decision",
+      "content": "你尝试将棉绳打湿并更换更粗的绳索，试图利用“水传声快”的经验来增强通话的效果。",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "使用加粗的湿润绳索，利用增加介质质量的方法来提升声波能量。",
+        "image_prompt": "吉卜力风格中景。人物正专注打湿一根粗棉绳，晶莹水滴从指尖滑落。怀旧展厅洒满柔和阳光，氛围温馨恬静。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file2.aitohumanize.com/file/9d5020f4097f4e57b1ae4555ac04bf1c.png",
+        "image_path": "./images/node_16_branch_2_decision.png"
+      }
+    },
+    {
+      "id": "node_16_branch_2_fatal",
+      "content": "湿透的绳索变得异常沉重，振动在传出极短距离后就消失殆尽，纸杯里依然一片死寂。",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "这属于介质特性选择的误区。虽然水中声速快，但将棉绳浸湿会大幅增加介质的质量和惯性，导致起动振动所需的能量激增。同时，水分填充了纤维间的空隙，增加了粘性阻滞，反而起到了减震和消音的作用。在轻质通信器材中，增加介质重量和粘性通常会恶化波的传输性能。",
+        "physics_knowledge": "声音的产生与传播\n\n错误原因：这属于介质特性选择的误区。虽然水中声速快，但将棉绳浸湿会大幅增加介质的质量和惯性，导致起动振动所需的能量激增。同时，水分填充了纤维间的空隙，增加了粘性阻滞，反而起到了减震和消音的作用。在轻质通信器材中，增加介质重量和粘性通常会恶化波的传输性能。\n\n知识点：声音源于物体的机械振动，其传播依赖介质分子的相互作用。在固体介质中，传播效率受介质密度、弹性和张紧程度影响。增加张力可强化分子间的耦合，降低能量衰减。相反，若介质质量增加或引入粘性阻滞（如棉绳浸湿），会因惯性增大而提高振动起动门槛，且水分填充纤维空隙产生的粘滞力会吸收机械能，产生明显的消音效应，从而削弱波的传输性能。",
+        "knowledge_point": "声音的产生与传播",
+        "primary_knowledge_point": "声音的产生与传播",
+        "supporting_knowledge_points": [
+          "动能与势能转化"
+        ],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "wrong_explanation": "这属于介质特性选择的误区。虽然水中声速快，但将棉绳浸湿会大幅增加介质的质量和惯性，导致起动振动所需的能量激增。同时，水分填充了纤维间的空隙，增加了粘性阻滞，反而起到了减震和消音的作用。在轻质通信器材中，增加介质重量和粘性通常会恶化波的传输性能。",
+        "correct_knowledge_ref": "声音是由物体的振动产生的，且传播需要介质（固体、液体或气体）。在固体中传播时，介质的物理状态（如张紧程度）直接影响波的传递效率。张力越高，分子间的相互作用越紧密，能量传递的响应速度越快，衰减也越小。",
+        "image_prompt": "人物神情懊恼，双手攥着打湿的纸杯，沉重湿润的粗绳无力地堆在木地板上。午后阳光洒满温馨怀旧的展区，氛围安静得令人沮丧。中景侧拍。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file4.aitohumanize.com/file/970fa98439e64870b81781f5fd9eee53.png",
+        "image_path": "./images/node_16_branch_2_fatal.png"
+      }
+    },
+    {
+      "id": "node_18",
+      "content": "凭借听到的密语“气流产生压力差”，你领到了印章。不远处突然爆发出一阵惊呼，原来那里正在进行气流悬浮挑战，你快步走向那个充满魔力的实验台。 你来到了“气流魔术”展位。眼前的乒乓球正不安地在吹风机口跳动，前面的挑战者大多因为气流偏离，导致球飞进人群。你需要通过对不可见气流的精准控制，让球稳稳地悬浮在虚空中，这不仅需要向上的推力，更需要一种侧向的约束力。",
+      "type": "ep_start",
+      "metadata": {
+        "chapter_title": "第5关 气流魔术：无形的约束力",
+        "knowledge_point": "伯努利原理",
+        "primary_knowledge_point": "伯努利原理",
+        "supporting_knowledge_points": [
+          "声音的产生与传播"
+        ],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "image_prompt": "吉卜力风格。人物目光专注地走向木质实验台，面前的白色小球在气流中不安地跳跃。阳光斜射入怀旧的科学馆，氛围温馨而生动。中景构图展现出人物准备出手的姿态。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file1.aitohumanize.com/file/64290687abc24b4bba01f511dd21f9d9.png",
+        "image_path": "./images/node_18.png"
+      }
+    },
+    {
+      "id": "node_19",
+      "content": "观察实验器材，为了让乒乓球在吹风机上方稳稳悬停而不向侧方飞出，你应该如何操作？",
+      "type": "normal",
+      "metadata": {
+        "knowledge_point": "伯努利原理",
+        "primary_knowledge_point": "伯努利原理",
+        "supporting_knowledge_points": [
+          "声音的产生与传播"
+        ],
+        "image_prompt": "人物神情专注，稳握吹风机让小球轻盈悬停。暖阳洒在怀旧展台，呈现温馨治愈的吉卜力风格。中景视角定格了这一神奇瞬间。人物形象参考输入的第一张，背景参考第二张（如果有的话）",
+        "scene_transition": 0,
+        "image_url": "https://file1.aitohumanize.com/file/7be446c218d54702b025d29140729ed4.png",
+        "image_path": "./images/node_19.png"
+      }
+    },
+    {
+      "id": "node_20",
+      "content": "你稳稳握住吹风机，让一股均匀平稳的高速气流垂直向上喷出，笼罩住乒乓球。",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "对准球底喷射稳定气流，利用流速快压强小的原理形成压力约束。",
+        "image_prompt": "中景镜头，人物眼神专注，双手稳稳平举吹风机，让洁白圆球在无形气流中轻盈悬浮。暖阳斜洒在木质展台，营造出吉卜力般温馨怀旧的魔幻氛围。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file2.aitohumanize.com/file/18ab2b09459c4aaaa2d87fd49238c914.png",
+        "image_path": "./images/node_20.png"
+      }
+    },
+    {
+      "id": "node_21",
+      "content": "乒乓球仿佛被一双无形的手托住，稳稳定格在出风口中心，获得了第五枚印章。",
+      "type": "ep_end",
+      "metadata": {
+        "physics_knowledge": "伯努利原理\n\n解析：本场景应用了伯努利原理。当稳定高速气流经过球体表面时，气流中心的流速大、压强小，而球体外侧的静态空气流速小、压强大。这种内外压强差产生了一个指向气流中心的恢复力，配合气流向上的推力，使球在三维空间实现了稳定的动态平衡，不会轻易滑出气流区。\n\n知识点：在流体（如空气或水）的稳定流动中，流速越大的位置压强越小，流速越小的位置压强越大。这是流体能量守恒的体现。在实际应用中，这种压强差产生的合力可以用来改变物体的运动状态，是飞机升力、喷雾器及流体控制的核心原理。",
+        "chapter_title": "第5关 气流魔术：无形的约束力",
+        "knowledge_point": "伯努利原理",
+        "primary_knowledge_point": "伯努利原理",
+        "supporting_knowledge_points": [
+          "声音的产生与传播"
+        ],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "image_prompt": "吉卜力风格，中景视角。人物神情专注地握着吹风机，一颗轻盈的小球稳稳地在上方悬浮，如魔法般定格。阳光洒在充满奇思妙想的实验台，氛围温馨怀旧，满是少年探索的喜悦。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file3.aitohumanize.com/file/83823bf4e9d04da68786961f2ebce8b8.png",
+        "image_path": "./images/node_21.png"
+      }
+    },
+    {
+      "id": "node_20_branch_1_decision",
+      "content": "你尝试将风口稍微偏向一侧，试图用气流的斜向角度来“支撑”球体，防止它向另一边掉落。",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "偏移球心喷射侧向气流，利用气流的斜向推力将球托举在空气中。",
+        "image_prompt": "中景视角下，人物神情专注，小心地倾斜着吹风机，试图托住悬空的白色小球。阳光洒在怀旧的木质实验台上，光影柔和，呈现出吉卜力式温馨治愈的氛围。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file2.aitohumanize.com/file/d9b3b82e23084870a1d62e97381244c5.png",
+        "image_path": "./images/node_20_branch_1_decision.png"
+      }
+    },
+    {
+      "id": "node_20_branch_1_fatal",
+      "content": "乒乓球在接触到非对称气流的瞬间，受力平衡被彻底破坏，球体迅速打旋并飞向了展柜。",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "这反映了对流体动力学平衡的误解。侧向喷射会破坏球体周围压强分布的对称性。根据伯努利原理，如果气流中心不在球体中轴线上，球体一侧受到的低压拉力将远大于另一侧，导致合力不再指向中心。这种不平衡的力矩会使球体旋转并产生马格努斯效应，使其加速偏离预定位置而非稳固悬浮。",
+        "physics_knowledge": "伯努利原理\n\n错误原因：这反映了对流体动力学平衡的误解。侧向喷射会破坏球体周围压强分布的对称性。根据伯努利原理，如果气流中心不在球体中轴线上，球体一侧受到的低压拉力将远大于另一侧，导致合力不再指向中心。这种不平衡的力矩会使球体旋转并产生马格努斯效应，使其加速偏离预定位置而非稳固悬浮。\n\n知识点：伯努利原理指出，在稳定流动的流体中，流速越大的位置压强越小，流速越小的位置压强越大，其数学表达式为 $P + 1/2ρv² + ρgh = C$。物体实现稳定悬浮需依赖对称的低压区产生指向中心的合力。若气流偏离中轴线或产生侧向喷射，会破坏压强分布的对称性，导致两侧压力差失衡并产生力矩，诱发马格努斯效应使物体偏离，而非维持稳固平衡。",
+        "knowledge_point": "伯努利原理",
+        "primary_knowledge_point": "伯努利原理",
+        "supporting_knowledge_points": [
+          "声音的产生与传播"
+        ],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "wrong_explanation": "这反映了对流体动力学平衡的误解。侧向喷射会破坏球体周围压强分布的对称性。根据伯努利原理，如果气流中心不在球体中轴线上，球体一侧受到的低压拉力将远大于另一侧，导致合力不再指向中心。这种不平衡的力矩会使球体旋转并产生马格努斯效应，使其加速偏离预定位置而非稳固悬浮。",
+        "correct_knowledge_ref": "在流体（如空气或水）的稳定流动中，流速越大的位置压强越小，流速越小的位置压强越大。这是流体能量守恒的体现。在实际应用中，这种压强差产生的合力可以用来改变物体的运动状态，是飞机升力、喷雾器及流体控制的核心原理。",
+        "image_prompt": "中景视角。人物神情惋惜，手中吹风管气流微斜，轻盈的小白球旋转着飞向侧方。复古展位在暖阳下透着吉卜力式的怀旧温馨。人物形象参考输入的第一张，背景参考第二张。",
+        "scene_transition": 1,
+        "image_url": "https://file5.aitohumanize.com/file/3727c6488f4b403b81d65a5517dd4d4a.png",
+        "image_path": "./images/node_20_branch_1_fatal.png"
+      }
+    },
+    {
+      "id": "node_20_branch_2_decision",
+      "content": "你快速点击开关产生阵发性风力，试图通过像拍皮球一样的冲力，让乒乓球在半空起伏。",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "采用间歇性脉冲式气流，利用空气柱的连续撞击来维持球的高度。",
+        "image_prompt": "人物急促地按动开关，神情专注而略显忙乱，乒乓球在断续的气流中不安地上下起伏。阳光斜射在木质展台，营造出吉卜力般怀旧温馨的氛围。中景视角展现出这充满朝气的科学实验瞬间。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file1.aitohumanize.com/file/e4bb914ed48c4a1e95d6aea1471058ba.png",
+        "image_path": "./images/node_20_branch_2_decision.png"
+      }
+    },
+    {
+      "id": "node_20_branch_2_fatal",
+      "content": "乒乓球开始剧烈上下窜动，在气流断档的瞬间，球因失去连续的压强约束，立刻滚落地面。",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "这属于典型的脉冲动力误区。伯努利原理产生的稳定约束力高度依赖于流场的连续性。时断时续的气流无法构建稳定的低压区，球体两侧的压强差会随气流消失而瞬时归零。没有了持续的“压力陷阱”约束，球体仅靠动量支撑极易失稳，无法实现科学意义上的稳定悬浮平衡。",
+        "physics_knowledge": "伯努利原理\n\n错误原因：这属于典型的脉冲动力误区。伯努利原理产生的稳定约束力高度依赖于流场的连续性。时断时续的气流无法构建稳定的低压区，球体两侧的压强差会随气流消失而瞬时归零。没有了持续的“压力陷阱”约束，球体仅靠动量支撑极易失稳，无法实现科学意义上的稳定悬浮平衡。\n\n知识点：伯努利原理是流体力学中的核心定律，描述了理想流体在忽略粘性且稳定流动时的能量守恒。其核心定义为：在同一流管内，流速越大的位置压强越小，流速越小的位置压强越大。其基本数学表达式为：\n$$P + \\frac{1}{2}\\rho v^2 + \\rho gh = C$$\n\n\n物理学上的“稳定悬浮”高度依赖流场的连续性与稳定性。稳定的流体动力能构建持续的低压约束区（即压力陷阱），产生恒定的指向流场中心的合压强差。与之相对，时断时续的脉冲气流因无法维持压力场的连续分布，会导致压强差瞬时消失，使物体因失去持续的动力学平衡而失稳。这一原理广泛应用于飞机机翼升力计算及喷雾器设计等领域。",
+        "knowledge_point": "伯努利原理",
+        "primary_knowledge_point": "伯努利原理",
+        "supporting_knowledge_points": [
+          "声音的产生与传播"
+        ],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "wrong_explanation": "这属于典型的脉冲动力误区。伯努利原理产生的稳定约束力高度依赖于流场的连续性。时断时续的气流无法构建稳定的低压区，球体两侧的压强差会随气流消失而瞬时归零。没有了持续的“压力陷阱”约束，球体仅靠动量支撑极易失稳，无法实现科学意义上的稳定悬浮平衡。",
+        "correct_knowledge_ref": "在流体（如空气或水）的稳定流动中，流速越大的位置压强越小，流速越小的位置压强越大。这是流体能量守恒的体现。在实际应用中，这种压强差产生的合力可以用来改变物体的运动状态，是飞机升力、喷雾器及流体控制的核心原理。",
+        "image_prompt": "人物神色懊恼，眼看着跳动的乒乓球从风口跌落。温馨怀旧的实验台沐浴在柔光中，中景视角捕捉到球滚落的瞬间，满是手忙脚乱的遗憾感。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file5.aitohumanize.com/file/75eec85ad31542638fbb23c7b3574f0e.png",
+        "image_path": "./images/node_20_branch_2_fatal.png"
+      }
+    },
+    {
+      "id": "node_22",
+      "content": "随着乒乓球在虚空中翩翩起舞，你收好了第五枚印章。集章卡的最后指引亮起：请立刻带上科学能量前往体育馆副馆，点亮那座沉睡的“科技之光”灯群！ 你踏入体育馆副馆，巨大的“科技之光”灯群在黑暗中静默。旁边有一台大型发电演示器连接着检流计。你需要通过手动操作产生第一缕“感应电流”来激活系统的启动逻辑，这是唤醒整座灯群的第一步，也是对场与运动转化的终极考验。",
+      "type": "ep_start",
+      "metadata": {
+        "chapter_title": "第6关 能量注入：初始的脉动",
+        "knowledge_point": "电磁感应",
+        "primary_knowledge_point": "电磁感应",
+        "supporting_knowledge_points": [
+          "伯努利原理"
+        ],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "image_prompt": "人物怀着期待踏入昏暗宽敞的体育馆，站在一台巨大的手动发电设备前，正伸手握住摇杆。背景中，高大静谧的灯群如繁星般等待唤醒，室内弥漫着温馨怀旧的朦胧光影，氛围静谧而神秘。中景视角。人物形象参考输入的第一张，背景参考第二张。",
+        "scene_transition": 1,
+        "image_url": "https://file5.aitohumanize.com/file/d82dfeefe20d45868010ba938d5cdaf5.png",
+        "image_path": "./images/node_22.png"
+      }
+    },
+    {
+      "id": "node_23",
+      "content": "观察发电演示器的磁极，你应该如何控制线圈相对于磁感线的运动，才能产生感应电流？",
+      "type": "normal",
+      "metadata": {
+        "knowledge_point": "电磁感应",
+        "primary_knowledge_point": "电磁感应",
+        "supporting_knowledge_points": [
+          "伯努利原理"
+        ],
+        "image_prompt": "吉卜力风格。人物专注观察笨重发电机，手伸向漆面斑驳摇杆。暖光中背景灯群静默，氛围温馨怀旧。中景构图。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file3.aitohumanize.com/file/8094fc50919d4291aeedc12d69d5db6a.png",
+        "image_path": "./images/node_23.png"
+      }
+    },
+    {
+      "id": "node_24",
+      "content": "你紧握操作手柄，带动线圈在磁极间迅速做垂直于磁力线方向的摆动，动作干脆利落。",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "垂直于磁感线快速切割，使穿过线圈回路的磁通量发生剧烈变化。",
+        "image_prompt": "人物全神贯注地紧握着操作手柄，双臂发力带动线圈在巨大的磁极之间迅速地上下摆动。在昏暗的体育馆中，金属器械泛着幽微的光，线圈切割磁感线的一刹那，身旁的检流计指针仿佛即将发生剧烈偏转，空气中弥漫着紧张而又充满希望的氛围。人物形象参考输入的第一张，背景参考第二张。",
+        "scene_transition": 1,
+        "image_url": "https://file1.aitohumanize.com/file/9e39a0d8396544209ae2884e6e13faf1.png",
+        "image_path": "./images/node_24.png"
+      }
+    },
+    {
+      "id": "node_25",
+      "content": "检流计指针瞬间发生剧烈偏转，系统控制台发出了蜂鸣，第一排指示灯由红转绿，获得了第六枚印章。",
+      "type": "ep_end",
+      "metadata": {
+        "physics_knowledge": "电磁感应\n\n\n解析：电磁感应的核心在于闭合回路中磁通量的变化。当线圈垂直切割磁感线时，单位时间内扫过的磁感线条数最多，磁通量变化率达到最大。根据法拉第电磁感应定律，这种剧烈的变化会产生感应电动势，从而在闭合电路中形成足以激活电子元件的强电流，完成了从机械能向电能的转化。\n\n知识点：闭合电路的一部分导体在磁场中做切割磁感线运动时，导体中就会产生感应电流。产生电流的必要条件是“磁通量的变化”。感应电流的大小取决于切割磁感线的速度、磁场强度以及线圈的有效匝数，它是电磁学中能量转化的基本形式。",
+        "chapter_title": "第6关 能量注入：初始的脉动",
+        "knowledge_point": "电磁感应",
+        "primary_knowledge_point": "电磁感应",
+        "supporting_knowledge_points": [
+          "伯努利原理"
+        ],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "image_prompt": "中景视角，人物紧握手柄，被亮起的绿光映亮脸庞，露出欣喜笑容。昏暗室内，巨大的机器在柔和光影中逐渐苏醒，气氛温馨怀旧。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file1.aitohumanize.com/file/9a6446b26f2b4c13bb9ba126cffc42a2.png",
+        "image_path": "./images/node_25.png"
+      }
+    },
+    {
+      "id": "node_24_branch_1_decision",
+      "content": "你带动线圈沿着磁力线延伸的方向，平稳地前后滑动，试图通过线圈在磁场中的位置移动发光。",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "平行于磁感线匀速滑动，利用线圈在磁场中的空间位移产生感应。",
+        "image_prompt": "中景视角，人物神情专注地推动线圈在金属块间平稳滑动。昏暗室内，背景中巨大的灯群如森林般静默，柔和光影交织出吉卜力式的怀旧温馨感。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file1.aitohumanize.com/file/1dcb9861888f41a089a1a0501396b5d0.png",
+        "image_path": "./images/node_24_branch_1_decision.png"
+      }
+    },
+    {
+      "id": "node_24_branch_1_fatal",
+      "content": "尽管你非常用力地来回拉动，检流计的指针依然稳如泰山，系统控制台没有任何反馈信号。",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "这是一个关于“有效运动方向”的认知错误。电磁感应要求导体必须“切割”磁感线。如果运动方向与磁感线平行，线圈所包围面积内的磁感线条数（磁通量）始终没有改变。磁通量不变化，就不会产生感应电动势。无论你的位移多大、速度多快，这种无效的平行运动都无法激发出电流。",
+        "physics_knowledge": "电磁感应\n\n错误原因：这是一个关于“有效运动方向”的认知错误。电磁感应要求导体必须“切割”磁感线。如果运动方向与磁感线平行，线圈所包围面积内的磁感线条数（磁通量）始终没有改变。磁通量不变化，就不会产生感应电动势。无论你的位移多大、速度多快，这种无效的平行运动都无法激发出电流。\n\n知识点：电磁感应的本质是闭合电路中磁通量发生变化。根据法拉第电磁感应定律，感应电动势 $E$ 的大小与磁通量变化率成正比，计算公式为 $E = n\\frac{\\Delta\\Phi}{\\Delta t}$。产生电流的关键在于导体必须“切割”磁感线，使穿过线圈的磁感线条数产生增减。\n\n\n\n若导体运动方向与磁感线平行，虽有机械位移，但线圈包围面积内的磁通量始终保持恒定，即 $\\Delta\\Phi = 0$。这种无效运动无法打破磁场平衡，因而不能激发出感应电流。区分运动有效性的标准，在于观察运动过程是否导致磁通量产生实质性的动态演变。",
+        "knowledge_point": "电磁感应",
+        "primary_knowledge_point": "电磁感应",
+        "supporting_knowledge_points": [
+          "伯努利原理"
+        ],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "wrong_explanation": "这是一个关于“有效运动方向”的认知错误。电磁感应要求导体必须“切割”磁感线。如果运动方向与磁感线平行，线圈所包围面积内的磁感线条数（磁通量）始终没有改变。磁通量不变化，就不会产生感应电动势。无论你的位移多大、速度多快，这种无效的平行运动都无法激发出电流。",
+        "correct_knowledge_ref": "闭合电路的一部分导体在磁场中做切割磁感线运动时，导体中就会产生感应电流。产生电流的必要条件是“磁通量的变化”。感应电流的大小取决于切割磁感线的速度、磁场强度以及线圈的有效匝数，它是电磁学中能量转化的基本形式。",
+        "image_prompt": "中景人物满头大汗地握住手柄反复平稳拉动，神情困惑，仪表指针纹丝不动。昏暗的场馆内，巨大的机械隐在柔和光影中，氛围静谧怀旧。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file3.aitohumanize.com/file/a78678585c064409b6b5e04c6bc734d3.png",
+        "image_path": "./images/node_24_branch_1_fatal.png"
+      }
+    },
+    {
+      "id": "node_24_branch_2_decision",
+      "content": "你将线圈小心地放置在磁铁的正中央，保持绝对静止，认为强大的磁性能量会自动注入线圈。",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "将线圈静止于极强磁场，利用高强度磁场磁感线的渗透产生电流。",
+        "image_prompt": "人物神情专注，屏息凝神地将一圈铜色导线小心置于两块巨大的磁铁之间，双手悬空保持着绝对静止。昏暗寂静的体育馆内，庞大的发电装置泛着怀旧的金属光泽，光影柔和且温馨。中景视角。人物形象参考输入的第一张，背景参考第二张。",
+        "scene_transition": 1,
+        "recurring_characters": [
+          "小心"
+        ],
+        "image_url": "https://file1.aitohumanize.com/file/3e5984f311854bbcae4aab088de623fb.png",
+        "image_path": "./images/node_24_branch_2_decision.png"
+      }
+    },
+    {
+      "id": "node_24_branch_2_fatal",
+      "content": "时间一分一秒过去，检流计纹丝不动，灯群系统依然处于深度的昏睡状态，挑战失败。",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "这属于典型的“静态获能”误区。磁场虽然蕴含能量，但电磁感应的本质是“磁生电”的动态过程。如果没有相对运动导致磁通量的改变，能量就无法跨越场与物质的界限进行转化。在物理学中，静止的磁场对静止的闭合线圈不产生感应电流，科学实验必须通过“动”来打破平衡。",
+        "physics_knowledge": "电磁感应\n\n错误原因：这属于典型的“静态获能”误区。磁场虽然蕴含能量，但电磁感应的本质是“磁生电”的动态过程。如果没有相对运动导致磁通量的改变，能量就无法跨越场与物质的界限进行转化。在物理学中，静止的磁场对静止的闭合线圈不产生感应电流，科学实验必须通过“动”来打破平衡。\n\n知识点：\n电磁感应的核心在于闭合电路中磁通量的动态变化。根据法拉第电磁感应定律 $E = n \\frac{\\Delta \\Phi}{\\Delta t}$，感应电动势的产生取决于磁通量的变化率，而非磁场的静态强度。若导体与磁场间缺乏相对运动且磁场恒定，磁通量将保持不变，无法实现从磁能向电能的转化。能量转化的实现必须打破静态平衡，通过“动”或“变”来促使磁场与导体相互作用，从而产生感应电流。",
+        "knowledge_point": "电磁感应",
+        "primary_knowledge_point": "电磁感应",
+        "supporting_knowledge_points": [
+          "伯努利原理"
+        ],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "wrong_explanation": "这属于典型的“静态获能”误区。磁场虽然蕴含能量，但电磁感应的本质是“磁生电”的动态过程。如果没有相对运动导致磁通量的改变，能量就无法跨越场与物质的界限进行转化。在物理学中，静止的磁场对静止的闭合线圈不产生感应电流，科学实验必须通过“动”来打破平衡。",
+        "correct_knowledge_ref": "闭合电路的一部分导体在磁场中做切割磁感线运动时，导体中就会产生感应电流。产生电流的必要条件是“磁通量的变化”。感应电流的大小取决于切割磁感线的速度、磁场强度以及线圈的有效匝数，它是电磁学中能量转化的基本形式。",
+        "image_prompt": "吉卜力风格。中景人物扶着静止的线圈，屏息观察毫无反应的仪表。昏暗背景中巨大的灯群在黑暗里沉睡，氛围静谧怀旧，透着一丝失败的失落。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file3.aitohumanize.com/file/66ab7671139245e1924719b5534f81b6.png",
+        "image_path": "./images/node_24_branch_2_fatal.png"
+      }
+    },
+    {
+      "id": "node_26",
+      "content": "随着系统唤醒，控制台突然冒出一股青烟，伴随着焦灼的味道。由于刚才的电流冲击，一处陈旧线路的绝缘皮老化破损，露出了红色的铜芯，必须立刻封堵以免短路烧毁系统。 控制台处火花迸溅，刺耳的警报声响起。主控线路的绝缘失效，电流正通过裸露的铜芯舔舐旁边的金属支架。你需要从应急材料包里选出一种材料，在带电状态下彻底封堵这段破损线路，这关乎整个实验室的用电安全，容不得半点疏忽。",
+      "type": "ep_start",
+      "metadata": {
+        "chapter_title": "第7关 安全防线：线路的守护",
+        "knowledge_point": "导体与绝缘体",
+        "primary_knowledge_point": "导体与绝缘体",
+        "supporting_knowledge_points": [
+          "电磁感应"
+        ],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "image_prompt": "人物神色焦急地俯身，双手护在冒烟的控制台旁。几丝青烟飘散，裸露铜芯迸出的刺眼火花映红了脸庞，环境昏暗怀旧，呈现吉卜力式的急迫感。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file5.aitohumanize.com/file/4f3c02ac8cd1478ca88b5abaa9376b6e.png",
+        "image_path": "./images/node_26.png"
+      }
+    },
+    {
+      "id": "node_27",
+      "content": "为了排除短路隐患并确保用电安全，你应该选择哪种方案包覆这段裸露的铜芯导线？",
+      "type": "normal",
+      "metadata": {
+        "knowledge_point": "导体与绝缘体",
+        "primary_knowledge_point": "导体与绝缘体",
+        "supporting_knowledge_points": [
+          "电磁感应"
+        ],
+        "image_prompt": "中景视角，人物神情专注，面对着冒烟的控制台。昏暗室内，裸露的红铜芯迸溅着细碎火花。柔和的吉卜力笔触下，充满了怀旧的实验室气息。人物形象参考输入的第一张，背景参考第二张。",
+        "scene_transition": 0,
+        "image_url": "https://file1.aitohumanize.com/file/2b9db364a5ba4250a12ff4d67a75600c.png",
+        "image_path": "./images/node_27.png"
+      }
+    },
+    {
+      "id": "node_28",
+      "content": "你迅速扯下一段干燥的塑料胶带，对准破损处，一圈一圈紧密地缠绕包覆在铜芯表面。",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "使用干燥的塑料胶带，利用其电荷无法自由移动的特性阻断短路。",
+        "image_prompt": "人物专注地屏住呼吸，双手正小心地将干燥胶带紧紧缠绕在破损电线上。背景是散发微光的怀旧控制台，空气中残烟缭绕。近景视角，展现吉卜力式的细腻动作与温润氛围。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file5.aitohumanize.com/file/b8cd7bdeeeec4401b2a79059701aa3ae.png",
+        "image_path": "./images/node_28.png"
+      }
+    },
+    {
+      "id": "node_29",
+      "content": "跳跃的火花瞬间熄灭，刺耳的短路警报解除，你成功保住了系统并获得了第七枚印章。",
+      "type": "ep_end",
+      "metadata": {
+        "physics_knowledge": "导体与绝缘体\n\n解析：在本场景中，干燥的塑料属于优良的绝缘体。其内部几乎没有可以自由移动的自由电子或离子，因此无法形成电流。将其缠绕在裸露的导体上，可以建立一道稳固的势垒，阻止电流流向支架产生短路。这是处理带电故障时最符合物理原理的安全选择，有效利用了物质的导电性差异。\n\n知识点：容易导电的物体叫导体（如金属、石墨、酸碱盐溶液）；不容易导电的物体叫绝缘体（如橡胶、塑料、陶瓷、干燥木材）。导电性能的本质取决于物质微观结构中是否存在大量可自由移动的电荷。绝缘体在正常情况下是电的不良导体，能起到隔离和保护作用。",
+        "chapter_title": "第7关 安全防线：线路的守护",
+        "knowledge_point": "导体与绝缘体",
+        "primary_knowledge_point": "导体与绝缘体",
+        "supporting_knowledge_points": [
+          "电磁感应"
+        ],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "image_prompt": "人物看着刚修好的控制台，如释重负地微笑。阳光洒在斑驳实验室内，氛围温馨怀旧。远处巨大的灯组轮廓静候点亮。吉卜力风格，中景。人物形象参考输入的第一张，背景参考第二张。",
+        "scene_transition": 0,
+        "image_url": "https://file1.aitohumanize.com/file/898ee22d647842d7a4c9c50b90e0a761.png",
+        "image_path": "./images/node_29.png"
+      }
+    },
+    {
+      "id": "node_28_branch_1_decision",
+      "content": "你取出一张银色的铝箔纸条试图覆盖破损处，当箔片触碰到裸露铜芯的刹那，突然迸发强光。",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "使用柔韧的铝箔纸条，利用金属的屏蔽作用将电流约束在导线内。",
+        "image_prompt": "中景，人物持银色纸条触碰线路迸发强光，照亮了烟雾弥漫的怀旧实验室。吉卜力风。人物形象参考输入的第一张，背景参考第二张。",
+        "scene_transition": 0,
+        "image_url": "https://file2.aitohumanize.com/file/f021a13ee2ec4dddbc5a172cedf144ff.png",
+        "image_path": "./images/node_28_branch_1_decision.png"
+      }
+    },
+    {
+      "id": "node_28_branch_1_fatal",
+      "content": "铝箔直接将电流引向了金属支架，造成了更严重的短路，系统保险丝瞬间熔断，眼前一片漆黑。",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "这是一个极其危险的属性混淆误区。虽然铝箔看起来能“包裹”导线，但它是优良导体，内部含有大量自由电子。将其贴在裸露电线上，不仅不能绝缘，反而像架起了一座导电桥梁，使电流更容易失控流向外界。在电力安全中，绝不能用金属材料作为绝缘覆盖物，这违背了导体与绝缘体的基本分类原则。",
+        "physics_knowledge": "导体与绝缘体\n\n错误原因：这是一个极其危险的属性混淆误区。虽然铝箔看起来能“包裹”导线，但它是优良导体，内部含有大量自由电子。将其贴在裸露电线上，不仅不能绝缘，反而像架起了一座导电桥梁，使电流更容易失控流向外界。在电力安全中，绝不能用金属材料作为绝缘覆盖物，这违背了导体与绝缘体的基本分类原则。\n\n知识点：\n容易导电的物体称为导体，如金属铝；不容易导电的物体称为绝缘体，如橡胶。两者的本质区别在于微观结构中是否存在大量自由移动的电荷。导体内部含有大量自由电子，根据欧姆定律 $I=U/R$，由于其电阻 $R$ 极小，在电压作用下会产生显著电流。\n\n金属铝箔属于优良导体，若替代绝缘材料覆盖电线，不仅无法起到隔离作用，反而会构建额外的导电通路。在电力安全实践中，必须严格使用高电阻率的非金属材料（如塑料、陶瓷）来阻断电荷转移，确保电路的物理隔离。",
+        "knowledge_point": "导体与绝缘体",
+        "primary_knowledge_point": "导体与绝缘体",
+        "supporting_knowledge_points": [
+          "电磁感应"
+        ],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "wrong_explanation": "这是一个极其危险的属性混淆误区。虽然铝箔看起来能“包裹”导线，但它是优良导体，内部含有大量自由电子。将其贴在裸露电线上，不仅不能绝缘，反而像架起了一座导电桥梁，使电流更容易失控流向外界。在电力安全中，绝不能用金属材料作为绝缘覆盖物，这违背了导体与绝缘体的基本分类原则。",
+        "correct_knowledge_ref": "容易导电的物体叫导体（如金属、石墨、酸碱盐溶液）；不容易导电的物体叫绝缘体（如橡胶、塑料、陶瓷、干燥木材）。导电性能的本质取决于物质微观结构中是否存在大量可自由移动的电荷。绝缘体在正常情况下是电的不良导体，能起到隔离和保护作用。",
+        "image_prompt": "中景视角，人物惊恐地撒手后退，指尖银箔正在跌落。怀旧的实验室瞬间灯火熄灭，陷入漆黑与死寂。吉卜力风格，静谧忧伤。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file2.aitohumanize.com/file/c502bb8c21a749c596f67ddc3f51101c.png",
+        "image_path": "./images/node_28_branch_1_fatal.png"
+      }
+    },
+    {
+      "id": "node_28_branch_2_decision",
+      "content": "你拿起一根涂满油脂的纤维绳压在破损线路上，试图利用润滑感来“封锁”电荷流动的路径。",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "使用涂有油脂的纤维绳，利用油脂的润滑性防止电流从导线溢出。",
+        "image_prompt": "吉卜力风格，近景。人物神情紧绷，正将沾满油脂的粗绳压向迸发火花的线路。昏暗实验室里电光闪烁，映照出袅袅青烟，氛围怀旧且焦灼。人物形象参考输入的第一张，背景参考第二张（如果有的话）",
+        "scene_transition": 0,
+        "image_url": "https://file1.aitohumanize.com/file/d7e7e26494a64f13acc10f1e4974b6de.png",
+        "image_path": "./images/node_28_branch_2_decision.png"
+      }
+    },
+    {
+      "id": "node_28_branch_2_fatal",
+      "content": "纤维绳由于受热开始冒烟，电流顺着油脂中混杂的杂质继续放电，火花并未因覆盖而减弱。",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "这属于典型的属性误判。虽然某些纯净油脂具有一定的绝缘性，但工业油脂和普通纤维绳常含有水分、金属碎屑或电解质杂质，在高温和高压下极易导电。此外，油脂和纤维具有可燃性，在有电火花的环境下使用这种材料不仅无法起到绝缘作用，反而可能引发火灾。科学的安全操作必须基于对材料电学性质的严谨辨析。",
+        "physics_knowledge": "导体与绝缘体\n\n错误原因：这属于典型的属性误判。虽然某些纯净油脂具有一定的绝缘性，但工业油脂和普通纤维绳常含有水分、金属碎屑或电解质杂质，在高温和高压下极易导电。此外，油脂和纤维具有可燃性，在有电火花的环境下使用这种材料不仅无法起到绝缘作用，反而可能引发火灾。科学的安全操作必须基于对材料电学性质的严谨辨析。\n\n知识点：\n物体的导电性能取决于其微观结构中是否存在大量可自由移动的电荷。导体（如金属、石墨、电解质溶液）内部自由电荷多，电阻率极低；绝缘体则因自由电荷匮乏而不易导电。根据欧姆定律 $I=U/R$，绝缘体在常规下电流极其微弱，起到隔离作用。\n\n然而，绝缘性具有相对性。工业油脂或纤维绳若含有水分、金属碎屑或电解质杂质，在高温高压环境下极易转化为导体并失去保护功能。科学的安全操作必须基于对材料组分与环境条件的严谨辨析，严防因材料属性误判导致的击穿放电或火灾事故。",
+        "knowledge_point": "导体与绝缘体",
+        "primary_knowledge_point": "导体与绝缘体",
+        "supporting_knowledge_points": [
+          "电磁感应"
+        ],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "wrong_explanation": "这属于典型的属性误判。虽然某些纯净油脂具有一定的绝缘性，但工业油脂和普通纤维绳常含有水分、金属碎屑或电解质杂质，在高温和高压下极易导电。此外，油脂和纤维具有可燃性，在有电火花的环境下使用这种材料不仅无法起到绝缘作用，反而可能引发火灾。科学的安全操作必须基于对材料电学性质的严谨辨析。",
+        "correct_knowledge_ref": "容易导电的物体叫导体（如金属、石墨、酸碱盐溶液）；不容易导电的物体叫绝缘体（如橡胶、塑料、陶瓷、干燥木材）。导电性能的本质取决于物质微观结构中是否存在大量可自由移动的电荷。绝缘体在正常情况下是电的不良导体，能起到隔离和保护作用。",
+        "image_prompt": "中景视角，人物神情焦虑，将油腻的纤维绳压在迸溅火花的线路上。绳索受热冒烟，昏黄实验室被电弧照亮，氛围紧张。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file2.aitohumanize.com/file/4ccbca5682c34545b2c1c05f320d2fd8.png",
+        "image_path": "./images/node_28_branch_2_fatal.png"
+      }
+    },
+    {
+      "id": "node_30",
+      "content": "警报停歇，各项读数恢复正常。你看向前方那组巨大的“WIN”字灯群，准备最后的操作。然而按下启动键后，灯群只有零星几个灯泡发出微弱的光。你检查接线图，发现连接方式存在逻辑错误。 “WIN”字灯群此时只有几个灯泡发出惨白的光。你发现所有的灯组竟然被串成了一条“长锁链”。这种结构下，只要一个灯泡接触不良，整排都会熄灭。你必须重新规划电路的拓扑结构，让每一个灯组都能获得充足的能量并独立工作，点亮这最后的荣耀。",
+      "type": "ep_start",
+      "metadata": {
+        "chapter_title": "第8关 璀璨终章：辉煌的联动",
+        "knowledge_point": "电路的串联与并联",
+        "primary_knowledge_point": "电路的串联与并联",
+        "supporting_knowledge_points": [
+          "导体与绝缘体"
+        ],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "image_prompt": "人物神情凝重地拨弄着身前杂乱的线缆。昏暗宽敞的室内，复杂的灯组支架上只有寥寥几盏灯泡透着惨淡微光，光影交错间流露出静谧怀旧的吉卜力色彩。中景视角。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file3.aitohumanize.com/file/3d7c3fa818eb49fa8fd7de58142c3296.png",
+        "image_path": "./images/node_30.png"
+      }
+    },
+    {
+      "id": "node_31",
+      "content": "面对“牵一发而动全身”的灯群困境，你应该采用哪种连接拓扑方式来重构线路？",
+      "type": "normal",
+      "metadata": {
+        "knowledge_point": "电路的串联与并联",
+        "primary_knowledge_point": "电路的串联与并联",
+        "supporting_knowledge_points": [
+          "导体与绝缘体"
+        ],
+        "image_prompt": "中景镜头，人物面带困惑地挠着头，凝视着眼前错综复杂的灯泡连线，吉卜力风格。体育馆内灯光昏暗，只有几个灯泡发出惨白微弱的光。人物形象参考输入的第一张，背景参考第二张。",
+        "scene_transition": 0,
+        "image_url": "https://file4.aitohumanize.com/file/b561f5f472524797bbbeb6b440d6e900.png",
+        "image_path": "./images/node_31.png"
+      }
+    },
+    {
+      "id": "node_32",
+      "content": "你迅速拆开之前的单一连线，将每个灯组的首尾两端分别搭在并行的主供电轨道上。",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "采用并联拓扑结构，使每个灯组独立连接电源且工作时互不干扰。",
+        "image_prompt": "人物专注地解开旧导线，将其均匀搭在宽阔的平行金属轨上。昏暗的室内馆内，巨大灯组闪烁微光，氛围温馨怀旧。中景视角。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file2.aitohumanize.com/file/a9289b4c217d4cce8f6005e3250e2d79.png",
+        "image_path": "./images/node_32.png"
+      }
+    },
+    {
+      "id": "node_33",
+      "content": "随着开关合上，灯群各部分同时绽放出最强的亮度，体育馆被绚烂的光芒填满，任务圆满完成！",
+      "type": "ep_end",
+      "metadata": {
+        "physics_knowledge": "电路的串联与并联\n\n解析：在并联电路中，各支路用电器分别与电源形成独立的闭合回路。这意味着每个灯组都能获得电源提供的额定电压，保证了最高的亮度。同时，并联结构具有独立性，即使某个灯泡出现故障断路，也不会影响其他支路的电流。这种拓扑结构彻底解决了系统不稳定的痛点，是现代工程和家庭电路设计的核心逻辑。\n\n知识点：并联电路是指将用电器并列连接在电路中两点间的连接方式。其特点是：电流有多条路径；干路开关控制所有电器，支路开关控制本支路；各支路电压相等；总电阻随支路增加而减小。这种结构保证了用电器之间的互不干扰，实现了系统的高可靠性。",
+        "chapter_title": "第8关 璀璨终章：辉煌的联动",
+        "knowledge_point": "电路的串联与并联",
+        "primary_knowledge_point": "电路的串联与并联",
+        "supporting_knowledge_points": [
+          "导体与绝缘体"
+        ],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "image_prompt": "人物欣喜地合上开关，身后巨大的灯群瞬间迸发出如暖阳般的灿烂金光，填满了整座怀旧体育馆。中景视角下，光影柔和温馨，充满圆满的成就感。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file3.aitohumanize.com/file/55aa6a89371644a58825436390f815d0.png",
+        "image_path": "./images/node_33.png"
+      }
+    },
+    {
+      "id": "node_32_branch_1_decision",
+      "content": "你为了接线简单，将所有灯组首尾依次连接成一个大的闭合环路，认为这样电流可以依次经过。",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "采用串联拓扑结构，利用单一回路的布线效率提升系统的整体电压。",
+        "image_prompt": "中景视角，人物神情期待地将导线首尾连成大圆圈。昏暗的馆内，庞大的灯架结构散发着点点微光，光影柔和温馨，充满吉卜力怀旧感。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file2.aitohumanize.com/file/3088a7d38396434cb545ef7f7238223d.png",
+        "image_path": "./images/node_32_branch_1_decision.png"
+      }
+    },
+    {
+      "id": "node_32_branch_1_fatal",
+      "content": "灯泡亮度依然微弱不堪，且只要你稍微晃动其中一个底座，整座灯群就瞬间全部熄灭。",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "这陷入了串联电路的结构误区。在串联电路中，电流只有一条路径，任何一处断路都会导致整条电路瘫痪，这就产生了“一坏全坏”的风险。此外，串联电路会分压，灯组越多，每个灯泡分到的电压就越低，导致亮度极弱。这种拓扑结构完全不符合大规模灯群对稳定性和亮度的实际需求。",
+        "physics_knowledge": "电路的串联与并联\n\n错误原因：这陷入了串联电路的结构误区。在串联电路中，电流只有一条路径，任何一处断路都会导致整条电路瘫痪，这就产生了“一坏全坏”的风险。此外，串联电路会分压，灯组越多，每个灯泡分到的电压就越低，导致亮度极弱。这种拓扑结构完全不符合大规模灯群对稳定性和亮度的实际需求。\n\n知识点：\n串联电路将用电器首尾顺次连接，电流路径单一，总电压等于各分电压之和（$U_{总}=U_1+U_2$）。该结构由于元件相互影响，任一处断路将导致全电路失效，且负载增多会导致分压显著，从而削弱亮度。并联电路是将用电器并列连接在电路两点间，各支路电压相等（$U_{总}=U_1=U_2$）。相比串联结构存在的“一坏全坏”风险与亮度损耗，并联电路的多路径设计确保了各支路独立工作、互不干扰，是实现系统高可靠性与稳定功率输出的基础。",
+        "knowledge_point": "电路的串联与并联",
+        "primary_knowledge_point": "电路的串联与并联",
+        "supporting_knowledge_points": [
+          "导体与绝缘体"
+        ],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "wrong_explanation": "这陷入了串联电路的结构误区。在串联电路中，电流只有一条路径，任何一处断路都会导致整条电路瘫痪，这就产生了“一坏全坏”的风险。此外，串联电路会分压，灯组越多，每个灯泡分到的电压就越低，导致亮度极弱。这种拓扑结构完全不符合大规模灯群对稳定性和亮度的实际需求。",
+        "correct_knowledge_ref": "并联电路是指将用电器并列连接在电路中两点间的连接方式。其特点是：电流有多条路径；干路开关控制所有电器，支路开关控制本支路；各支路电压相等；总电阻随支路增加而减小。这种结构保证了用电器之间的互不干扰，实现了系统的高可靠性。",
+        "image_prompt": "中景视角下，人物低头扶着一个晃动的灯座，神情失落。身后庞大的灯组仅散发出几点惨白微光，寂静宽广的场馆笼罩在吉卜力式的怀旧氛围中，透着一丝无奈。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file1.aitohumanize.com/file/10766ac81177452c8709548c2f68ed40.png",
+        "image_path": "./images/node_32_branch_1_fatal.png"
+      }
+    },
+    {
+      "id": "node_32_branch_2_decision",
+      "content": "你认为增加连接点就能增加通电概率，于是将电线杂乱地交叉缠绕在各个灯组的接头之间。",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "采用桥式混联结构，通过复杂的交叉点位增加电流流向灯泡的机会。",
+        "image_prompt": "中景视角，人物正将杂乱电线缠绕在巨大灯组间。昏暗场馆内，背景灯群微光惨白，氛围温馨怀旧且充满生活气息。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file1.aitohumanize.com/file/22e9395f28474ec18de94b06e12e6d51.png",
+        "image_path": "./images/node_32_branch_2_decision.png"
+      }
+    },
+    {
+      "id": "node_32_branch_2_fatal",
+      "content": "刺耳的滋滋声传来，原本微弱的光亮瞬间消失，系统保护装置因检测到局部短路而强行跳闸。",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "这属于工程逻辑的混乱。电路连接必须遵循清晰的支路和干路设计。盲目的交叉连接（桥式混联若设计不当）极易产生不流经用电器的超低电阻路径，即局部短路。这不仅会导致用电器无法正常工作，还会因瞬时电流过大产生高温烧毁设备。在电路设计中，增加复杂性并不等于增加可靠性，科学的逻辑必须排在直觉之前。",
+        "physics_knowledge": "电路的串联与并联\n\n错误原因：这属于工程逻辑的混乱。电路连接必须遵循清晰的支路和干路设计。盲目的交叉连接（桥式混联若设计不当）极易产生不流经用电器的超低电阻路径，即局部短路。这不仅会导致用电器无法正常工作，还会因瞬时电流过大产生高温烧毁设备。在电路设计中，增加复杂性并不等于增加可靠性，科学的逻辑必须排在直觉之前。\n\n知识点：\n串联是将元件顺次连接，电流路径唯一，总电阻 $R=R_1+R_2$。并联是将元件并列接在两点间，电流有多条路径且各支路电压相等。电路设计须遵循清晰的支路逻辑，若盲目交叉极易形成不流经用电器的超低电阻通路，即局部短路，从而引发瞬时高温烧毁设备。严谨的并联结构能确保用电器互不干扰，是保障系统可靠性的核心科学逻辑。",
+        "knowledge_point": "电路的串联与并联",
+        "primary_knowledge_point": "电路的串联与并联",
+        "supporting_knowledge_points": [
+          "导体与绝缘体"
+        ],
+        "knowledge_role_in_this_level": "主知识点推进",
+        "wrong_explanation": "这属于工程逻辑的混乱。电路连接必须遵循清晰的支路和干路设计。盲目的交叉连接（桥式混联若设计不当）极易产生不流经用电器的超低电阻路径，即局部短路。这不仅会导致用电器无法正常工作，还会因瞬时电流过大产生高温烧毁设备。在电路设计中，增加复杂性并不等于增加可靠性，科学的逻辑必须排在直觉之前。",
+        "correct_knowledge_ref": "并联电路是指将用电器并列连接在电路中两点间的连接方式。其特点是：电流有多条路径；干路开关控制所有电器，支路开关控制本支路；各支路电压相等；总电阻随支路增加而减小。这种结构保证了用电器之间的互不干扰，实现了系统的高可靠性。",
+        "image_prompt": "人物面对纠缠乱麻的电线神情错愕，背景中巨大的灯组瞬间熄灭，昏暗场馆透着忧伤怀旧的氛围。中景捕捉这一失落时刻。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file2.aitohumanize.com/file/b747c0cd0c1744eca565aab4007617d2.png",
+        "image_path": "./images/node_32_branch_2_fatal.png"
+      }
+    },
+    {
+      "id": "node_34",
+      "content": "随着最后一个灯泡被稳稳接入并联电路，‘WIN’字样的灯群绽放出耀眼的光芒，将体育馆照亮。你看着手中集齐的八枚印章，感受到物理知识在现实生活中的强大力量。这一天的探索之旅，不仅让你读懂了课本上的公式，更让你亲手触摸到了科技的温度。科技探索之光，正在你心中悄然点燃。",
+      "type": "ending",
+      "metadata": {
+        "image_prompt": "吉卜力风格中景。人物捧着八枚印章露出欣慰笑容，身后灯阵绽放柔和金光，照亮整座体育馆，氛围温馨怀旧。人物形象参考输入的第一张，背景参考第二张（如果有的话）。",
+        "scene_transition": 0,
+        "image_url": "https://file5.aitohumanize.com/file/2b4a568d08a84c3ca3728ad3dcc1cafd.png",
+        "image_path": "./images/node_34.png"
+      }
+    }
+  ],
+  "edges": {
+    "node_1": [
+      "node_2"
+    ],
+    "node_2": [
+      "node_3"
+    ],
+    "node_4": [
+      "node_5"
+    ],
+    "node_4_branch_1_decision": [
+      "node_4_branch_1_fatal"
+    ],
+    "node_4_branch_1_fatal": [
+      "node_3"
+    ],
+    "node_4_branch_2_decision": [
+      "node_4_branch_2_fatal"
+    ],
+    "node_4_branch_2_fatal": [
+      "node_3"
+    ],
+    "node_3": [
+      "node_4",
+      "node_4_branch_1_decision",
+      "node_4_branch_2_decision"
+    ],
+    "node_5": [
+      "node_6"
+    ],
+    "node_6": [
+      "node_7"
+    ],
+    "node_8": [
+      "node_9"
+    ],
+    "node_8_branch_1_decision": [
+      "node_8_branch_1_fatal"
+    ],
+    "node_8_branch_1_fatal": [
+      "node_7"
+    ],
+    "node_8_branch_2_decision": [
+      "node_8_branch_2_fatal"
+    ],
+    "node_8_branch_2_fatal": [
+      "node_7"
+    ],
+    "node_7": [
+      "node_8",
+      "node_8_branch_1_decision",
+      "node_8_branch_2_decision"
+    ],
+    "node_9": [
+      "node_10"
+    ],
+    "node_10": [
+      "node_11"
+    ],
+    "node_12": [
+      "node_13"
+    ],
+    "node_12_branch_1_decision": [
+      "node_12_branch_1_fatal"
+    ],
+    "node_12_branch_1_fatal": [
+      "node_11"
+    ],
+    "node_12_branch_2_decision": [
+      "node_12_branch_2_fatal"
+    ],
+    "node_12_branch_2_fatal": [
+      "node_11"
+    ],
+    "node_11": [
+      "node_12",
+      "node_12_branch_1_decision",
+      "node_12_branch_2_decision"
+    ],
+    "node_13": [
+      "node_14"
+    ],
+    "node_14": [
+      "node_15"
+    ],
+    "node_16": [
+      "node_17"
+    ],
+    "node_16_branch_1_decision": [
+      "node_16_branch_1_fatal"
+    ],
+    "node_16_branch_1_fatal": [
+      "node_15"
+    ],
+    "node_16_branch_2_decision": [
+      "node_16_branch_2_fatal"
+    ],
+    "node_16_branch_2_fatal": [
+      "node_15"
+    ],
+    "node_15": [
+      "node_16",
+      "node_16_branch_1_decision",
+      "node_16_branch_2_decision"
+    ],
+    "node_17": [
+      "node_18"
+    ],
+    "node_18": [
+      "node_19"
+    ],
+    "node_20": [
+      "node_21"
+    ],
+    "node_20_branch_1_decision": [
+      "node_20_branch_1_fatal"
+    ],
+    "node_20_branch_1_fatal": [
+      "node_19"
+    ],
+    "node_20_branch_2_decision": [
+      "node_20_branch_2_fatal"
+    ],
+    "node_20_branch_2_fatal": [
+      "node_19"
+    ],
+    "node_19": [
+      "node_20",
+      "node_20_branch_1_decision",
+      "node_20_branch_2_decision"
+    ],
+    "node_21": [
+      "node_22"
+    ],
+    "node_22": [
+      "node_23"
+    ],
+    "node_24": [
+      "node_25"
+    ],
+    "node_24_branch_1_decision": [
+      "node_24_branch_1_fatal"
+    ],
+    "node_24_branch_1_fatal": [
+      "node_23"
+    ],
+    "node_24_branch_2_decision": [
+      "node_24_branch_2_fatal"
+    ],
+    "node_24_branch_2_fatal": [
+      "node_23"
+    ],
+    "node_23": [
+      "node_24",
+      "node_24_branch_1_decision",
+      "node_24_branch_2_decision"
+    ],
+    "node_25": [
+      "node_26"
+    ],
+    "node_26": [
+      "node_27"
+    ],
+    "node_28": [
+      "node_29"
+    ],
+    "node_28_branch_1_decision": [
+      "node_28_branch_1_fatal"
+    ],
+    "node_28_branch_1_fatal": [
+      "node_27"
+    ],
+    "node_28_branch_2_decision": [
+      "node_28_branch_2_fatal"
+    ],
+    "node_28_branch_2_fatal": [
+      "node_27"
+    ],
+    "node_27": [
+      "node_28",
+      "node_28_branch_1_decision",
+      "node_28_branch_2_decision"
+    ],
+    "node_29": [
+      "node_30"
+    ],
+    "node_30": [
+      "node_31"
+    ],
+    "node_32": [
+      "node_33"
+    ],
+    "node_32_branch_1_decision": [
+      "node_32_branch_1_fatal"
+    ],
+    "node_32_branch_1_fatal": [
+      "node_31"
+    ],
+    "node_32_branch_2_decision": [
+      "node_32_branch_2_fatal"
+    ],
+    "node_32_branch_2_fatal": [
+      "node_31"
+    ],
+    "node_31": [
+      "node_32",
+      "node_32_branch_1_decision",
+      "node_32_branch_2_decision"
+    ],
+    "node_33": [
+      "node_34"
+    ]
+  },
+  "start_node_id": "node_1",
+  "ending_node_ids": [
+    "node_34"
+  ]
+}

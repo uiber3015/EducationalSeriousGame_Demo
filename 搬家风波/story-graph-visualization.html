@@ -1,0 +1,2314 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Serious Game · Narrative Map</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        :root {
+            --bg-start: #f7f8fc;
+            --bg-end: #eef2ff;
+            --panel-bg: rgba(255, 255, 255, 0.88);
+            --panel-border: rgba(148, 163, 184, 0.28);
+            --text-main: #0f172a;
+            --text-secondary: #475569;
+            --muted: #94a3b8;
+            --main-edge: #4f46e5;
+            --branch-edge: #1d9bf0;
+            --return-edge: #f87171;
+            --chapter-stroke: rgba(79, 70, 229, 0.9);
+            --shadow: 0 20px 45px rgba(15, 23, 42, 0.12);
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Microsoft YaHei', 'Segoe UI', Arial, sans-serif;
+            color: var(--text-main);
+            background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
+        }
+        .page-shell {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 340px;
+            gap: 20px;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .main-panel, .side-panel {
+            background: var(--panel-bg);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--panel-border);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+        }
+        .main-panel {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: calc(100vh - 40px);
+        }
+        .topbar {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .topbar-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .title-block h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            line-height: 1.15;
+            white-space: nowrap;
+        }
+        .title-block p {
+            margin: 8px 0 0;
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .control-btn {
+            border: 0;
+            border-radius: 999px;
+            padding: 8px 14px;
+            color: #fff;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.24);
+        }
+        .control-btn.secondary {
+            border: 0;
+            color: #fff;
+            background: linear-gradient(135deg, #0f766e 0%, #0891b2 100%);
+            box-shadow: 0 10px 20px rgba(8, 145, 178, 0.2);
+        }
+        .control-btn:hover { transform: translateY(-1px); }
+        .legend-strip {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.22);
+            background: rgba(255, 255, 255, 0.72);
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+        .legend-dot, .legend-line { flex: 0 0 auto; }
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 999px;
+        }
+        .legend-dot.square { border-radius: 3px; }
+        .legend-line {
+            width: 24px;
+            height: 0;
+            border-top: 3px solid #000;
+        }
+        .legend-line.branch { border-top-color: var(--branch-edge); }
+        .legend-line.main { border-top-color: var(--main-edge); }
+        .legend-line.return {
+            border-top-color: var(--return-edge);
+            border-top-style: dashed;
+        }
+        .stats-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 0;
+        }
+        .stat-chip {
+            padding: 8px 14px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            min-width: 110px;
+        }
+        .stat-chip .label {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-bottom: 2px;
+        }
+        .stat-chip .value {
+            font-size: 13px;
+            font-weight: 800;
+        }
+        .stat-chip.compact {
+            min-width: 92px;
+        }
+        #graph-container {
+            position: relative;
+            flex: 1;
+            min-height: 760px;
+            overflow: hidden;
+            border-radius: 22px;
+            background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.12), transparent 30%), linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(248, 250, 252, 0.95) 100%);
+            border: 1px solid rgba(148, 163, 184, 0.18);
+        }
+        .canvas-grid {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+            background-size: 48px 48px;
+            pointer-events: none;
+        }
+        .tooltip {
+            position: fixed;
+            z-index: 10;
+            max-width: 320px;
+            padding: 12px 14px;
+            border-radius: 14px;
+            background: rgba(15, 23, 42, 0.92);
+            color: #fff;
+            font-size: 12px;
+            line-height: 1.6;
+            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.24);
+            pointer-events: none;
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity 0.15s ease, transform 0.15s ease;
+        }
+        .tooltip.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .side-panel {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            min-height: calc(100vh - 40px);
+        }
+        .side-title {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 800;
+        }
+        .detail-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .detail-card {
+            padding: 11px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid rgba(148, 163, 184, 0.22);
+        }
+        .detail-section-title {
+            margin: 0 0 8px;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .detail-section-title.compact-title {
+            margin-bottom: 8px;
+        }
+        .detail-image {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #dbeafe 0%, #ede9fe 100%);
+            border: 1px solid rgba(148, 163, 184, 0.16);
+        }
+        .detail-badge {
+            color: var(--text-main);
+            font-size: 12px;
+            font-weight: 800;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.15;
+            gap: 2px;
+            padding: 6px 10px;
+            border-radius: 12px;
+            background: rgba(248, 250, 252, 0.9);
+            border: 1px solid rgba(148, 163, 184, 0.18);
+        }
+        .detail-badge-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .detail-current-node {
+            color: var(--text-main);
+            font-size: 12px;
+            font-weight: 800;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.15;
+            gap: 2px;
+            padding: 6px 10px;
+            border-radius: 12px;
+            background: rgba(248, 250, 252, 0.9);
+            border: 1px solid rgba(148, 163, 184, 0.18);
+        }
+        .detail-current-node-label {
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+        }
+        .detail-current-node-value {
+            color: var(--text-main);
+            font-size: 12px;
+            font-weight: 800;
+        }
+        .detail-badge-label {
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+        }
+        .detail-badge-value {
+            color: var(--text-main);
+            font-size: 12px;
+            font-weight: 800;
+        }
+        .detail-heading {
+            margin: 12px 0 0;
+            font-size: 18px;
+            font-weight: 800;
+        }
+        .detail-image + .detail-heading {
+            margin-top: 14px;
+        }
+        .detail-meta {
+            margin: 8px 0 0;
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.35;
+        }
+        .detail-content {
+            margin: 12px 0 0;
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.8;
+            white-space: pre-line;
+        }
+        .detail-fields {
+            margin-top: 8px;
+            display: grid;
+            gap: 4px;
+        }
+        .detail-fields.inline-compact {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 6px;
+        }
+        .detail-inline-summary {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .detail-inline-summary-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 9px;
+            border-radius: 12px;
+            background: rgba(248, 250, 252, 0.9);
+            border: 1px solid rgba(148, 163, 184, 0.16);
+        }
+        .detail-inline-summary-label {
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+        }
+        .detail-inline-summary-value {
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .detail-field {
+            padding: 6px 9px;
+            border-radius: 12px;
+            background: rgba(248, 250, 252, 0.9);
+            border: 1px solid rgba(148, 163, 184, 0.16);
+        }
+        .detail-fields.inline-compact .detail-field {
+            padding: 6px 9px;
+        }
+        .detail-field-label {
+            margin: 0 0 2px;
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+        }
+        .detail-field-value {
+            color: var(--text-secondary);
+            font-size: 12px;
+            line-height: 1.25;
+        }
+        .detail-empty {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.5;
+        }
+        .detail-scroll-section {
+            margin-top: 8px;
+        }
+        .detail-scroll-title {
+            margin: 0 0 4px;
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+        }
+        .detail-scroll-box {
+            min-height: 72px;
+            max-height: 104px;
+            overflow-y: auto;
+            padding: 8px 10px;
+            border-radius: 12px;
+            background: rgba(248, 250, 252, 0.9);
+            border: 1px solid rgba(148, 163, 184, 0.16);
+            color: var(--text-secondary);
+            font-size: 12px;
+            line-height: 1.45;
+            white-space: pre-line;
+        }
+        .detail-scroll-box.large {
+            min-height: 132px;
+            max-height: 184px;
+        }
+        .detail-scroll-box.hidden,
+        .detail-scroll-section.hidden,
+        .detail-current-node.hidden,
+        .detail-heading.hidden,
+        .detail-meta.hidden,
+        .detail-content.hidden,
+        .detail-image.hidden,
+        .detail-badge.hidden {
+            display: none;
+        }
+        .node-detail-card .detail-image {
+            aspect-ratio: 16 / 7.2;
+            margin-top: 10px;
+        }
+        .node-detail-card.single-pane .detail-scroll-box.plot-box {
+            min-height: 176px;
+            max-height: 240px;
+        }
+        svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        .chapter-box {
+            fill: rgba(255, 255, 255, 0.9);
+            stroke: var(--chapter-stroke);
+            stroke-width: 4;
+            stroke-dasharray: 10 8;
+            filter: drop-shadow(0 10px 24px rgba(79, 70, 229, 0.12));
+        }
+        .chapter-bg {
+            opacity: 0.26;
+            filter: blur(1.4px);
+            pointer-events: none;
+        }
+        .chapter-bg-mask {
+            fill: rgba(255, 255, 255, 0.08);
+            pointer-events: none;
+        }
+        .chapter-title {
+            fill: #312e81;
+            font-size: 18px;
+            font-weight: 800;
+        }
+        .chapter-subtitle {
+            fill: #64748b;
+            font-size: 12px;
+            font-weight: 600;
+            display: none;
+        }
+        .edge {
+            fill: none;
+            opacity: 0.94;
+            transition: opacity 0.18s ease, stroke-width 0.18s ease;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .edge.main {
+            stroke: var(--main-edge);
+            stroke-width: 3.1;
+        }
+        .edge.branch {
+            stroke: var(--branch-edge);
+            stroke-width: 2.35;
+        }
+        .edge.return {
+            stroke: var(--return-edge);
+            stroke-width: 1.6;
+            stroke-dasharray: 7 7;
+            opacity: 0.72;
+        }
+        .edge-label {
+            fill: #64748b;
+            font-size: 11px;
+            font-weight: 700;
+        }
+        .node-group {
+            cursor: pointer;
+            transition: opacity 0.18s ease;
+        }
+        .node-group.mini-summary {
+            cursor: pointer;
+        }
+        .node-card {
+            fill: #ffffff;
+            stroke: rgba(148, 163, 184, 0.25);
+            stroke-width: 1.2;
+            filter: drop-shadow(0 12px 20px rgba(15, 23, 42, 0.08));
+        }
+        .node-group.active .node-card {
+            stroke: rgba(79, 70, 229, 0.5);
+            stroke-width: 2;
+            filter: drop-shadow(0 18px 28px rgba(79, 70, 229, 0.18));
+        }
+        .node-group.dimmed, .edge.dimmed, .chapter-group.dimmed {
+            opacity: 0.48;
+        }
+        .badge-pill {
+            stroke: rgba(255, 255, 255, 0.45);
+            stroke-width: 1;
+            filter: drop-shadow(0 8px 14px rgba(15, 23, 42, 0.18));
+        }
+        .node-title {
+            fill: #0f172a;
+            font-size: 13px;
+            font-weight: 800;
+        }
+        .node-preview {
+            fill: #475569;
+            font-size: 11px;
+            font-weight: 500;
+        }
+        .node-id {
+            fill: #94a3b8;
+            font-size: 10px;
+            font-weight: 700;
+        }
+        .image-frame {
+            fill: #f8fafc;
+            stroke: rgba(148, 163, 184, 0.18);
+            stroke-width: 1;
+        }
+        .mini-node-circle, .mini-node-square {
+            filter: drop-shadow(0 4px 10px rgba(15, 23, 42, 0.16));
+        }
+        .empty-state {
+            position: absolute;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 10px;
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+        .empty-state.show { display: flex; }
+        @media (max-width: 1200px) {
+            .page-shell { grid-template-columns: 1fr; }
+            .main-panel, .side-panel { min-height: auto; }
+            .side-panel { order: -1; }
+        }
+        @media (max-width: 768px) {
+            .page-shell { padding: 12px; gap: 12px; }
+            .main-panel, .side-panel { border-radius: 18px; padding: 14px; }
+            .topbar-row { align-items: flex-start; }
+            #graph-container { min-height: 620px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-shell">
+        <main class="main-panel">
+            <div class="topbar">
+                <div class="topbar-row">
+                    <div class="title-block">
+                        <h1>Educational Serious Game · Narrative Map</h1>
+                    </div>
+                    <div class="controls">
+                        <button id="goto-interactive" class="control-btn secondary">Play the Game</button>
+                    </div>
+                </div>
+                <div class="topbar-row">
+                    <div class="stats-row">
+                        <div class="stat-chip compact"><span class="label">Chapters</span><span id="stat-chapters" class="value">0</span></div>
+                        <div class="stat-chip"><span class="label">Story Nodes</span><span id="stat-nodes" class="value">0</span></div>
+                    </div>
+                    <div class="controls">
+                        <button id="expand-all" class="control-btn">Expand All</button>
+                        <button id="collapse-all" class="control-btn">Collapse All</button>
+                        <button id="reset-view" class="control-btn">Reset View</button>
+                    </div>
+                </div>
+                <div class="legend-strip">
+                    <div class="legend-item"><span class="legend-dot" style="background:#8b5cf6"></span><span>Prologue</span></div>
+                    <div class="legend-item"><span class="legend-dot" style="background:#22c55e"></span><span>Common Event</span></div>
+                    <div class="legend-item"><span class="legend-dot" style="background:#3b82f6"></span><span>Decision</span></div>
+                    <div class="legend-item"><span class="legend-dot" style="background:#f59e0b"></span><span>Chapter Start</span></div>
+                    <div class="legend-item"><span class="legend-dot" style="background:#fb7185"></span><span>Chapter End</span></div>
+                    <div class="legend-item"><span class="legend-dot square" style="background:#334155"></span><span>Failure End</span></div>
+                    <div class="legend-item"><span class="legend-dot square" style="background:#f97316"></span><span>Success End</span></div>
+                </div>
+            </div>
+
+            <div id="graph-container">
+                <div class="canvas-grid"></div>
+                <div id="empty-state" class="empty-state">
+                    <strong>No story map available</strong>
+                    <span>Please confirm that `/api/story-graph` returns valid node data.</span>
+                </div>
+            </div>
+            <div id="tooltip" class="tooltip"></div>
+        </main>
+
+        <aside class="side-panel">
+            <div>
+                <h2 class="side-title">Node Details</h2>
+            </div>
+            <div class="detail-stack">
+                <div class="detail-card">
+                    <h3 class="detail-section-title compact-title">Chapter</h3>
+                    <div id="level-detail-badge" class="detail-badge hidden">Level</div>
+                    <h3 id="level-detail-heading" class="detail-heading">Select a node from the story map</h3>
+                    <img id="level-detail-image" class="detail-image hidden" alt="Level preview" />
+                    <p id="level-detail-content" class="detail-content hidden"></p>
+                    <div id="level-detail-fields" class="detail-fields inline-compact"></div>
+                    <div id="level-detail-knowledge-section" class="detail-scroll-section">
+                        <div class="detail-scroll-title">Knowledge</div>
+                        <div id="level-detail-knowledge" class="detail-scroll-box"></div>
+                    </div>
+                </div>
+                <div class="detail-card node-detail-card">
+                    <h3 class="detail-section-title">Node Details</h3>
+                    <div class="detail-badge-row">
+                        <div id="detail-badge" class="detail-badge"><span class="detail-badge-label">Node Type:</span><span class="detail-badge-value">-</span></div>
+                        <div id="detail-current-node" class="detail-current-node"><span class="detail-current-node-label">Current Node:</span><span class="detail-current-node-value">-</span></div>
+                    </div>
+                    <h3 id="detail-heading" class="detail-heading hidden">Select a node from the story map</h3>
+                    <img id="detail-image" class="detail-image" alt="Node preview" />
+                    <p id="detail-content" class="detail-content hidden"></p>
+                    <p id="detail-meta" class="detail-meta hidden">Node ID: -</p>
+                    <div id="detail-fields" class="detail-fields hidden"></div>
+                    <div id="detail-plot-section" class="detail-scroll-section">
+                        <div class="detail-scroll-title">Plot</div>
+                        <div id="detail-plot" class="detail-scroll-box plot-box"></div>
+                    </div>
+                    <div id="detail-secondary-section" class="detail-scroll-section">
+                        <div id="detail-secondary-title" class="detail-scroll-title">Analysis</div>
+                        <div id="detail-secondary" class="detail-scroll-box"></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script id="embedded-story-graph-data" type="application/json">{"nodes": [{"id": "node_1", "content": "周末阳光明媚，我来到爷爷家帮他搬家。看着屋里堆满的钢琴、红木书柜和零散杂物，我不禁有些发愁。爷爷正指挥着搬家师傅挪动钢琴，我决定利用平时所学的科学知识，将这次“搬家大冒险”变成一场有条不紊的科学实践，确保所有心爱之物完好无损地抵达新家。", "type": "normal", "metadata": {"image_prompt": "阳光柔和地洒进老屋，人物站在沉重的钢琴和红木家具旁，挽起袖子神情坚定。吉卜力风格的中景画面里，空气中漂浮着金色的尘埃，透着温馨怀旧的搬家气息。人物形象参考输入的第一张，背景参考第二张（如果有的话）。", "scene_transition": 1, "recurring_characters": ["爷爷"], "image_url": "https://file4.aitohumanize.com/file/770dbbde0bfb4c02bf0ea0f18be07cd4.png", "image_path": "./images/node_1.png"}}, {"id": "node_2", "content": "钢琴停在旧家门口台阶旁，人力根本抬不动。爷爷递给你一根坚固的长木棒和一块厚砖头作为垫块，让你利用这些工具把钢琴的一侧撬起来，好让搬家师傅能顺势把板车滑入底部。面对这台重达几百公斤的大家伙，如何放置支点成了关键。", "type": "ep_start", "metadata": {"chapter_title": "第1关 起步：沉重的钢琴", "knowledge_point": "杠杆原理", "primary_knowledge_point": "杠杆原理", "supporting_knowledge_points": [], "knowledge_role_in_this_level": "主知识点推进", "image_prompt": "中景视角，人物神色专注地弯下腰，双手紧握长木棒，准备撬动台阶上沉重的钢琴。阳光透过绿意洒在温馨的老屋院落，画面呈现治愈的吉卜力怀旧风格。人物形象参考输入的第一张，背景参考第二张（如果有的话）。", "scene_transition": 1, "recurring_characters": ["爷爷"], "image_url": "https://file5.aitohumanize.com/file/faef1b8034ab481da75fdaf53c9d3047.png", "image_path": "./images/node_2.png"}}, {"id": "node_3", "content": "为了用最小的力气成功撬起钢琴，你应该将砖头（支点）放在木棒下方的哪个位置？", "type": "normal", "metadata": {"knowledge_point": "杠杆原理", "primary_knowledge_point": "杠杆原理", "supporting_knowledge_points": [], "image_prompt": "人物蹲在暖阳洒入的走廊，正全神贯注地在沉重钢琴下调整长木棒与砖头。吉卜力风格的中景画面，背景满是怀旧旧物。人物形象参考输入的第一张，背景参考第二张（如果有的话）。", "scene_transition": 1, "image_url": "https://file3.aitohumanize.com/file/f492a212ae5b456f85e0df5896da28dc.png", "image_path": "./images/node_3.png"}}, {"id": "node_4", "content": "你蹲下身将砖头塞进靠近钢琴底部的木棒下方，随后握住木棒最远端向下按压。", "type": "decision", "metadata": {"choice_option": "将砖头放在木棒下靠近钢琴的位置，利用长动力臂实现最大程度省力。", "image_prompt": "阳光灿烂的旧宅前，人物神情专注地半蹲，正双手用力按压长木棒的一端，借着厚砖撬起沉重的钢琴。侧面中景构图，光影斑驳，洋溢着温馨怀旧的吉卜力气息。人物形象参考输入的第一张，背景参考第二张（如果有的话）。", "scene_transition": 1, "image_url": "https://file1.aitohumanize.com/file/c6c309376c9a4100a3ba7d03a90b12de.png", "image_path": "./images/node_4.png"}}, {"id": "node_5", "content": "钢琴一侧被轻巧地撬起了一道缝隙，师傅迅速将板车滑入，钢琴稳稳地落在了车架上。", "type": "ep_end", "metadata": {"physics_knowledge": "杠杆原理\n\n解析：在这个场景中，你构建了一个省力杠杆。由于砖头（支点）极度靠近钢琴（阻力点），使得阻力臂 $L_2$ 极短，而手部施力点到支点的动力臂 $L_1$ 很长。根据杠杆平衡条件，你只需要付出远小于钢琴重量的动力就能将其撬起。\n\n知识点：杠杆平衡条件为 $F_1L_1 = F_2L_2$。杠杆的类型取决于动力臂 $L_1$ 和阻力臂 $L_2$ 的大小关系。当动力臂大于阻力臂时，动力小于阻力，即为省力杠杆。支点越靠近阻力点，省力效果越显著。", "chapter_title": "第1关 起步：沉重的钢琴", "knowledge_point": "杠杆原理", "primary_knowledge_point": "杠杆原理", "supporting_knowledge_points": [], "knowledge_role_in_this_level": "主知识点推进", "image_prompt": "中景镜头，人物扶着长木杆露出笑容，钢琴稳稳落在板车上。阳光斜射入老屋，微尘在光影中起舞，尽显吉卜力式温馨怀旧感。人物形象参考输入的第一张，背景参考第二张（如果有的话）。", "scene_transition": 1, "image_url": "https://file2.aitohumanize.com/file/4cb5be7f070046088cabf7997d3c8ca8.png", "image_path": "./images/node_5.png"}}, {"id": "node_4_branch_1_decision", "content": "你精准地测量了木棒长度，将砖头垫在正中央，然后双手握住木棒另一端用力下压。", "type": "decision", "metadata": {"choice_option": "将砖头放在木棒的正中间位置，确保杠杆两端力臂相等以维持受力平衡。", "image_prompt": "吉卜力风格。暖阳院落中，人物双手按压长木棍一端，木棍正中垫着厚砖，试图撬动台阶旁的沉重钢琴。环境温馨怀旧，人物神态专注且用力。人物形象参考输入的第一张，背景参考第二张（如果有的话）。", "scene_transition": 1, "image_url": "https://file4.aitohumanize.com/file/56a90ca9f5d84a809597ae9bc1142391.png", "image_path": "./images/node_4_branch_1_decision.png"}}, {"id": "node_4_branch_1_fatal", "content": "你涨红了脸使出全身力气，但钢琴纹丝不动。等臂杠杆并未产生任何省力效果。", "type": "fatal", "metadata": {"explanation": "这是一个典型的“平衡对称”误区。当支点位于正中间时，动力臂等于阻力臂，形成了等臂杠杆。这意味着你需要的下压力必须等于钢琴一侧的重量。面对数百公斤的钢琴，单凭人力无法通过等臂杠杆将其撬动。", "physics_knowledge": "杠杆原理\n\n错误原因：这是一个典型的“平衡对称”误区。当支点位于正中间时，动力臂等于阻力臂，形成了等臂杠杆。这意味着你需要的下压力必须等于钢琴一侧的重量。面对数百公斤的钢琴，单凭人力无法通过等臂杠杆将其撬动。\n\n知识点：杠杆平衡条件遵循公式 $F_1L_1 = F_2L_2$。其中，动力臂 $L_1$ 与阻力臂 $L_2$ 的长短关系决定了杠杆的力学特性。在等臂杠杆模型中，支点位于中心，由于 $L_1 = L_2$，所需的下压力必须等于物体的重力，这在面对重型物体时往往难以达成。\n\n\n\n若要实现省力效果，应将支点移向阻力点一侧，使动力臂远大于阻力臂。此时根据公式，较小的动力即可克服巨大的阻力。支点距离阻力点越近，力臂比值越大，省力优势越明显。理解该原理的关键在于明确：平衡并非仅取决于力的绝对大小，而是力与力臂乘积的守恒。", "knowledge_point": "杠杆原理", "primary_knowledge_point": "杠杆原理", "supporting_knowledge_points": [], "knowledge_role_in_this_level": "主知识点推进", "wrong_explanation": "这是一个典型的“平衡对称”误区。当支点位于正中间时，动力臂等于阻力臂，形成了等臂杠杆。这意味着你需要的下压力必须等于钢琴一侧的重量。面对数百公斤的钢琴，单凭人力无法通过等臂杠杆将其撬动。", "correct_knowledge_ref": "杠杆平衡条件为 $F_1L_1 = F_2L_2$。杠杆的类型取决于动力臂 $L_1$ 和阻力臂 $L_2$ 的大小关系。当动力臂大于阻力臂时，动力小于阻力，即为省力杠杆。支点越靠近阻力点，省力效果越显著。", "image_prompt": "吉卜力风格中景。明媚阳光下，人物满脸通红，拼命按压长木棍试图撬动沉重的钢琴，它却纹丝不动。背景是充满生活气息的怀旧老宅。人物形象参考输入的第一张，背景参考第二张（如果有的话）。", "scene_transition": 0, "image_url": "https://file3.aitohumanize.com/file/2af6bfe44ac64a00b7eead5860841795.png", "image_path": "./images/node_4_branch_1_fatal.png"}}, {"id": "node_4_branch_2_decision", "content": "你将砖头垫在靠近自己手部的位置并用力一按，试图利用这种短距离支点进行控制。", "type": "decision", "metadata": {"choice_option": "将砖头放在木棒下靠近你的位置，通过缩短动力臂来增加对木棒的控制力。", "image_prompt": "阳光明媚的庭院，人物咬牙吃力地向下按压长木棒，砖头垫在靠近手部的位置。背景是巨大的钢琴和怀旧老屋，吉卜力画风色彩柔和，中景呈现忙碌的氛围。人物形象参考输入的第一张，背景参考第二张（如果有的话）。", "scene_transition": 1, "image_url": "https://file1.aitohumanize.com/file/065e87cd02e745c2bcd93fba22dede47.png", "image_path": "./images/node_4_branch_2_decision.png"}}, {"id": "node_4_branch_2_fatal", "content": "木棒另一端承受的阻力远超你的按压力，导致木棒瞬间剧烈反弹，险些打中你的下巴。", "type": "fatal", "metadata": {"explanation": "这属于“费力杠杆”配置。当支点靠近动力点（手）时，动力臂远小于阻力臂。根据杠杆原理，此时你需要的动力将成倍于钢琴重量。这种做法不仅无法完成任务，还会因受力失衡导致木棒失控弹起，造成安全隐患。", "physics_knowledge": "杠杆原理\n\n错误原因：这属于“费力杠杆”配置。当支点靠近动力点（手）时，动力臂远小于阻力臂。根据杠杆原理，此时你需要的动力将成倍于钢琴重量。这种做法不仅无法完成任务，还会因受力失衡导致木棒失控弹起，造成安全隐患。\n\n知识点：杠杆原理是指一根硬棒在力的作用下绕固定点转动时，需满足平衡条件：动力乘以动力臂等于阻力乘以阻力臂，即 $F_1L_1 = F_2L_2$。杠杆的效能取决于力臂的比例。当支点靠近动力点时，动力臂小于阻力臂，形成费力杠杆，此时所需动力将远大于阻力，且易因受力失衡引发安全风险。相反，若将支点移向阻力点，使动力臂大于阻力臂，则转化为省力杠杆。支点越接近阻力点，省力效果越显著，更符合搬运重物的力学需求。", "knowledge_point": "杠杆原理", "primary_knowledge_point": "杠杆原理", "supporting_knowledge_points": [], "knowledge_role_in_this_level": "主知识点推进", "wrong_explanation": "这属于“费力杠杆”配置。当支点靠近动力点（手）时，动力臂远小于阻力臂。根据杠杆原理，此时你需要的动力将成倍于钢琴重量。这种做法不仅无法完成任务，还会因受力失衡导致木棒失控弹起，造成安全隐患。", "correct_knowledge_ref": "杠杆平衡条件为 $F_1L_1 = F_2L_2$。杠杆的类型取决于动力臂 $L_1$ 和阻力臂 $L_2$ 的大小关系。当动力臂大于阻力臂时，动力小于阻力，即为省力杠杆。支点越靠近阻力点，省力效果越显著。", "image_prompt": "中景。明媚阳光下，人物按压的长木棒猛烈反弹，人物惊吓得向后躲闪。旁边是厚重的钢琴和散落的砖块，吉卜力式温馨怀旧感。人物形象参考输入的第一张，背景参考第二张（如果有的话）。", "scene_transition": 0, "image_url": "https://file1.aitohumanize.com/file/c08e7c8707ee425bb20dc5ee36f9c85f.png", "image_path": "./images/node_4_branch_2_fatal.png"}}, {"id": "node_6", "content": "钢琴终于上了板车，但推行至碎石路面时，狭窄的车轮陷入缝隙动弹不得。钢琴巨大的重量在不平整路面上产生了巨大的局部压强。 板车行进在通往货车的碎石路上，轮子因受力过大深深陷入石缝。爷爷担心地看着摇晃的钢琴，如果我们强行推拉，不仅钢琴可能倾覆，碎石也可能崩坏车轮。必须立刻寻找材料铺设临时通道，改变路面的受力状况。", "type": "ep_start", "metadata": {"chapter_title": "第2关 崎岖：化解下陷危局", "knowledge_point": "压强与减小压强的方法", "primary_knowledge_point": "压强与减小压强的方法", "supporting_knowledge_points": [], "knowledge_role_in_this_level": "主知识点推进", "image_prompt": "人物蹲下身，发愁地观察陷入碎石缝隙的板车轮子，爷爷在一旁神情焦虑，伸手稳住微微倾斜的沉重钢琴。明媚的阳光穿过枝叶，洒在怀旧的旧宅小径上，空气中浮动着细小的尘埃。中景视角捕捉到这一进退两难的瞬间。人物形象参考输入的第一张，背景参考第二张（如果有的话）。", "scene_transition": 1, "recurring_characters": ["爷爷"], "image_url": "https://file2.aitohumanize.com/file/43477e78716c4abf87c6db7d8466feb7.png", "image_path": "./images/node_6.png"}}, {"id": "node_7", "content": "为了让板车不再陷入碎石路面，你应该选择哪种铺设方案来有效减小压强？", "type": "normal", "metadata": {"knowledge_point": "压强与减小压强的方法", "primary_knowledge_point": "压强与减小压强的方法", "supporting_knowledge_points": [], "image_prompt": "中景镜头，吉卜力风格。人物面带难色，蹲在陷入碎石的板车旁，正拿起一块宽大的厚木板尝试比划。爷爷在一旁担忧地看着。几块铺好的木板通向货车。阳光温和地洒下，透出怀旧氛围。人物形象参考输入的第一张，背景参考第二张（如果有的话）", "scene_transition": 0, "image_url": "https://file1.aitohumanize.com/file/09581e204ed04222b9e08a81852d174f.png", "image_path": "./images/node_7.png"}}, {"id": "node_8", "content": "你找来几块宽大的厚木板，并排铺在碎石上，为板车轮子打造了一条平整的轨道。", "type": "decision", "metadata": {"choice_option": "铺设坚硬且受力面积大的厚木板，利用刚性平面将集中压力均匀分散开来。", "image_prompt": "吉卜力风格。中景。阳光下，一个人物和搬家师傅蹲在碎石路上，双手正忙着将几块宽大厚实的旧木板并排平铺开来。这些木板在粗糙的碎石面上形成了一条平整简易的木质轨道，板车和摇晃的钢琴就在一旁等待着。爷爷在不远处面带期许地看着。氛围温馨怀旧，光线柔和。人物形象参考输入的第一张，背景参考第二张。", "scene_transition": 0, "image_url": "https://file5.aitohumanize.com/file/03f2d1eb70aa4c549f90386a39f92c15.png", "image_path": "./images/node_8.png"}}, {"id": "node_9", "content": "轮子压上木板后不再下陷，木板将压力分散到了更广的地面，板车顺滑地移向货车。", "type": "ep_end", "metadata": {"physics_knowledge": "压强与减小压强的方法\n\n解析：根据压强公式 $p = F/S$，在压力 $F$（钢琴总重）不变的情况下，通过铺设宽大木板显著增大了受力面积 $S$。这有效降低了路面承受的压强 $p$，使碎石层能够支撑住重量而不发生明显下陷。\n\n知识点：压强是表示压力作用效果的物理量。计算公式为 $p = F/S$。减小压强的方法包括减小压力或增大受力面积。在实际工程中，使用垫板、履带等方式增大受力面积是防止地面沉降最常用的科学手段。", "chapter_title": "第2关 崎岖：化解下陷危局", "knowledge_point": "压强与减小压强的方法", "primary_knowledge_point": "压强与减小压强的方法", "supporting_knowledge_points": [], "knowledge_role_in_this_level": "主知识点推进", "image_prompt": "在中景镜头下，吉卜力风格的画面呈现出温馨怀旧的氛围。爷爷面带微笑地看着，而搬家师傅稳稳地推着载有钢琴的板车。板车的车轮顺滑地滚过并排铺在碎石路面上的宽大厚木板，木板微微弯曲，将压力分散。板车正轻快地移向前方停放着的货车。阳光温柔地洒在这一幕上。人物形象参考输入的第一张，背景参考第二张。", "scene_transition": 0, "image_url": "https://file4.aitohumanize.com/file/d4a08eb8f0c34b589a87d0a3acc119bf.png", "image_path": "./images/node_9.png"}}, {"id": "node_8_branch_1_decision", "content": "你将厚厚的毛毯平铺在轮子前方的碎石上，希望柔软的材质能缓冲重物的压迫力。", "type": "decision", "metadata": {"choice_option": "铺设柔软且厚实的旧毛毯，利用材料的弹性形变来吸收压力并减小下陷。", "image_prompt": "吉卜力风格，中景。人物皱着眉头，蹲在满是碎石的路面上，双手用力将一条厚实的深色毛毯平铺在卡住的板车轮子前方。阳光透过树叶洒下，氛围有些焦灼。背景中，巨大的钢琴歪斜在板车上，爷爷在不远处担忧地看着。人物形象参考输入的第一张。", "scene_transition": 0, "image_url": "https://file3.aitohumanize.com/file/b06301e3ea204e608e73f2b846db7df0.png", "image_path": "./images/node_8_branch_1_decision.png"}}, {"id": "node_8_branch_1_fatal", "content": "轮子压过时，毛毯随轮子一起深陷进碎石缝隙，反而把轮子包裹得更紧，彻底卡死了。", "type": "fatal", "metadata": {"explanation": "这是一个关于“软就更好”的误区。毛毯虽然柔软，但在重压下会发生明显形变，不能像木板那样稳定增大有效受力面积，反而更容易陷入碎石缝中。", "physics_knowledge": "压强与减小压强的方法\n\n错误原因：这是一个关于“软就更好”的误区。毛毯虽然柔软，但在重压下会发生明显形变，不能像木板那样稳定增大有效受力面积，反而更容易陷入碎石缝中。\n\n知识点：减小压强的关键是增大稳定、有效的受力面积。木板这类刚性材料能把压力分散到更大的区域，而柔软材料在重压下会变形，难以持续发挥分压作用。因此，在涉及重物支撑和通行的问题中，应优先考虑刚性较强、接触面更稳定的材料。", "knowledge_point": "压强与减小压强的方法", "primary_knowledge_point": "压强与减小压强的方法", "supporting_knowledge_points": [], "knowledge_role_in_this_level": "主知识点推进", "wrong_explanation": "这是一个关于“软就更好”的误区。毛毯虽然柔软，但在重压下会发生明显形变，不能像木板那样稳定增大有效受力面积，反而更容易陷入碎石缝中。", "correct_knowledge_ref": "压强是表示压力作用效果的物理量。计算公式为 $p = F/S$。减小压强的方法包括减小压力或增大受力面积。在实际工程中，使用垫板、履带等方式增大受力面积是防止地面沉降最常用的科学手段。", "image_prompt": "中景，光线柔和，爷爷和孙女焦急地蹲在陷入碎石的板车轮旁，原本铺在路上的毛毯和轮子一起卡进了缝隙中，轮子被毛毯紧紧缠住，动弹不得，两人表情失望而无助。人物形象参考输入的第一张，背景参考第二张（如果有的话）。", "scene_transition": 0, "image_url": "https://file2.aitohumanize.com/file/2b60245530a94659aac1fcb659288b48.png", "image_path": "./images/node_8_branch_1_fatal.png"}}, {"id": "node_8_branch_2_decision", "content": "你提来一桶水浇在碎石路上，认为湿润的地面会减少阻碍，让板车更容易滑过去。", "type": "decision", "metadata": {"choice_option": "在路面上均匀洒水，认为让石子变滑后车轮就更容易通过。", "image_prompt": "中景，阳光从云层透出，一个年轻人物弯腰提着一只木水桶，动作笨拙地将水泼在碎石路上。碎石瞬间湿漉漉的，钢琴板车轮子依然深深陷入碎石缝隙中，爷爷在旁边担忧地看着。氛围温馨却透着一丝困惑。人物形象参考输入的第一张。", "scene_transition": 0, "image_url": "https://file4.aitohumanize.com/file/abddd9d6d8a04aaaa7cb65729629370a.png", "image_path": "./images/node_8_branch_2_decision.png"}}, {"id": "node_8_branch_2_fatal", "content": "水流使松散的碎石更加不稳，车轮不但没有更好通过，反而陷得更深，还差点侧滑。", "type": "fatal", "metadata": {"explanation": "这属于把问题误判成“摩擦太大”的误区。当前关键矛盾是压强过大导致下陷，而不是路面不够滑。洒水既不能稳定增大受力面积，还可能让碎石层更松散。", "physics_knowledge": "压强与减小压强的方法\n\n错误原因：这属于把问题误判成“摩擦太大”的误区。当前关键矛盾是压强过大导致下陷，而不是路面不够滑。洒水既不能稳定增大受力面积，还可能让碎石层更松散。\n\n知识点：判断题目时要抓住真正决定现象的核心物理量。本题中板车卡住的根本原因是钢琴和板车总重较大、轮子接触面较小，导致压强过大。解决思路应围绕减小压强展开，而不是简单从“让路面变滑”入手。", "knowledge_point": "压强与减小压强的方法", "primary_knowledge_point": "压强与减小压强的方法", "supporting_knowledge_points": [], "knowledge_role_in_this_level": "主知识点推进", "wrong_explanation": "这属于把问题误判成“摩擦太大”的误区。当前关键矛盾是压强过大导致下陷，而不是路面不够滑。洒水既不能稳定增大受力面积，还可能让碎石层更松散。", "correct_knowledge_ref": "压强是表示压力作用效果的物理量。计算公式为 $p = F/S$。减小压强的方法包括减小压力或增大受力面积。在实际工程中，使用垫板、履带等方式增大受力面积是防止地面沉降最常用的科学手段。", "image_prompt": "中景镜头，人物蹲在泥泞不堪的碎石路上，表情焦急懊悔。刚浇过水的地面一片湿滑，板车狭窄的轮子深陷在松软的泥泞与碎石缝隙中，整台钢琴严重倾斜，仿佛随时会向一侧滑倒，爷爷在一旁担忧地伸手扶住。吉卜力风格，怀旧的黄昏光线映照着慌乱的场景，透出紧张的氛围。人物形象参考输入的第一张。背景参考第二张（如果有的话）。", "scene_transition": 0, "image_url": "https://file5.aitohumanize.com/file/cda4f7bfd39f4e96890ca07102e012bd.png", "image_path": "./images/node_8_branch_2_fatal.png"}}, {"id": "node_10", "content": "板车终于抵达货车尾部，但车厢底板比地面高出一截，光靠人力很难把沉重的钢琴平稳抬上去。搬家师傅拿来绳索和几只滑轮，准备临时搭一个吊运装置。你需要判断该采用哪种滑轮方案，才能既省力，又方便在货车旁持续操作。", "type": "ep_start", "metadata": {"chapter_title": "第3关 攀升：钢琴上车的滑轮抉择", "knowledge_point": "滑轮组", "primary_knowledge_point": "滑轮组", "supporting_knowledge_points": ["杠杆原理"], "knowledge_role_in_this_level": "主知识点推进", "image_prompt": "中景。阳光透过货车车厢洒在地面，老师傅拿着粗糙的绳索和几只滑轮，皱眉思索。人物站在一旁，看着那比地面高出一截的车厢和沉重的钢琴，面露难色。怀旧且温馨。人物形象参考输入的第一张。", "scene_transition": 0, "image_url": "https://file4.aitohumanize.com/file/47da845935604ba19ba94e83e974ea46.png", "image_path": "./images/node_10.png"}}, {"id": "node_11", "content": "面对沉重的钢琴和较高的车厢，你认为哪种滑轮使用方式最合适？", "type": "normal", "metadata": {"knowledge_point": "滑轮组", "primary_knowledge_point": "滑轮组", "supporting_knowledge_points": ["杠杆原理"], "image_prompt": "吉卜力风格，中景镜头。阳光和煦地洒在货车尾部，人物正专注地比划着手中的结实麻绳与铁质滑轮，表情带着思索与认真。爷爷在旁关切地注视，背景是静静等待搬运的钢琴与装满货物的车厢。画面充满怀旧而温馨的劳动氛围。人物形象参考输入的第一张。", "scene_transition": 0, "image_url": "https://file3.aitohumanize.com/file/daa084af9e4349bbb4f29d33c6f6d9a0.png", "image_path": "./images/node_11.png"}}, {"id": "node_12", "content": "你让师傅把一个定滑轮固定在货车上方，用来改变拉绳方向，再配合一个动滑轮连接钢琴，使大家可以向下拉绳，更省力地把钢琴稳稳提起。", "type": "decision", "metadata": {"choice_option": "使用合适的定滑轮和动滑轮组成滑轮组，既改变用力方向，又减小所需拉力。", "image_prompt": "中景，人物指挥着，老师傅仰头将铁质滑轮固定在货车上方，另一滑轮连着钢琴，粗麻绳穿梭其间，光线温馨，充满希望。人物形象参考输入的第一张。", "scene_transition": 0, "image_url": "https://file5.aitohumanize.com/file/7b4d1bc45dcc49be97a44faed21287ef.png", "image_path": "./images/node_12.png"}}, {"id": "node_13", "content": "绳索收紧后，钢琴缓缓离地。大家站在更方便发力的位置向下拉绳，既省力又容易控制提升节奏，钢琴最终平稳进入车厢。", "type": "ep_end", "metadata": {"physics_knowledge": "滑轮组\n\n解析：这是最合理的方案。定滑轮可以改变用力方向，让人更方便向下拉绳；动滑轮可以省力，减小提升重物时所需的拉力。将二者组合成合适的滑轮组，既兼顾操作便利，也兼顾省力效果，适合搬运沉重钢琴这类实际情境。\n\n知识点：定滑轮的作用主要是改变力的方向，不省力；动滑轮能省力，但不能改变力的方向。滑轮组结合二者优点，省力倍数与承担物重的绳子股数有关。在不计摩擦和滑轮重力时，承担物重的绳子股数越多，所需拉力越小，但装置也不能无限复杂，否则会影响操作效率。", "chapter_title": "第3关 攀升：钢琴上车的滑轮抉择", "knowledge_point": "滑轮组", "primary_knowledge_point": "滑轮组", "supporting_knowledge_points": ["杠杆原理"], "knowledge_role_in_this_level": "主知识点推进", "image_prompt": "吉卜力风格。人物与师傅专注地向下拉动粗绳，沉重的钢琴在铁质滑轮牵引下平稳升起，正缓缓滑入温馨的木质货车厢。午后阳光柔和地铺在碎石路上，中景构图，氛围怀旧。人物形象参考输入的第一张，背景参考第二张（如果有的话）。", "scene_transition": 0, "image_url": "https://file5.aitohumanize.com/file/2d19ff8e9b3a448a8400d8ba79e31819.png", "image_path": "./images/node_13.png"}}, {"id": "node_12_branch_1_decision", "content": "你决定只在货车顶部挂一个定滑轮，让大家改变拉绳方向，直接把钢琴往上提。", "type": "decision", "metadata": {"choice_option": "只使用一个定滑轮，认为既然能改变方向，拉起来就会轻松很多。", "image_prompt": "吉卜力风格，中景。货车车厢旁，人物和搬家师傅正合力向上拉着绳子，他们仰着头，神情专注用力。粗糙的麻绳通过挂在货车顶部横梁上一个铁质定滑轮垂直垂下。虽然能向下发力，但钢琴明显非常沉重，绳子绷得极紧，人物的衣袖略微卷起。钢琴刚离开地面一点，在空中轻微晃动，画面透出紧张而怀旧的氛围。背景中古旧的货车和远处的房屋在柔和的日光下显得温馨。人物形象参考输入的第一张。", "scene_transition": 0, "image_url": "https://file3.aitohumanize.com/file/aa42bda630c842fa82d2bf4164a6cba7.png", "image_path": "./images/node_12_branch_1_decision.png"}}, {"id": "node_12_branch_1_fatal", "content": "大家虽然能更方便地向下拉绳，但钢琴的重量几乎原封不动地压在手上，没拉多久就明显吃不消，钢琴也只能停在半空中摇晃，迟迟上不了车。", "type": "fatal", "metadata": {"explanation": "这属于“把改变方向误当成省力”的典型误区。定滑轮确实能让人换个更顺手的方向用力，但并不能减小提升重物本身所需的拉力。搬钢琴这种重物时，只靠定滑轮通常仍然太费力。", "physics_knowledge": "滑轮组\n\n错误原因：这属于“把改变方向误当成省力”的典型误区。定滑轮确实能让人换个更顺手的方向用力，但并不能减小提升重物本身所需的拉力。搬钢琴这种重物时，只靠定滑轮通常仍然太费力。\n\n知识点：定滑轮本质上相当于等臂杠杆，它的主要作用是改变力的方向，而不能省力。也就是说，即使人改成向下拉绳，所需拉力在理想情况下仍接近物重本身。实际操作中再加上摩擦，还会做更多额外功，因此“只用一个定滑轮”并不能解决重物难以提升的问题。真正更适合搬运重物的是加入动滑轮，利用滑轮组分担物重，降低所需拉力。", "knowledge_point": "滑轮组", "primary_knowledge_point": "滑轮组", "supporting_knowledge_points": ["杠杆原理"], "knowledge_role_in_this_level": "主知识点推进", "wrong_explanation": "这属于“把改变方向误当成省力”的典型误区。定滑轮确实能让人换个更顺手的方向用力，但并不能减小提升重物本身所需的拉力。搬钢琴这种重物时，只靠定滑轮通常仍然太费力。", "correct_knowledge_ref": "定滑轮能改变力的方向，但不省力；动滑轮能省力，但不改变力的方向；合理的滑轮组可以同时兼顾省力与操作便利。", "image_prompt": "吉卜力风格。货车旁，人物和师傅们神情痛苦，咬牙切齿地向下拉扯着紧绷的粗绳。他们满脸通红，手臂颤抖，显得疲惫不堪。半空中，沉重的钢琴挂在粗糙的定滑轮下，只升高了一点点，此刻正悬在半空中摇晃，迟迟无法进入车厢。光线略显昏暗，透出紧张和挫败的氛围。中景。人物形象参考输入的第一张，背景参考第二张（如果有的话）。", "scene_transition": 0, "image_url": "https://file4.aitohumanize.com/file/b843550fd1c84c2ca328e33d8bd50b88.png", "image_path": "./images/node_12_branch_1_fatal.png"}}, {"id": "node_12_branch_2_decision", "content": "你觉得动滑轮越多就一定越省力，于是让师傅尽量多挂几只动滑轮，把绳路布置得层层叠叠。", "type": "decision", "metadata": {"choice_option": "使用大量动滑轮组合，认为动滑轮数量越多，省力效果一定越好。", "image_prompt": "吉卜力风格。货车旁，人物兴奋地指挥师傅，将许多铁质滑轮层层叠叠地挂在支架和钢琴上，粗糙的麻绳来回穿梭绕得眼花缭乱。阳光温暖地洒在忙碌而杂乱的场景中，充滿怀旧气息。中景镜头。人物形象参考输入的第一张。", "scene_transition": 0, "image_url": "https://file5.aitohumanize.com/file/01c4584e49eb450da4bbcbc4d4e97461.png", "image_path": "./images/node_12_branch_2_decision.png"}}, {"id": "node_12_branch_2_fatal", "content": "装置虽然看起来很复杂，但绳索来回缠绕后操作变得格外麻烦。大家拉绳的距离大幅增加，配合也越来越乱，钢琴提升过程又慢又难控制，反而耽误了搬运。", "type": "fatal", "metadata": {"explanation": "这属于“只追求更省力、不考虑实际效率”的误区。动滑轮增加后，理论上拉力会减小，但同时需要拉更长的绳子，装置也会更复杂。实际搬运中，滑轮并不是越多越好，关键是选择合适数量。", "physics_knowledge": "滑轮组\n\n错误原因：这属于“只追求更省力、不考虑实际效率”的误区。动滑轮增加后，理论上拉力会减小，但同时需要拉更长的绳子，装置也会更复杂。实际搬运中，滑轮并不是越多越好，关键是选择合适数量。\n\n知识点：在理想情况下，滑轮组承担物重的绳子股数越多，拉力越小；但与此同时，绳端移动的距离会相应增加。也就是说，省力往往要以“费距离”为代价。若一味增加动滑轮数量，不仅装置更复杂、操作更慢，还会因为摩擦和配合困难使机械效率下降。因此，搬运钢琴时应使用适当的动滑轮和定滑轮组合，而不是盲目堆叠动滑轮。", "knowledge_point": "滑轮组", "primary_knowledge_point": "滑轮组", "supporting_knowledge_points": ["杠杆原理"], "knowledge_role_in_this_level": "主知识点推进", "wrong_explanation": "这属于“只追求更省力、不考虑实际效率”的误区。动滑轮增加后，理论上拉力会减小，但同时需要拉更长的绳子，装置也会更复杂。实际搬运中，滑轮并不是越多越好，关键是选择合适数量。", "correct_knowledge_ref": "定滑轮改变力的方向，动滑轮可以省力；滑轮组要在省力、拉绳距离和操作复杂度之间取得平衡，适量组合才最合理。", "image_prompt": "中景画面。货车旁，几个搬家师傅围着钢琴，扯着层层叠叠、乱成一团的粗麻绳，一脸焦急无奈。钢琴吊在半空，微微倾斜。阳光透过树叶洒下，氛围温馨却透着慌乱。人物形象参考输入的第一张，背景参考第二张。", "scene_transition": 0, "image_url": "https://file1.aitohumanize.com/file/c5ba91e4d3ca4958ada9b95f81ea1afd.png", "image_path": "./images/node_12_branch_2_fatal.png"}}, {"id": "node_14", "content": "钢琴顺利入位，接着是那个高大的红木书柜。虽然已经摆进了车厢，但静态的稳定只是第一步，还需考虑行驶中的平衡。书柜又高又窄，里面塞满了沉重的书籍。货车在行驶中难免晃动，如果书柜的重心过高，很容易在转弯时翻倒。爷爷搬来大叠厚重的《百科全书》，询问该如何调整书籍的摆放层次来增加柜子的稳度。", "type": "ep_start", "metadata": {"chapter_title": "第4关 入位：书柜的“底气”", "knowledge_point": "重心与稳定性", "primary_knowledge_point": "重心与稳定性", "supporting_knowledge_points": [], "knowledge_role_in_this_level": "主知识点推进", "image_prompt": "在温馨昏暗的货车车厢内，一位头发花白的老爷爷微笑着，将手中大叠厚重的百科全书递给身边的人，他们正对着一个高大红木书柜，讨论如何摆放这些书籍。吉卜力风格，怀旧光影，中景镜头。人物形象参考输入的第一张，背景参考第二张（如果有的话）。", "scene_transition": 1, "recurring_characters": ["爷爷"], "image_url": "https://file3.aitohumanize.com/file/5549fc2aa8b94c63b47e1f3b65138924.png", "image_path": "./images/node_14.png"}}, {"id": "node_15", "content": "为了让书柜在货车运输中最不容易翻倒，你应该将沉重的书籍摆放在书柜的哪个位置？", "type": "normal", "metadata": {"knowledge_point": "重心与稳定性", "primary_knowledge_point": "重心与稳定性", "supporting_knowledge_points": [], "image_prompt": "中景镜头，吉卜力风格。阳光透过货车车厢口洒入，人物正蹲在那个高大的红木书柜前，手扶着大叠厚重的百科全书，神情认真地思考着。爷爷在一旁慈祥地看着，车厢内弥漫着怀旧而温馨的氛围。人物形象参考输入的第一张，背景参考第二张（如果有的话）。", "scene_transition": 0, "image_url": "https://file5.aitohumanize.com/file/6c387173952e43aeae9e45584916ac19.png", "image_path": "./images/node_15.png"}}, {"id": "node_16", "content": "你弯腰将那些最厚的大部头书籍整齐地码放在书柜最底部的隔层，增加底部质量。", "type": "decision", "metadata": {"choice_option": "将沉重的书籍摆放在书柜的底层，通过降低整体重心来显著增加柜子的稳度。", "image_prompt": "吉卜力风格。货车车厢内，人物弯腰，将大部头厚书整齐码放在书柜最底格。光线温馨，爷爷在旁慈祥观看。人物形象参考输入的第一张，背景参考第二张（如果有的话）。", "scene_transition": 0, "image_url": "https://file5.aitohumanize.com/file/11396fe09a394d36958ec471b0220410.png", "image_path": "./images/node_16.png"}}, {"id": "node_17", "content": "书柜变得“下重上轻”，你尝试用力晃动柜顶，它依然稳稳立在原位，表现出极高稳度。", "type": "ep_end", "metadata": {"physics_knowledge": "重心与稳定性\n\n解析：通过将重物放置在底部，有效降低了书柜系统的整体重心位置。重心越低，当物体受惯性或震动发生倾斜时，重力的竖直投影线越不容易越过底部的支撑面边缘，从而极大地提高了抗倾覆能力。\n\n知识点：物体的稳定性（稳度）主要由重心高度和支撑面积大小决定。在支撑面积一定时，重心越低越稳定。这是因为重心低意味着倾斜相同角度时，重力产生的回复力臂更长，系统更能抵抗外力干扰。", "chapter_title": "第4关 入位：书柜的“底气”", "knowledge_point": "重心与稳定性", "primary_knowledge_point": "重心与稳定性", "supporting_knowledge_points": [], "knowledge_role_in_this_level": "主知识点推进", "image_prompt": "中景画面，人物在车厢内伸手推晃高大的红木书柜，底部堆满厚书的书柜稳如泰山。暖黄阳光洒在木家具上，氛围温馨怀旧，吉卜力风格。人物形象参考输入的第一张，背景参考第二张（如果有的话）。", "scene_transition": 0, "image_url": "https://file3.aitohumanize.com/file/152637031ea74a25b5ef5786c85f5537.png", "image_path": "./images/node_17.png"}}, {"id": "node_16_branch_1_decision", "content": "你踩着梯子将重书全部塞进顶端隔层，想用它们的重量像“重锤”一样压住书柜。", "type": "decision", "metadata": {"choice_option": "将沉重的书籍摆放在书柜的顶层，利用重物向下的压力将柜子死死压在底板上。", "image_prompt": "人物踩着木梯，正费力地将一本本厚重的书塞进高大书柜的最顶层，神情专注而略显吃力。背景是堆满杂物的货车车厢，阳光透过车棚缝隙洒下，充满怀旧气息。中景镜头。人物形象参考输入的第一张。", "scene_transition": 0, "image_url": "https://file1.aitohumanize.com/file/63aeae44b8344e7dab5fadf768b0adbc.png", "image_path": "./images/node_16_branch_1_decision.png"}}, {"id": "node_16_branch_1_fatal", "content": "书柜立刻变得“头重脚轻”，货车还未启动，柜子就因为轻微的颠簸开始剧烈摇晃。", "type": "fatal", "metadata": {"explanation": "这属于“重力压制”的常识性误区。虽然总重增加了，但重心被显著抬高。重心越高，微小的倾角就会使重心的投影移出狭窄的支撑面。这种“头重脚轻”的分布极大削弱了稳度，极易导致翻倒。", "physics_knowledge": "重心与稳定性\n\n错误原因：这属于“重力压制”的常识性误区。虽然总重增加了，但重心被显著抬高。重心越高，微小的倾角就会使重心的投影移出狭窄的支撑面。这种“头重脚轻”的分布极大削弱了稳度，极易导致翻倒。\n\n知识点：物体的稳定性主要取决于重心高度与支撑面积。在支撑面积恒定时，稳度与重心高度成反比。增加总重并不必然提高稳定性，关键要看质量分布是否降低了整体重心。", "knowledge_point": "重心与稳定性", "primary_knowledge_point": "重心与稳定性", "supporting_knowledge_points": [], "knowledge_role_in_this_level": "主知识点推进", "wrong_explanation": "这属于“重力压制”的常识性误区。虽然总重增加了，但重心被显著抬高。重心越高，微小的倾角就会使重心的投影移出狭窄的支撑面。这种“头重脚轻”的分布极大削弱了稳度，极易导致翻倒。", "correct_knowledge_ref": "物体的稳定性（稳度）主要由重心高度和支撑面积大小决定。在支撑面积一定时，重心越低越稳定。这是因为重心低意味着倾斜相同角度时，重力产生的回复力臂更长，系统更能抵抗外力干扰。", "image_prompt": "中景，车厢内，人物慌乱地伸手试图稳住剧烈摇晃的高大书柜，爷爷在一旁满脸惊恐。书柜顶端塞满厚书，呈现明显的头重脚轻。柔和昏暗的光线透进车厢，木地板有些许颠簸痕迹，怀旧温馨的氛围中透出紧张感。人物形象参考输入的第一张。", "scene_transition": 0, "image_url": "https://file5.aitohumanize.com/file/ee3d532fe59f42f38f463572f5998b11.png", "image_path": "./images/node_16_branch_1_fatal.png"}}, {"id": "node_16_branch_2_decision", "content": "你决定采取折中方案，将大部头书籍全部摆放在书柜正中间，认为这样受力最均匀。", "type": "decision", "metadata": {"choice_option": "将沉重的书籍摆放在书柜的中层，使质量分布在几何中心以求得绝对的平衡。", "image_prompt": "吉卜力风格。货车车厢内光线温馨。人物微皱眉，正将一本本厚重的书，整齐地码放在高大红木书柜中部的隔层上，动作略显迟疑。人物形象参考输入的第一张。", "scene_transition": 0, "image_url": "https://file3.aitohumanize.com/file/ad5885ea5f8d495ab2c48959008f6502.png", "image_path": "./images/node_16_branch_2_decision.png"}}, {"id": "node_16_branch_2_fatal", "content": "书柜的上半部分在行驶中依然晃动明显，重心高度依然没有降到足以抵御颠簸的安全线。", "type": "fatal", "metadata": {"explanation": "这属于对“平衡”含义的模糊应用。虽然中部分布看似对称，但并未实现稳度最大化。对于窄高型家具，重心处于中部仍然偏高。", "physics_knowledge": "重心与稳定性\n\n错误原因：这属于对“平衡”含义的模糊应用。虽然中部分布看似对称，但并未实现稳度最大化。对于窄高型家具，重心处于中部仍然偏高。\n\n知识点：判断稳定性时，关键不只是“均匀”或“对称”，而是看重心是否足够低。对于高而窄的物体，应尽量让较重部分靠近底部，以增强抗倾覆能力。", "knowledge_point": "重心与稳定性", "primary_knowledge_point": "重心与稳定性", "supporting_knowledge_points": [], "knowledge_role_in_this_level": "主知识点推进", "wrong_explanation": "这属于对“平衡”含义的模糊应用。虽然中部分布看似对称，但并未实现稳度最大化。对于窄高型家具，重心处于中部仍然偏高。", "correct_knowledge_ref": "物体的稳定性（稳度）主要由重心高度和支撑面积大小决定。在支撑面积一定时，重心越低越稳定。这是因为重心低意味着倾斜相同角度时，重力产生的回复力臂更长，系统更能抵抗外力干扰。", "image_prompt": "吉卜力风格。货车车厢内，人物愁眉苦脸地看着高大的红木书柜。书柜中间塞满书，上半部分在颠簸中剧烈晃动，木板发出吱嘎声。夕阳透过车厢缝隙投下昏黄的光影。中景镜头。人物形象参考输入的第一张。", "scene_transition": 0, "image_url": "https://file4.aitohumanize.com/file/177f1f2d975548659a22190c44a52ee0.png", "image_path": "./images/node_16_branch_2_fatal.png"}}, {"id": "node_18", "content": "书柜安顿好了，但货车即将出发，动态行驶中的物体惯性是新的安全隐患。我们必须在出发前做最后的加固检查。货车内既有沉重的钢琴，也有体积巨大但相对较轻的空木箱。爷爷拉着有限的尼龙绳，担心急刹车时物品会撞坏车厢。为了用有限的资源实现最高的安全效益，我们需要判定哪些物品在刹车时最具“破坏力”。", "type": "ep_start", "metadata": {"chapter_title": "第5关 护航：识别加固优先权", "knowledge_point": "惯性与质量", "primary_knowledge_point": "惯性与质量", "supporting_knowledge_points": ["重心与稳定性"], "knowledge_role_in_this_level": "主知识点推进", "image_prompt": "中景镜头。在货车车厢温馨的光线下，爷爷皱着眉，正和人物一起检查货车里的物品。爷爷手里拿着几圈粗糙的尼龙绳，神色担忧地看着摆放在一起的沉重钢琴和高大的红木书柜，以及旁边几个高大却轻飘飘的空木箱，似乎在犹豫该先加固哪个。人物站在旁边，认真地思考着。车厢里弥漫着怀旧的氛围，物品杂而不乱。人物形象参考输入的第一张，背景参考第二张。", "scene_transition": 0, "recurring_characters": ["爷爷"], "image_url": "https://file1.aitohumanize.com/file/960e13f7628e4120918854ab2b25a89f.png", "image_path": "./images/node_18.png"}}, {"id": "node_19", "content": "为了在刹车时提供最有效的保护，你应该依据什么物理量来确定物体的加固优先权？", "type": "normal", "metadata": {"knowledge_point": "惯性与质量", "primary_knowledge_point": "惯性与质量", "supporting_knowledge_points": ["重心与稳定性"], "image_prompt": "吉卜力风格，温馨货车厢。人物在光线下思索，目光在沉重钢琴和木箱间流转，手抚摩着粗麻绳，氛围怀旧且紧张。人物形象参考输入的第一张，背景参考第二张（如果有的话）。", "scene_transition": 0, "image_url": "https://file3.aitohumanize.com/file/7d1c149a1e2943a18c7d5ae419014e02.png", "image_path": "./images/node_19.png"}}, {"id": "node_20", "content": "你优先拉过粗绳穿过钢琴底座钢架，将其与车厢侧壁的加固锚点紧紧锁死在一起。", "type": "decision", "metadata": {"choice_option": "优先加固质量最大的钢琴，因为质量是决定惯性大小的唯一量度，它最难停下。", "image_prompt": "吉卜力风格，货车车厢内，人物神情专注地拉着粗麻绳，将其穿过钢琴底座铁架，与车厢壁上的铁环紧紧系牢。暖黄色的光线透过车厢门缝洒下，显得温馨怀旧。中景镜头。人物形象参考输入的第一张，背景参考第二张。", "scene_transition": 0, "image_url": "https://file1.aitohumanize.com/file/cbc5b083209c43258c5a91e1e873ffae.png", "image_path": "./images/node_20.png"}}, {"id": "node_21", "content": "路上遭遇急刹车，钢琴在惯性冲击下依然纹丝不动，确保了前方驾驶室与挡板的安全。", "type": "ep_end", "metadata": {"physics_knowledge": "惯性与质量\n\n解析：在急刹车场景下，物体由于惯性会保持原有的运动状态。因为钢琴的质量远大于其他杂物，它的惯性也就最大，这意味着改变其运动状态需要更巨大的力。优先加固钢琴能防止大质量物体产生毁灭性撞击。\n\n知识点：惯性是物体保持原有运动状态不变的性质，是物体的固有属性。质量是惯性大小的唯一量度，与物体的运动速度、受力情况和体积大小均无关。质量越大，惯性越大，运动状态越难改变。", "chapter_title": "第5关 护航：识别加固优先权", "knowledge_point": "惯性与质量", "primary_knowledge_point": "惯性与质量", "supporting_knowledge_points": ["重心与稳定性"], "knowledge_role_in_this_level": "主知识点推进", "image_prompt": "吉卜力风格，阳光透过货车车厢缝隙，钢琴被绳索紧紧固定，急刹车下依然稳如泰山。人物形象参考输入的第一张。", "scene_transition": 0, "image_url": "https://file3.aitohumanize.com/file/7a2defc04d7545f683a89ffb20ff76e8.png", "image_path": "./images/node_21.png"}}, {"id": "node_20_branch_1_decision", "content": "你盯着车厢里最显眼的大木箱，认为它体积这么大，冲起来肯定最危险，便绑住了它。", "type": "decision", "metadata": {"choice_option": "优先加固体积最大的木箱，因为占据空间越大的物体惯性就越大，碰撞范围广。", "image_prompt": "人物眉头紧锁，神情严肃，正忙碌地用几圈粗糙的绳子将一个体积硕大的木箱固定在昏暗的车厢侧壁上。背景中，阳光透过货车后门缝隙照进来，钢琴静静地立在深处，车厢内弥漫着怀旧的尘土气息。中景镜头，吉卜力风格。人物形象参考输入的第一张，背景参考第二张（如果有的话）。", "scene_transition": 0, "image_url": "https://file2.aitohumanize.com/file/a17cb1e16df44ad88cd1f256ec411375.png", "image_path": "./images/node_20_branch_1_decision.png"}}, {"id": "node_20_branch_1_fatal", "content": "急刹车时，轻便的大箱子虽稳，未固定的钢琴却凭巨大质量撞碎了挡板，发出巨响。", "type": "fatal", "metadata": {"explanation": "这属于“视觉感知替代物理属性”的误区。体积描述的是物体占据空间的大小，而惯性仅由质量决定。一个巨大的空箱子看起来显眼，但危险性远低于沉重的钢琴。", "physics_knowledge": "惯性与质量\n\n错误原因：这属于“视觉感知替代物理属性”的误区。体积描述的是物体占据空间的大小，而惯性仅由质量决定。一个巨大的空箱子看起来显眼，但危险性远低于沉重的钢琴。\n\n知识点：惯性是物体保持原有运动状态不变的固有属性，质量是衡量惯性大小的唯一量度。体积大不等于惯性大，判断急刹车时谁更危险，应抓住质量这一核心物理量。", "knowledge_point": "惯性与质量", "primary_knowledge_point": "惯性与质量", "supporting_knowledge_points": ["重心与稳定性"], "knowledge_role_in_this_level": "主知识点推进", "wrong_explanation": "这属于“视觉感知替代物理属性”的误区。体积描述的是物体占据空间的大小，而惯性仅由质量决定。一个巨大的空箱子看起来显眼，但危险性远低于沉重的钢琴。", "correct_knowledge_ref": "惯性是物体保持原有运动状态不变的性质，是物体的固有属性。质量是惯性大小的唯一量度，与物体的运动速度、受力情况和体积大小均无关。质量越大，惯性越大，运动状态越难改变。", "image_prompt": "吉卜力风格。人物双手抱头，惊恐地跌坐在车厢角落，背景中沉重的钢琴在急刹车下猛烈撞碎木质挡板，木屑飞溅，氛围混乱而惊慌。画面采用中景构图。人物形象参考输入的第一张，背景参考第二张。", "scene_transition": 0, "image_url": "https://file4.aitohumanize.com/file/9725f1121f5d41b3baadef28dd68e851.png", "image_path": "./images/node_20_branch_1_fatal.png"}}, {"id": "node_20_branch_2_decision", "content": "你观察到地板上有些小物件滑动速度较快，认为高速运动意味着大惯性，赶紧去绑它们。", "type": "decision", "metadata": {"choice_option": "优先加固滑动速度快的物件，因为速度越快的物体惯性越大，产生的冲击力强。", "image_prompt": "人物在摇晃的货车车厢内，惊慌地弯腰伸手，试图抓住地板上快速滚动的易拉罐和工具，爷爷在一旁焦急地看着。背景中，巨大的钢琴和空木箱依然摆在原位，车厢外昏黄的暮色透过后门缝隙洒进来。中景镜头，吉卜力风格，怀旧温馨。人物形象参考输入的第一张，背景参考第二张（如果有的话）。", "scene_transition": 0, "image_url": "https://file2.aitohumanize.com/file/bbdbf96f208b405f93de329fd4d708c1.png", "image_path": "./images/node_20_branch_2_decision.png"}}, {"id": "node_20_branch_2_fatal", "content": "减速时，沉重的钢琴虽然相对滑动慢，但由于惯性巨大，带着惊人冲击撞坏了固定架。", "type": "fatal", "metadata": {"explanation": "这是典型的物理概念混淆。惯性是物体的固有属性，仅与质量有关，与运动速度无关。虽然速度会影响动能和动量，但不会改变惯性大小。", "physics_knowledge": "惯性与质量\n\n错误原因：这是典型的物理概念混淆。惯性是物体的固有属性，仅与质量有关，与运动速度无关。虽然速度会影响动能和动量，但不会改变惯性大小。\n\n知识点：在车内所有物体原本一起运动的场景下，判断谁更难停下来，应看质量大小。质量越大，惯性越大，改变其运动状态越困难。", "knowledge_point": "惯性与质量", "primary_knowledge_point": "惯性与质量", "supporting_knowledge_points": ["重心与稳定性"], "knowledge_role_in_this_level": "主知识点推进", "wrong_explanation": "这是典型的物理概念混淆。惯性是物体的固有属性，仅与质量有关，与运动速度无关。虽然速度会影响动能和动量，但不会改变惯性大小。", "correct_knowledge_ref": "惯性是物体保持原有运动状态不变的性质，是物体的固有属性。质量是惯性大小的唯一量度，与物体的运动速度、受力情况和体积大小均无关。质量越大，惯性越大，运动状态越难改变。", "image_prompt": "中景视角，昏暗车厢内尘土飞扬。人物惊愕地后退，眼见沉重的钢琴挣断绳索，带着巨大的冲击力撞坏木架。温暖的余晖从缝隙洒入，映照着这混乱的一刻。人物形象参考输入的第一张，背景参考第二张。", "scene_transition": 0, "image_url": "https://file5.aitohumanize.com/file/aa6e75a8dd3b46b583998f67c50cbd90.png", "image_path": "./images/node_20_branch_2_fatal.png"}}, {"id": "node_22", "content": "货车顺利抵达新家，但推开门准备卸货时，屋里突然跳闸断电。我们需要从宏观的电路排查开始，恢复家里的光明。新家客厅亮起一瞬并熄灭了。原来是爷爷插上一个破旧插排时发生了短路，导致空气开关自动跳闸。爷爷催你赶紧把开关拨回去恢复照明。在电气安全面前，盲目合闸可能会引发更严重的后果。", "type": "ep_start", "metadata": {"chapter_title": "第6关 黑暗：科学排查断电", "knowledge_point": "家庭电路与安全用电", "primary_knowledge_point": "家庭电路与安全用电", "supporting_knowledge_points": ["惯性与质量"], "knowledge_role_in_this_level": "主知识点推进", "image_prompt": "中景，昏暗的客厅中，一个老旧的插排孤零零地插在墙上。人物微微低头，眼神有些迷茫地看着周围突如其来的黑暗。爷爷站在不远处的配电箱旁，手正伸向一个开关，面带焦急。窗外透进一点微弱的余晖，更显屋内的宁静和一丝失落。吉卜力风格。人物形象参考输入的第一张，背景参考第二张。", "scene_transition": 1, "recurring_characters": ["爷爷"], "image_url": "https://file5.aitohumanize.com/file/6d35afb877714647ae9b01be2999ccb5.png", "image_path": "./images/node_22.png"}}, {"id": "node_23", "content": "为了安全并成功恢复供电，你该按照什么科学顺序进行操作？", "type": "normal", "metadata": {"knowledge_point": "家庭电路与安全用电", "primary_knowledge_point": "家庭电路与安全用电", "supporting_knowledge_points": ["惯性与质量"], "image_prompt": "中景，爷爷在一旁焦急地催促，人物站在略显破旧的配电箱前，借着手电筒微弱的光束，眉头微皱，正谨慎地伸手去拔插在墙上的那个缠满胶带的旧插排，画面温馨怀旧。人物形象参考输入的第一张，背景参考第二张（如果有的话）。", "scene_transition": 0, "image_url": "https://file3.aitohumanize.com/file/c45f0d36bdcc44d5ac94f79822cc44b0.png", "image_path": "./images/node_23.png"}}, {"id": "node_24", "content": "你迅速拔掉了那个缠满胶带的旧插排，然后回到配电箱前，将空气开关向上推至复位。", "type": "decision", "metadata": {"choice_option": "先拔掉引起跳闸的疑似故障插排，排除短路点后再将空气开关拨回开启位置。", "image_prompt": "人物弯腰用力将旧插排拔下，随后来到配电箱前，伸手将跳闸的空气开关向上推至复位。背景是温馨怀旧的客厅，光线略暗。近景。人物形象参考输入的第一张。", "scene_transition": 1, "image_url": "https://file3.aitohumanize.com/file/6c7335a264764202b5757f94cb561ead.png", "image_path": "./images/node_24.png"}}, {"id": "node_25", "content": "随着“咔哒”一声，屋里的吊灯重新亮起，电路恢复正常，没有再次发生跳闸事故。", "type": "ep_end", "metadata": {"physics_knowledge": "家庭电路与安全用电\n\n解析：空气开关跳闸是由于电路电流过大触发的保护机制。安全用电的核心逻辑是“故障不排除，严禁合闸”。先移除故障支路后再复位，才能避免再次发生短路冲击。\n\n知识点：空气开关（断路器）是现代家庭电路的安全屏障。当干路电流超过额定值时，它会自动切断电路。操作规程要求必须先查明原因并消除过载或短路点，方可进行合闸复位，否则会损坏设备或引发火灾。", "chapter_title": "第6关 黑暗：科学排查断电", "knowledge_point": "家庭电路与安全用电", "primary_knowledge_point": "家庭电路与安全用电", "supporting_knowledge_points": ["惯性与质量"], "knowledge_role_in_this_level": "主知识点推进", "image_prompt": "人物站在墙边轻触开关，转头看向屋顶，脸上露出安心的微笑。原本昏暗的客厅瞬间被头顶硕大的吊灯点亮，暖黄色的光柔和地洒在木质家具上，营造出温馨怀旧的吉卜力氛围。中景构图。人物形象参考输入的第一张，背景参考第二张（如果有的话）。", "scene_transition": 0, "image_url": "https://file1.aitohumanize.com/file/aa330d8508bb4010b11d6541f90893f3.png", "image_path": "./images/node_25.png"}}, {"id": "node_24_branch_1_decision", "content": "你没有处理插排，直接伸手去拨配电箱里的开关，试图先用最简单的方法恢复电力。", "type": "decision", "metadata": {"choice_option": "先直接将跳闸的开关强行拨回原位，如果再次跳闸再考虑去检查插排是否有故障。", "image_prompt": "人物神情专注，在昏暗的走廊里伸手拨动墙上金属电箱里的黑色开关。周围堆满搬家纸箱，光影柔和却透着一丝不安。中近景构图，吉卜力风格，怀旧的旧物质感。人物形象参考输入的第一张，背景参考第二张（如果有的话）。", "scene_transition": 0, "image_url": "https://file1.aitohumanize.com/file/d48bbabb733a498cb763479c67486e9f.png", "image_path": "./images/node_24_branch_1_decision.png"}}, {"id": "node_24_branch_1_fatal", "content": "开关刚拨上一半，就迸发出一道刺眼的电火花并再次剧烈弹回，电箱里传出阵阵焦糊味。", "type": "fatal", "metadata": {"explanation": "这属于“不排查先复位”的危险尝试。如果短路故障依然存在，直接合闸就意味着让巨大的短路电流再次冲击线路。", "physics_knowledge": "家庭电路与安全用电\n\n错误原因：这属于“不排查先复位”的危险尝试。如果短路故障依然存在，直接合闸就意味着让巨大的短路电流再次冲击线路。\n\n知识点：空气开关的作用是在线路异常时及时切断电路。若在未排除故障的情况下强行合闸，可能导致开关触点烧蚀、导线过热甚至引发火灾。正确操作应先排除故障源，再复位。", "knowledge_point": "家庭电路与安全用电", "primary_knowledge_point": "家庭电路与安全用电", "supporting_knowledge_points": ["惯性与质量"], "knowledge_role_in_this_level": "主知识点推进", "wrong_explanation": "这属于“不排查先复位”的危险尝试。如果短路故障依然存在，直接合闸就意味着让巨大的短路电流再次冲击线路。", "correct_knowledge_ref": "空气开关（断路器）是现代家庭电路的安全屏障。当干路电流超过额定值时，它会自动切断电路。操作规程要求必须先查明原因并消除过载或短路点，方可进行合闸复位，否则会损坏设备或引发火灾。", "image_prompt": "中景视角下，人物在昏暗的老屋里伸手拨动电箱开关。指缝间猛然炸开一团刺眼的亮白火花，人物惊得缩手后退，脸上满是错愕。配电箱冒出丝丝青烟，陈旧的木墙在火光中忽明忽暗，氛围紧张而怀旧。人物形象参考输入的第一张，背景参考第二张。", "scene_transition": 0, "image_url": "https://file5.aitohumanize.com/file/bcffdb1d93154854b5b9dbe070787e7b.png", "image_path": "./images/node_24_branch_1_fatal.png"}}, {"id": "node_24_branch_2_decision", "content": "你握住开关把手连续快速上下拨动，希望通过“大力出奇迹”的方式让电路重新连通。", "type": "decision", "metadata": {"choice_option": "先连续多次快速尝试合闸操作，认为通过电流的瞬间冲击可以自动冲开电路障碍。", "image_prompt": "昏暗的走廊里，人物神情焦急，正快速反复地拨动墙上配电箱的开关。柔和光线下，老屋氛围怀旧且压抑。中景镜头捕捉到这慌乱的一幕。人物形象参考输入的第一张，背景参考第二张（如果有的话）。", "scene_transition": 0, "image_url": "https://file3.aitohumanize.com/file/e2ae3d9582dd48e7b063c0a50303ad7b.png", "image_path": "./images/node_24_branch_2_decision.png"}}, {"id": "node_24_branch_2_fatal", "content": "连续的电流冲击导致插座处冒出浓烟，空气开关内部保护机构因过热而彻底卡死失效。", "type": "fatal", "metadata": {"explanation": "这是一种极度危险的经验主义误用。短路点是电流的“捷径”而非“障碍”，多次合闸会使短路点积聚巨大热量。强行操作会破坏开关的机械保护寿命，甚至导致配电箱整体报废。", "physics_knowledge": "家庭电路与安全用电\n\n错误原因：这是一种极度危险的经验主义误用。短路点是电流的“捷径”而非“障碍”，多次合闸会使短路点积聚巨大热量。强行操作会破坏开关的机械保护寿命，甚至导致配电箱整体报废。\n\n知识点：家庭电路发生短路或过载时，空气开关会自动跳闸以切断异常电流。若未排除故障而反复合闸，瞬时大电流会带来严重的热效应和安全风险。因此，规范的操作流程是先查明并消除故障点，再进行复位。", "knowledge_point": "家庭电路与安全用电", "primary_knowledge_point": "家庭电路与安全用电", "supporting_knowledge_points": ["惯性与质量"], "knowledge_role_in_this_level": "主知识点推进", "wrong_explanation": "这是一种极度危险的经验主义误用。短路点是电流的“捷径”而非“障碍”，多次合闸会使短路点积聚巨大热量。强行操作会破坏开关的机械保护寿命，甚至导致配电箱整体报废。", "correct_knowledge_ref": "空气开关（断路器）是现代家庭电路的安全屏障。当干路电流超过额定值时，它会自动切断电路。操作规程要求必须先查明原因并消除过载或短路点，方可进行合闸复位，否则会损坏设备或引发火灾。", "image_prompt": "吉卜力风格。中景镜头，人物神情焦急地反复拨动墙上的电闸，指尖因用力而泛白。昏暗的玄关处，老旧插排正冒出刺鼻浓烟，焦糊的空气中透着危险的火光，紧张的氛围打破了屋内的宁静。人物形象参考输入的第一张，背景参考第二张（如果有的话）。", "scene_transition": 0, "image_url": "https://file5.aitohumanize.com/file/916dea4a6f8a4217817a737eb7c6fd8c.png", "image_path": "./images/node_24_branch_2_fatal.png"}}, {"id": "node_26", "content": "大厅亮了，但书房的灯开关坏了。你断开总闸后，准备更换开关。爷爷拿来测电笔和两根待接导线，说家里老房子的线颜色有些旧了，不能只凭外观看。你需要先判断哪一根才是火线，才能把开关安全地接上去。", "type": "ep_start", "metadata": {"chapter_title": "第7关 明亮：找出真正的火线", "knowledge_point": "家庭电路与安全用电", "primary_knowledge_point": "家庭电路与安全用电", "supporting_knowledge_points": [], "knowledge_role_in_this_level": "主知识点复用", "image_prompt": "人物在光线昏暗的书房里专注地俯身，正要检查墙上垂下的两根旧电线，身旁的爷爷关切地递上一支细长的测电笔。中景构图下，柔和的暖光洒在旧木家具上，营造出静谧温馨的怀旧感。人物形象参考输入的第一张，背景参考第二张。", "scene_transition": 1, "recurring_characters": ["爷爷"], "image_url": "https://file2.aitohumanize.com/file/260849eb6e2340dead0cad9edf179ace.png", "image_path": "./images/node_26.png"}}, {"id": "node_27", "content": "如果要用测电笔和已有线索判断哪根导线是火线，你应该依据什么来判断？", "type": "normal", "metadata": {"knowledge_point": "家庭电路与安全用电", "primary_knowledge_point": "家庭电路与安全用电", "supporting_knowledge_points": [], "image_prompt": "人物神情专注，指尖轻抵测电笔，正小心靠近墙上垂下的旧导线，爷爷在旁好奇注视。昏黄书房内尘埃微动，氛围温馨怀旧。中近景，聚焦指尖操作。人物形象参考输入的第一张，背景参考第二张。", "scene_transition": 0, "image_url": "https://file3.aitohumanize.com/file/69687d6f5330404cba4449908722e429.png", "image_path": "./images/node_27.png"}}, {"id": "node_28", "content": "你按规范操作测电笔，发现其中一根导线能让氖管发光，于是确认它是火线，再把开关串联接在这根线上。", "type": "decision", "metadata": {"choice_option": "判断测电笔氖管发光的导线为火线，并将开关接在这根线上。", "image_prompt": "人物神情专注，正小心地用测电笔轻触旧电线，笔身中亮起微弱而温暖的橘红光芒。背景是充满岁月痕迹的书房，午后阳光洒在斑驳墙面上，氛围宁静温馨。近景视角，捕捉人物认真的侧脸。人物形象参考输入的第一张，背景参考第二张（如果有的话）", "scene_transition": 0, "image_url": "https://file3.aitohumanize.com/file/cf98c49d0a07415a8553b46245b029db.png", "image_path": "./images/node_28.png"}}, {"id": "node_29", "content": "测试成功，灯具正常亮灭；关灯后灯头不再带电，以后更换灯泡时也更安全了。", "type": "ep_end", "metadata": {"physics_knowledge": "家庭电路与安全用电\n\n解析：测电笔接触导线时，若氖管发光，说明该导线与大地之间存在较高电位差，通常就是火线。先正确识别火线，再把开关接在火线上，才能确保开关断开后灯头不再处于带电状态。\n\n知识点：在家庭电路中，测电笔氖管发光的一般是火线，不发光的一般是零线。控制电灯的开关应安装在火线上，这样断开开关后，灯头与火线断开，更换灯泡或检修时更安全。", "chapter_title": "第7关 明亮：找出真正的火线", "knowledge_point": "家庭电路与安全用电", "primary_knowledge_point": "家庭电路与安全用电", "supporting_knowledge_points": [], "knowledge_role_in_this_level": "主知识点复用", "image_prompt": "中景视角，人物轻拨开关，暖黄灯光洒满温馨旧书房。人物看着亮起的吊灯露出欣慰笑容，衣袖沾着劳作的油迹，充满吉卜力式的怀旧氛围。人物形象参考输入的第一张，背景参考第二张（如果有的话）。", "scene_transition": 0, "image_url": "https://file4.aitohumanize.com/file/93a01a4c26a84d1b80076dfa926e2118.png", "image_path": "./images/node_29.png"}}, {"id": "node_28_branch_1_decision", "content": "你看到另一根导线接触测电笔时氖管不亮，便误以为“不亮的那根才更危险”，于是把它当成火线。", "type": "decision", "metadata": {"choice_option": "判断测电笔氖管不发光的导线为火线，并将开关接在这根线上。", "image_prompt": "", "scene_transition": 0, "image_url": "https://file1.aitohumanize.com/file/40165014af2c4a09a842b89b305d6895.png", "image_path": "./images/node_28_branch_1_decision.png"}}, {"id": "node_28_branch_1_fatal", "content": "接线完成后虽然灯也可能亮灭正常，但真正的火线并没有被开关切断，灯头仍然带电，留下了明显的安全隐患。", "type": "fatal", "metadata": {"explanation": "这属于把测电笔现象理解反了的误区。测电笔氖管发光，恰恰说明该导线与大地之间有较高电位差，通常是火线；不发光的一般是零线。", "physics_knowledge": "家庭电路与安全用电\n\n错误原因：这属于把测电笔现象理解反了的误区。测电笔氖管发光，恰恰说明该导线与大地之间有较高电位差，通常是火线；不发光的一般是零线。\n\n知识点：测电笔的作用是判断导线是否带电。正确使用时，若氖管发光，说明有微弱电流通过人体与大地形成回路，该导线通常为火线。若氖管不发光，一般说明这根导线电位接近地电位，通常为零线。若将不发光的零线误判为火线并把开关接在其上，虽然灯泡可能仍能受控，但关灯后灯头仍与真正的火线相连，存在触电风险。", "knowledge_point": "家庭电路与安全用电", "primary_knowledge_point": "家庭电路与安全用电", "supporting_knowledge_points": [], "knowledge_role_in_this_level": "主知识点复用", "wrong_explanation": "这属于把测电笔现象理解反了的误区。测电笔氖管发光，恰恰说明该导线与大地之间有较高电位差，通常是火线；不发光的一般是零线。", "correct_knowledge_ref": "在家庭电路中，测电笔氖管发光的一般是火线，不发光的一般是零线。控制电灯的开关应安装在火线上，这样断开开关后，灯头与火线断开，更换灯泡或检修时更安全。", "image_prompt": "人物如释重负地擦拭额头，欣慰地看着书房吊灯重新散发暖光。老旧的书房被昏黄光线笼罩，充满怀旧气息，人物身后的影子长长地投射在木质书架上。中景视角，捕捉这一刻看似圆满的温馨瞬间。人物形象参考输入的第一张，背景参考第二张（如果有的话）。", "scene_transition": 1, "image_url": "https://file4.aitohumanize.com/file/d05794430c974b92811a3dc2700cf39a.png", "image_path": "./images/node_28_branch_1_fatal.png"}}, {"id": "node_28_branch_2_decision", "content": "你看到其中一根导线外皮偏红，就直接把它当成火线，没有再用测电笔认真确认。", "type": "decision", "metadata": {"choice_option": "认为红色电线常作火线，所以只凭导线颜色直接判断火线。", "image_prompt": "人物在昏暗的书房里，正低头看着手中两根旧导线，指尖犹豫地捏起那根偏红色的线，表情显得有些草率。 background: 爷爷站在旁边，手里拿着测电笔，微微皱眉。背景是杂乱的书架和老旧的墙壁，光线微弱而温馨。 composition: 中景，聚焦人物的动作和表情。 人物形象参考输入的第一张。", "scene_transition": 0, "image_url": "https://file4.aitohumanize.com/file/6800242fd59a4690b2c68d668190b45f.png", "image_path": "./images/node_28_branch_2_decision.png"}}, {"id": "node_28_branch_2_fatal", "content": "可这套旧房线路经过多次维修，导线颜色早已不完全可靠。你贸然按颜色接线，差点把开关接错位置。", "type": "fatal", "metadata": {"explanation": "这属于把“常见经验”当成“绝对判断依据”的误区。红色导线确实常被用作火线，但在旧房、改装线路或不规范施工中，颜色并不一定可靠，不能替代实际检测。", "physics_knowledge": "家庭电路与安全用电\n\n错误原因：这属于把“常见经验”当成“绝对判断依据”的误区。红色导线确实常被用作火线，但在旧房、改装线路或不规范施工中，颜色并不一定可靠，不能替代实际检测。\n\n知识点：家庭电路中导线颜色有常见习惯，但颜色标识只是辅助信息，不是最可靠的物理判断依据。判断火线应优先使用测电笔等检测工具，依据导线是否带电来确认。尤其在老旧线路或维修过的线路中，单凭颜色判断很容易出错。安全用电要求以实际检测结果为准，而不能只凭经验印象接线。", "knowledge_point": "家庭电路与安全用电", "primary_knowledge_point": "家庭电路与安全用电", "supporting_knowledge_points": [], "knowledge_role_in_this_level": "主知识点复用", "wrong_explanation": "这属于把“常见经验”当成“绝对判断依据”的误区。红色导线确实常被用作火线，但在旧房、改装线路或不规范施工中，颜色并不一定可靠，不能替代实际检测。", "correct_knowledge_ref": "在家庭电路中，测电笔氖管发光的一般是火线，不发光的一般是零线。控制电灯的开关应安装在火线上，这样断开开关后，灯头与火线断开，更换灯泡或检修时更安全。", "image_prompt": "人物在昏暗的书房里，手里拿着两根颜色斑驳的旧导线，脸上露出迟疑和后怕的神情。书房里只有一盏微弱的灯泡照亮，墙壁上贴满了旧报纸和照片。人物形象参考输入的第一张，背景参考第二张。", "scene_transition": 0, "image_url": "https://file5.aitohumanize.com/file/5ade814cd5124b1aa8be04e64020551c.png", "image_path": "./images/node_28_branch_2_fatal.png"}}, {"id": "node_30", "content": "书房也亮了，搬家任务圆满结束。看着身上沾满的搬运油垢，我们需要利用最后的化学常识进行彻底清理。忙碌一天，衣服上蹭了不少重油垢。你滴了几滴洗洁精并用力揉搓，原本顽固的油渍很快消失在水中。爷爷好奇地问：“这洗洁精是像强酸一样把油化掉了，还是像盐溶在水里一样把油溶解了？”", "type": "ep_start", "metadata": {"chapter_title": "第8关 终局：油污乳化之谜", "knowledge_point": "洗涤剂与乳化作用", "primary_knowledge_point": "洗涤剂与乳化作用", "supporting_knowledge_points": ["家庭电路与安全用电"], "knowledge_role_in_this_level": "主知识点推进", "image_prompt": "人物挽起袖子，在温润的灯光下低头揉搓沾了油渍的衣物，盆中泛起细密泡沫。爷爷站在一旁，眼神充满好奇。老房子的背景昏黄温馨，充满怀旧感。中景构图，捕捉劳作后的宁静。人物形象参考输入的第一张，背景参考第二张。", "scene_transition": 1, "recurring_characters": ["爷爷"], "image_url": "https://file5.aitohumanize.com/file/bb30509668c24def9274633b45858585.png", "image_path": "./images/node_30.png"}}, {"id": "node_31", "content": "为了准确向爷爷解释去污机理，你应该如何描述洗洁精去除油污的科学本质？", "type": "normal", "metadata": {"knowledge_point": "洗涤剂与乳化作用", "primary_knowledge_point": "洗涤剂与乳化作用", "supporting_knowledge_points": ["家庭电路与安全用电"], "image_prompt": "人物揉搓泡沫衣领向爷爷解释，水盆里泛起白沫。中景吉卜力画风，夕阳余晖下氛围温馨怀旧。人物形象参考输入的第一张，背景参考第二张。", "scene_transition": 0, "recurring_characters": ["爷爷"], "image_url": "https://file2.aitohumanize.com/file/a575d9f2299448e4b450e5ecac2461d7.png", "image_path": "./images/node_31.png"}}, {"id": "node_32", "content": "你解释着“乳化”概念，揉搓中清水变成了乳白色的浊液，油污随之脱离了纤维。", "type": "decision", "metadata": {"choice_option": "洗洁精通过乳化作用将大油滴破碎成微小液滴，并使其稳定地分散在水中。", "image_prompt": "人物在暖阳下搓洗衣服并轻声解释，盆中水色渐成乳白，油渍随之脱离。背景是温馨怀旧的民居小院，光影斑驳。中景视角，吉卜力治愈风格。人物形象参考输入的第一张，背景参考第二张（如果有的话）。", "scene_transition": 0, "image_url": "https://file2.aitohumanize.com/file/d527b8356d5141bbb1dc2edf05f395ea.png", "image_path": "./images/node_32.png"}}, {"id": "node_33", "content": "油污不再黏附在衣物上，随着清水冲洗消失得无影无踪，衣服恢复了原本的洁净。", "type": "ep_end", "metadata": {"physics_knowledge": "洗涤剂与乳化作用\n\n解析：洗洁精含有表面活性剂，其分子的亲油基吸附在油滴上，亲水基伸向水中。通过揉搓将大油滴分散成无数微小液滴并稳定悬浮，形成乳浊液。这是一种物理分散过程，能高效去污而不破坏物质本身的化学性质。\n\n知识点：乳化作用是指表面活性剂使两种互不相溶的液体（如油和水）形成稳定乳浊液的过程。乳化剂能显著降低界面张力，使微小液滴表面形成保护膜防止聚集。这是日常洗涤剂最核心的工作原理。", "chapter_title": "第8关 终局：油污乳化之谜", "knowledge_point": "洗涤剂与乳化作用", "primary_knowledge_point": "洗涤剂与乳化作用", "supporting_knowledge_points": ["家庭电路与安全用电"], "knowledge_role_in_this_level": "主知识点推进", "image_prompt": "人物面带笑容，拎起洗净的衬衫，晶莹水滴在暖阳下闪烁。背景是温馨怀旧的老屋一角，水盆边浮着细腻泡沫。中景构图，氛围宁静圆满。人物形象参考输入的第一张，背景参考第二张。", "scene_transition": 0, "image_url": "https://file2.aitohumanize.com/file/dd9884ec7d3f445e8cc2d4d43a76bffc.png", "image_path": "./images/node_33.png"}}, {"id": "node_32_branch_1_decision", "content": "你告诉爷爷这就像糖化在水里，于是盲目加大了洗洁精用量，试图实现“全溶解”。", "type": "decision", "metadata": {"choice_option": "洗洁精通过溶解作用让油污像砂糖一样，以分子形式均匀且透明地扩散在水中。", "image_prompt": "人物正兴致勃勃地往水盆里倾倒大量洗洁精，神色自信地向身旁的爷爷比划着。暖阳照进怀旧的洗手间，盆中积满了厚厚的白色泡沫，液体显得愈发粘稠。中景镜头下，温馨的居家氛围伴随着氤氲的水汽。人物形象参考输入的第一张，背景参考第二张。", "scene_transition": 0, "recurring_characters": ["爷爷"], "image_url": "https://file5.aitohumanize.com/file/8e546064ac4d4b1c886da8a43cdde5ef.png", "image_path": "./images/node_32_branch_1_decision.png"}}, {"id": "node_32_branch_1_fatal", "content": "水变得极其粘稠浑浊而非透明，你发现单纯靠“溶解”的理解无法解释水变白的现象。", "type": "fatal", "metadata": {"explanation": "这属于“溶解与乳化”的概念混淆。溶解形成的是透明溶液，而洗洁精去油后常出现乳白色浊液，说明这里发生的是乳化而不是普通溶解。", "physics_knowledge": "洗涤剂与乳化作用\n\n错误原因：这属于“溶解与乳化”的概念混淆。溶解形成的是透明溶液，而洗洁精去油后常出现乳白色浊液，说明这里发生的是乳化而不是普通溶解。\n\n知识点：乳化是利用表面活性剂让油类物质分散成微小液滴并稳定悬浮在水中，与溶质以分子或离子形式分散的溶解现象不同。理解这种区别，有助于学生准确区分日常生活中的相近概念。", "knowledge_point": "洗涤剂与乳化作用", "primary_knowledge_point": "洗涤剂与乳化作用", "supporting_knowledge_points": ["家庭电路与安全用电"], "knowledge_role_in_this_level": "主知识点推进", "wrong_explanation": "这属于“溶解与乳化”的概念混淆。溶解形成的是透明溶液，而洗洁精去油后常出现乳白色浊液，说明这里发生的是乳化而不是普通溶解。", "correct_knowledge_ref": "乳化作用是指表面活性剂使两种互不相溶的液体（如油和水）形成稳定乳浊液的过程。乳化剂能显著降低界面张力，使微小液滴表面形成保护膜防止聚集。这是日常洗涤剂最核心的工作原理。", "image_prompt": "人物蹲在洒满阳光的院子，困惑地盯着盆里浑浊如奶的浓稠白液。爷爷好奇地凑近观察，柔和光线下是温馨的吉卜力画风。人物形象参考输入的第一张，背景参考第二张。", "scene_transition": 1, "image_url": "https://file3.aitohumanize.com/file/318544c8f4424ccc826efb9c4ec9be3e.png", "image_path": "./images/node_32_branch_1_fatal.png"}}, {"id": "node_32_branch_2_decision", "content": "你点头赞同爷爷关于“烧掉”的猜测，认为这是一种中和反应，甚至想加热来加速反应。", "type": "decision", "metadata": {"choice_option": "洗洁精通过化学反应改变了油污性质，将原本的重油转化成了易溶于水的物质。", "image_prompt": "在温馨怀旧的书房中，人物面带兴奋，用力点头，眼神充满期待，似乎在热烈地谈论着某个想法。吉卜力风格，中景。人物形象参考输入的第一张，背景参考第二张。", "scene_transition": 1, "recurring_characters": ["爷爷"], "image_url": "https://file1.aitohumanize.com/file/ccbd12f3e3894c8cb50cb0fd25cb5f44.png", "image_path": "./images/node_32_branch_2_decision.png"}}, {"id": "node_32_branch_2_fatal", "content": "你发现即使不加热也能去油，且洗后的水依然带有油味，说明这里并不是把油污转化成了全新的物质。", "type": "fatal", "metadata": {"explanation": "这属于把去污过程想成“化学转化”的误区。洗洁精去油主要依靠物理性的乳化分散，而不是把油污彻底变成另一种物质。", "physics_knowledge": "洗涤剂与乳化作用\n\n错误原因：这属于把去污过程想成“化学转化”的误区。洗洁精去油主要依靠物理性的乳化分散，而不是把油污彻底变成另一种物质。\n\n知识点：洗洁精分子具有亲水端和亲油端，能吸附在油滴表面，帮助油污分散到水中并被冲走。这一过程的核心是乳化，不是酸碱中和等化学反应。", "knowledge_point": "洗涤剂与乳化作用", "primary_knowledge_point": "洗涤剂与乳化作用", "supporting_knowledge_points": ["家庭电路与安全用电"], "knowledge_role_in_this_level": "主知识点推进", "wrong_explanation": "这属于把去污过程想成“化学转化”的误区。洗洁精去油主要依靠物理性的乳化分散，而不是把油污彻底变成另一种物质。", "correct_knowledge_ref": "乳化作用是指表面活性剂使两种互不相溶的液体（如油和水）形成稳定乳浊液的过程。乳化剂能显著降低界面张力，使微小液滴表面形成保护膜防止聚集。这是日常洗涤剂最核心的工作原理。", "image_prompt": "吉卜力风格。近景。人物低头看着盆里的水，神情困惑地皱眉，手里还抓着衣领。爷爷在一旁探头看着。背景是温馨的洗衣房，木盆里水混浊。人物形象参考输入的第一张。", "scene_transition": 1, "image_url": "https://file3.aitohumanize.com/file/b4cd4c4f6f744c389d95c95dc65399b2.png", "image_path": "./images/node_32_branch_2_fatal.png"}}, {"id": "node_34", "content": "故事结束。", "type": "ending", "metadata": {"image_prompt": "吉卜力风，中景。人物和爷爷站在刚布置好的温馨书房里，相视大笑，爷爷欣慰地拍着人物肩膀。窗外透进柔和的夕阳金光，房间里弥漫着怀旧温馨的氛围，搬家圆满结束。人物形象参考输入的第一张。", "scene_transition": 1, "image_url": "https://file3.aitohumanize.com/file/4fac5051e9904d49ae3bc4e7c77f35e1.png", "image_path": "./images/node_34.png"}}], "edges": {"node_1": ["node_2"], "node_2": ["node_3"], "node_4": ["node_5"], "node_4_branch_1_decision": ["node_4_branch_1_fatal"], "node_4_branch_1_fatal": ["node_3"], "node_4_branch_2_decision": ["node_4_branch_2_fatal"], "node_4_branch_2_fatal": ["node_3"], "node_3": ["node_4", "node_4_branch_1_decision", "node_4_branch_2_decision"], "node_5": ["node_6"], "node_6": ["node_7"], "node_8": ["node_9"], "node_8_branch_1_decision": ["node_8_branch_1_fatal"], "node_8_branch_1_fatal": ["node_7"], "node_8_branch_2_decision": ["node_8_branch_2_fatal"], "node_8_branch_2_fatal": ["node_7"], "node_7": ["node_8", "node_8_branch_1_decision", "node_8_branch_2_decision"], "node_9": ["node_10"], "node_10": ["node_11"], "node_12": ["node_13"], "node_12_branch_1_decision": ["node_12_branch_1_fatal"], "node_12_branch_1_fatal": ["node_11"], "node_12_branch_2_decision": ["node_12_branch_2_fatal"], "node_12_branch_2_fatal": ["node_11"], "node_11": ["node_12", "node_12_branch_1_decision", "node_12_branch_2_decision"], "node_13": ["node_14"], "node_14": ["node_15"], "node_16": ["node_17"], "node_16_branch_1_decision": ["node_16_branch_1_fatal"], "node_16_branch_1_fatal": ["node_15"], "node_16_branch_2_decision": ["node_16_branch_2_fatal"], "node_16_branch_2_fatal": ["node_15"], "node_15": ["node_16", "node_16_branch_1_decision", "node_16_branch_2_decision"], "node_17": ["node_18"], "node_18": ["node_19"], "node_20": ["node_21"], "node_20_branch_1_decision": ["node_20_branch_1_fatal"], "node_20_branch_1_fatal": ["node_19"], "node_20_branch_2_decision": ["node_20_branch_2_fatal"], "node_20_branch_2_fatal": ["node_19"], "node_19": ["node_20", "node_20_branch_1_decision", "node_20_branch_2_decision"], "node_21": ["node_22"], "node_22": ["node_23"], "node_24": ["node_25"], "node_24_branch_1_decision": ["node_24_branch_1_fatal"], "node_24_branch_1_fatal": ["node_23"], "node_24_branch_2_decision": ["node_24_branch_2_fatal"], "node_24_branch_2_fatal": ["node_23"], "node_23": ["node_24", "node_24_branch_1_decision", "node_24_branch_2_decision"], "node_25": ["node_26"], "node_26": ["node_27"], "node_28": ["node_29"], "node_28_branch_1_decision": ["node_28_branch_1_fatal"], "node_28_branch_1_fatal": ["node_27"], "node_28_branch_2_decision": ["node_28_branch_2_fatal"], "node_28_branch_2_fatal": ["node_27"], "node_27": ["node_28", "node_28_branch_1_decision", "node_28_branch_2_decision"], "node_29": ["node_30"], "node_30": ["node_31"], "node_32": ["node_33"], "node_32_branch_1_decision": ["node_32_branch_1_fatal"], "node_32_branch_1_fatal": ["node_31"], "node_32_branch_2_decision": ["node_32_branch_2_fatal"], "node_32_branch_2_fatal": ["node_31"], "node_31": ["node_32", "node_32_branch_1_decision", "node_32_branch_2_decision"], "node_33": ["node_34"]}, "start_node_id": "node_1", "ending_node_ids": ["node_34"]}</script>
+    <script>
+        const typeConfig = {
+            normal: { label: 'Common Event', color: '#22c55e' },
+            decision: { label: 'Decision', color: '#3b82f6' },
+            ending: { label: 'Success End', color: '#f97316' },
+            fatal: { label: 'Failure End', color: '#334155' },
+            ep_start: { label: 'Chapter Start', color: '#f59e0b' },
+            ep_end: { label: 'Chapter End', color: '#fb7185' },
+            chapter_collapsed: { label: 'Collapsed Chapter', color: '#6366f1' }
+        };
+
+        const cardWidth = 260;
+        const cardHeight = 178;
+        const imageWidth = 236;
+        const imageHeight = 104;
+        const miniCardWidth = 22;
+        const miniCardHeight = 22;
+        const miniImageWidth = 0;
+        const miniImageHeight = 0;
+        const collapsedChapterBoxWidth = 360;
+        const collapsedChapterBoxHeight = 240;
+        const expandedChapterBoxWidth = 1120;
+        const expandedChapterBoxHeight = 748;
+        const collapsedChapterInsetX = 48;
+        const expandedChapterInsetX = 70;
+
+        const state = {
+            rawGraph: null,
+            nodes: [],
+            edges: [],
+            nodeMap: new Map(),
+            childrenMap: new Map(),
+            parentMap: new Map(),
+            chapters: [],
+            nodeToChapter: new Map(),
+            selectedNodeId: null,
+            zoom: null,
+            svg: null,
+            graphLayer: null,
+            edgeLayer: null,
+            chapterLayer: null,
+            nodeLayer: null,
+            transform: d3.zoomIdentity.translate(60, 80).scale(1),
+            positions: new Map(),
+            adjacency: new Map(),
+            reverseAdjacency: new Map(),
+            highlightedNodeSet: null,
+            highlightedEdgeSet: null,
+            highlightedChapterSet: null,
+            collapsedChapters: new Set(),
+            displayNodes: [],
+            displayEdges: [],
+            displayNodeMap: new Map(),
+            displayChildrenMap: new Map(),
+            displayNodeToSource: new Map(),
+            chapterFrameMap: new Map()
+        };
+        const graphContainer = document.getElementById('graph-container');
+        const emptyState = document.getElementById('empty-state');
+        const tooltip = document.getElementById('tooltip');
+        const statNodes = document.getElementById('stat-nodes');
+        const statChapters = document.getElementById('stat-chapters');
+        const levelDetailBadge = document.getElementById('level-detail-badge');
+        const levelDetailHeading = document.getElementById('level-detail-heading');
+        const levelDetailImage = document.getElementById('level-detail-image');
+        const levelDetailContent = document.getElementById('level-detail-content');
+        const levelDetailFields = document.getElementById('level-detail-fields');
+        const levelDetailKnowledgeSection = document.getElementById('level-detail-knowledge-section');
+        const levelDetailKnowledge = document.getElementById('level-detail-knowledge');
+        const detailImage = document.getElementById('detail-image');
+        const detailBadge = document.getElementById('detail-badge');
+        const detailCurrentNode = document.getElementById('detail-current-node');
+        const detailHeading = document.getElementById('detail-heading');
+        const detailMeta = document.getElementById('detail-meta');
+        const detailContent = document.getElementById('detail-content');
+        const detailFields = document.getElementById('detail-fields');
+        const detailPlotSection = document.getElementById('detail-plot-section');
+        const detailPlot = document.getElementById('detail-plot');
+        const detailSecondarySection = document.getElementById('detail-secondary-section');
+        const detailSecondaryTitle = document.getElementById('detail-secondary-title');
+        const detailSecondary = document.getElementById('detail-secondary');
+
+        function cleanDisplayText(text) {
+            return String(text || '')
+                .replace(/\r/g, '')
+                .replace(/\*\*/g, '')
+                .replace(/`/g, '')
+                .replace(/[•●▪]/g, '-')
+                .replace(/^[\t ]*[-*][\t ]+/gm, '')
+                .replace(/\n{3,}/g, '\n\n')
+                .trim();
+        }
+
+        function normalizeChapterTitle(title, fallbackId) {
+            const base = cleanDisplayText(title || fallbackId || 'Untitled Chapter');
+            return base.replace(/^Level\s+/i, 'Chapter ');
+        }
+
+        function splitKnowledgeSections(rawText) {
+            const sections = new Map();
+            let currentTitle = '';
+            const pushLine = (title, line) => {
+                if (!sections.has(title)) sections.set(title, []);
+                sections.get(title).push(line);
+            };
+
+            cleanDisplayText(rawText).split('\n').forEach(rawLine => {
+                const line = rawLine.trim();
+                if (!line) {
+                    if (currentTitle && sections.has(currentTitle) && sections.get(currentTitle).length) {
+                        sections.get(currentTitle).push('');
+                    }
+                    return;
+                }
+                const headingMatch = line.match(/^(Analysis|Knowledge Point|Cause of Error|Reason for Error|Failure Analysis|Explanation)\s*:\s*(.*)$/i);
+                if (headingMatch) {
+                    currentTitle = headingMatch[1].toLowerCase();
+                    if (headingMatch[2]) pushLine(currentTitle, headingMatch[2].trim());
+                    else if (!sections.has(currentTitle)) sections.set(currentTitle, []);
+                    return;
+                }
+                pushLine(currentTitle || 'body', line);
+            });
+
+            const normalized = new Map();
+            sections.forEach((lines, key) => {
+                const body = lines.join('\n').replace(/\n{3,}/g, '\n\n').trim();
+                if (body) normalized.set(key, body);
+            });
+            return normalized;
+        }
+
+        function setScrollBoxContent(element, text, fallback) {
+            element.textContent = cleanDisplayText(text || '') || fallback || 'No details available.';
+        }
+
+        function getChapterEndNode(chapter) {
+            if (!chapter || !chapter.endNodeId) return null;
+            return state.nodeMap.get(chapter.endNodeId) || null;
+        }
+
+        function getChapterKnowledgeText(chapter) {
+            const endNode = getChapterEndNode(chapter);
+            if (!endNode) return '';
+            const sections = splitKnowledgeSections(endNode.metadata?.physics_knowledge || '');
+            return sections.get('knowledge point') || cleanDisplayText(endNode.metadata?.physics_knowledge || '') || cleanDisplayText(endNode.metadata?.knowledge_point || '');
+        }
+
+        function getDecisionOptions(node) {
+            const sourceNodeId = getSourceNodeId(node.id);
+            const parentIds = state.parentMap.get(sourceNodeId) || [];
+            for (const parentId of parentIds) {
+                const siblingIds = state.childrenMap.get(parentId) || [];
+                const options = siblingIds
+                    .map(childId => state.nodeMap.get(childId))
+                    .filter(child => child && child.type === 'decision')
+                    .map((child, index) => `${index + 1}. ${cleanDisplayText(child.metadata?.choice_option || child.content || child.id)}`);
+                if (options.length) return options.join('\n\n');
+            }
+            const ownOption = cleanDisplayText(node.metadata?.choice_option || '');
+            return ownOption ? `1. ${ownOption}` : '';
+        }
+
+        function getAnalysisText(node) {
+            const metadata = node.metadata || {};
+            if (node.type === 'ep_end') {
+                return cleanDisplayText(metadata.physics_knowledge || metadata.explanation || metadata.knowledge_point || '');
+            }
+            if (node.type === 'fatal') {
+                return cleanDisplayText(metadata.explanation || metadata.wrong_explanation || metadata.physics_knowledge || '');
+            }
+            return '';
+        }
+
+        function getFallbackImage(label) {
+            const text = encodeURIComponent(label || 'Story Node');
+            return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360"><defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="%23dbeafe"/><stop offset="1" stop-color="%23ede9fe"/></linearGradient></defs><rect width="640" height="360" fill="url(%23g)"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="28" fill="%23334155">${text}</text></svg>`;
+        }
+
+        function truncateText(text, maxLength) {
+            if (!text) return '';
+            return text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
+        }
+
+        function chunkText(text, lineLength, lineCount) {
+            const source = truncateText((text || '').replace(/\s+/g, ' ').trim(), lineLength * lineCount);
+            const lines = [];
+            let remaining = source;
+            while (remaining.length > 0 && lines.length < lineCount) {
+                lines.push(remaining.slice(0, lineLength));
+                remaining = remaining.slice(lineLength);
+            }
+            return lines;
+        }
+
+        function getTypeInfo(type, metadata) {
+            if (metadata && metadata.is_prologue) {
+                return { label: 'Prologue', color: '#8b5cf6' };
+            }
+            if (type === 'ending' && metadata && (metadata.ending_type === 2 || metadata.ending_type === '2')) {
+                return { label: 'Failure End', color: '#334155' };
+            }
+            return typeConfig[type] || { label: type || 'Unknown', color: '#64748b' };
+        }
+
+        function getCollapsedId(chapterId) {
+            return `collapsed::${chapterId}`;
+        }
+
+        function getDetachedFinalChapterId(chapterId) {
+            return `final_outside::${chapterId || 'ending'}`;
+        }
+
+        function isDetachedFinalChapterId(chapterId) {
+            return String(chapterId || '').startsWith('final_outside::');
+        }
+
+        function getOwnerChapterId(chapterId) {
+            if (!isDetachedFinalChapterId(chapterId)) return chapterId;
+            return String(chapterId).slice('final_outside::'.length) || 'ending';
+        }
+
+        function getSourceNodeId(displayId) {
+            return state.displayNodeToSource.get(displayId) || displayId;
+        }
+
+        function renderDetailFields(container, fields) {
+            container.innerHTML = '';
+            const validFields = fields.filter(field => field && field.value);
+            if (!validFields.length) {
+                container.classList.add('hidden');
+                return;
+            }
+            if (container.classList.contains('inline-compact')) {
+                const summary = document.createElement('div');
+                summary.className = 'detail-inline-summary';
+                validFields.forEach(field => {
+                    const item = document.createElement('div');
+                    item.className = 'detail-inline-summary-item';
+                    const label = document.createElement('span');
+                    label.className = 'detail-inline-summary-label';
+                    label.textContent = `${field.label}:`;
+                    const value = document.createElement('span');
+                    value.className = 'detail-inline-summary-value';
+                    value.textContent = field.value;
+                    item.appendChild(label);
+                    item.appendChild(value);
+                    summary.appendChild(item);
+                });
+                container.appendChild(summary);
+                container.classList.remove('hidden');
+                return;
+            }
+            validFields.forEach(field => {
+                const item = document.createElement('div');
+                item.className = 'detail-field';
+                const label = document.createElement('p');
+                label.className = 'detail-field-label';
+                label.textContent = field.label;
+                const value = document.createElement('p');
+                value.className = 'detail-field-value';
+                value.textContent = field.value;
+                item.appendChild(label);
+                item.appendChild(value);
+                container.appendChild(item);
+            });
+            container.classList.remove('hidden');
+        }
+
+        function getChapterForNode(node) {
+            const sourceNodeId = node ? getSourceNodeId(node.id) : null;
+            const rawChapterId = (node && node.chapterId) || (sourceNodeId ? state.nodeToChapter.get(sourceNodeId) : null) || 'ending';
+            const chapterId = getOwnerChapterId(rawChapterId);
+            return state.chapters.find(chapter => chapter.id === chapterId) || null;
+        }
+
+        function getNodeTitle(node) {
+            return truncateText(node.content || node.id, 42) || node.id;
+        }
+
+        function updateLevelDetail(node) {
+            const metadata = node.metadata || {};
+            const chapter = getChapterForNode(node);
+            const chapterTitle = normalizeChapterTitle(metadata.chapter_title || (chapter && chapter.title) || 'Unassigned Chapter', chapter && chapter.id);
+            const isCollapsed = !!node.isCollapsedChapter;
+            const nodeImage = metadata.image_path || '';
+            levelDetailBadge.textContent = isCollapsed ? 'Collapsed Chapter' : 'Chapter';
+            levelDetailBadge.style.background = isCollapsed ? '#6366f1' : '#7c3aed';
+            levelDetailHeading.textContent = chapterTitle;
+            levelDetailBadge.classList.add('hidden');
+            levelDetailImage.classList.add('hidden');
+            levelDetailImage.src = nodeImage || getFallbackImage(chapterTitle);
+            levelDetailImage.onerror = () => { levelDetailImage.src = getFallbackImage(chapterTitle); };
+            levelDetailContent.classList.add('hidden');
+            levelDetailContent.textContent = '';
+            renderDetailFields(levelDetailFields, [
+                { label: 'Chapter ID', value: chapter ? chapter.id : (node.chapterId || '-') },
+                { label: 'Node Count', value: metadata.collapsed_count ? String(metadata.collapsed_count) : (chapter && chapter.nodeIds ? String(chapter.nodeIds.length) : '') }
+            ]);
+            const knowledgeText = getChapterKnowledgeText(chapter);
+            levelDetailKnowledgeSection.classList.remove('hidden');
+            setScrollBoxContent(levelDetailKnowledge, knowledgeText, 'No chapter knowledge available.');
+        }
+
+        function createCollapsedChapterNode(chapter, sourceNode) {
+            return {
+                ...sourceNode,
+                id: `${getCollapsedId(chapter.id)}::${sourceNode.id}`,
+                metadata: {
+                    ...(sourceNode.metadata || {}),
+                    is_prologue: chapter.id === 'prologue' && sourceNode.id === chapter.startNodeId,
+                    collapsed_count: chapter.nodeIds.length
+                },
+                originalIndex: sourceNode.originalIndex || 0,
+                sourceNodeId: sourceNode.id,
+                chapterId: chapter.id,
+                isCollapsedChapter: true,
+                isMiniChapterNode: true
+            };
+        }
+
+        function buildDisplayGraph() {
+            const chapterById = new Map(state.chapters.map(chapter => [chapter.id, chapter]));
+            const displayNodes = [];
+            const displayNodeMap = new Map();
+            const displayNodeToSource = new Map();
+            const sourceToDisplay = new Map();
+
+            state.chapters.forEach(chapter => {
+                const chapterNodeIds = chapter.id === 'prologue'
+                    ? [chapter.startNodeId].filter(nodeId => nodeId && !isFinalEndingNode(nodeId))
+                    : chapter.nodeIds.filter(nodeId => !isFinalEndingNode(nodeId));
+                if (state.collapsedChapters.has(chapter.id)) {
+                    chapterNodeIds.forEach(nodeId => {
+                        const node = state.nodeMap.get(nodeId);
+                        if (!node) return;
+                        const collapsedNode = createCollapsedChapterNode(chapter, node);
+                        displayNodes.push(collapsedNode);
+                        displayNodeMap.set(collapsedNode.id, collapsedNode);
+                        displayNodeToSource.set(collapsedNode.id, node.id);
+                        sourceToDisplay.set(node.id, collapsedNode.id);
+                    });
+                } else {
+                    chapterNodeIds.forEach(nodeId => {
+                        const node = state.nodeMap.get(nodeId);
+                        if (!node) return;
+                        const displayNode = {
+                            ...node,
+                            metadata: {
+                                ...(node.metadata || {}),
+                                is_prologue: chapter.id === 'prologue' && node.id === chapter.startNodeId
+                            },
+                            chapterId: chapter.id
+                        };
+                        displayNodes.push(displayNode);
+                        displayNodeMap.set(displayNode.id, displayNode);
+                        displayNodeToSource.set(displayNode.id, node.id);
+                        sourceToDisplay.set(node.id, displayNode.id);
+                    });
+                }
+            });
+
+            state.nodes.forEach(node => {
+                if (sourceToDisplay.has(node.id)) return;
+                const ownerChapterId = state.nodeToChapter.get(node.id) || node.chapterId || 'ending';
+                const detachedFinal = isFinalEndingNode(node.id);
+                const shouldMini = detachedFinal && state.collapsedChapters.has(ownerChapterId);
+                const displayNode = detachedFinal
+                    ? {
+                        ...node,
+                        chapterId: getDetachedFinalChapterId(ownerChapterId),
+                        isMiniChapterNode: shouldMini
+                    }
+                    : node;
+                displayNodes.push(displayNode);
+                displayNodeMap.set(displayNode.id, displayNode);
+                displayNodeToSource.set(displayNode.id, node.id);
+                sourceToDisplay.set(node.id, displayNode.id);
+            });
+
+            const edgeByKey = new Map();
+            state.edges.forEach(edge => {
+                const source = sourceToDisplay.get(edge.source);
+                const target = sourceToDisplay.get(edge.target);
+                if (!source || !target || source === target) return;
+                const key = `${source}__${target}`;
+                if (edgeByKey.has(key)) return;
+                edgeByKey.set(key, {
+                    ...edge,
+                    id: key,
+                    source,
+                    target,
+                    sourceOriginal: edge.source,
+                    targetOriginal: edge.target
+                });
+            });
+
+            const childrenMap = new Map();
+            const parentMap = new Map();
+            displayNodes.forEach(node => {
+                childrenMap.set(node.id, []);
+                parentMap.set(node.id, []);
+            });
+            Array.from(edgeByKey.values()).forEach(edge => {
+                if (childrenMap.has(edge.source)) childrenMap.get(edge.source).push(edge.target);
+                if (parentMap.has(edge.target)) parentMap.get(edge.target).push(edge.source);
+            });
+
+            return {
+                nodes: displayNodes,
+                edges: Array.from(edgeByKey.values()),
+                nodeMap: displayNodeMap,
+                childrenMap,
+                parentMap,
+                displayNodeToSource,
+                chapterById
+            };
+        }
+
+        function buildGraphData(apiData) {
+            const nodes = (apiData.nodes || []).map((node, index) => ({
+                ...node,
+                metadata: node.metadata || {},
+                originalIndex: index
+            }));
+
+            const nodeMap = new Map(nodes.map(node => [node.id, node]));
+            const edges = [];
+            const childrenMap = new Map();
+            const parentMap = new Map();
+
+            nodes.forEach(node => {
+                childrenMap.set(node.id, []);
+                parentMap.set(node.id, []);
+            });
+
+            Object.entries(apiData.edges || {}).forEach(([source, targets]) => {
+                if (!Array.isArray(targets)) return;
+                targets.forEach((target, index) => {
+                    const targetNode = nodeMap.get(target);
+                    edges.push({
+                        id: `${source}__${target}__${index}`,
+                        source,
+                        target,
+                        targetType: targetNode ? targetNode.type : '',
+                        sourceIndex: nodeMap.has(source) ? nodeMap.get(source).originalIndex : 0,
+                        targetIndex: targetNode ? targetNode.originalIndex : 0
+                    });
+                    if (childrenMap.has(source)) childrenMap.get(source).push(target);
+                    if (parentMap.has(target)) parentMap.get(target).push(source);
+                });
+            });
+
+            return { nodes, edges, nodeMap, childrenMap, parentMap };
+        }
+
+        function findMainPath(startNodeId, childrenMap, nodeMap) {
+            const path = [];
+            const visited = new Set();
+            let currentId = startNodeId;
+            while (currentId && !visited.has(currentId) && nodeMap.has(currentId)) {
+                visited.add(currentId);
+                path.push(currentId);
+                const children = childrenMap.get(currentId) || [];
+                if (!children.length) break;
+                const nextMain = children.find(childId => {
+                    const child = nodeMap.get(childId);
+                    return child && child.type !== 'fatal';
+                }) || children[0];
+                currentId = nextMain;
+            }
+            return new Set(path);
+        }
+
+        function stableHash(text) {
+            return String(text || '').split('').reduce((acc, char) => {
+                return ((acc << 5) - acc + char.charCodeAt(0)) | 0;
+            }, 0);
+        }
+
+        function getBranchDisplayOrder(sourceId, childCount, correctIndex) {
+            if (childCount <= 1) return [0];
+            if (childCount === 2) {
+                const orders = [[0, 1], [1, 0]];
+                const picked = orders[Math.abs(stableHash(sourceId)) % orders.length].slice();
+                if (correctIndex > 0) {
+                    const correct = picked[0];
+                    picked[0] = picked[correctIndex];
+                    picked[correctIndex] = correct;
+                }
+                return picked;
+            }
+            const orders = [
+                [1, 0, 2],
+                [1, 2, 0],
+                [0, 1, 2],
+                [2, 1, 0]
+            ];
+            const picked = orders[Math.abs(stableHash(sourceId)) % orders.length].slice(0, childCount);
+            if (correctIndex >= 0 && correctIndex < picked.length) {
+                const centerIndex = Math.floor(picked.length / 2);
+                const currentIndex = picked.indexOf(correctIndex);
+                if (currentIndex >= 0) {
+                    const value = picked[centerIndex];
+                    picked[centerIndex] = picked[currentIndex];
+                    picked[currentIndex] = value;
+                }
+            }
+            return picked;
+        }
+
+        function buildBranchLanes(childrenMap, nodeMap) {
+            const lanes = new Map();
+            childrenMap.forEach((children, sourceId) => {
+                if (!children || children.length < 2) return;
+                const choiceChildren = children
+                    .map(childId => nodeMap.get(childId))
+                    .filter(Boolean)
+                    .sort((a, b) => a.originalIndex - b.originalIndex);
+                if (choiceChildren.length < 2) return;
+
+                const correctIndex = Math.max(0, choiceChildren.findIndex(child => {
+                    const resultIds = childrenMap.get(child.id) || [];
+                    return resultIds.some(resultId => {
+                        const resultNode = nodeMap.get(resultId);
+                        return resultNode && resultNode.type !== 'fatal';
+                    });
+                }));
+                const spans = choiceChildren.map(child => {
+                    const resultIds = childrenMap.get(child.id) || [];
+                    const resultWeight = Math.min(0.9, resultIds.length * 0.28);
+                    const nodeWeight = child.type === 'decision' ? 0.25 : 0;
+                    return 1 + resultWeight + nodeWeight;
+                });
+                const displayOrder = getBranchDisplayOrder(sourceId, choiceChildren.length, correctIndex);
+                const ordered = displayOrder.map(orderIndex => ({
+                    node: choiceChildren[orderIndex],
+                    span: spans[orderIndex]
+                }));
+                const totalSpan = ordered.reduce((sum, item) => sum + item.span, 0) + (ordered.length - 1) * 0.38;
+                let cursor = -totalSpan / 2;
+
+                ordered.forEach(item => {
+                    const laneCenter = cursor + item.span / 2;
+                    lanes.set(item.node.id, laneCenter);
+                    (childrenMap.get(item.node.id) || []).forEach(resultId => {
+                        if (!lanes.has(resultId)) lanes.set(resultId, laneCenter);
+                    });
+                    cursor += item.span + 0.38;
+                });
+            });
+            return lanes;
+        }
+
+        function getNodeWidth(node) {
+            return node && node.isMiniChapterNode ? miniCardWidth : cardWidth;
+        }
+
+        function getNodeHeight(node) {
+            return node && node.isMiniChapterNode ? miniCardHeight : cardHeight;
+        }
+
+        function isFinalEndingNode(nodeId) {
+            const sourceNodeId = getSourceNodeId(nodeId);
+            const finalIds = state.rawGraph && Array.isArray(state.rawGraph.ending_node_ids) ? state.rawGraph.ending_node_ids : [];
+            return finalIds.includes(sourceNodeId);
+        }
+
+        function resolveColumnCollisions(nodes, positions) {
+            const columnGap = 34;
+            const positionColumns = new Map();
+            nodes.forEach(node => {
+                const point = positions.get(node.id);
+                if (!point) return;
+                const bucket = Math.round(point.x / 60);
+                if (!positionColumns.has(bucket)) positionColumns.set(bucket, []);
+                positionColumns.get(bucket).push(node);
+            });
+            Array.from(positionColumns.values()).forEach(columnNodes => {
+                const sorted = columnNodes.slice().sort((a, b) => {
+                    const aPoint = positions.get(a.id) || { y: 0 };
+                    const bPoint = positions.get(b.id) || { y: 0 };
+                    return aPoint.y - bPoint.y;
+                });
+                let previousBottom = null;
+                sorted.forEach(node => {
+                    const point = positions.get(node.id);
+                    if (!point) return;
+                    const nodeHeight = getNodeHeight(node);
+                    if (previousBottom !== null && point.y < previousBottom + columnGap) {
+                        point.y = previousBottom + columnGap;
+                    }
+                    previousBottom = point.y + nodeHeight;
+                });
+
+                const originalCenter = columnNodes.reduce((sum, node) => {
+                    const point = positions.get(node.id);
+                    return sum + (point ? point.y + getNodeHeight(node) / 2 : 0);
+                }, 0) / Math.max(1, columnNodes.length);
+                const desiredCenter = sorted.reduce((sum, node) => {
+                    const point = positions.get(node.id);
+                    return sum + (point ? point.y + getNodeHeight(node) / 2 : 0);
+                }, 0) / Math.max(1, sorted.length);
+                const shift = desiredCenter - originalCenter;
+                if (Math.abs(shift) > 1) {
+                    sorted.forEach(node => {
+                        const point = positions.get(node.id);
+                        if (point) point.y -= shift;
+                    });
+                }
+            });
+        }
+
+        function getChapterIdForNode(node, nodeToChapter) {
+            if (isFinalEndingNode(node.id)) {
+                const rawChapterId = node.chapterId || nodeToChapter.get(getSourceNodeId(node.id)) || nodeToChapter.get(node.id) || 'ending';
+                return isDetachedFinalChapterId(rawChapterId) ? rawChapterId : getDetachedFinalChapterId(rawChapterId);
+            }
+            return node.chapterId || nodeToChapter.get(getSourceNodeId(node.id)) || nodeToChapter.get(node.id) || 'prologue';
+        }
+
+        function getChapterBoxMetrics(collapsed) {
+            return collapsed
+                ? {
+                    width: collapsedChapterBoxWidth,
+                    height: collapsedChapterBoxHeight,
+                    insetX: collapsedChapterInsetX,
+                    gap: 42
+                }
+                : {
+                    width: expandedChapterBoxWidth,
+                    height: expandedChapterBoxHeight,
+                    insetX: expandedChapterInsetX,
+                    gap: 52
+                };
+        }
+
+        function getChapterContentBounds(ids, nodeMap, positions) {
+            const bounds = {
+                minX: Infinity,
+                minY: Infinity,
+                maxX: -Infinity,
+                maxY: -Infinity
+            };
+            ids.forEach(id => {
+                const point = positions.get(id);
+                const node = nodeMap.get(id);
+                if (!point || !node) return;
+                bounds.minX = Math.min(bounds.minX, point.x);
+                bounds.minY = Math.min(bounds.minY, point.y);
+                bounds.maxX = Math.max(bounds.maxX, point.x + getNodeWidth(node));
+                bounds.maxY = Math.max(bounds.maxY, point.y + getNodeHeight(node));
+            });
+            return bounds;
+        }
+
+        function alignMiniFlowChains(nodes, positions, childrenMap, parentMap) {
+            const miniNodeIds = new Set(nodes.filter(node => node.isMiniChapterNode).map(node => node.id));
+            const nodeMap = new Map(nodes.map(node => [node.id, node]));
+            nodes.forEach(node => {
+                if (!miniNodeIds.has(node.id)) return;
+                const sourcePoint = positions.get(node.id);
+                if (!sourcePoint) return;
+                const children = (childrenMap.get(node.id) || []).filter(childId => miniNodeIds.has(childId));
+                if (children.length !== 1) return;
+                const [childId] = children;
+                const childNode = nodeMap.get(childId);
+                if (!childNode || childNode.type === 'decision' || childNode.type === 'ep_start' || childNode.type === 'ep_end' || isDetachedFinalChapterId(childNode.chapterId)) return;
+                if (getOwnerChapterId(node.chapterId) !== getOwnerChapterId(childNode.chapterId)) return;
+                const parentIds = (parentMap.get(childId) || []).filter(parentId => miniNodeIds.has(parentId));
+                if (parentIds.length !== 1) return;
+                if (getOwnerChapterId(node.chapterId) !== getOwnerChapterId(nodeMap.get(parentIds[0])?.chapterId)) return;
+                const childPoint = positions.get(childId);
+                if (!childPoint) return;
+                childPoint.y = sourcePoint.y;
+            });
+        }
+
+        function getMiniTrackOffsets(count) {
+            if (count <= 1) return [0];
+            if (count === 2) return [-62, 62];
+            if (count === 3) return [-74, 0, 74];
+            if (count === 4) return [-90, -30, 30, 90];
+            const step = 44;
+            const start = -step * (count - 1) / 2;
+            return Array.from({ length: count }, (_, index) => start + index * step);
+        }
+
+        function getChapterIndex(chapterId) {
+            const match = String(chapterId || '').match(/chapter_(\d+)/);
+            return match ? Number(match[1]) : 0;
+        }
+
+        function getMiniChoiceSlotOrder(chapterId, decisionNodes, childrenMap, nodeMap) {
+            const slotCount = decisionNodes.length;
+            const order = Array.from({ length: slotCount }, () => null);
+            if (!slotCount) return [];
+            const correctIndex = Math.max(0, decisionNodes.findIndex(node => {
+                const targets = childrenMap.get(node.id) || [];
+                return targets.some(targetId => {
+                    const targetNode = nodeMap.get(targetId);
+                    return targetNode && targetNode.type === 'ep_end';
+                });
+            }));
+            const preferredSlot = (Math.max(1, getChapterIndex(chapterId)) - 1) % slotCount;
+            order[preferredSlot] = correctIndex;
+            let cursor = 0;
+            decisionNodes.forEach((_, index) => {
+                if (index === correctIndex) return;
+                while (order[cursor] !== null) cursor += 1;
+                order[cursor] = index;
+            });
+            return order;
+        }
+
+        function getMiniVisualCenterY(nodes, positions) {
+            const centers = nodes
+                .map(node => {
+                    const point = positions.get(node.id);
+                    return point ? point.y + getNodeHeight(node) / 2 : null;
+                })
+                .filter(value => typeof value === 'number')
+                .sort((a, b) => a - b);
+            if (!centers.length) return null;
+            return centers.length % 2
+                ? centers[Math.floor(centers.length / 2)]
+                : (centers[centers.length / 2 - 1] + centers[centers.length / 2]) / 2;
+        }
+
+        function alignMiniNodeCenterY(node, positions, centerY) {
+            const point = node ? positions.get(node.id) : null;
+            if (!point || typeof centerY !== 'number') return;
+            point.y = centerY - getNodeHeight(node) / 2;
+        }
+
+        function buildCollapsedChapterTemplate(chapterId, chapterNodes, levels, branchLanes, childrenMap, parentMap, frame, positions) {
+            if (!frame || !chapterNodes.length) return;
+            const centerY = frame.centerY;
+            const startNode = chapterNodes.find(node => node.type === 'ep_start');
+            const eventNode = chapterNodes.find(node => node.type === 'normal');
+            const endNode = chapterNodes.find(node => node.type === 'ep_end');
+            const nodeMap = new Map(chapterNodes.map(node => [node.id, node]));
+            const eventDecisionIds = eventNode ? (childrenMap.get(eventNode.id) || []).filter(id => nodeMap.get(id)?.type === 'decision') : [];
+            const decisionNodes = (eventDecisionIds.length
+                ? eventDecisionIds.map(id => nodeMap.get(id)).filter(Boolean)
+                : chapterNodes.filter(node => node.type === 'decision')
+            ).sort((a, b) => a.originalIndex - b.originalIndex);
+            const failureNodes = chapterNodes.filter(node => node.type === 'fatal').sort((a, b) => a.originalIndex - b.originalIndex);
+            const mainEndNode = chapterNodes.find(node => node.type === 'ending');
+            const startX = frame.x + 56;
+            const eventX = frame.x + 96;
+            const mainDecisionX = frame.x + 186;
+            const mainEndX = frame.x + 276;
+            const laneOffsets = getMiniTrackOffsets(Math.max(1, decisionNodes.length));
+            const slotOrder = getMiniChoiceSlotOrder(chapterId, decisionNodes, childrenMap, nodeMap);
+
+            if (startNode) positions.set(startNode.id, { x: startX, y: centerY });
+            if (eventNode) positions.set(eventNode.id, { x: eventX, y: centerY });
+
+            slotOrder.forEach((decisionIndex, slotIndex) => {
+                const decisionNode = decisionNodes[decisionIndex];
+                if (!decisionNode) return;
+                const laneY = centerY + (laneOffsets[slotIndex] || 0);
+                positions.set(decisionNode.id, { x: mainDecisionX, y: laneY });
+                (childrenMap.get(decisionNode.id) || []).forEach(targetId => {
+                    const targetNode = nodeMap.get(targetId);
+                    if (!targetNode || (targetNode.type !== 'ep_end' && targetNode.type !== 'fatal' && targetNode.type !== 'ending')) return;
+                    positions.set(targetNode.id, { x: mainEndX, y: laneY });
+                });
+            });
+
+            const middleDecisionCenterY = getMiniVisualCenterY(decisionNodes, positions);
+            alignMiniNodeCenterY(startNode, positions, middleDecisionCenterY);
+            alignMiniNodeCenterY(eventNode, positions, middleDecisionCenterY);
+
+            if (endNode && !positions.has(endNode.id)) positions.set(endNode.id, { x: mainEndX, y: centerY });
+            if (mainEndNode && !positions.has(mainEndNode.id)) positions.set(mainEndNode.id, { x: mainDecisionX, y: centerY });
+            failureNodes.forEach((node, index) => {
+                if (positions.has(node.id)) return;
+                const fallbackY = centerY + (laneOffsets[index % laneOffsets.length] || 0);
+                positions.set(node.id, { x: mainEndX, y: fallbackY });
+            });
+
+            chapterNodes.forEach((node, index) => {
+                if (positions.has(node.id)) return;
+                const fallbackY = centerY + (laneOffsets[index % laneOffsets.length] || 0);
+                positions.set(node.id, { x: mainDecisionX, y: fallbackY });
+            });
+        }
+
+        function alignCollapsedMiniStartEventRows(nodes, positions, childrenMap, nodeToChapter) {
+            const nodeMap = new Map(nodes.map(node => [node.id, node]));
+            const firstChapter = state.chapters.find(chapter => chapter.id !== 'prologue');
+            state.chapters.forEach(chapter => {
+                if (!chapter || chapter.id === 'prologue' || !state.collapsedChapters.has(chapter.id)) return;
+                const chapterNodes = nodes.filter(node => getChapterIdForNode(node, nodeToChapter) === chapter.id && node.isMiniChapterNode);
+                const startNode = chapterNodes.find(node => node.type === 'ep_start');
+                const eventNode = chapterNodes.find(node => node.type === 'normal');
+                if (!startNode || !eventNode) return;
+                const decisionNodes = (childrenMap.get(eventNode.id) || [])
+                    .map(id => nodeMap.get(id))
+                    .filter(node => node && node.type === 'decision');
+                const middleDecisionCenterY = getMiniVisualCenterY(decisionNodes, positions);
+                alignMiniNodeCenterY(startNode, positions, middleDecisionCenterY);
+                alignMiniNodeCenterY(eventNode, positions, middleDecisionCenterY);
+                if (firstChapter && chapter.id === firstChapter.id) {
+                    nodes
+                        .filter(node => getChapterIdForNode(node, nodeToChapter) === 'prologue')
+                        .forEach(node => alignMiniNodeCenterY(node, positions, middleDecisionCenterY));
+                }
+            });
+        }
+
+        function tightenOuterNodeSpacing(nodes, positions, chapterFrameMap, nodeToChapter) {
+            const prologueNodes = nodes.filter(node => getChapterIdForNode(node, nodeToChapter) === 'prologue');
+            const firstChapter = state.chapters.find(chapter => chapter.id !== 'prologue');
+            const firstChapterFrame = firstChapter ? chapterFrameMap.get(firstChapter.id) : null;
+            if (firstChapterFrame) {
+                const firstChapterNodes = firstChapter
+                    ? nodes.filter(node => getChapterIdForNode(node, nodeToChapter) === firstChapter.id)
+                    : [];
+                const mainAnchorNode = firstChapterNodes.find(node => node.type === 'normal')
+                    || firstChapterNodes.find(node => node.type === 'ep_start')
+                    || firstChapterNodes[0];
+                const mainAnchorPoint = mainAnchorNode ? positions.get(mainAnchorNode.id) : null;
+                prologueNodes.forEach(node => {
+                    const point = positions.get(node.id);
+                    if (!point) return;
+                    const gap = 88;
+                    point.x = firstChapterFrame.x - getNodeWidth(node) - gap;
+                    point.y = mainAnchorPoint ? mainAnchorPoint.y : firstChapterFrame.centerY - getNodeHeight(node) / 2;
+                });
+            }
+
+            Array.from(chapterFrameMap.entries()).forEach(([chapterId, frame]) => {
+                if (!isDetachedFinalChapterId(chapterId)) return;
+                const ownerFrame = chapterFrameMap.get(getOwnerChapterId(chapterId));
+                if (!ownerFrame) return;
+                const endingNode = nodes.find(node => getChapterIdForNode(node, nodeToChapter) === chapterId);
+                if (!endingNode) return;
+                const targetPoint = {
+                    x: ownerFrame.x + ownerFrame.width + (endingNode.isMiniChapterNode ? 132 : 184),
+                    y: ownerFrame.centerY - getNodeHeight(endingNode) / 2
+                };
+                positions.set(endingNode.id, targetPoint);
+                frame.x = targetPoint.x - 18;
+                frame.centerY = ownerFrame.centerY;
+            });
+        }
+
+        function stabilizeChapterAnchors(nodes, positions, chapterFrameMap, nodeToChapter, parentMap) {
+            state.chapters.forEach(chapter => {
+                if (!chapter || chapter.id === 'prologue') return;
+                const frame = chapterFrameMap.get(chapter.id);
+                if (!frame) return;
+                const chapterNodes = nodes.filter(node => getChapterIdForNode(node, nodeToChapter) === chapter.id);
+                const startNode = chapterNodes.find(node => node.type === 'ep_start');
+                const eventNode = chapterNodes.find(node => node.type === 'normal');
+                const endNode = chapterNodes.find(node => node.type === 'ep_end');
+                if (!startNode || !eventNode) return;
+                const startPoint = positions.get(startNode.id);
+                const eventPoint = positions.get(eventNode.id);
+                if (!startPoint || !eventPoint) return;
+                const startWidth = getNodeWidth(startNode);
+                const gap = startNode.isMiniChapterNode ? 10 : 18;
+                startPoint.x = Math.max(frame.x + 18, eventPoint.x - startWidth - gap);
+                startPoint.y = eventPoint.y;
+                if (endNode) {
+                    const endPoint = positions.get(endNode.id);
+                    if (endPoint && !endNode.isMiniChapterNode) endPoint.y = eventPoint.y;
+                }
+            });
+
+            Array.from(chapterFrameMap.entries()).forEach(([chapterId, frame]) => {
+                if (!isDetachedFinalChapterId(chapterId)) return;
+                const ownerFrame = chapterFrameMap.get(getOwnerChapterId(chapterId));
+                if (!ownerFrame) return;
+                const endingNode = nodes.find(node => getChapterIdForNode(node, nodeToChapter) === chapterId);
+                if (!endingNode) return;
+                const ownerChapterNodes = nodes.filter(node => getChapterIdForNode(node, nodeToChapter) === getOwnerChapterId(chapterId));
+                const ownerEndNode = ownerChapterNodes.find(node => node.type === 'ep_end');
+                const ownerEndPoint = ownerEndNode ? positions.get(ownerEndNode.id) : null;
+                const parentId = (parentMap.get(endingNode.id) || []).find(candidateId => positions.has(candidateId));
+                const parentNode = parentId ? nodes.find(node => node.id === parentId) : null;
+                const parentPoint = parentId ? positions.get(parentId) : null;
+                const endingPoint = positions.get(endingNode.id) || { x: 0, y: 0 };
+                const anchorPoint = ownerEndPoint || parentPoint;
+                endingPoint.x = (ownerEndPoint ? ownerEndPoint.x + getNodeWidth(ownerEndNode) : ownerFrame.x + ownerFrame.width) + (endingNode.isMiniChapterNode ? 132 : 184);
+                endingPoint.y = anchorPoint && (ownerEndNode || parentNode)
+                    ? anchorPoint.y + getNodeHeight(ownerEndNode || parentNode) / 2 - getNodeHeight(endingNode) / 2
+                    : ownerFrame.centerY - getNodeHeight(endingNode) / 2;
+                positions.set(endingNode.id, endingPoint);
+                frame.x = endingPoint.x - 18;
+                frame.centerY = endingPoint.y + getNodeHeight(endingNode) / 2;
+            });
+        }
+
+        function assignChapters(nodes) {
+            const nodeToChapter = new Map();
+            const chapters = [];
+            let activeChapter = null;
+            let chapterCounter = 0;
+
+            nodes.forEach(node => {
+                if (!chapterCounter && !activeChapter && node.originalIndex === 0 && node.type !== 'ep_start') {
+                    if (!chapters.find(chapter => chapter.id === 'prologue')) {
+                        chapters.push({
+                            id: 'prologue',
+                            title: 'Prologue',
+                            startNodeId: node.id,
+                            endNodeId: node.id,
+                            nodeIds: [node.id]
+                        });
+                    }
+                    nodeToChapter.set(node.id, 'prologue');
+                    return;
+                }
+                if (node.type === 'ep_start') {
+                    chapterCounter += 1;
+                    activeChapter = `chapter_${chapterCounter}`;
+                    chapters.push({
+                        id: activeChapter,
+                        title: normalizeChapterTitle(node.metadata.chapter_title || `Chapter ${chapterCounter}`, `chapter_${chapterCounter}`),
+                        startNodeId: node.id,
+                        endNodeId: null,
+                        nodeIds: []
+                    });
+                }
+
+                if (!activeChapter) {
+                    activeChapter = chapters.length ? chapters[chapters.length - 1].id : 'prologue';
+                }
+
+                nodeToChapter.set(node.id, activeChapter);
+                const chapter = chapters.find(item => item.id === activeChapter);
+                if (chapter && !chapter.nodeIds.includes(node.id)) chapter.nodeIds.push(node.id);
+
+                if (node.type === 'ep_end') {
+                    if (chapter) chapter.endNodeId = node.id;
+                    activeChapter = null;
+                }
+            });
+
+            return { chapters, nodeToChapter };
+        }
+
+        function computePositions(nodes, startNodeId, childrenMap, parentMap, nodeToChapter) {
+            const levels = new Map();
+            const queue = [];
+            const visited = new Set();
+            const rootId = startNodeId || (nodes[0] ? nodes[0].id : null);
+            const nodeMapForLayout = new Map(nodes.map(node => [node.id, node]));
+            const branchLanes = buildBranchLanes(childrenMap, nodeMapForLayout);
+
+            if (rootId) {
+                queue.push(rootId);
+                levels.set(rootId, 0);
+                visited.add(rootId);
+            }
+
+            while (queue.length) {
+                const currentId = queue.shift();
+                const currentLevel = levels.get(currentId) || 0;
+                const children = childrenMap.get(currentId) || [];
+                children.forEach(childId => {
+                    const nextLevel = currentLevel + 1;
+                    if (!levels.has(childId) || nextLevel < levels.get(childId)) levels.set(childId, nextLevel);
+                    if (!visited.has(childId)) {
+                        visited.add(childId);
+                        queue.push(childId);
+                    }
+                });
+            }
+
+            nodes.forEach((node, index) => {
+                if (!levels.has(node.id)) {
+                    const parentLevels = (parentMap.get(node.id) || []).map(parentId => levels.get(parentId)).filter(level => typeof level === 'number');
+                    levels.set(node.id, parentLevels.length ? Math.max(...parentLevels) + 1 : index);
+                }
+            });
+
+            const columns = new Map();
+            nodes.forEach(node => {
+                const level = levels.get(node.id) || 0;
+                if (!columns.has(level)) columns.set(level, []);
+                columns.get(level).push(node);
+            });
+
+            const positions = new Map();
+            const hasExpandedNodes = nodes.some(node => !node.isMiniChapterNode);
+            const expandedLaneSpacing = 196;
+            const miniLaneSpacing = 38;
+            const expandedColumnSpacing = 278;
+            const miniColumnSpacing = hasExpandedNodes ? 34 : 42;
+            const chapterLaneBase = new Map();
+            let chapterOrder = 0;
+            const chapterRows = hasExpandedNodes ? [-300, 0, 300] : [-120, 0, 120];
+            const chapterIdsInUse = Array.from(new Set(nodes.map(node => getChapterIdForNode(node, nodeToChapter))));
+            chapterIdsInUse.forEach(chapterId => {
+                if (chapterId === 'prologue' || isDetachedFinalChapterId(chapterId)) return;
+                chapterLaneBase.set(chapterId, chapterRows[chapterOrder % chapterRows.length]);
+                chapterOrder += 1;
+            });
+            chapterIdsInUse.forEach(chapterId => {
+                if (chapterId === 'prologue' || !isDetachedFinalChapterId(chapterId)) return;
+                const ownerChapterId = getOwnerChapterId(chapterId);
+                chapterLaneBase.set(chapterId, chapterLaneBase.get(ownerChapterId) || 0);
+            });
+
+            const chapterLevelBounds = new Map();
+            chapterIdsInUse.forEach(chapterId => {
+                const chapterNodes = nodes.filter(node => getChapterIdForNode(node, nodeToChapter) === chapterId);
+                const levelValues = chapterNodes.map(node => levels.get(node.id) || 0);
+                chapterLevelBounds.set(chapterId, {
+                    min: levelValues.length ? Math.min(...levelValues) : 0,
+                    max: levelValues.length ? Math.max(...levelValues) : 0
+                });
+            });
+
+            const chapterFrameMap = new Map();
+            let nextChapterX = 52;
+            chapterIdsInUse.forEach(chapterId => {
+                if (chapterId === 'prologue' || isDetachedFinalChapterId(chapterId)) return;
+                const chapterNodes = nodes.filter(node => getChapterIdForNode(node, nodeToChapter) === chapterId);
+                const collapsedOnly = chapterNodes.length && chapterNodes.every(node => node.isMiniChapterNode);
+                const metrics = getChapterBoxMetrics(collapsedOnly);
+                const chapterBounds = chapterLevelBounds.get(chapterId) || { min: 0, max: 0 };
+                const spacing = collapsedOnly ? miniColumnSpacing : expandedColumnSpacing;
+                const widestNode = chapterNodes.reduce((max, node) => Math.max(max, getNodeWidth(node)), collapsedOnly ? miniCardWidth : cardWidth);
+                const dynamicWidth = (chapterBounds.max - chapterBounds.min) * spacing + widestNode + metrics.insetX * 2;
+                const fixedWidth = collapsedOnly ? metrics.width : Math.max(metrics.width, dynamicWidth);
+                chapterFrameMap.set(chapterId, {
+                    collapsed: collapsedOnly,
+                    x: nextChapterX,
+                    width: fixedWidth,
+                    height: metrics.height,
+                    insetX: metrics.insetX,
+                    centerY: chapterLaneBase.get(chapterId) || 0
+                });
+                nextChapterX += fixedWidth + metrics.gap;
+            });
+            chapterIdsInUse.forEach(chapterId => {
+                if (!isDetachedFinalChapterId(chapterId)) return;
+                const ownerChapterId = getOwnerChapterId(chapterId);
+                const ownerFrame = chapterFrameMap.get(ownerChapterId);
+                const chapterNodes = nodes.filter(node => getChapterIdForNode(node, nodeToChapter) === chapterId);
+                const chapterNode = chapterNodes[0];
+                const detachedWidth = chapterNode ? getNodeWidth(chapterNode) + 56 : 120;
+                chapterFrameMap.set(chapterId, {
+                    collapsed: chapterNode ? !!chapterNode.isMiniChapterNode : false,
+                    x: (ownerFrame ? ownerFrame.x + ownerFrame.width : nextChapterX) + (chapterNode && chapterNode.isMiniChapterNode ? 26 : 42),
+                    width: detachedWidth,
+                    height: chapterNode ? getNodeHeight(chapterNode) + 48 : 120,
+                    insetX: 20,
+                    centerY: chapterLaneBase.get(chapterId) || 0
+                });
+            });
+
+            chapterIdsInUse.forEach(chapterId => {
+                if (chapterId === 'prologue' || isDetachedFinalChapterId(chapterId)) return;
+                const chapterNodes = nodes.filter(node => getChapterIdForNode(node, nodeToChapter) === chapterId);
+                const collapsedOnly = chapterNodes.length && chapterNodes.every(node => node.isMiniChapterNode);
+                if (!collapsedOnly) return;
+                buildCollapsedChapterTemplate(chapterId, chapterNodes, levels, branchLanes, childrenMap, parentMap, chapterFrameMap.get(chapterId), positions);
+            });
+
+            Array.from(columns.entries()).sort((a, b) => a[0] - b[0]).forEach(([level, levelNodes]) => {
+                const chapterBuckets = new Map();
+                levelNodes.forEach(node => {
+                    const chapterId = getChapterIdForNode(node, nodeToChapter);
+                    if (!chapterBuckets.has(chapterId)) chapterBuckets.set(chapterId, []);
+                    chapterBuckets.get(chapterId).push(node);
+                });
+
+                chapterBuckets.forEach((bucketNodes, chapterId) => {
+                    if (chapterId === 'prologue' || isDetachedFinalChapterId(chapterId)) return;
+                    const baseY = chapterLaneBase.get(chapterId) || 0;
+                    const hasMiniBucket = bucketNodes.every(node => node.isMiniChapterNode);
+                    if (hasMiniBucket) return;
+                    const sortedNodes = bucketNodes.slice().sort((a, b) => {
+                        const aWeight = a.type === 'fatal' ? 1 : a.type === 'decision' ? 0 : -1;
+                        const bWeight = b.type === 'fatal' ? 1 : b.type === 'decision' ? 0 : -1;
+                        if (aWeight !== bWeight) return aWeight - bWeight;
+                        return a.originalIndex - b.originalIndex;
+                    });
+                    const centerIndex = (sortedNodes.length - 1) / 2;
+                    sortedNodes.forEach((node, index) => {
+                        const explicitLane = branchLanes.get(node.id);
+                        const activeLaneSpacing = hasMiniBucket ? miniLaneSpacing : expandedLaneSpacing;
+                        const laneOffset = typeof explicitLane === 'number'
+                            ? explicitLane * activeLaneSpacing
+                            : (index - centerIndex) * (hasMiniBucket ? 18 : 170);
+                        const levelStagger = hasMiniBucket ? (levels.get(node.id) || 0) % 2 * 6 : 0;
+                        const xSpacing = node.isMiniChapterNode ? miniColumnSpacing : expandedColumnSpacing;
+                        const chapterBounds = chapterLevelBounds.get(chapterId) || { min: 0, max: 0 };
+                        const localLevel = level - chapterBounds.min;
+                        const frame = chapterFrameMap.get(chapterId) || { x: 0, insetX: 0 };
+                        const extraX = node.type === 'ending' ? 18 : 0;
+                        positions.set(node.id, { x: frame.x + frame.insetX + localLevel * xSpacing + extraX, y: baseY + laneOffset + levelStagger });
+                    });
+                });
+            });
+
+            resolveColumnCollisions(nodes, positions);
+            alignMiniFlowChains(nodes, positions, childrenMap, parentMap);
+            tightenOuterNodeSpacing(nodes, positions, chapterFrameMap, nodeToChapter);
+            stabilizeChapterAnchors(nodes, positions, chapterFrameMap, nodeToChapter, parentMap);
+
+            const firstChapter = state.chapters.find(chapter => chapter.id !== 'prologue');
+            const firstFrame = firstChapter ? chapterFrameMap.get(firstChapter.id) : null;
+            const prologueNodes = nodes.filter(node => getChapterIdForNode(node, nodeToChapter) === 'prologue');
+            if (firstFrame) {
+                const firstChapterNodes = nodes.filter(node => getChapterIdForNode(node, nodeToChapter) === firstChapter.id);
+                const firstMiniAnchor = firstChapterNodes.find(node => node.isMiniChapterNode && node.type === 'ep_start')
+                    || firstChapterNodes.find(node => node.isMiniChapterNode && node.type === 'normal');
+                const firstMiniAnchorPoint = firstMiniAnchor ? positions.get(firstMiniAnchor.id) : null;
+                prologueNodes.forEach(node => {
+                    const point = positions.get(node.id) || { x: 0, y: 0 };
+                    point.x = firstFrame.x - getNodeWidth(node) - 88;
+                    point.y = firstMiniAnchorPoint ? firstMiniAnchorPoint.y : firstFrame.centerY - getNodeHeight(node) / 2;
+                    positions.set(node.id, point);
+                });
+            }
+
+            Array.from(chapterFrameMap.entries()).forEach(([chapterId, frame]) => {
+                if (!isDetachedFinalChapterId(chapterId)) return;
+                const endingNode = nodes.find(node => getChapterIdForNode(node, nodeToChapter) === chapterId);
+                if (!endingNode) return;
+                const point = positions.get(endingNode.id) || { x: frame.x, y: frame.centerY };
+                point.x = frame.x + 18;
+                point.y = frame.centerY - getNodeHeight(endingNode) / 2;
+                positions.set(endingNode.id, point);
+            });
+            alignCollapsedMiniStartEventRows(nodes, positions, childrenMap, nodeToChapter);
+
+            const bounds = nodes.reduce((acc, node) => {
+                const point = positions.get(node.id);
+                if (!point) return acc;
+                acc.minX = Math.min(acc.minX, point.x);
+                acc.maxX = Math.max(acc.maxX, point.x + getNodeWidth(node));
+                acc.minY = Math.min(acc.minY, point.y);
+                acc.maxY = Math.max(acc.maxY, point.y + getNodeHeight(node));
+                return acc;
+            }, { minX: 0, maxX: 0, minY: 0, maxY: 0 });
+            chapterFrameMap.forEach(frame => {
+                bounds.minX = Math.min(bounds.minX, frame.x);
+                bounds.maxX = Math.max(bounds.maxX, frame.x + frame.width);
+                bounds.minY = Math.min(bounds.minY, frame.centerY - frame.height / 2);
+                bounds.maxY = Math.max(bounds.maxY, frame.centerY + frame.height / 2);
+            });
+
+            const margin = 180;
+            const shiftX = bounds.minX < margin ? margin - bounds.minX : 0;
+            const shiftY = bounds.minY < margin ? margin - bounds.minY : 0;
+            if (shiftX || shiftY) {
+                positions.forEach(point => {
+                    point.x += shiftX;
+                    point.y += shiftY;
+                });
+                chapterFrameMap.forEach(frame => {
+                    frame.x += shiftX;
+                    frame.centerY += shiftY;
+                });
+                bounds.minX += shiftX;
+                bounds.maxX += shiftX;
+                bounds.minY += shiftY;
+                bounds.maxY += shiftY;
+            }
+
+            return { positions, bounds, levels, chapterFrameMap };
+        }
+
+        function classifyEdge(edge, mainPathSet, nodeMap, levels) {
+            const targetNode = nodeMap.get(edge.target);
+            const sourceLevel = levels.get(edge.source) || 0;
+            const targetLevel = levels.get(edge.target) || 0;
+            const isReturn = targetLevel <= sourceLevel;
+            const reachesFatal = targetNode && targetNode.type === 'fatal';
+            const inMainPath = mainPathSet.has(edge.source) && mainPathSet.has(edge.target) && !reachesFatal && !isReturn;
+            if (isReturn) return 'return';
+            if (inMainPath) return 'main';
+            return 'branch';
+        }
+
+        function updateStats() {
+            statNodes.textContent = state.nodes.length;
+            statChapters.textContent = state.chapters.length;
+        }
+        function initCanvas(width, height) {
+            d3.select(graphContainer).select('svg').remove();
+            state.svg = d3.select(graphContainer).append('svg').attr('viewBox', `0 0 ${width} ${height}`).attr('preserveAspectRatio', 'xMidYMid meet');
+            const defs = state.svg.append('defs');
+            ['main', 'branch', 'return'].forEach(kind => {
+                const color = kind === 'main' ? '#6366f1' : kind === 'branch' ? '#38bdf8' : '#f87171';
+                defs.append('marker')
+                    .attr('id', `arrow-${kind}`)
+                    .attr('viewBox', '0 0 8 8')
+                    .attr('refX', 7.2)
+                    .attr('refY', 4)
+                    .attr('markerUnits', 'userSpaceOnUse')
+                    .attr('markerWidth', 8)
+                    .attr('markerHeight', 8)
+                    .attr('orient', 'auto-start-reverse')
+                    .append('path')
+                    .attr('d', 'M0,0 L8,4 L0,8 Z')
+                    .attr('fill', color);
+            });
+            state.zoom = d3.zoom().scaleExtent([0.15, 10]).on('zoom', event => {
+                state.transform = event.transform;
+                state.graphLayer.attr('transform', event.transform);
+            });
+            state.svg.call(state.zoom);
+            state.graphLayer = state.svg.append('g').attr('transform', state.transform);
+            state.chapterLayer = state.graphLayer.append('g');
+            state.edgeLayer = state.graphLayer.append('g');
+            state.nodeLayer = state.graphLayer.append('g');
+        }
+
+        function renderChapterGroups() {
+            const chapterData = state.chapters.map(chapter => {
+                if (chapter.id === 'prologue') return null;
+                const chapterNodeIds = chapter.nodeIds.filter(nodeId => !isFinalEndingNode(nodeId));
+                const ids = state.collapsedChapters.has(chapter.id)
+                    ? chapterNodeIds.map(nodeId => `${getCollapsedId(chapter.id)}::${nodeId}`)
+                    : chapterNodeIds;
+                const visibleIds = ids;
+                const isCollapsed = state.collapsedChapters.has(chapter.id);
+                const frame = state.chapterFrameMap.get(chapter.id);
+                if (isCollapsed && frame) {
+                    return {
+                        ...chapter,
+                        x: frame.x,
+                        y: frame.centerY - frame.height / 2,
+                        width: frame.width,
+                        height: frame.height,
+                        collapsed: true
+                    };
+                }
+                const contentBounds = getChapterContentBounds(visibleIds, state.displayNodeMap, state.positions);
+                if (!Number.isFinite(contentBounds.minX)) return null;
+                const metrics = getChapterBoxMetrics(isCollapsed);
+                const padding = isCollapsed
+                    ? { left: 52, right: 52, top: 56, bottom: 34 }
+                    : { left: 28, right: 28, top: 56, bottom: 36 };
+                const contentWidth = contentBounds.maxX - contentBounds.minX;
+                const contentHeight = contentBounds.maxY - contentBounds.minY;
+                const boxWidth = Math.max(metrics.width, contentWidth + padding.left + padding.right);
+                const boxHeight = Math.max(metrics.height, contentHeight + padding.top + padding.bottom);
+                const contentCenterX = (contentBounds.minX + contentBounds.maxX) / 2;
+                const contentCenterY = (contentBounds.minY + contentBounds.maxY) / 2;
+                return {
+                    ...chapter,
+                    x: Math.min(contentBounds.minX - padding.left, contentCenterX - boxWidth / 2),
+                    y: Math.min(contentBounds.minY - padding.top, contentCenterY - boxHeight / 2),
+                    width: boxWidth,
+                    height: boxHeight,
+                    collapsed: isCollapsed
+                };
+            }).filter(Boolean);
+
+            const groups = state.chapterLayer.selectAll('.chapter-group').data(chapterData, d => d.id).join(enter => {
+                const group = enter.append('g').attr('class', 'chapter-group');
+                group.append('rect').attr('class', 'chapter-box').attr('rx', 28).attr('ry', 28);
+                group.append('image').attr('class', 'chapter-bg').attr('preserveAspectRatio', 'xMidYMid slice');
+                group.append('rect').attr('class', 'chapter-bg-mask').attr('rx', 28).attr('ry', 28);
+                group.append('text').attr('class', 'chapter-title');
+                return group;
+            });
+
+            groups.select('.chapter-box')
+                .attr('x', d => d.x)
+                .attr('y', d => d.y)
+                .attr('width', d => d.width)
+                .attr('height', d => d.height)
+                .attr('stroke-width', d => d.collapsed ? 4.2 : 6.4)
+                .attr('stroke-dasharray', d => d.collapsed ? '10 8' : '14 10');
+            groups.select('.chapter-bg')
+                .attr('x', d => d.x + 8)
+                .attr('y', d => d.y + 8)
+                .attr('width', d => d.width - 16)
+                .attr('height', d => d.height - 16)
+                .attr('href', d => {
+                    const startNode = state.nodeMap.get(d.startNodeId);
+                    return d.collapsed && startNode && startNode.metadata ? startNode.metadata.image_path || '' : '';
+                })
+                .style('display', d => d.collapsed ? null : 'none');
+            groups.select('.chapter-bg-mask')
+                .attr('x', d => d.x)
+                .attr('y', d => d.y)
+                .attr('width', d => d.width)
+                .attr('height', d => d.height)
+                .style('display', d => d.collapsed ? null : 'none');
+            groups.select('.chapter-title').attr('x', d => d.x + 24).attr('y', d => d.y + 34).text(d => d.title || 'Untitled Level');
+            groups.style('cursor', 'pointer').on('click', (event, d) => {
+                event.stopPropagation();
+                toggleChapter(d.id);
+            });
+        }
+
+        function edgePath(edge) {
+            const source = state.positions.get(edge.source);
+            const target = state.positions.get(edge.target);
+            if (!source || !target) return '';
+            const sourceNode = state.displayNodeMap.get(edge.source);
+            const targetNode = state.displayNodeMap.get(edge.target);
+            const sourceWidth = getNodeWidth(sourceNode);
+            const sourceHeight = getNodeHeight(sourceNode);
+            const targetHeight = getNodeHeight(targetNode);
+            const sourceX = source.x + sourceWidth;
+            const sourceY = source.y + sourceHeight / 2;
+            const targetX = target.x;
+            const targetY = target.y + targetHeight / 2;
+            const isMiniFlow = sourceNode && targetNode && sourceNode.isMiniChapterNode && targetNode.isMiniChapterNode;
+            if (isMiniFlow) {
+                const dy = targetY - sourceY;
+                if (Math.abs(dy) < 1) {
+                    return `M ${sourceX} ${sourceY} L ${targetX} ${targetY}`;
+                }
+                if (sourceNode.type === 'normal' && targetNode.type === 'decision') {
+                    const control = Math.max(28, Math.min(54, Math.abs(targetX - sourceX) * 0.55));
+                    return `M ${sourceX} ${sourceY} C ${sourceX + control} ${sourceY}, ${targetX - control} ${targetY}, ${targetX} ${targetY}`;
+                }
+                const splitX = sourceX + 22;
+                return `M ${sourceX} ${sourceY} L ${splitX} ${sourceY} L ${splitX} ${targetY} L ${targetX} ${targetY}`;
+            }
+            const dx = targetX - sourceX;
+            const dy = targetY - sourceY;
+            if (edge.kind === 'return') {
+                const bend = Math.max(80, Math.abs(dx) * 0.35 + 80);
+                const midX = Math.min(sourceX, targetX) - bend;
+                return `M ${sourceX} ${sourceY} C ${sourceX + 40} ${sourceY}, ${midX} ${targetY}, ${targetX} ${targetY}`;
+            }
+            if (Math.abs(dy) < 18) {
+                return `M ${sourceX} ${sourceY} L ${targetX} ${targetY}`;
+            }
+            const control = Math.max(44, Math.min(92, Math.abs(dx) * 0.3));
+            return `M ${sourceX} ${sourceY} C ${sourceX + control} ${sourceY}, ${targetX - control} ${targetY}, ${targetX} ${targetY}`;
+        }
+
+        function renderEdges() {
+            const edgeSelection = state.edgeLayer.selectAll('.edge-wrap').data(state.displayEdges, d => d.id).join(enter => {
+                const group = enter.append('g').attr('class', 'edge-wrap');
+                group.append('path').attr('class', 'edge');
+                group.append('text').attr('class', 'edge-label');
+                return group;
+            });
+            edgeSelection.select('.edge').attr('class', d => `edge ${d.kind}`).attr('marker-end', d => `url(#arrow-${d.kind})`).attr('d', d => edgePath(d));
+            edgeSelection.select('.edge-label').style('display', 'none').text('');
+        }
+
+        function setTooltip(event, node) {
+            tooltip.innerHTML = `<strong>${node.metadata.chapter_title || node.id}</strong><br>${truncateText(node.content || '', 90)}`;
+            tooltip.style.left = `${event.clientX + 14}px`;
+            tooltip.style.top = `${event.clientY + 14}px`;
+            tooltip.classList.add('show');
+        }
+
+        function clearTooltip() { tooltip.classList.remove('show'); }
+
+        function updateDetailPanel(nodeId) {
+            const node = state.displayNodeMap.get(nodeId) || state.nodeMap.get(getSourceNodeId(nodeId)) || state.nodeMap.get(nodeId);
+            if (!node) return;
+            const metadata = node.metadata || {};
+            const typeInfo = getTypeInfo(node.type, node.metadata);
+            updateLevelDetail(node);
+            detailImage.onerror = () => { detailImage.src = getFallbackImage(typeInfo.label); };
+            detailBadge.innerHTML = `<span class="detail-badge-label">Node Type:</span><span class="detail-badge-value">${typeInfo.label}</span>`;
+            detailBadge.style.background = 'rgba(248, 250, 252, 0.9)';
+            detailBadge.style.borderColor = 'rgba(148, 163, 184, 0.18)';
+            detailBadge.style.color = '#0f172a';
+            detailCurrentNode.innerHTML = `<span class="detail-current-node-label">Current Node:</span><span class="detail-current-node-value">${getSourceNodeId(node.id)}</span>`;
+            detailCurrentNode.classList.remove('hidden');
+            detailHeading.textContent = '';
+            detailHeading.classList.add('hidden');
+            detailImage.src = metadata.image_path || getFallbackImage(typeInfo.label);
+            detailMeta.textContent = '';
+            detailMeta.classList.add('hidden');
+            detailContent.textContent = '';
+            detailContent.classList.add('hidden');
+            detailFields.classList.add('hidden');
+
+            setScrollBoxContent(detailPlot, cleanDisplayText(node.content || ''), 'No plot details available.');
+
+            if (node.type === 'decision') {
+                detailSecondaryTitle.textContent = 'Decision';
+                setScrollBoxContent(detailSecondary, getDecisionOptions(node), 'No decision options available.');
+                detailSecondarySection.classList.remove('hidden');
+                detailPlot.classList.remove('large');
+                detailImage.classList.remove('hidden');
+                detailBadge.classList.remove('hidden');
+                document.querySelector('.node-detail-card').classList.remove('single-pane');
+            } else if (node.type === 'ep_end' || node.type === 'fatal') {
+                detailSecondaryTitle.textContent = 'Analysis';
+                setScrollBoxContent(detailSecondary, getAnalysisText(node), 'No analysis available.');
+                detailSecondarySection.classList.remove('hidden');
+                detailPlot.classList.remove('large');
+                detailImage.classList.remove('hidden');
+                detailBadge.classList.remove('hidden');
+                document.querySelector('.node-detail-card').classList.remove('single-pane');
+            } else {
+                detailSecondarySection.classList.add('hidden');
+                detailPlot.classList.add('large');
+                detailImage.classList.remove('hidden');
+                detailBadge.classList.remove('hidden');
+                document.querySelector('.node-detail-card').classList.add('single-pane');
+            }
+        }
+
+        function collectNeighborhood(nodeId) {
+            const nodes = new Set([nodeId]);
+            const edges = new Set();
+            const chapters = new Set();
+            (state.adjacency.get(nodeId) || []).forEach(edge => { nodes.add(edge.target); edges.add(edge.id); });
+            (state.reverseAdjacency.get(nodeId) || []).forEach(edge => { nodes.add(edge.source); edges.add(edge.id); });
+            nodes.forEach(id => {
+                const displayNode = state.displayNodeMap.get(id);
+                const chapter = (displayNode && displayNode.chapterId) || state.nodeToChapter.get(getSourceNodeId(id)) || state.nodeToChapter.get(id);
+                if (chapter) chapters.add(chapter);
+            });
+            return { nodes, edges, chapters };
+        }
+
+        function applyHighlight(nodeId) {
+            if (!nodeId) {
+                state.highlightedNodeSet = null;
+                state.highlightedEdgeSet = null;
+                state.highlightedChapterSet = null;
+            } else {
+                const neighborhood = collectNeighborhood(nodeId);
+                state.highlightedNodeSet = neighborhood.nodes;
+                state.highlightedEdgeSet = neighborhood.edges;
+                state.highlightedChapterSet = neighborhood.chapters;
+            }
+            state.nodeLayer.selectAll('.node-group').classed('dimmed', d => state.highlightedNodeSet ? !state.highlightedNodeSet.has(d.id) : false).classed('active', d => state.selectedNodeId === d.id);
+            state.edgeLayer.selectAll('.edge').classed('dimmed', d => state.highlightedEdgeSet ? !state.highlightedEdgeSet.has(d.id) : false);
+            state.chapterLayer.selectAll('.chapter-group').classed('dimmed', d => state.highlightedChapterSet ? !state.highlightedChapterSet.has(d.id) : false);
+        }
+
+        function renderNodes() {
+            const nodeSelection = state.nodeLayer.selectAll('.node-group').data(state.displayNodes, d => d.id).join(enter => {
+                const group = enter.append('g').attr('class', 'node-group');
+                group.append('circle').attr('class', 'mini-node-circle').attr('cx', miniCardWidth / 2).attr('cy', miniCardHeight / 2).attr('r', 9);
+                group.append('rect').attr('class', 'mini-node-square').attr('x', 3).attr('y', 3).attr('width', 16).attr('height', 16);
+                group.append('rect').attr('class', 'badge-pill').attr('x', 0).attr('y', -34).attr('rx', 16).attr('ry', 16).attr('width', cardWidth).attr('height', 34);
+                group.append('text').attr('class', 'badge-text').attr('x', cardWidth / 2).attr('y', -12).attr('fill', '#fff').attr('text-anchor', 'middle').attr('font-size', 15).attr('font-weight', 900);
+                group.append('rect').attr('class', 'node-card').attr('rx', 18).attr('ry', 18).attr('width', cardWidth).attr('height', cardHeight);
+                group.append('rect').attr('class', 'image-frame').attr('x', 12).attr('y', 12).attr('rx', 14).attr('ry', 14).attr('width', imageWidth).attr('height', imageHeight);
+                group.append('image').attr('class', 'node-image').attr('x', 12).attr('y', 12).attr('width', imageWidth).attr('height', imageHeight).attr('preserveAspectRatio', 'xMidYMid slice');
+                group.append('text').attr('class', 'node-title').attr('x', 14).attr('y', 137);
+                group.append('text').attr('class', 'node-id').attr('x', 198).attr('y', 130);
+                return group;
+            });
+
+            nodeSelection.classed('mini-summary', d => !!d.isMiniChapterNode);
+
+            nodeSelection.select('.badge-pill')
+                .style('display', d => d.isMiniChapterNode ? 'none' : null)
+                .attr('x', 0)
+                .attr('y', d => d.isMiniChapterNode ? -16 : -34)
+                .attr('rx', d => d.isMiniChapterNode ? 7 : 16)
+                .attr('ry', d => d.isMiniChapterNode ? 7 : 16)
+                .attr('width', d => getNodeWidth(d))
+                .attr('height', d => d.isMiniChapterNode ? 16 : 34);
+            nodeSelection.select('.badge-text')
+                .style('display', d => d.isMiniChapterNode ? 'none' : null)
+                .attr('x', d => getNodeWidth(d) / 2)
+                .attr('y', d => d.isMiniChapterNode ? -5 : -12)
+                .attr('font-size', d => d.isMiniChapterNode ? 6 : 15);
+            nodeSelection.select('.node-card')
+                .style('display', d => d.isMiniChapterNode ? 'none' : null)
+                .attr('rx', d => d.isMiniChapterNode ? 8 : 18)
+                .attr('ry', d => d.isMiniChapterNode ? 8 : 18)
+                .attr('width', d => getNodeWidth(d))
+                .attr('height', d => getNodeHeight(d));
+            nodeSelection.select('.image-frame')
+                .style('display', d => d.isMiniChapterNode ? 'none' : null)
+                .attr('x', d => d.isMiniChapterNode ? 8 : 12)
+                .attr('y', d => d.isMiniChapterNode ? 7 : 12)
+                .attr('rx', d => d.isMiniChapterNode ? 5 : 14)
+                .attr('ry', d => d.isMiniChapterNode ? 5 : 14)
+                .attr('width', d => d.isMiniChapterNode ? miniImageWidth : imageWidth)
+                .attr('height', d => d.isMiniChapterNode ? miniImageHeight : imageHeight);
+            nodeSelection.select('.node-image')
+                .style('display', d => d.isMiniChapterNode ? 'none' : null)
+                .attr('x', d => d.isMiniChapterNode ? 8 : 12)
+                .attr('y', d => d.isMiniChapterNode ? 7 : 12)
+                .attr('width', d => d.isMiniChapterNode ? miniImageWidth : imageWidth)
+                .attr('height', d => d.isMiniChapterNode ? miniImageHeight : imageHeight);
+            nodeSelection.select('.node-title')
+                .style('display', d => d.isMiniChapterNode ? 'none' : null)
+                .attr('x', d => d.isMiniChapterNode ? 6 : 14)
+                .attr('y', d => d.isMiniChapterNode ? 43 : 137)
+                .attr('font-size', d => d.isMiniChapterNode ? 5.5 : 13);
+            nodeSelection.select('.node-id')
+                .style('display', d => d.isMiniChapterNode ? 'none' : null)
+                .attr('x', d => d.isMiniChapterNode ? 43 : 198)
+                .attr('y', d => d.isMiniChapterNode ? 52 : 130)
+                .attr('font-size', d => d.isMiniChapterNode ? 4.8 : 10);
+            nodeSelection.attr('transform', d => {
+                const point = state.positions.get(d.id);
+                if (!point) return 'translate(-9999,-9999)';
+                return `translate(${point.x},${point.y})`;
+            });
+            nodeSelection.select('.node-image').attr('href', d => d.metadata.image_path || getFallbackImage(d.id)).each(function(d) {
+                const image = d3.select(this);
+                image.on('error', function() { image.attr('href', getFallbackImage(d.id)); });
+            });
+            nodeSelection.select('.badge-pill').attr('fill', d => getTypeInfo(d.type, d.metadata).color);
+            nodeSelection.select('.badge-text').text(d => getTypeInfo(d.type, d.metadata).label);
+            nodeSelection.select('.mini-node-circle')
+                .style('display', d => d.isMiniChapterNode && d.type !== 'fatal' && d.type !== 'ending' ? null : 'none')
+                .attr('fill', d => getTypeInfo(d.type, d.metadata).color)
+                .attr('stroke', '#fff')
+                .attr('stroke-width', 2);
+            nodeSelection.select('.mini-node-square')
+                .style('display', d => d.isMiniChapterNode && (d.type === 'fatal' || d.type === 'ending') ? null : 'none')
+                .attr('fill', d => getTypeInfo(d.type, d.metadata).color)
+                .attr('stroke', '#fff')
+                .attr('stroke-width', 2);
+            nodeSelection.select('.node-title').text(d => truncateText(d.metadata.chapter_title || d.content || d.id, d.isMiniChapterNode ? 13 : 26));
+            nodeSelection.each(function(d) {
+                d3.select(this).selectAll('.node-preview').remove();
+                if (d.isMiniChapterNode) return;
+                const previewSource = d.metadata.choice_option || d.content || '';
+                const previewLines = chunkText(previewSource, 34, 2);
+                previewLines.forEach((line, index) => {
+                    d3.select(this).append('text').attr('class', 'node-preview').attr('x', 14).attr('y', 154 + index * 14).text(line);
+                });
+            });
+            nodeSelection.select('.node-id').text(d => d.isCollapsedChapter ? 'Level Card' : d.id);
+            nodeSelection.on('mouseenter', function(event, d) {
+                setTooltip(event, d);
+                if (!state.selectedNodeId) updateDetailPanel(d.id);
+                applyHighlight(d.id);
+            }).on('mousemove', function(event, d) {
+                setTooltip(event, d);
+            }).on('mouseleave', function() {
+                clearTooltip();
+                applyHighlight(state.selectedNodeId);
+            }).on('click', function(event, d) {
+                event.stopPropagation();
+                if (d.isCollapsedChapter || d.isMiniChapterNode) {
+                    toggleChapter(getOwnerChapterId(d.chapterId));
+                    return;
+                }
+                state.selectedNodeId = d.id;
+                updateDetailPanel(d.id);
+                applyHighlight(d.id);
+            });
+        }
+
+        function renderGraph() {
+            if (!state.nodes.length) {
+                emptyState.classList.add('show');
+                return;
+            }
+            emptyState.classList.remove('show');
+            const previousSelectedId = state.selectedNodeId;
+            const display = buildDisplayGraph();
+            state.displayNodes = display.nodes;
+            state.displayEdges = display.edges;
+            state.displayNodeMap = display.nodeMap;
+            state.displayNodeToSource = display.displayNodeToSource;
+
+            const displayStartId = state.displayNodes.find(node => getSourceNodeId(node.id) === state.rawGraph.start_node_id)?.id
+                || (state.displayNodes[0] ? state.displayNodes[0].id : null);
+            const { positions, bounds, levels, chapterFrameMap } = computePositions(state.displayNodes, displayStartId, display.childrenMap, display.parentMap, state.nodeToChapter);
+            state.positions = positions;
+            state.chapterFrameMap = chapterFrameMap;
+            const mainPathSet = findMainPath(displayStartId, display.childrenMap, display.nodeMap);
+            state.displayEdges = state.displayEdges
+                .map(edge => ({ ...edge, kind: classifyEdge(edge, mainPathSet, display.nodeMap, levels) }))
+                .filter(edge => edge.kind !== 'return');
+            state.displayChildrenMap = display.childrenMap;
+            state.adjacency = new Map();
+            state.reverseAdjacency = new Map();
+            state.displayNodes.forEach(node => {
+                state.adjacency.set(node.id, []);
+                state.reverseAdjacency.set(node.id, []);
+            });
+            state.displayEdges.forEach(edge => {
+                state.adjacency.get(edge.source).push(edge);
+                state.reverseAdjacency.get(edge.target).push(edge);
+            });
+            const width = Math.max(graphContainer.clientWidth || 1100, bounds.maxX + 220);
+            const height = Math.max(graphContainer.clientHeight || 760, bounds.maxY + 180);
+            initCanvas(width, height);
+            renderChapterGroups();
+            renderEdges();
+            renderNodes();
+            updateStats();
+            const retainedFocusId = previousSelectedId && state.displayNodeMap.has(previousSelectedId)
+                ? previousSelectedId
+                : null;
+            if (retainedFocusId) {
+                state.selectedNodeId = retainedFocusId;
+                updateDetailPanel(retainedFocusId);
+                applyHighlight(retainedFocusId);
+            } else {
+                state.selectedNodeId = null;
+                applyHighlight(null);
+            }
+        }
+
+        function toggleChapter(chapterId) {
+            if (!chapterId) return;
+            if (state.collapsedChapters.has(chapterId)) {
+                state.collapsedChapters = new Set(state.chapters.map(chapter => chapter.id));
+                state.collapsedChapters.delete(chapterId);
+            } else {
+                state.collapsedChapters = new Set(state.chapters.map(chapter => chapter.id));
+                state.collapsedChapters.add(chapterId);
+            }
+            state.selectedNodeId = null;
+            renderGraph();
+        }
+
+        function collapseAllChapters() {
+            state.collapsedChapters = new Set(state.chapters.map(chapter => chapter.id));
+            state.selectedNodeId = null;
+            renderGraph();
+        }
+
+        function expandAllChapters() {
+            state.collapsedChapters = new Set();
+            state.selectedNodeId = null;
+            renderGraph();
+        }
+
+        function loadStoryGraph() {
+            Promise.resolve().then(() => {
+                const embeddedEl = document.getElementById('embedded-story-graph-data');
+                if (!embeddedEl || !embeddedEl.textContent) throw new Error('embedded story graph is missing');
+                return JSON.parse(embeddedEl.textContent);
+            }).then(apiData => {
+                state.rawGraph = apiData;
+                const built = buildGraphData(apiData);
+                state.nodes = built.nodes;
+                state.edges = built.edges;
+                state.nodeMap = built.nodeMap;
+                state.childrenMap = built.childrenMap;
+                state.parentMap = built.parentMap;
+                const chapterResult = assignChapters(state.nodes);
+                state.chapters = chapterResult.chapters;
+                state.nodeToChapter = chapterResult.nodeToChapter;
+                state.collapsedChapters = new Set(state.chapters.map(chapter => chapter.id));
+                renderGraph();
+                const startId = state.rawGraph.start_node_id || (state.nodes[0] ? state.nodes[0].id : null);
+                const displayFocusId = state.displayNodes.find(node => getSourceNodeId(node.id) === startId)?.id || (state.displayNodes[0] ? state.displayNodes[0].id : null);
+                if (displayFocusId) {
+                    state.selectedNodeId = displayFocusId;
+                    updateDetailPanel(displayFocusId);
+                    applyHighlight(displayFocusId);
+                }
+            }).catch(error => {
+                console.error('Failed to load story map:', error);
+                emptyState.classList.add('show');
+                emptyState.innerHTML = '<strong>Failed to load story map</strong><span>Please confirm the server is running and `/api/story-graph` returns valid data.</span>';
+            });
+        }
+
+        document.getElementById('expand-all').addEventListener('click', expandAllChapters);
+        document.getElementById('collapse-all').addEventListener('click', collapseAllChapters);
+        document.getElementById('reset-view').addEventListener('click', () => {
+            if (state.svg && state.zoom) state.svg.transition().duration(300).call(state.zoom.transform, d3.zoomIdentity.translate(60, 80).scale(1));
+        });
+        document.getElementById('goto-interactive').addEventListener('click', () => {
+            window.location.href = './index.html';
+        });
+
+        loadStoryGraph();
+    </script>
+</body>
+</html>
