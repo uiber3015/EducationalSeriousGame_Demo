@@ -1,0 +1,1284 @@
+{
+  "nodes": [
+    {
+      "id": "node_1",
+      "content": "It was a bright and sunny weekend, and I headed over to Grandpa's house to help him move. Looking at the room packed with a piano, rosewood bookcases, and various odds and ends, I couldn't help but feel a bit overwhelmed. As Grandpa directed the movers to shift the piano, I decided to put my science knowledge to use. I would turn this \"Moving Day Adventure\" into a well-organized scientific practice, ensuring every cherished item arrived at the new home safe and sound.",
+      "type": "normal",
+      "metadata": {
+        "image_prompt": "Soft sunlight streams into the old house. The character stands beside a heavy piano and rosewood furniture, sleeves rolled up with a determined expression. A medium shot in Ghibli style, with golden dust particles floating in the air, conveying a warm and nostalgic moving-day atmosphere. Refer to the first input image for the character design and the second image for the background (if provided).",
+        "scene_transition": 1,
+        "recurring_characters": [
+          "Grandpa"
+        ],
+        "image_url": "https://file4.aitohumanize.com/file/770dbbde0bfb4c02bf0ea0f18be07cd4.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_1.png"
+      }
+    },
+    {
+      "id": "node_2",
+      "content": "The piano sits at the doorstep of your old home, an immovable weight. Grandpa hands you a sturdy wooden pole and a thick brick to use as a block, telling you to use these tools to pry up one side of the piano so the movers can slide the dolly underneath. Facing this massive instrument weighing hundreds of kilograms, where you place the fulcrum is the key.",
+      "type": "ep_start",
+      "metadata": {
+        "chapter_title": "Level 1: The Heavy Piano",
+        "knowledge_point": "The Lever Principle",
+        "primary_knowledge_point": "The Lever Principle",
+        "supporting_knowledge_points": [],
+        "knowledge_role_in_this_level": "Primary Concept Progression",
+        "image_prompt": "Mid shot. A character leans over with a focused expression, hands gripping a long wooden pole, preparing to pry up a heavy piano on the steps. Sunlight filters through greenery into a warm, nostalgic courtyard. The style is a healing Ghibli-inspired aesthetic. Character design refers to the first input image; background refers to the second (if available).",
+        "scene_transition": 1,
+        "recurring_characters": [
+          "Grandpa"
+        ],
+        "image_url": "https://file5.aitohumanize.com/file/faef1b8034ab481da75fdaf53c9d3047.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_2.png"
+      }
+    },
+    {
+      "id": "node_3",
+      "content": "To pry up the piano with the least amount of effort, where should you place the brick (the fulcrum) beneath the pole?",
+      "type": "normal",
+      "metadata": {
+        "knowledge_point": "The Lever Principle",
+        "primary_knowledge_point": "The Lever Principle",
+        "supporting_knowledge_points": [],
+        "image_prompt": "The character is squatting in a sun-drenched corridor, concentrating fully on adjusting the wooden pole and the brick under the heavy piano. A Ghibli-style mid shot with a background filled with nostalgic old items. Character design refers to the first input image; background refers to the second (if available).",
+        "scene_transition": 1,
+        "image_url": "https://file3.aitohumanize.com/file/f492a212ae5b456f85e0df5896da28dc.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_3.png"
+      }
+    },
+    {
+      "id": "node_4",
+      "content": "You crouch down and wedge the brick under the pole near the bottom of the piano, then grip the far end of the pole and press down.",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "Place the brick under the pole near the piano, using a long effort arm to maximize effort-saving.",
+        "image_prompt": "In front of a sunlit old house, the character is half-squatting with a focused look, pressing down on one end of a long wooden pole with both hands, prying up the heavy piano using the thick brick. Side mid-shot composition with dappled light and shadows, exuding a warm and nostalgic Ghibli atmosphere. Character design refers to the first input image; background refers to the second (if available).",
+        "scene_transition": 1,
+        "image_url": "https://file1.aitohumanize.com/file/c6c309376c9a4100a3ba7d03a90b12de.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_4.png"
+      }
+    },
+    {
+      "id": "node_5",
+      "content": "One side of the piano is easily pried up just enough. The mover quickly slides the dolly in, and the piano settles steadily onto the frame.",
+      "type": "ep_end",
+      "metadata": {
+        "physics_knowledge": "The Lever Principle\n\nExplanation: In this scenario, you have constructed an effort-saving lever. Because the brick (fulcrum) is placed very close to the piano (the resistance point), the resistance arm $L_2$ is very short, while the effort arm $L_1$ (from your hands to the fulcrum) is very long. According to the law of the lever, you only need to apply an effort force much smaller than the weight of the piano to lift it.\n\nKey Concept: The lever equilibrium condition is $F_1L_1 = F_2L_2$. The type of lever is determined by the relationship between the effort arm $L_1$ and the resistance arm $L_2$. When the effort arm is longer than the resistance arm, the effort required is less than the resistance, making it an effort-saving lever. The closer the fulcrum is to the resistance point, the more significant the effort-saving effect.",
+        "chapter_title": "Level 1: The Heavy Piano",
+        "knowledge_point": "The Lever Principle",
+        "primary_knowledge_point": "The Lever Principle",
+        "supporting_knowledge_points": [],
+        "knowledge_role_in_this_level": "Primary Concept Progression",
+        "image_prompt": "Mid shot. The character smiles while holding the long wooden pole, as the piano sits securely on the dolly. Sunlight streams into the old house, with dust motes dancing in the light, capturing a classic Ghibli-esque sense of warm nostalgia. Character design refers to the first input image; background refers to the second (if available).",
+        "scene_transition": 1,
+        "image_url": "https://file2.aitohumanize.com/file/4cb5be7f070046088cabf7997d3c8ca8.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_5.png"
+      }
+    },
+    {
+      "id": "node_4_branch_1_decision",
+      "content": "You precisely measure the length of the wooden pole, place the brick right in the center, and then press down hard with both hands on the other end.",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "Place the brick exactly in the middle of the pole, ensuring the lever arms are equal on both sides to maintain a balance of forces.",
+        "image_prompt": "Ghibli style. In a sun-drenched courtyard, a character presses down on one end of a long wooden pole with both hands. A thick brick is placed directly in the center of the pole, attempting to pry a heavy piano next to the steps. Warm and nostalgic atmosphere, the character's expression is focused and forceful. Character appearance refers to the first input image, background refers to the second (if any).",
+        "scene_transition": 1,
+        "image_url": "https://file4.aitohumanize.com/file/56a90ca9f5d84a809597ae9bc1142391.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_4_branch_1_decision.png"
+      }
+    },
+    {
+      "id": "node_4_branch_1_fatal",
+      "content": "Your face turns red as you strain with all your might, but the piano doesn't budge. An equal-arm lever provides no labor-saving effect.",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "This is a typical \"balance and symmetry\" misconception. When the fulcrum is in the center, the effort arm equals the resistance arm, forming an equal-arm lever. This means the downward force you apply must equal the weight of the piano's side. Facing a piano weighing hundreds of kilograms, you cannot move it with human strength alone using an equal-arm lever.",
+        "physics_knowledge": "Lever Principle\n\nReason for Error: This is a typical \"balance and symmetry\" misconception. When the fulcrum is located in the exact center, the effort arm equals the resistance arm, forming an equal-arm lever. This means the downward force you apply must equal the weight of the piano's side. Facing a piano weighing hundreds of kilograms, it is impossible to move it with human strength alone using an equal-arm lever.\n\nKnowledge Point: The lever balance condition follows the formula $F_1L_1 = F_2L_2$. The relationship between the lengths of the effort arm $L_1$ and the resistance arm $L_2$ determines the lever's mechanical characteristics. In an equal-arm lever model, the fulcrum is at the center. Since $L_1 = L_2$, the required downward force must equal the object's weight, which is often unachievable when dealing with heavy objects.\n\nTo achieve a labor-saving effect, the fulcrum should be moved toward the resistance point, making the effort arm much longer than the resistance arm. According to the formula, a smaller effort can then overcome a massive resistance. The closer the fulcrum is to the resistance point, the greater the ratio of the lever arms, and the more significant the labor-saving advantage. The key to understanding this principle is that balance depends not just on the absolute magnitude of the force, but on the conservation of the product of force and its lever arm.",
+        "knowledge_point": "Lever Principle",
+        "primary_knowledge_point": "Lever Principle",
+        "supporting_knowledge_points": [],
+        "knowledge_role_in_this_level": "Main concept progression",
+        "wrong_explanation": "This is a typical \"balance and symmetry\" misconception. When the fulcrum is in the center, the effort arm equals the resistance arm, forming an equal-arm lever. This means the downward force you apply must equal the weight of the piano's side. Facing a piano weighing hundreds of kilograms, you cannot move it with human strength alone using an equal-arm lever.",
+        "correct_knowledge_ref": "The lever balance condition is $F_1L_1 = F_2L_2$. The type of lever depends on the relationship between the effort arm $L_1$ and the resistance arm $L_2$. When the effort arm is longer than the resistance arm, the effort needed is less than the resistance, making it a labor-saving lever. The closer the fulcrum is to the resistance point, the more significant the labor-saving effect.",
+        "image_prompt": "Ghibli style, medium shot. Under bright sunlight, a character is red-faced, desperately pressing down on a long wooden pole trying to pry a heavy piano, but it remains motionless. The background is a nostalgic old house full of the atmosphere of daily life. Character appearance refers to the first input image, background refers to the second (if any).",
+        "scene_transition": 0,
+        "image_url": "https://file3.aitohumanize.com/file/2af6bfe44ac64a00b7eead5860841795.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_4_branch_1_fatal.png"
+      }
+    },
+    {
+      "id": "node_4_branch_2_decision",
+      "content": "You place the brick under the pole close to your hands and press down hard, attempting to use this short-distance fulcrum for control.",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "Place the brick under the wooden pole close to your position, shortening the effort arm to increase your control over the pole.",
+        "image_prompt": "A sunlit courtyard, a character grit their teeth, straining to press down on a long wooden pole with a brick placed near their hands. In the background are a massive piano and a nostalgic old house. Ghibli style with soft colors, medium shot showing a busy atmosphere. Character appearance refers to the first input image, background refers to the second (if any).",
+        "scene_transition": 1,
+        "image_url": "https://file1.aitohumanize.com/file/065e87cd02e745c2bcd93fba22dede47.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_4_branch_2_decision.png"
+      }
+    },
+    {
+      "id": "node_4_branch_2_fatal",
+      "content": "The resistance at the other end of the pole far exceeds your downward force, causing the pole to kick back violently, nearly hitting your chin.",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "This is a \"labor-consuming lever\" configuration. When the fulcrum is close to the effort point (your hands), the effort arm is much shorter than the resistance arm. According to the lever principle, the effort you need will be many times the weight of the piano. This approach not only fails to complete the task but also poses a safety risk as the unbalanced forces cause the pole to kick back uncontrollably.",
+        "physics_knowledge": "Lever Principle\n\nReason for Error: This is a \"labor-consuming lever\" configuration. When the fulcrum is close to the effort point (your hands), the effort arm is much shorter than the resistance arm. According to the lever principle, the effort you need will be many times the weight of the piano. This approach not only fails to complete the task but also poses a safety risk as the unbalanced forces cause the pole to kick back uncontrollably.\n\nKnowledge Point: The lever principle states that when a rigid rod rotates around a fixed point under the action of forces, it must satisfy the equilibrium condition: effort multiplied by the effort arm equals resistance multiplied by the resistance arm, namely $F_1L_1 = F_2L_2$. The effectiveness of a lever depends on the ratio of the arms. When the fulcrum is near the effort point, the effort arm is shorter than the resistance arm, creating a labor-consuming lever where the required effort is much greater than the resistance, often leading to safety hazards due to force imbalance. Conversely, moving the fulcrum toward the resistance point to make the effort arm longer than the resistance arm transforms it into a labor-saving lever. The closer the fulcrum is to the resistance point, the more significant the labor-saving effect, better meeting the mechanical needs of moving heavy objects.",
+        "knowledge_point": "Lever Principle",
+        "primary_knowledge_point": "Lever Principle",
+        "supporting_knowledge_points": [],
+        "knowledge_role_in_this_level": "Main concept progression",
+        "wrong_explanation": "This is a \"labor-consuming lever\" configuration. When the fulcrum is close to the effort point (your hands), the effort arm is much shorter than the resistance arm. According to the lever principle, the effort you need will be many times the weight of the piano. This approach not only fails to complete the task but also poses a safety risk as the unbalanced forces cause the pole to kick back uncontrollably.",
+        "correct_knowledge_ref": "The lever balance condition is $F_1L_1 = F_2L_2$. The type of lever depends on the relationship between the effort arm $L_1$ and the resistance arm $L_2$. When the effort arm is longer than the resistance arm, the effort needed is less than the resistance, making it a labor-saving lever. The closer the fulcrum is to the resistance point, the more significant the labor-saving effect.",
+        "image_prompt": "Medium shot. Under bright sunlight, the long wooden pole the character was pressing down on kicks back violently, and the character flinches back in shock. Beside them are the heavy piano and scattered bricks. Ghibli-style warm and nostalgic feel. Character appearance refers to the first input image, background refers to the second (if any).",
+        "scene_transition": 0,
+        "image_url": "https://file1.aitohumanize.com/file/c08e7c8707ee425bb20dc5ee36f9c85f.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_4_branch_2_fatal.png"
+      }
+    },
+    {
+      "id": "node_6",
+      "content": "The piano is finally on the flatbed cart, but as you push it onto the gravel path, the narrow wheels sink into the gaps and get stuck. The piano’s immense weight creates massive local pressure on the uneven surface. As the cart moves along the gravel path toward the truck, the wheels sink deep into the crevices due to the excessive force. Grandpa looks at the wobbling piano with concern. If we push or pull by force, not only might the piano topple, but the gravel could also damage the wheels. We must find materials to lay a temporary path immediately to change how the ground bears the load.",
+      "type": "ep_start",
+      "metadata": {
+        "chapter_title": "Level 2: Rugged Terrain—Resolving the Sinking Crisis",
+        "knowledge_point": "Pressure and Ways to Reduce Pressure",
+        "primary_knowledge_point": "Pressure and Ways to Reduce Pressure",
+        "supporting_knowledge_points": [],
+        "knowledge_role_in_this_level": "Main Concept Progression",
+        "image_prompt": "A character crouches down, looking worriedly at the cart wheels stuck in the gravel gaps. Grandpa stands nearby with an anxious expression, reaching out to steady the slightly tilting heavy piano. Bright sunlight filters through the leaves onto the nostalgic path of the old house, with tiny dust motes floating in the air. A medium shot captures this dilemma. Character appearance refers to the first input image, and background refers to the second (if available).",
+        "scene_transition": 1,
+        "recurring_characters": [
+          "Grandpa"
+        ],
+        "image_url": "https://file2.aitohumanize.com/file/43477e78716c4abf87c6db7d8466feb7.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_6.png"
+      }
+    },
+    {
+      "id": "node_7",
+      "content": "To prevent the cart from sinking into the gravel, which paving solution should you choose to effectively reduce the pressure?",
+      "type": "normal",
+      "metadata": {
+        "knowledge_point": "Pressure and Ways to Reduce Pressure",
+        "primary_knowledge_point": "Pressure and Ways to Reduce Pressure",
+        "supporting_knowledge_points": [],
+        "image_prompt": "Medium shot, Ghibli style. A character looks troubled, crouching by the cart stuck in the gravel, trying to measure with a wide, thick wooden board. Grandpa watches with concern. A few laid-out boards lead toward the truck. Sunlight falls gently, creating a nostalgic atmosphere. Character appearance refers to the first input image, and background refers to the second (if available).",
+        "scene_transition": 0,
+        "image_url": "https://file1.aitohumanize.com/file/09581e204ed04222b9e08a81852d174f.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_7.png"
+      }
+    },
+    {
+      "id": "node_8",
+      "content": "You find several wide, thick wooden boards and lay them side by side on the gravel, creating a smooth track for the cart wheels.",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "Lay down hard, thick wooden boards with a large surface area, using the rigid surface to distribute the concentrated pressure evenly.",
+        "image_prompt": "Ghibli style. Medium shot. In the sunlight, a character and a mover crouch on the gravel road, busy laying several wide, thick old wooden boards side by side. These boards form a smooth, simple wooden track on the rough gravel surface, with the cart and the wobbling piano waiting nearby. Grandpa watches from a distance with a look of hope. The atmosphere is warm and nostalgic, with soft lighting. Character appearance refers to the first input image, and background refers to the second.",
+        "scene_transition": 0,
+        "image_url": "https://file5.aitohumanize.com/file/03f2d1eb70aa4c549f90386a39f92c15.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_8.png"
+      }
+    },
+    {
+      "id": "node_9",
+      "content": "Once the wheels move onto the boards, they no longer sink. The boards distribute the pressure across a wider area of the ground, allowing the cart to roll smoothly toward the truck.",
+      "type": "ep_end",
+      "metadata": {
+        "physics_knowledge": "Pressure and Ways to Reduce Pressure\n\nAnalysis: According to the pressure formula $p = F/S$, while the force $F$ (total weight of the piano) remains constant, laying wide wooden boards significantly increases the surface area $S$. This effectively reduces the pressure $p$ on the road, allowing the gravel layer to support the weight without noticeable sinking.\n\nKnowledge Point: Pressure is a physical quantity that represents the effect of force. The calculation formula is $p = F/S$. Methods to reduce pressure include decreasing force or increasing the contact area. In practical engineering, using pads or tracks to increase the contact area is the most common scientific method used to prevent ground subsidence.",
+        "chapter_title": "Level 2: Rugged Terrain—Resolving the Sinking Crisis",
+        "knowledge_point": "Pressure and Ways to Reduce Pressure",
+        "primary_knowledge_point": "Pressure and Ways to Reduce Pressure",
+        "supporting_knowledge_points": [],
+        "knowledge_role_in_this_level": "Main Concept Progression",
+        "image_prompt": "In a medium shot, the Ghibli-style scene presents a warm and nostalgic atmosphere. Grandpa watches with a smile while the mover steadily pushes the cart carrying the piano. The wheels of the cart roll smoothly over the wide, thick wooden boards laid side by side on the gravel; the boards bend slightly, distributing the pressure. The cart moves briskly toward the truck parked ahead. Sunlight falls gently on the scene. Character appearance refers to the first input image, and background refers to the second.",
+        "scene_transition": 0,
+        "image_url": "https://file4.aitohumanize.com/file/d4a08eb8f0c34b589a87d0a3acc119bf.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_9.png"
+      }
+    },
+    {
+      "id": "node_8_branch_1_decision",
+      "content": "You spread a thick blanket flat over the gravel in front of the wheel, hoping the soft material will cushion the pressure of the heavy load.",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "Lay down a soft, thick old blanket, using the material's elastic deformation to absorb pressure and reduce sinking.",
+        "image_prompt": "Ghibli style, medium shot. A character frowns and squats on a gravel road, hands pressing a thick dark blanket flat in front of a stuck cart wheel. Sunlight filters through leaves, creating a tense atmosphere. In the background, a massive piano tilts precariously on the cart while Grandpa looks on worriedly nearby. Character design refers to the first input image.",
+        "scene_transition": 0,
+        "image_url": "https://file3.aitohumanize.com/file/b06301e3ea204e608e73f2b846db7df0.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_8_branch_1_decision.png"
+      }
+    },
+    {
+      "id": "node_8_branch_1_fatal",
+      "content": "When the wheel rolls over it, the blanket sinks into the gaps between the gravel along with the wheel. Instead of helping, it wraps tightly around the wheel, jamming it completely.",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "This is a common misconception that \"softer is better.\" Although the blanket is soft, it undergoes significant deformation under heavy pressure and cannot stably increase the effective contact area like a wooden board can; instead, it sinks into the gravel gaps more easily.",
+        "physics_knowledge": "Pressure and Ways to Reduce Pressure\n\nReason for failure: This is a common misconception that \"softer is better.\" Although the blanket is soft, it undergoes significant deformation under heavy pressure. Unlike a wooden board, it cannot provide a stable increase in the effective contact area; instead, it is more likely to sink into the gaps between the gravel.\n\nKnowledge Point: The key to reducing pressure is increasing the stable and effective contact area. Rigid materials like wooden boards can distribute pressure over a larger area, whereas soft materials deform under heavy loads and struggle to sustain pressure distribution. Therefore, when dealing with heavy load support and movement, priority should be given to materials with higher rigidity and more stable contact surfaces.",
+        "knowledge_point": "Pressure and Ways to Reduce Pressure",
+        "primary_knowledge_point": "Pressure and Ways to Reduce Pressure",
+        "supporting_knowledge_points": [],
+        "knowledge_role_in_this_level": "Main Concept Progression",
+        "wrong_explanation": "This is a common misconception that \"softer is better.\" Although the blanket is soft, it undergoes significant deformation under heavy pressure and cannot stably increase the effective contact area like a wooden board can; instead, it sinks into the gravel gaps more easily.",
+        "correct_knowledge_ref": "Pressure is the physical quantity that represents the effect of force. The formula is $p = F/S$. Ways to reduce pressure include decreasing the force or increasing the contact area. In engineering, using padding boards or crawler tracks to increase the contact area is the most common scientific method to prevent ground subsidence.",
+        "image_prompt": "Medium shot, soft light. Grandpa and granddaughter squat anxiously by a cart wheel stuck in gravel. The blanket originally laid on the road has jammed into the gaps with the wheel, tightly wrapping it so it cannot move. Both look disappointed and helpless. Character design refers to the first input image, background refers to the second image (if any).",
+        "scene_transition": 0,
+        "image_url": "https://file2.aitohumanize.com/file/2b60245530a94659aac1fcb659288b48.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_8_branch_1_fatal.png"
+      }
+    },
+    {
+      "id": "node_8_branch_2_decision",
+      "content": "You fetch a bucket of water and pour it onto the gravel road, thinking that a wet surface will reduce resistance and make it easier for the cart to slide across.",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "Sprinkle water evenly on the road, thinking that making the stones slippery will allow the wheels to pass through more easily.",
+        "image_prompt": "Medium shot, sunlight peeking through clouds. A young character bends over carrying a wooden bucket, clumsily splashing water onto the gravel road. The gravel becomes instantly wet, but the cart wheels remain deeply stuck in the gaps. Grandpa looks on worriedly. The atmosphere is warm yet tinged with confusion. Character design refers to the first input image.",
+        "scene_transition": 0,
+        "image_url": "https://file4.aitohumanize.com/file/abddd9d6d8a04aaaa7cb65729629370a.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_8_branch_2_decision.png"
+      }
+    },
+    {
+      "id": "node_8_branch_2_fatal",
+      "content": "The water makes the loose gravel even more unstable. Instead of passing through more easily, the wheels sink deeper and nearly cause the cart to slide sideways.",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "This stems from misidentifying the problem as \"too much friction.\" The core issue is that excessive pressure causes sinking, not that the road isn't slippery enough. Pouring water does not stably increase the contact area and may even make the gravel layer looser.",
+        "physics_knowledge": "Pressure and Ways to Reduce Pressure\n\nReason for failure: This stems from misidentifying the problem as \"too much friction.\" The core issue here is that excessive pressure causes sinking, not that the road isn't slippery enough. Pouring water does not stably increase the contact area and may even make the gravel layer looser.\n\nKnowledge Point: When solving physics problems, you must identify the core physical quantity determining the phenomenon. In this case, the fundamental reason the cart is stuck is the high total weight of the piano and cart combined with the small contact area of the wheels, leading to excessive pressure. The solution should revolve around reducing pressure, not simply making the road slippery.",
+        "knowledge_point": "Pressure and Ways to Reduce Pressure",
+        "primary_knowledge_point": "Pressure and Ways to Reduce Pressure",
+        "supporting_knowledge_points": [],
+        "knowledge_role_in_this_level": "Main Concept Progression",
+        "wrong_explanation": "This stems from misidentifying the problem as \"too much friction.\" The core issue is that excessive pressure causes sinking, not that the road isn't slippery enough. Pouring water does not stably increase the contact area and may even make the gravel layer looser.",
+        "correct_knowledge_ref": "Pressure is the physical quantity that represents the effect of force. The formula is $p = F/S$. Ways to reduce pressure include decreasing the force or increasing the contact area. In engineering, using padding boards or crawler tracks to increase the contact area is the most common scientific method to prevent ground subsidence.",
+        "image_prompt": "Medium shot. A character squats on a muddy gravel road with an anxious and regretful expression. The freshly watered ground is slippery and messy. The narrow cart wheels are buried deep in the soft mud and gravel gaps. The entire piano tilts heavily, looking as if it might slide over at any moment. Grandpa stretches out a hand to steady it. Ghibli style, with nostalgic twilight light illuminating the chaotic scene, conveying a sense of tension. Character design refers to the first input image. Background refers to the second image (if any).",
+        "scene_transition": 0,
+        "image_url": "https://file5.aitohumanize.com/file/cda4f7bfd39f4e96890ca07102e012bd.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_8_branch_2_fatal.png"
+      }
+    },
+    {
+      "id": "node_10",
+      "content": "The handcart has finally reached the back of the truck, but the truck bed is significantly higher than the ground. Lifting the heavy piano smoothly by hand alone is nearly impossible. The mover brings out some ropes and several pulleys, intending to set up a temporary hoisting rig. You need to decide which pulley configuration will both save effort and be convenient for continuous operation beside the truck.",
+      "type": "ep_start",
+      "metadata": {
+        "chapter_title": "Level 3 Ascent: The Great Pulley Choice",
+        "knowledge_point": "Pulley Systems",
+        "primary_knowledge_point": "Pulley Systems",
+        "supporting_knowledge_points": [
+          "Lever Principle"
+        ],
+        "knowledge_role_in_this_level": "Main concept progression",
+        "image_prompt": "Medium shot. Sunlight streams through the truck cargo hold onto the ground. An experienced mover frowns in thought, holding coarse ropes and several pulleys. The character stands nearby, looking at the high truck bed and the heavy piano with a troubled expression. Nostalgic and warm atmosphere. Character design refers to the first input image.",
+        "scene_transition": 0,
+        "image_url": "https://file4.aitohumanize.com/file/47da845935604ba19ba94e83e974ea46.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_10.png"
+      }
+    },
+    {
+      "id": "node_11",
+      "content": "Faced with the heavy piano and the high truck bed, which pulley configuration do you think is most suitable?",
+      "type": "normal",
+      "metadata": {
+        "knowledge_point": "Pulley Systems",
+        "primary_knowledge_point": "Pulley Systems",
+        "supporting_knowledge_points": [
+          "Lever Principle"
+        ],
+        "image_prompt": "Ghibli style, medium shot. Warm sunlight bathes the back of the truck. The character is focused, gesturing with sturdy hemp rope and iron pulleys, expression thoughtful and serious. Grandpa watches with concern nearby. In the background, the piano waits to be moved next to the loaded truck. The scene is filled with a nostalgic and warm labor atmosphere. Character design refers to the first input image.",
+        "scene_transition": 0,
+        "image_url": "https://file3.aitohumanize.com/file/daa084af9e4349bbb4f29d33c6f6d9a0.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_11.png"
+      }
+    },
+    {
+      "id": "node_12",
+      "content": "You ask the mover to fix a fixed pulley above the truck to change the direction of the pull, then combine it with a movable pulley attached to the piano. This allows everyone to pull downward, lifting the piano steadily with much less effort.",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "Use a combination of fixed and movable pulleys to form a pulley system, both changing the direction of force and reducing the required pull.",
+        "image_prompt": "Medium shot. The character gives directions while the mover looks up to fix an iron pulley above the truck. Another pulley is connected to the piano with thick hemp rope threaded between them. Warm, hopeful lighting. Character design refers to the first input image.",
+        "scene_transition": 0,
+        "image_url": "https://file5.aitohumanize.com/file/7b4d1bc45dcc49be97a44faed21287ef.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_12.png"
+      }
+    },
+    {
+      "id": "node_13",
+      "content": "As the rope tightens, the piano slowly leaves the ground. Everyone stands in a better position to pull downward, making it easier to exert force and control the lifting rhythm. Finally, the piano is moved smoothly into the truck.",
+      "type": "ep_end",
+      "metadata": {
+        "physics_knowledge": "Pulley Systems\n\nAnalysis: This is the most reasonable solution. A fixed pulley can change the direction of force, allowing people to pull downward more conveniently. A movable pulley can save effort by reducing the pulling force needed to lift a heavy object. Combining the two into a suitable pulley system balances operational convenience with effort-saving, making it ideal for practical scenarios like moving a heavy piano.\n\nKnowledge Point: The primary role of a fixed pulley is to change the direction of force; it does not reduce the effort required. A movable pulley reduces the effort but cannot change the direction of force. A pulley system combines the advantages of both. The factor by which effort is reduced depends on the number of rope strands supporting the weight. While more strands mean less force is required (ignoring friction and the pulley's weight), the setup shouldn't be infinitely complex, or it will hinder operational efficiency.",
+        "chapter_title": "Level 3 Ascent: The Great Pulley Choice",
+        "knowledge_point": "Pulley Systems",
+        "primary_knowledge_point": "Pulley Systems",
+        "supporting_knowledge_points": [
+          "Lever Principle"
+        ],
+        "knowledge_role_in_this_level": "Main concept progression",
+        "image_prompt": "Ghibli style. The character and the mover focus on pulling the thick rope downward. The heavy piano rises steadily via iron pulleys, slowly sliding into the cozy wooden truck bed. Soft afternoon sunlight falls on the gravel road. Medium shot composition, nostalgic atmosphere. Character design refers to the first input image, background refers to the second image (if available).",
+        "scene_transition": 0,
+        "image_url": "https://file5.aitohumanize.com/file/2d19ff8e9b3a448a8400d8ba79e31819.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_13.png"
+      }
+    },
+    {
+      "id": "node_12_branch_1_decision",
+      "content": "You decide to hang a single fixed pulley from the top of the truck, changing the pulling direction so that everyone can lift the piano straight up.",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "Use only a fixed pulley, assuming that changing the direction will make lifting much easier.",
+        "image_prompt": "Ghibli style, medium shot. Beside the truck bed, the protagonist and movers are pulling a rope together, looking up with focused and strained expressions. A rough hemp rope hangs vertically from an iron fixed pulley mounted on the truck's top beam. Although they can apply force downward, the piano is clearly very heavy; the rope is taut, and sleeves are slightly rolled up. The piano has just barely lifted off the ground, swaying slightly in the air. The scene conveys a tense yet nostalgic atmosphere. An old truck and distant houses are bathed in warm, soft sunlight. Character appearance refers to the first input image.",
+        "scene_transition": 0,
+        "image_url": "https://file3.aitohumanize.com/file/aa42bda630c842fa82d2bf4164a6cba7.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_12_branch_1_decision.png"
+      }
+    },
+    {
+      "id": "node_12_branch_1_fatal",
+      "content": "While it’s easier to pull downward, the full weight of the piano still bears down on everyone's hands. Before long, the strain becomes unbearable. The piano hangs swaying in mid-air, making no progress toward the truck.",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "This is a classic misconception where changing the direction of force is mistaken for reducing the effort. A fixed pulley makes pulling more convenient but doesn't reduce the tension required. For heavy objects like pianos, a fixed pulley alone is still too physically demanding.",
+        "physics_knowledge": "Pulley Systems\n\nReason for Error: This is a classic misconception where changing the direction of force is mistaken for reducing the effort required. A fixed pulley allows you to pull in a more convenient direction, but it does not reduce the force needed to lift the weight. For an object as heavy as a piano, a fixed pulley alone is usually insufficient.\n\nKnowledge Point: A fixed pulley is essentially an equal-arm lever; its primary function is to change the direction of the force, not to save effort. In an ideal scenario, the required pulling force remains equal to the weight of the object. In practice, friction adds extra work, which is why a single fixed pulley fails to lift heavy loads easily. A more suitable solution for moving heavy objects is to include a movable pulley to form a pulley system, which distributes the weight and reduces the required pulling force.",
+        "knowledge_point": "Pulley Systems",
+        "primary_knowledge_point": "Pulley Systems",
+        "supporting_knowledge_points": [
+          "Lever Principle"
+        ],
+        "knowledge_role_in_this_level": "Main concept progression",
+        "wrong_explanation": "This is a classic misconception where changing the direction of force is mistaken for reducing the effort. A fixed pulley makes pulling more convenient but doesn't reduce the tension required. For heavy objects like pianos, a fixed pulley alone is still too physically demanding.",
+        "correct_knowledge_ref": "A fixed pulley changes the direction of force but does not save effort; a movable pulley saves effort but does not change the direction; a proper pulley system can achieve both.",
+        "image_prompt": "Ghibli style. Beside the truck, the characters and movers look pained, gritting their teeth as they pull down on a taut hemp rope. Their faces are flushed and arms trembling, showing exhaustion. The heavy piano hangs from a rough fixed pulley, lifted only slightly and swaying in mid-air, unable to reach the truck bed. The lighting is dim, conveying tension and frustration. Medium shot. Character refers to the first input image, background refers to the second.",
+        "scene_transition": 0,
+        "image_url": "https://file4.aitohumanize.com/file/b843550fd1c84c2ca328e33d8bd50b88.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_12_branch_1_fatal.png"
+      }
+    },
+    {
+      "id": "node_12_branch_2_decision",
+      "content": "Believing that more movable pulleys always mean less effort, you ask the movers to attach as many as possible, creating a complex, layered web of ropes.",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "Use a large number of movable pulleys, assuming more pulleys always result in better effort reduction.",
+        "image_prompt": "Ghibli style. Beside the truck, the protagonist excitedly directs the movers as they stack multiple iron pulleys onto a frame and the piano. Rough hemp ropes weave back and forth in a confusing tangle. Warm sunlight bathes the busy and cluttered scene, filled with nostalgia. Medium shot. Character refers to the first input image.",
+        "scene_transition": 0,
+        "image_url": "https://file5.aitohumanize.com/file/01c4584e49eb450da4bbcbc4d4e97461.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_12_branch_2_decision.png"
+      }
+    },
+    {
+      "id": "node_12_branch_2_fatal",
+      "content": "Although the setup looks impressive, the tangled ropes make operation extremely difficult. The distance everyone has to pull increases drastically, and coordination falls apart. The piano rises painfully slowly and is hard to control, ultimately delaying the move.",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "This is the mistake of pursuing maximum effort reduction without considering practical efficiency. Adding more pulleys requires pulling much more rope and makes the setup overly complex. In reality, the key is choosing an appropriate number of pulleys.",
+        "physics_knowledge": "Pulley Systems\n\nReason for Error: This is the mistake of pursuing maximum effort reduction without considering practical efficiency. While more movable pulleys theoretically decrease the force required, they also require pulling much more rope and make the setup more complex. In practice, more is not always better; the key is choosing the right amount.\n\nKnowledge Point: In an ideal scenario, the more rope segments supporting the load in a pulley system, the less force is needed. However, the distance the rope must be pulled increases proportionally. In other words, saving effort often comes at the cost of distance. Over-complicating the system with too many pulleys not only makes it slower but also reduces mechanical efficiency due to friction and coordination issues. When moving a piano, a balanced combination of fixed and movable pulleys is better than blindly piling them on.",
+        "knowledge_point": "Pulley Systems",
+        "primary_knowledge_point": "Pulley Systems",
+        "supporting_knowledge_points": [
+          "Lever Principle"
+        ],
+        "knowledge_role_in_this_level": "Main concept progression",
+        "wrong_explanation": "This is the mistake of pursuing maximum effort reduction without considering practical efficiency. Adding more pulleys requires pulling much more rope and makes the setup overly complex. In reality, the key is choosing an appropriate number of pulleys.",
+        "correct_knowledge_ref": "Fixed pulleys change direction, while movable pulleys save effort. A pulley system must balance force reduction, pulling distance, and complexity; a moderate combination is most effective.",
+        "image_prompt": "Medium shot. Beside the truck, several movers surround the piano, pulling at a tangled mess of layered hemp ropes with expressions of anxiety and frustration. The piano hangs tilted in the air. Sunlight filters through leaves, creating a warm atmosphere that contrasts with the chaotic scene. Character appearance refers to the first input image, background refers to the second.",
+        "scene_transition": 0,
+        "image_url": "https://file1.aitohumanize.com/file/c5ba91e4d3ca4958ada9b95f81ea1afd.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_12_branch_2_fatal.png"
+      }
+    },
+    {
+      "id": "node_14",
+      "content": "The piano is successfully in place, followed by that tall mahogany bookcase. Although it's already been loaded into the truck, static stability is only the first step; we must also consider balance during the drive. The bookcase is tall and narrow, packed with heavy books. Since the truck will inevitably sway while moving, if the center of gravity is too high, it could easily tip over during a turn. Grandpa brings over a stack of thick encyclopedias and asks how to arrange the books to increase the cabinet's stability.",
+      "type": "ep_start",
+      "metadata": {
+        "chapter_title": "Level 4: Positioning – The Bookcase's Solid Foundation",
+        "knowledge_point": "Center of Gravity and Stability",
+        "primary_knowledge_point": "Center of Gravity and Stability",
+        "supporting_knowledge_points": [],
+        "knowledge_role_in_this_level": "Main concept progression",
+        "image_prompt": "Inside the warm and dimly lit cargo area of a truck, a white-haired grandpa smiles as he hands a stack of thick encyclopedias to someone beside him. They are facing a tall mahogany bookcase, discussing how to arrange the books. Ghibli style, nostalgic lighting, medium shot. The character's appearance should refer to the first input image, and the background should refer to the second (if available).",
+        "scene_transition": 1,
+        "recurring_characters": [
+          "Grandpa"
+        ],
+        "image_url": "https://file3.aitohumanize.com/file/5549fc2aa8b94c63b47e1f3b65138924.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_14.png"
+      }
+    },
+    {
+      "id": "node_15",
+      "content": "To ensure the bookcase is least likely to tip over during transport, where should you place the heavy books?",
+      "type": "normal",
+      "metadata": {
+        "knowledge_point": "Center of Gravity and Stability",
+        "primary_knowledge_point": "Center of Gravity and Stability",
+        "supporting_knowledge_points": [],
+        "image_prompt": "Medium shot, Ghibli style. Sunlight pours through the truck's cargo opening. A character is squatting in front of the tall mahogany bookcase, hand resting on a stack of thick encyclopedias, thinking seriously. Grandpa watches kindly from the side. The truck is filled with a nostalgic and warm atmosphere. The character's appearance should refer to the first input image, and the background should refer to the second (if available).",
+        "scene_transition": 0,
+        "image_url": "https://file5.aitohumanize.com/file/6c387173952e43aeae9e45584916ac19.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_15.png"
+      }
+    },
+    {
+      "id": "node_16",
+      "content": "You bend down and neatly stack the thickest volumes in the bottom compartment of the bookcase to increase the mass at the base.",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "Place the heavy books on the bottom shelf to significantly increase stability by lowering the overall center of gravity.",
+        "image_prompt": "Ghibli style. Inside the truck's cargo area, a character bends down to neatly stack thick volumes in the bottom shelf of the bookcase. The lighting is warm, and Grandpa watches kindly nearby. The character's appearance should refer to the first input image, and the background should refer to the second (if available).",
+        "scene_transition": 0,
+        "image_url": "https://file5.aitohumanize.com/file/11396fe09a394d36958ec471b0220410.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_16.png"
+      }
+    },
+    {
+      "id": "node_17",
+      "content": "The bookcase becomes \"bottom-heavy.\" When you try to shake the top of the cabinet with force, it remains firmly in place, demonstrating very high stability.",
+      "type": "ep_end",
+      "metadata": {
+        "physics_knowledge": "Center of Gravity and Stability\n\nExplanation: By placing heavy objects at the bottom, the overall center of gravity of the bookcase system is effectively lowered. The lower the center of gravity, the less likely the vertical projection line of gravity is to cross the edge of the supporting base when the object tilts due to inertia or vibration, thereby greatly improving its resistance to tipping.\n\nKnowledge Point: An object's stability (steadiness) is mainly determined by the height of its center of gravity and the size of its support area. When the support area is constant, the lower the center of gravity, the more stable the object. This is because a lower center of gravity means that when tilted at the same angle, the restoring force arm generated by gravity is longer, making the system more resistant to external interference.",
+        "chapter_title": "Level 4: Positioning – The Bookcase's Solid Foundation",
+        "knowledge_point": "Center of Gravity and Stability",
+        "primary_knowledge_point": "Center of Gravity and Stability",
+        "supporting_knowledge_points": [],
+        "knowledge_role_in_this_level": "Main concept progression",
+        "image_prompt": "Medium shot. A character in the truck reaches out to shake the tall mahogany bookcase, but it remains as solid as a mountain with its base full of thick books. Warm yellow sunlight falls on the wooden furniture; the atmosphere is warm and nostalgic. Ghibli style. The character's appearance should refer to the first input image, and the background should refer to the second (if available).",
+        "scene_transition": 0,
+        "image_url": "https://file3.aitohumanize.com/file/152637031ea74a25b5ef5786c85f5537.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_17.png"
+      }
+    },
+    {
+      "id": "node_16_branch_1_decision",
+      "content": "Stepping onto the ladder, you stuff all the heavy books into the top compartment, hoping their weight will act like a \"heavy hammer\" to pin the bookcase down.",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "Place heavy books on the top shelf, using the downward pressure to keep the bookcase firmly pressed against the base.",
+        "image_prompt": "A character on a wooden ladder, painstakingly stuffing thick, heavy books into the top shelf of a tall bookcase, looking focused yet slightly strained. The background is a truck trailer filled with miscellaneous items, with sunlight streaming through gaps in the tarp, creating a nostalgic atmosphere. Medium shot. Character design refers to the first input image.",
+        "scene_transition": 0,
+        "image_url": "https://file1.aitohumanize.com/file/63aeae44b8344e7dab5fadf768b0adbc.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_16_branch_1_decision.png"
+      }
+    },
+    {
+      "id": "node_16_branch_1_fatal",
+      "content": "The bookcase immediately becomes \"top-heavy.\" Even before the truck starts moving, the cabinet begins to shake violently due to slight vibrations.",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "This is a common misconception of \"gravity suppression.\" Although the total weight has increased, the center of gravity (COG) has been significantly raised. The higher the COG, the easier it is for a slight tilt to shift the vertical projection of the COG outside the narrow support base. This \"top-heavy\" distribution drastically reduces stability, making the object extremely prone to toppling.",
+        "physics_knowledge": "Center of Gravity and Stability\n\nReason for Error: This is a common misconception of \"gravity suppression.\" Although the total weight has increased, the center of gravity (COG) has been significantly raised. The higher the COG, the easier it is for a slight tilt to shift the vertical projection of the COG outside the narrow support base. This \"top-heavy\" distribution drastically reduces stability, making the object extremely prone to toppling.\n\nKnowledge Point: An object's stability primarily depends on the height of its center of gravity and its support area. When the support area is constant, stability is inversely proportional to the height of the COG. Increasing total weight does not necessarily improve stability; the key is whether the mass distribution lowers the overall COG.",
+        "knowledge_point": "Center of Gravity and Stability",
+        "primary_knowledge_point": "Center of Gravity and Stability",
+        "supporting_knowledge_points": [],
+        "knowledge_role_in_this_level": "Main Concept Progression",
+        "wrong_explanation": "This is a common misconception of \"gravity suppression.\" Although the total weight has increased, the center of gravity (COG) has been significantly raised. The higher the COG, the easier it is for a slight tilt to shift the vertical projection of the COG outside the narrow support base. This \"top-heavy\" distribution drastically reduces stability, making the object extremely prone to toppling.",
+        "correct_knowledge_ref": "The stability of an object is primarily determined by the height of its center of gravity and the size of its support area. Given a constant support area, the lower the center of gravity, the more stable the object. This is because a low center of gravity means that when tilted at the same angle, the restoring force's lever arm generated by gravity is longer, making the system more resistant to external disturbances.",
+        "image_prompt": "Medium shot inside the truck trailer. The character frantically reaches out to stabilize a violently shaking tall bookcase, while Grandpa looks on in alarm. The top of the bookcase is packed with thick books, making it visibly top-heavy. Soft, dim light enters the trailer, with slight bump marks on the wooden floor. The nostalgic and warm atmosphere is tinged with tension. Character design refers to the first input image.",
+        "scene_transition": 0,
+        "image_url": "https://file5.aitohumanize.com/file/ee3d532fe59f42f38f463572f5998b11.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_16_branch_1_fatal.png"
+      }
+    },
+    {
+      "id": "node_16_branch_2_decision",
+      "content": "You decide on a compromise: placing all the heavy volumes right in the middle of the bookcase, thinking this will distribute the weight most evenly.",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "Place heavy books on the middle shelves, distributing the mass at the geometric center to seek absolute balance.",
+        "image_prompt": "Ghibli style. Warm light inside the truck trailer. The character, slightly frowning, is neatly stacking thick books onto the middle shelves of a tall mahogany bookcase, their movements appearing a bit hesitant. Character design refers to the first input image.",
+        "scene_transition": 0,
+        "image_url": "https://file3.aitohumanize.com/file/ad5885ea5f8d495ab2c48959008f6502.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_16_branch_2_decision.png"
+      }
+    },
+    {
+      "id": "node_16_branch_2_fatal",
+      "content": "The upper part of the bookcase still wobbles noticeably during the drive; the center of gravity hasn't been lowered enough to reach a safe threshold for resisting bumps.",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "This stems from a vague application of the concept of \"balance.\" While the distribution in the middle may seem symmetrical, it doesn't maximize stability. For tall, narrow furniture, a center of gravity in the middle is still too high.",
+        "physics_knowledge": "Center of Gravity and Stability\n\nReason for Error: This stems from a vague application of the concept of \"balance.\" While the distribution in the middle may seem symmetrical, it doesn't maximize stability. For tall, narrow furniture, a center of gravity in the middle is still too high.\n\nKnowledge Point: When judging stability, the key isn't just \"evenness\" or \"symmetry,\" but whether the center of gravity is sufficiently low. For tall and narrow objects, heavier parts should be placed as close to the bottom as possible to enhance resistance to tipping.",
+        "knowledge_point": "Center of Gravity and Stability",
+        "primary_knowledge_point": "Center of Gravity and Stability",
+        "supporting_knowledge_points": [],
+        "knowledge_role_in_this_level": "Main Concept Progression",
+        "wrong_explanation": "This stems from a vague application of the concept of \"balance.\" While the distribution in the middle may seem symmetrical, it doesn't maximize stability. For tall, narrow furniture, a center of gravity in the middle is still too high.",
+        "correct_knowledge_ref": "The stability of an object is primarily determined by the height of its center of gravity and the size of its support area. Given a constant support area, the lower the center of gravity, the more stable the object. This is because a low center of gravity means that when tilted at the same angle, the restoring force's lever arm generated by gravity is longer, making the system more resistant to external disturbances.",
+        "image_prompt": "Ghibli style. Inside the truck trailer, the character looks worriedly at the tall mahogany bookcase. The middle section is stuffed with books, but the upper part shakes violently during bumps, causing the wood to creak. The setting sun casts dim, golden shadows through gaps in the trailer. Medium shot. Character design refers to the first input image.",
+        "scene_transition": 0,
+        "image_url": "https://file4.aitohumanize.com/file/177f1f2d975548659a22190c44a52ee0.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_16_branch_2_fatal.png"
+      }
+    },
+    {
+      "id": "node_18",
+      "content": "The bookcase is settled, but the truck is about to depart. The inertia of objects in dynamic motion poses a new safety hazard. We must perform a final reinforcement check before heading out. Inside the truck, there is a heavy piano as well as several large but relatively light empty wooden boxes. Grandpa holds a limited amount of nylon rope, worried that items might crash into the cabin during sudden braking. To achieve the highest safety benefit with limited resources, we need to determine which items possess the greatest \"destructive potential\" when the truck stops.",
+      "type": "ep_start",
+      "metadata": {
+        "chapter_title": "Level 5: Safe Transit - Determining Reinforcement Priority",
+        "knowledge_point": "Inertia and Mass",
+        "primary_knowledge_point": "Inertia and Mass",
+        "supporting_knowledge_points": [
+          "Center of Gravity and Stability"
+        ],
+        "knowledge_role_in_this_level": "Main Concept Progression",
+        "image_prompt": "Medium shot. Under the warm light of the truck's cargo area, Grandpa is frowning, checking the items with the character. Grandpa holds a few coils of rough nylon rope, looking worriedly at the heavy piano and the tall mahogany bookcase placed together, as well as several tall but light empty wooden boxes nearby, appearing hesitant about which to secure first. The character stands beside him, thinking deeply. The cargo area is filled with a nostalgic atmosphere; the items are cluttered but not messy. The character's appearance refers to the first input image, and the background refers to the second.",
+        "scene_transition": 0,
+        "recurring_characters": [
+          "Grandpa"
+        ],
+        "image_url": "https://file1.aitohumanize.com/file/960e13f7628e4120918854ab2b25a89f.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_18.png"
+      }
+    },
+    {
+      "id": "node_19",
+      "content": "To provide the most effective protection during braking, which physical quantity should you use to determine the priority for securing the items?",
+      "type": "normal",
+      "metadata": {
+        "knowledge_point": "Inertia and Mass",
+        "primary_knowledge_point": "Inertia and Mass",
+        "supporting_knowledge_points": [
+          "Center of Gravity and Stability"
+        ],
+        "image_prompt": "Ghibli style, warm truck cargo area. The character is thinking under the light, their gaze shifting between the heavy piano and the wooden boxes, hand brushing against the coarse hemp rope. The atmosphere is nostalgic and tense. The character's appearance refers to the first input image, and the background refers to the second (if available).",
+        "scene_transition": 0,
+        "image_url": "https://file3.aitohumanize.com/file/7d1c149a1e2943a18c7d5ae419014e02.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_19.png"
+      }
+    },
+    {
+      "id": "node_20",
+      "content": "You pull the thick rope through the steel frame of the piano base, locking it tightly to the reinforcement anchors on the side wall of the truck.",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "Prioritize securing the piano with the largest mass, as mass is the sole measure of inertia and it is the hardest to stop.",
+        "image_prompt": "Ghibli style, inside the truck cargo area, the character is focused on pulling a coarse hemp rope, threading it through the iron frame of the piano base and tying it tightly to the iron ring on the truck wall. Warm yellow light spills through the cracks of the truck door, creating a cozy and nostalgic feel. Medium shot. The character's appearance refers to the first input image, and the background refers to the second.",
+        "scene_transition": 0,
+        "image_url": "https://file1.aitohumanize.com/file/cbc5b083209c43258c5a91e1e873ffae.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_20.png"
+      }
+    },
+    {
+      "id": "node_21",
+      "content": "When the truck suddenly brakes on the road, the piano remains motionless under the impact of inertia, ensuring the safety of the driver's cab and the partition.",
+      "type": "ep_end",
+      "metadata": {
+        "physics_knowledge": "Inertia and Mass\n\nAnalysis: In a sudden braking scenario, an object will maintain its original state of motion due to inertia. Because the mass of the piano is much greater than that of the other items, its inertia is the largest, meaning a much greater force is required to change its state of motion. Prioritizing the piano prevents a high-mass object from creating a catastrophic impact.\n\nKnowledge Point: Inertia is the property of an object to maintain its original state of motion and is an inherent attribute of the object. Mass is the sole measure of the magnitude of inertia, independent of the object's velocity, force conditions, or volume. The greater the mass, the greater the inertia, and the harder it is to change the object's state of motion.",
+        "chapter_title": "Level 5: Safe Transit - Determining Reinforcement Priority",
+        "knowledge_point": "Inertia and Mass",
+        "primary_knowledge_point": "Inertia and Mass",
+        "supporting_knowledge_points": [
+          "Center of Gravity and Stability"
+        ],
+        "knowledge_role_in_this_level": "Main Concept Progression",
+        "image_prompt": "Ghibli style, sunlight streaming through the gaps in the truck's cargo area. The piano is tightly secured by ropes, remaining as steady as a mountain even during sudden braking. Character appearance refers to the first input image.",
+        "scene_transition": 0,
+        "image_url": "https://file3.aitohumanize.com/file/7a2defc04d7545f683a89ffb20ff76e8.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_21.png"
+      }
+    },
+    {
+      "id": "node_20_branch_1_decision",
+      "content": "You stare at the most prominent large wooden crate in the truck bed. Thinking its massive size makes it the most dangerous if it slides, you decide to tie it down.",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "Prioritize securing the largest crate, as objects occupying more space have greater inertia and a wider impact range.",
+        "image_prompt": "A character with a furrowed brow and a serious expression is busy securing a huge wooden crate to the dim side wall of the truck bed with several loops of coarse rope. In the background, sunlight streams through the gaps in the truck's rear doors; a piano stands quietly in the depths, and the interior is filled with a nostalgic, dusty atmosphere. Medium shot, Studio Ghibli style. Character reference: first input image; Background reference: second input image (if available).",
+        "scene_transition": 0,
+        "image_url": "https://file2.aitohumanize.com/file/a17cb1e16df44ad88cd1f256ec411375.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_20_branch_1_decision.png"
+      }
+    },
+    {
+      "id": "node_20_branch_1_fatal",
+      "content": "When the brakes are slammed, the lightweight large crate stays put, but the unsecured piano—with its massive mass—crashes through the partition with a deafening bang.",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "This is a misconception where visual perception is mistaken for physical properties. Volume describes how much space an object occupies, but inertia is determined solely by mass. A giant empty box may look threatening, but it is far less dangerous than a heavy piano.",
+        "physics_knowledge": "Inertia and Mass\n\n**Reason for Error:** This is a misconception where \"visual perception replaces physical properties.\" Volume describes the space an object occupies, while inertia is determined solely by mass. A giant empty box may look imposing, but its potential danger is far lower than that of a heavy piano.\n\n**Knowledge Point:** Inertia is an inherent property of an object to maintain its original state of motion, and mass is the sole measure of inertia's magnitude. Large volume does not equal large inertia. To judge which object is more dangerous during sudden braking, you must focus on the core physical quantity: mass.",
+        "knowledge_point": "Inertia and Mass",
+        "primary_knowledge_point": "Inertia and Mass",
+        "supporting_knowledge_points": [
+          "Center of Gravity and Stability"
+        ],
+        "knowledge_role_in_this_level": "Main concept progression",
+        "wrong_explanation": "This is a misconception where visual perception is mistaken for physical properties. Volume describes how much space an object occupies, but inertia is determined solely by mass. A giant empty box may look threatening, but it is far less dangerous than a heavy piano.",
+        "correct_knowledge_ref": "Inertia is the tendency of an object to resist changes to its state of motion; it is an inherent property of the object. Mass is the sole measure of inertia and is independent of velocity, forces, or volume. The greater the mass, the greater the inertia, and the harder it is to change the object's state of motion.",
+        "image_prompt": "Studio Ghibli style. A character holds their head in their hands, falling back into the corner of the truck bed in terror. In the background, a heavy piano violently smashes through a wooden partition during sudden braking, with wood splinters flying everywhere. The atmosphere is chaotic and panicked. Medium shot composition. Character reference: first input image; Background reference: second input image.",
+        "scene_transition": 0,
+        "image_url": "https://file4.aitohumanize.com/file/9725f1121f5d41b3baadef28dd68e851.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_20_branch_1_fatal.png"
+      }
+    },
+    {
+      "id": "node_20_branch_2_decision",
+      "content": "You notice some small items sliding quickly across the floor. Believing that high-speed motion implies high inertia, you rush to tie them down.",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "Prioritize securing fast-sliding items, as faster objects have greater inertia and generate stronger impact forces.",
+        "image_prompt": "Inside a swaying truck bed, a character panics and bends down, reaching out to catch soda cans and tools rolling quickly across the floor, while Grandpa watches anxiously nearby. In the background, the massive piano and the empty wooden crate remain in place. The dim golden light of dusk spills through the gaps in the rear doors. Medium shot, Studio Ghibli style, nostalgic and warm. Character reference: first input image; Background reference: second input image (if available).",
+        "scene_transition": 0,
+        "image_url": "https://file2.aitohumanize.com/file/bbdbf96f208b405f93de329fd4d708c1.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_20_branch_2_decision.png"
+      }
+    },
+    {
+      "id": "node_20_branch_2_fatal",
+      "content": "As the truck slows down, the heavy piano slides relatively slowly, but because of its massive inertia, it crashes into the mounting brackets with staggering force.",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "This is a classic confusion of physical concepts. Inertia is an inherent property of an object that depends only on mass, not on velocity. While speed affects kinetic energy and momentum, it has no effect on the magnitude of inertia.",
+        "physics_knowledge": "Inertia and Mass\n\n**Reason for Error:** This is a typical confusion of physical concepts. Inertia is an inherent property of an object, related only to mass and independent of velocity. Although speed affects kinetic energy and momentum, it does not change the magnitude of inertia.\n\n**Knowledge Point:** In a scenario where all objects in the vehicle are initially moving together, you must look at mass to determine which is harder to stop. The larger the mass, the larger the inertia, and the more difficult it is to change its state of motion.",
+        "knowledge_point": "Inertia and Mass",
+        "primary_knowledge_point": "Inertia and Mass",
+        "supporting_knowledge_points": [
+          "Center of Gravity and Stability"
+        ],
+        "knowledge_role_in_this_level": "Main concept progression",
+        "wrong_explanation": "This is a classic confusion of physical concepts. Inertia is an inherent property of an object that depends only on mass, not on velocity. While speed affects kinetic energy and momentum, it has no effect on the magnitude of inertia.",
+        "correct_knowledge_ref": "Inertia is the property of an object to maintain its state of motion. Mass is the only measure of inertia and is independent of velocity, forces, or volume. The greater the mass, the greater the inertia, and the more difficult it is to change its state of motion.",
+        "image_prompt": "Medium shot, dust fills the dim truck bed. A character recoils in shock as they watch the heavy piano snap its ropes and smash into a wooden frame with immense impact. The warm glow of the setting sun spills through the gaps, illuminating the chaotic moment. Character reference: first input image; Background reference: second input image.",
+        "scene_transition": 0,
+        "image_url": "https://file5.aitohumanize.com/file/aa6e75a8dd3b46b583998f67c50cbd90.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_20_branch_2_fatal.png"
+      }
+    },
+    {
+      "id": "node_22",
+      "content": "The truck arrives safely at your new home, but as you push open the door to start unloading, the power suddenly trips. To restore light, we need to perform a systematic circuit check. The living room flickers for a second and then goes pitch black. It turns out Grandpa caused a short circuit by plugging in a worn-out power strip, triggering the circuit breaker. Grandpa urges you to flip the switch back immediately to turn the lights on. However, when it comes to electrical safety, blindly resetting a breaker can lead to much more serious consequences.",
+      "type": "ep_start",
+      "metadata": {
+        "chapter_title": "Level 6: Into the Dark – Troubleshooting the Outage",
+        "knowledge_point": "Household Circuits and Electrical Safety",
+        "primary_knowledge_point": "Household Circuits and Electrical Safety",
+        "supporting_knowledge_points": [
+          "Inertia and Mass"
+        ],
+        "knowledge_role_in_this_level": "Main Concept Progression",
+        "image_prompt": "Medium shot, a dim living room where an old, worn power strip is plugged lonely into a wall. The character lowers their head slightly, looking at the sudden darkness with a confused expression. Grandpa stands near a distribution box not far away, reaching for a switch with an anxious look. Faint twilight filters through the window, emphasizing the silence and a touch of disappointment in the room. Ghibli style. Character reference: first input image; background reference: second input image.",
+        "scene_transition": 1,
+        "recurring_characters": [
+          "Grandpa"
+        ],
+        "image_url": "https://file5.aitohumanize.com/file/6d35afb877714647ae9b01be2999ccb5.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_22.png"
+      }
+    },
+    {
+      "id": "node_23",
+      "content": "To safely and successfully restore power, what is the scientifically correct order of operations?",
+      "type": "normal",
+      "metadata": {
+        "knowledge_point": "Household Circuits and Electrical Safety",
+        "primary_knowledge_point": "Household Circuits and Electrical Safety",
+        "supporting_knowledge_points": [
+          "Inertia and Mass"
+        ],
+        "image_prompt": "Medium shot, Grandpa is nearby urging anxiously. The character stands before a slightly worn distribution box, frowning slightly under the weak beam of a flashlight, cautiously reaching out to unplug the old power strip wrapped in tape from the wall. The atmosphere is warm and nostalgic. Character reference: first input image; background reference: second input image (if available).",
+        "scene_transition": 0,
+        "image_url": "https://file3.aitohumanize.com/file/c45f0d36bdcc44d5ac94f79822cc44b0.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_23.png"
+      }
+    },
+    {
+      "id": "node_24",
+      "content": "You quickly unplugged the old tape-wrapped power strip, then returned to the distribution box and pushed the circuit breaker upward to reset it.",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "Unplug the suspected faulty power strip first to eliminate the short circuit point, then flip the circuit breaker back to the 'on' position.",
+        "image_prompt": "The character bends down to pull out the old power strip with some effort, then goes to the distribution box and reaches out to push the tripped circuit breaker back to its reset position. The background is a warm, nostalgic living room with dim lighting. Close-up. Character reference: first input image.",
+        "scene_transition": 1,
+        "image_url": "https://file3.aitohumanize.com/file/6c7335a264764202b5757f94cb561ead.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_24.png"
+      }
+    },
+    {
+      "id": "node_25",
+      "content": "With a satisfying 'click,' the chandelier in the room lights up again. The circuit is back to normal, and no further tripping occurs.",
+      "type": "ep_end",
+      "metadata": {
+        "physics_knowledge": "Household Circuits and Electrical Safety\n\nAnalysis: A circuit breaker trips because of a protection mechanism triggered by excessive current in the circuit. The core logic of electrical safety is: \"Do not reset the breaker until the fault is cleared.\" By removing the faulty branch before resetting, you avoid another short circuit impact.\n\nKnowledge Point: An air switch (circuit breaker) is the safety shield of modern household circuits. When the main circuit current exceeds the rated value, it automatically cuts off the circuit. Standard operating procedures require identifying and eliminating the cause of the overload or short circuit before resetting the switch; otherwise, it may damage equipment or cause a fire.",
+        "chapter_title": "Level 6: Into the Dark – Troubleshooting the Outage",
+        "knowledge_point": "Household Circuits and Electrical Safety",
+        "primary_knowledge_point": "Household Circuits and Electrical Safety",
+        "supporting_knowledge_points": [
+          "Inertia and Mass"
+        ],
+        "knowledge_role_in_this_level": "Main Concept Progression",
+        "image_prompt": "The character stands by the wall, lightly touching the light switch, turning their head to look up at the ceiling with a relieved smile. The originally dim living room is instantly illuminated by a large chandelier overhead, with warm yellow light softly bathing the wooden furniture, creating a warm and nostalgic Ghibli atmosphere. Medium shot composition. Character reference: first input image; background reference: second input image (if available).",
+        "scene_transition": 0,
+        "image_url": "https://file1.aitohumanize.com/file/aa330d8508bb4010b11d6541f90893f3.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_25.png"
+      }
+    },
+    {
+      "id": "node_24_branch_1_decision",
+      "content": "Without dealing with the power strip, you reach directly for the switch in the breaker box, trying the simplest method first to restore power.",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "Immediately force the tripped switch back to its original position. Only check the power strip for faults if it trips again.",
+        "image_prompt": "The character has a focused expression, reaching out to flip a black switch inside a metal breaker box on the wall of a dimly lit hallway. Surrounded by cardboard moving boxes, the light and shadow are soft yet carry a hint of unease. Medium-close-up composition, Studio Ghibli style, nostalgic vintage texture. Character reference: first input image; Background reference: second input image (if available).",
+        "scene_transition": 0,
+        "image_url": "https://file1.aitohumanize.com/file/d48bbabb733a498cb763479c67486e9f.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_24_branch_1_decision.png"
+      }
+    },
+    {
+      "id": "node_24_branch_1_fatal",
+      "content": "As the switch is only halfway up, a blinding electric spark bursts out and the switch snaps back violently. A burnt smell begins to waft from the breaker box.",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "This is a dangerous attempt at \"resetting without troubleshooting.\" If a short circuit still exists, forcing the breaker closed means allowing a massive short-circuit current to surge through the lines again.",
+        "physics_knowledge": "Household Circuits and Electrical Safety\n\nError Analysis: This is a dangerous attempt at \"resetting without troubleshooting.\" If a short circuit still exists, forcing the breaker closed means allowing a massive short-circuit current to surge through the lines again.\n\nKnowledge Point: The function of a circuit breaker (air switch) is to promptly cut off the circuit when an abnormality occurs. If forced closed without eliminating the fault, it can cause the switch contacts to erode, wires to overheat, or even start a fire. The correct procedure is to eliminate the source of the fault first, then reset.",
+        "knowledge_point": "Household Circuits and Electrical Safety",
+        "primary_knowledge_point": "Household Circuits and Electrical Safety",
+        "supporting_knowledge_points": [
+          "Inertia and Mass"
+        ],
+        "knowledge_role_in_this_level": "Main Concept Progression",
+        "wrong_explanation": "This is a dangerous attempt at \"resetting without troubleshooting.\" If a short circuit still exists, forcing the breaker closed means allowing a massive short-circuit current to surge through the lines again.",
+        "correct_knowledge_ref": "A circuit breaker (air switch) is the safety barrier for modern household circuits. When the main circuit current exceeds the rated value, it automatically cuts off the circuit. Standard operating procedures require identifying and eliminating the overload or short-circuit point before resetting the breaker; otherwise, equipment may be damaged or a fire may be triggered.",
+        "image_prompt": "Medium shot: In a dimly lit old house, a character reaches out to flip a switch in the breaker box. A blinding white spark suddenly explodes between their fingers. The character recoils in shock, face full of bewilderment. Wisps of blue smoke rise from the breaker box. The old wooden walls flicker in the firelight. The atmosphere is tense and nostalgic. Character reference: first input image; Background reference: second input image.",
+        "scene_transition": 0,
+        "image_url": "https://file5.aitohumanize.com/file/bcffdb1d93154854b5b9dbe070787e7b.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_24_branch_1_fatal.png"
+      }
+    },
+    {
+      "id": "node_24_branch_2_decision",
+      "content": "You grip the switch handle and flip it up and down rapidly and repeatedly, hoping that a bit of \"brute force\" will miraculously get the circuit reconnected.",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "Make multiple rapid attempts to flip the breaker back, believing that the momentary surge of current will clear the electrical \"obstruction.\"",
+        "image_prompt": "In a dim hallway, a character looks anxious, rapidly and repeatedly flipping a switch in a breaker box on the wall. Under the soft light, the atmosphere of the old house feels nostalgic yet oppressive. A medium shot captures this moment of panic. Character reference: first input image; Background reference: second input image (if available).",
+        "scene_transition": 0,
+        "image_url": "https://file3.aitohumanize.com/file/e2ae3d9582dd48e7b063c0a50303ad7b.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_24_branch_2_decision.png"
+      }
+    },
+    {
+      "id": "node_24_branch_2_fatal",
+      "content": "The repeated surges of current cause thick smoke to pour from the socket, and the internal protection mechanism of the circuit breaker completely jams and fails due to overheating.",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "This is an extremely dangerous misuse based on false intuition. A short circuit is a \"shortcut\" for current, not an \"obstacle\"; repeated resetting will cause massive heat to accumulate at the short-circuit point. Forcing the operation will destroy the mechanical life of the breaker's protection and may even lead to the total failure of the distribution box.",
+        "physics_knowledge": "Household Circuits and Electrical Safety\n\nError Analysis: This is an extremely dangerous misuse based on false intuition. A short circuit is a \"shortcut\" for current, not an \"obstacle\"; repeated resetting will cause massive heat to accumulate at the short-circuit point. Forcing the operation will destroy the mechanical life of the breaker's protection and may even lead to the total failure of the distribution box.\n\nKnowledge Point: When a short circuit or overload occurs in a household circuit, the circuit breaker automatically trips to cut off the abnormal current. Repeatedly resetting without troubleshooting leads to severe thermal effects and safety risks from instantaneous high current. Therefore, the standard operating procedure is to identify and eliminate the fault before resetting.",
+        "knowledge_point": "Household Circuits and Electrical Safety",
+        "primary_knowledge_point": "Household Circuits and Electrical Safety",
+        "supporting_knowledge_points": [
+          "Inertia and Mass"
+        ],
+        "knowledge_role_in_this_level": "Main Concept Progression",
+        "wrong_explanation": "This is an extremely dangerous misuse based on false intuition. A short circuit is a \"shortcut\" for current, not an \"obstacle\"; repeated resetting will cause massive heat to accumulate at the short-circuit point. Forcing the operation will destroy the mechanical life of the breaker's protection and may even lead to the total failure of the distribution box.",
+        "correct_knowledge_ref": "A circuit breaker (air switch) is the safety barrier for modern household circuits. When the main circuit current exceeds the rated value, it automatically cuts off the circuit. Standard operating procedures require identifying and eliminating the overload or short-circuit point before resetting the breaker; otherwise, equipment may be damaged or a fire may be triggered.",
+        "image_prompt": "Studio Ghibli style. Medium shot: A character with an anxious expression repeatedly flips the breaker switch on the wall, fingertips turning white from the force. In the dim entryway, an old power strip is emitting acrid thick smoke. Dangerous sparks glow in the scorched air, and the tense atmosphere shatters the peace of the room. Character reference: first input image; Background reference: second input image (if available).",
+        "scene_transition": 0,
+        "image_url": "https://file5.aitohumanize.com/file/916dea4a6f8a4217817a737eb7c6fd8c.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_24_branch_2_fatal.png"
+      }
+    },
+    {
+      "id": "node_26",
+      "content": "The hall is lit, but the study's light switch is broken. After switching off the main breaker, you prepare to replace it. Grandpa brings over a voltage tester pen and two wires, noting that the wiring in this old house has faded, so you can't rely on color alone. You need to identify which one is the live wire to connect the switch safely.",
+      "type": "ep_start",
+      "metadata": {
+        "chapter_title": "Level 7: Lighting Up — Identify the Live Wire",
+        "knowledge_point": "Household Circuits and Safe Electricity Use",
+        "primary_knowledge_point": "Household Circuits and Safe Electricity Use",
+        "supporting_knowledge_points": [],
+        "knowledge_role_in_this_level": "Main Concept Reinforcement",
+        "image_prompt": "A character leans over focused in a dimly lit study, about to check two old wires hanging from the wall. Grandpa stands nearby, handing over a slender voltage tester pen. Mid-shot composition, soft warm light on old wooden furniture, creating a quiet, nostalgic atmosphere. Character refers to the first input image, background refers to the second.",
+        "scene_transition": 1,
+        "recurring_characters": [
+          "Grandpa"
+        ],
+        "image_url": "https://file2.aitohumanize.com/file/260849eb6e2340dead0cad9edf179ace.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_26.png"
+      }
+    },
+    {
+      "id": "node_27",
+      "content": "If you are using a voltage tester pen and the available clues to identify the live wire, what should be the basis of your judgment?",
+      "type": "normal",
+      "metadata": {
+        "knowledge_point": "Household Circuits and Safe Electricity Use",
+        "primary_knowledge_point": "Household Circuits and Safe Electricity Use",
+        "supporting_knowledge_points": [],
+        "image_prompt": "The character looks focused, finger resting lightly on the end of the voltage tester pen, carefully approaching the old wires hanging from the wall. Grandpa watches curiously beside them. Dust motes dance in the dim study, creating a warm, nostalgic atmosphere. Medium close-up focusing on the operation. Character refers to the first input image, background refers to the second.",
+        "scene_transition": 0,
+        "image_url": "https://file3.aitohumanize.com/file/69687d6f5330404cba4449908722e429.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_27.png"
+      }
+    },
+    {
+      "id": "node_28",
+      "content": "You use the voltage tester pen correctly and find that one of the wires makes the neon bulb light up. You confirm it is the live wire and connect the switch in series to this wire.",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "Identify the wire that lights up the neon bulb as the live wire and connect the switch to it.",
+        "image_prompt": "The character is focused, carefully touching the old wire with the voltage tester pen; a faint, warm orange-red glow lights up inside the pen. The background is a study filled with traces of time, with afternoon sunlight hitting the mottled walls, creating a peaceful and warm atmosphere. Close-up view capturing the character's serious profile. Character refers to the first input image, background refers to the second.",
+        "scene_transition": 0,
+        "image_url": "https://file3.aitohumanize.com/file/cf98c49d0a07415a8553b46245b029db.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_28.png"
+      }
+    },
+    {
+      "id": "node_29",
+      "content": "The test is a success! The light turns on and off normally. With the switch off, the light socket is no longer energized, making it safer to change bulbs in the future.",
+      "type": "ep_end",
+      "metadata": {
+        "physics_knowledge": "Household Circuits and Safe Electricity Use\\n\\n**Analysis:** When a voltage tester pen touches a wire and the neon bulb lights up, it indicates a high potential difference between that wire and the earth, which usually identifies it as the live wire. By correctly identifying the live wire first and then connecting the switch to it, you ensure that the light socket is no longer live when the switch is turned off.\\n\\n**Knowledge Point:** In a household circuit, the wire that makes the neon bulb glow is generally the live wire, while the one that does not is the neutral wire. The switch controlling a light should always be installed on the live wire. This way, when the switch is opened, the light socket is disconnected from the live wire, making it safer for repairs or bulb replacements.",
+        "chapter_title": "Level 7: Lighting Up — Identify the Live Wire",
+        "knowledge_point": "Household Circuits and Safe Electricity Use",
+        "primary_knowledge_point": "Household Circuits and Safe Electricity Use",
+        "supporting_knowledge_points": [],
+        "knowledge_role_in_this_level": "Main Concept Reinforcement",
+        "image_prompt": "Medium shot, the character flips the switch, and warm yellow light fills the cozy old study. The character looks at the glowing pendant lamp with a satisfied smile, sleeves stained with a bit of oil from the work, evoking a Ghibli-style nostalgic atmosphere. Character refers to the first input image, background refers to the second.",
+        "scene_transition": 0,
+        "image_url": "https://file4.aitohumanize.com/file/93a01a4c26a84d1b80076dfa926e2118.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_29.png"
+      }
+    },
+    {
+      "id": "node_28_branch_1_decision",
+      "content": "You see that the neon tube doesn't light up when the test pen touches the other wire. Mistakenly believing that \"the one that doesn't light up is more dangerous,\" you treat it as the live wire.",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "Identify the wire that doesn't light up the neon tube as the live wire and connect the switch to it.",
+        "image_prompt": "",
+        "scene_transition": 0,
+        "image_url": "https://file1.aitohumanize.com/file/40165014af2c4a09a842b89b305d6895.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_28_branch_1_decision.png"
+      }
+    },
+    {
+      "id": "node_28_branch_1_fatal",
+      "content": "Even though the light might turn on and off normally after wiring, the actual live wire isn't being cut off by the switch. The lamp socket remains energized, creating a significant safety hazard.",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "This is a misconception caused by reversing the interpretation of the test pen's signal. A glowing neon tube indicates a high potential difference between the wire and the ground, usually the live wire; the non-glowing one is typically the neutral wire.",
+        "physics_knowledge": "Household Circuits and Electrical Safety\n\nReason for error: This is a misconception caused by reversing the interpretation of the test pen's signal. When the test pen's neon tube glows, it indicates a high potential difference between the wire and the ground, which is typically the live wire; the one that doesn't glow is usually the neutral wire.\n\nKnowledge Point: The function of a test pen is to determine if a wire is energized. When used correctly, if the neon tube glows, it means a weak current is passing through the human body to the ground, forming a circuit, and the wire is usually the live wire. If it doesn't glow, it generally means the wire's potential is close to ground potential, making it the neutral wire. If the non-glowing neutral wire is misidentified as the live wire and the switch is connected to it, the light bulb might still work, but the lamp socket will remain connected to the actual live wire even when the switch is off, posing an electric shock risk.",
+        "knowledge_point": "Household Circuits and Electrical Safety",
+        "primary_knowledge_point": "Household Circuits and Electrical Safety",
+        "supporting_knowledge_points": [],
+        "knowledge_role_in_this_level": "Reuse of main knowledge point",
+        "wrong_explanation": "This is a misconception caused by reversing the interpretation of the test pen's signal. A glowing neon tube indicates a high potential difference between the wire and the ground, usually the live wire; the non-glowing one is typically the neutral wire.",
+        "correct_knowledge_ref": "In household circuits, the wire that makes the test pen's neon tube glow is generally the live wire, and the one that doesn't is the neutral wire. The switch controlling the light should be installed on the live wire. This way, when the switch is off, the lamp socket is disconnected from the live wire, making it safer to replace the bulb or perform repairs.",
+        "image_prompt": "The character wipes sweat from their forehead with a look of relief, watching with satisfaction as the study ceiling light glows with warmth again. The old study is bathed in dim yellow light, full of nostalgic atmosphere, with the character's long shadow cast on the wooden bookshelf. Mid-shot perspective, capturing this seemingly perfect, heartwarming moment. Character appearance refers to the first input image, background refers to the second image (if any).",
+        "scene_transition": 1,
+        "image_url": "https://file4.aitohumanize.com/file/d05794430c974b92811a3dc2700cf39a.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_28_branch_1_fatal.png"
+      }
+    },
+    {
+      "id": "node_28_branch_2_decision",
+      "content": "You see that one of the wires has a reddish casing, so you immediately assume it's the live wire without bothering to verify it properly with the test pen.",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "Assume the red wire is the live wire based solely on its color.",
+        "image_prompt": "The character is in a dimly lit study, looking down at two old wires in their hand, hesitantly pinching the reddish one with their fingertips, looking a bit careless. Background: Grandpa stands nearby holding a test pen, frowning slightly. The background features cluttered bookshelves and old walls, with faint, warm lighting. Composition: Mid-shot, focusing on the character's actions and expressions. Character appearance refers to the first input image.",
+        "scene_transition": 0,
+        "image_url": "https://file4.aitohumanize.com/file/6800242fd59a4690b2c68d668190b45f.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_28_branch_2_decision.png"
+      }
+    },
+    {
+      "id": "node_28_branch_2_fatal",
+      "content": "However, the wiring in this old house has undergone many repairs, and wire colors are no longer completely reliable. By rashly connecting based on color, you almost put the switch in the wrong place.",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "This is the mistake of treating \"common experience\" as an \"absolute basis for judgment.\" While red wires are indeed often used as live wires, color is not necessarily reliable in old houses, modified circuits, or non-standard constructions, and cannot replace actual testing.",
+        "physics_knowledge": "Household Circuits and Electrical Safety\n\nReason for error: This is the mistake of treating \"common experience\" as an \"absolute basis for judgment.\" While red wires are indeed often used as live wires, color is not necessarily reliable in old houses, modified circuits, or non-standard constructions, and cannot replace actual testing.\n\nKnowledge Point: There are common color conventions for wires in household circuits, but color coding is only supplementary information, not the most reliable physical basis for judgment. Identifying the live wire should prioritize using testing tools like a test pen to confirm based on whether the wire is energized. This is especially true in old or repaired circuits, where relying on color alone is prone to error. Safe electrical practice requires following actual test results rather than just empirical impressions.",
+        "knowledge_point": "Household Circuits and Electrical Safety",
+        "primary_knowledge_point": "Household Circuits and Electrical Safety",
+        "supporting_knowledge_points": [],
+        "knowledge_role_in_this_level": "Reuse of main knowledge point",
+        "wrong_explanation": "This is the mistake of treating \"common experience\" as an \"absolute basis for judgment.\" While red wires are indeed often used as live wires, color is not necessarily reliable in old houses, modified circuits, or non-standard constructions, and cannot replace actual testing.",
+        "correct_knowledge_ref": "In household circuits, the wire that makes the test pen's neon tube glow is generally the live wire, and the one that doesn't is the neutral wire. The switch controlling the light should be installed on the live wire. This way, when the switch is off, the lamp socket is disconnected from the live wire, making it safer to replace the bulb or perform repairs.",
+        "image_prompt": "The character is in a dimly lit study, holding two mottled old wires, with a hesitant and fearful expression. The study is lit by only a single faint light bulb, and the walls are covered with old newspapers and photos. Character appearance refers to the first input image, background refers to the second image.",
+        "scene_transition": 0,
+        "image_url": "https://file5.aitohumanize.com/file/5ade814cd5124b1aa8be04e64020551c.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_28_branch_2_fatal.png"
+      }
+    },
+    {
+      "id": "node_30",
+      "content": "The study lights up—the moving mission is a complete success. Looking at the grease from the move all over us, we need to use one last bit of chemistry knowledge for a thorough cleanup. After a busy day, your clothes are covered in heavy grease. You apply a few drops of dish soap and scrub hard; the stubborn oil stains soon vanish into the water. Grandpa asks curiously, \"Does this dish soap melt the oil like a strong acid, or does it dissolve it like salt in water?\"",
+      "type": "ep_start",
+      "metadata": {
+        "chapter_title": "Level 8 Finale: The Mystery of Emulsification",
+        "knowledge_point": "Detergents and Emulsification",
+        "primary_knowledge_point": "Detergents and Emulsification",
+        "supporting_knowledge_points": [
+          "Household Circuits and Electrical Safety"
+        ],
+        "knowledge_role_in_this_level": "Main Concept Progression",
+        "image_prompt": "A character rolls up their sleeves, looking down to scrub oil-stained clothes under warm light, with fine bubbles rising in the basin. Grandpa stands nearby, his eyes full of curiosity. The old house background is warm and yellowish, filled with nostalgia. Medium shot, capturing the tranquility after labor. Character reference: first image; background reference: second image.",
+        "scene_transition": 1,
+        "recurring_characters": [
+          "Grandpa"
+        ],
+        "image_url": "https://file5.aitohumanize.com/file/bb30509668c24def9274633b45858585.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_30.png"
+      }
+    },
+    {
+      "id": "node_31",
+      "content": "To accurately explain the cleaning mechanism to Grandpa, how should you describe the scientific nature of how dish soap removes oil?",
+      "type": "normal",
+      "metadata": {
+        "knowledge_point": "Detergents and Emulsification",
+        "primary_knowledge_point": "Detergents and Emulsification",
+        "supporting_knowledge_points": [
+          "Household Circuits and Electrical Safety"
+        ],
+        "image_prompt": "The character explains to Grandpa while scrubbing the soapy collar, with white foam rising in the water basin. Medium shot, Ghibli style, with a warm and nostalgic atmosphere under the sunset glow. Character reference: first image; background reference: second image.",
+        "scene_transition": 0,
+        "recurring_characters": [
+          "Grandpa"
+        ],
+        "image_url": "https://file2.aitohumanize.com/file/a575d9f2299448e4b450e5ecac2461d7.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_31.png"
+      }
+    },
+    {
+      "id": "node_32",
+      "content": "As you explain the concept of \"emulsification,\" the clear water turns into a milky-white emulsion during the scrubbing, and the oil stains detach from the fibers.",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "Dish soap uses emulsification to break large oil droplets into tiny ones and disperses them stably in water.",
+        "image_prompt": "The character washes clothes in the warm sun while softly explaining, the water gradually turning milky white as stains wash away. Background is a warm, nostalgic residential courtyard with dappled light and shadows. Medium shot, Ghibli healing style. Character reference: first image; background reference: second image.",
+        "scene_transition": 0,
+        "image_url": "https://file2.aitohumanize.com/file/d527b8356d5141bbb1dc2edf05f395ea.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_32.png"
+      }
+    },
+    {
+      "id": "node_33",
+      "content": "The grease no longer clings to the clothes, vanishing without a trace as they are rinsed with clean water, restoring the clothes to their original cleanliness.",
+      "type": "ep_end",
+      "metadata": {
+        "physics_knowledge": "Detergents and Emulsification\n\n**Analysis:** Dish soap contains surfactants. Their lipophilic ends attach to oil droplets, while their hydrophilic ends point toward the water. Through scrubbing, large oil droplets are dispersed into countless tiny droplets and suspended stably, forming an emulsion. This is a physical dispersion process that efficiently removes stains without damaging the chemical properties of the substance itself.\n\n**Knowledge Point:** Emulsification is the process where a surfactant allows two immiscible liquids (like oil and water) to form a stable emulsion. Emulsifiers significantly reduce interfacial tension and form a protective film on the surface of tiny droplets to prevent them from regrouping. This is the core working principle of daily detergents.",
+        "chapter_title": "Level 8 Finale: The Mystery of Emulsification",
+        "knowledge_point": "Detergents and Emulsification",
+        "primary_knowledge_point": "Detergents and Emulsification",
+        "supporting_knowledge_points": [
+          "Household Circuits and Electrical Safety"
+        ],
+        "knowledge_role_in_this_level": "Main Concept Progression",
+        "image_prompt": "The character holds up a clean shirt with a smile, crystal water droplets shimmering in the warm sun. Background is a warm and nostalgic corner of the old house, with fine foam floating by the water basin. Medium shot, peaceful and fulfilling atmosphere. Character reference: first image; background reference: second image.",
+        "scene_transition": 0,
+        "image_url": "https://file2.aitohumanize.com/file/dd9884ec7d3f445e8cc2d4d43a76bffc.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_33.png"
+      }
+    },
+    {
+      "id": "node_32_branch_1_decision",
+      "content": "You tell Grandpa it's just like sugar dissolving in water. Confidently, you pour in a massive amount of dish soap, trying to reach \"total dissolution.\"",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "Through dissolution, dish soap allows grease to spread evenly and transparently in water as molecules, just like granulated sugar.",
+        "image_prompt": "A character is enthusiastically pouring a large amount of dish soap into a basin, gesturing confidently to Grandpa beside them. Warm sunlight shines into a nostalgic bathroom; the basin is filled with thick white foam, and the liquid looks increasingly viscous. Mid-shot, warm home atmosphere with misty vapor. Refer to Image 1 for the character and Image 2 for the background.",
+        "scene_transition": 0,
+        "recurring_characters": [
+          "Grandpa"
+        ],
+        "image_url": "https://file5.aitohumanize.com/file/8e546064ac4d4b1c886da8a43cdde5ef.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_32_branch_1_decision.png"
+      }
+    },
+    {
+      "id": "node_32_branch_1_fatal",
+      "content": "The water becomes extremely viscous and cloudy instead of transparent. You realize that a simple understanding of \"dissolution\" cannot explain why the water turns milky white.",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "This is a confusion between the concepts of \"dissolution\" and \"emulsification.\" Dissolution forms a transparent solution, whereas dish soap cleaning grease often results in a milky white emulsion, indicating that emulsification is occurring rather than ordinary dissolution.",
+        "physics_knowledge": "Detergents and Emulsification\n\nError Analysis: This is a confusion between the concepts of \"dissolution\" and \"emulsification.\" Dissolution forms a transparent solution, whereas dish soap cleaning grease often results in a milky white emulsion, indicating that emulsification is occurring rather than ordinary dissolution.\n\nKnowledge Point: Emulsification uses surfactants to break oil down into tiny droplets that are stably suspended in water. This differs from dissolution, where the solute disperses in the form of molecules or ions. Understanding this distinction helps students accurately differentiate between similar concepts in daily life.",
+        "knowledge_point": "Detergents and Emulsification",
+        "primary_knowledge_point": "Detergents and Emulsification",
+        "supporting_knowledge_points": [
+          "Domestic Circuits and Electrical Safety"
+        ],
+        "knowledge_role_in_this_level": "Main Concept Progression",
+        "wrong_explanation": "This is a confusion between the concepts of \"dissolution\" and \"emulsification.\" Dissolution forms a transparent solution, whereas dish soap cleaning grease often results in a milky white emulsion, indicating that emulsification is occurring rather than ordinary dissolution.",
+        "correct_knowledge_ref": "Emulsification is the process where a surfactant causes two immiscible liquids (such as oil and water) to form a stable emulsion. Emulsifiers significantly reduce interfacial tension, forming a protective film on the surface of tiny droplets to prevent them from clumping together. This is the core principle of how daily detergents work.",
+        "image_prompt": "A character squats in a sun-drenched courtyard, staring in confusion at a basin of thick, milky white liquid. Grandpa leans in curiously to observe. Soft lighting in a warm Ghibli style. Refer to Image 1 for the character and Image 2 for the background.",
+        "scene_transition": 1,
+        "image_url": "https://file3.aitohumanize.com/file/318544c8f4424ccc826efb9c4ec9be3e.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_32_branch_1_fatal.png"
+      }
+    },
+    {
+      "id": "node_32_branch_2_decision",
+      "content": "You nod in agreement with Grandpa's guess about \"burning\" the grease away, thinking it's a neutralization reaction, and even consider heating the water to speed it up.",
+      "type": "decision",
+      "metadata": {
+        "choice_option": "Dish soap changes the properties of grease through a chemical reaction, converting heavy oil into substances that are easily soluble in water.",
+        "image_prompt": "In a warm and nostalgic study, the character looks excited, nodding vigorously with eyes full of anticipation, as if discussing an idea passionately. Ghibli style, mid-shot. Refer to Image 1 for the character and Image 2 for the background.",
+        "scene_transition": 1,
+        "recurring_characters": [
+          "Grandpa"
+        ],
+        "image_url": "https://file1.aitohumanize.com/file/ccbd12f3e3894c8cb50cb0fd25cb5f44.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_32_branch_2_decision.png"
+      }
+    },
+    {
+      "id": "node_32_branch_2_fatal",
+      "content": "You find that the oil can be removed even without heating, and the water still smells like oil after washing. This indicates that the grease hasn't been transformed into a completely new substance.",
+      "type": "fatal",
+      "metadata": {
+        "explanation": "This stems from the misconception that the decontamination process is a \"chemical transformation.\" Dish soap removes oil primarily through physical emulsification and dispersion, rather than turning the grease into an entirely different substance.",
+        "physics_knowledge": "Detergents and Emulsification\n\nError Analysis: This stems from the misconception that the decontamination process is a \"chemical transformation.\" Dish soap removes oil primarily through physical emulsification and dispersion, rather than turning the grease into an entirely different substance.\n\nKnowledge Point: Detergent molecules have a hydrophilic end and a lipophilic end. They can adsorb onto the surface of oil droplets, helping the grease disperse into the water to be rinsed away. The core of this process is emulsification, not a chemical reaction like acid-base neutralization.",
+        "knowledge_point": "Detergents and Emulsification",
+        "primary_knowledge_point": "Detergents and Emulsification",
+        "supporting_knowledge_points": [
+          "Domestic Circuits and Electrical Safety"
+        ],
+        "knowledge_role_in_this_level": "Main Concept Progression",
+        "wrong_explanation": "This stems from the misconception that the decontamination process is a \"chemical transformation.\" Dish soap removes oil primarily through physical emulsification and dispersion, rather than turning the grease into an entirely different substance.",
+        "correct_knowledge_ref": "Emulsification is the process where a surfactant causes two immiscible liquids (such as oil and water) to form a stable emulsion. Emulsifiers significantly reduce interfacial tension, forming a protective film on the surface of tiny droplets to prevent them from clumping together. This is the core principle of how daily detergents work.",
+        "image_prompt": "Ghibli style. Close-up. The character looks down at the water in the basin, frowning in confusion while holding a shirt collar. Grandpa peeks in from the side. The background is a warm laundry room with cloudy water in a wooden basin. Refer to Image 1 for the character.",
+        "scene_transition": 1,
+        "image_url": "https://file3.aitohumanize.com/file/b4cd4c4f6f744c389d95c95dc65399b2.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_32_branch_2_fatal.png"
+      }
+    },
+    {
+      "id": "node_34",
+      "content": "The story ends.",
+      "type": "ending",
+      "metadata": {
+        "image_prompt": "Ghibli style, mid-shot. The character and Grandpa stand in a newly decorated, cozy study, laughing together. Grandpa gives the character a proud pat on the shoulder. Golden sunset light streams through the window, filling the room with a nostalgic and warm atmosphere. The move is a complete success. Refer to Image 1 for the character.",
+        "scene_transition": 1,
+        "image_url": "https://file3.aitohumanize.com/file/4fac5051e9904d49ae3bc4e7c77f35e1.png",
+        "image_path": "D:\\AAA\\工作\\work_on_vske\\EduInteractiveGame_canuse\\output\\cot_20260425_111838\\output_images\\node_34.png"
+      }
+    }
+  ],
+  "edges": {
+    "node_1": [
+      "node_2"
+    ],
+    "node_2": [
+      "node_3"
+    ],
+    "node_4": [
+      "node_5"
+    ],
+    "node_4_branch_1_decision": [
+      "node_4_branch_1_fatal"
+    ],
+    "node_4_branch_1_fatal": [
+      "node_3"
+    ],
+    "node_4_branch_2_decision": [
+      "node_4_branch_2_fatal"
+    ],
+    "node_4_branch_2_fatal": [
+      "node_3"
+    ],
+    "node_3": [
+      "node_4",
+      "node_4_branch_1_decision",
+      "node_4_branch_2_decision"
+    ],
+    "node_5": [
+      "node_6"
+    ],
+    "node_6": [
+      "node_7"
+    ],
+    "node_8": [
+      "node_9"
+    ],
+    "node_8_branch_1_decision": [
+      "node_8_branch_1_fatal"
+    ],
+    "node_8_branch_1_fatal": [
+      "node_7"
+    ],
+    "node_8_branch_2_decision": [
+      "node_8_branch_2_fatal"
+    ],
+    "node_8_branch_2_fatal": [
+      "node_7"
+    ],
+    "node_7": [
+      "node_8",
+      "node_8_branch_1_decision",
+      "node_8_branch_2_decision"
+    ],
+    "node_9": [
+      "node_10"
+    ],
+    "node_10": [
+      "node_11"
+    ],
+    "node_12": [
+      "node_13"
+    ],
+    "node_12_branch_1_decision": [
+      "node_12_branch_1_fatal"
+    ],
+    "node_12_branch_1_fatal": [
+      "node_11"
+    ],
+    "node_12_branch_2_decision": [
+      "node_12_branch_2_fatal"
+    ],
+    "node_12_branch_2_fatal": [
+      "node_11"
+    ],
+    "node_11": [
+      "node_12",
+      "node_12_branch_1_decision",
+      "node_12_branch_2_decision"
+    ],
+    "node_13": [
+      "node_14"
+    ],
+    "node_14": [
+      "node_15"
+    ],
+    "node_16": [
+      "node_17"
+    ],
+    "node_16_branch_1_decision": [
+      "node_16_branch_1_fatal"
+    ],
+    "node_16_branch_1_fatal": [
+      "node_15"
+    ],
+    "node_16_branch_2_decision": [
+      "node_16_branch_2_fatal"
+    ],
+    "node_16_branch_2_fatal": [
+      "node_15"
+    ],
+    "node_15": [
+      "node_16",
+      "node_16_branch_1_decision",
+      "node_16_branch_2_decision"
+    ],
+    "node_17": [
+      "node_18"
+    ],
+    "node_18": [
+      "node_19"
+    ],
+    "node_20": [
+      "node_21"
+    ],
+    "node_20_branch_1_decision": [
+      "node_20_branch_1_fatal"
+    ],
+    "node_20_branch_1_fatal": [
+      "node_19"
+    ],
+    "node_20_branch_2_decision": [
+      "node_20_branch_2_fatal"
+    ],
+    "node_20_branch_2_fatal": [
+      "node_19"
+    ],
+    "node_19": [
+      "node_20",
+      "node_20_branch_1_decision",
+      "node_20_branch_2_decision"
+    ],
+    "node_21": [
+      "node_22"
+    ],
+    "node_22": [
+      "node_23"
+    ],
+    "node_24": [
+      "node_25"
+    ],
+    "node_24_branch_1_decision": [
+      "node_24_branch_1_fatal"
+    ],
+    "node_24_branch_1_fatal": [
+      "node_23"
+    ],
+    "node_24_branch_2_decision": [
+      "node_24_branch_2_fatal"
+    ],
+    "node_24_branch_2_fatal": [
+      "node_23"
+    ],
+    "node_23": [
+      "node_24",
+      "node_24_branch_1_decision",
+      "node_24_branch_2_decision"
+    ],
+    "node_25": [
+      "node_26"
+    ],
+    "node_26": [
+      "node_27"
+    ],
+    "node_28": [
+      "node_29"
+    ],
+    "node_28_branch_1_decision": [
+      "node_28_branch_1_fatal"
+    ],
+    "node_28_branch_1_fatal": [
+      "node_27"
+    ],
+    "node_28_branch_2_decision": [
+      "node_28_branch_2_fatal"
+    ],
+    "node_28_branch_2_fatal": [
+      "node_27"
+    ],
+    "node_27": [
+      "node_28",
+      "node_28_branch_1_decision",
+      "node_28_branch_2_decision"
+    ],
+    "node_29": [
+      "node_30"
+    ],
+    "node_30": [
+      "node_31"
+    ],
+    "node_32": [
+      "node_33"
+    ],
+    "node_32_branch_1_decision": [
+      "node_32_branch_1_fatal"
+    ],
+    "node_32_branch_1_fatal": [
+      "node_31"
+    ],
+    "node_32_branch_2_decision": [
+      "node_32_branch_2_fatal"
+    ],
+    "node_32_branch_2_fatal": [
+      "node_31"
+    ],
+    "node_31": [
+      "node_32",
+      "node_32_branch_1_decision",
+      "node_32_branch_2_decision"
+    ],
+    "node_33": [
+      "node_34"
+    ]
+  },
+  "start_node_id": "node_1",
+  "ending_node_ids": [
+    "node_34"
+  ]
+}

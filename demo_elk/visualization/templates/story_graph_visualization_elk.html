@@ -1,0 +1,2343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Serious Game · Narrative Map</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/elkjs@0.9.3/lib/elk.bundled.js"></script>
+    <style>
+        :root {
+            --bg-start: #f7f8fc;
+            --bg-end: #eef2ff;
+            --panel-bg: rgba(255, 255, 255, 0.88);
+            --panel-border: rgba(148, 163, 184, 0.28);
+            --text-main: #0f172a;
+            --text-secondary: #475569;
+            --muted: #94a3b8;
+            --line-main: #3b82f6;
+            --line-branch: #3b82f6;
+            --shadow: 0 20px 45px rgba(15, 23, 42, 0.12);
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Microsoft YaHei', 'Segoe UI', Arial, sans-serif;
+            color: var(--text-main);
+            background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
+        }
+        .page-shell {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 360px;
+            gap: 20px;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .main-panel, .side-panel {
+            background: var(--panel-bg);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--panel-border);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+        }
+        .main-panel {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: calc(100vh - 40px);
+        }
+        .side-panel {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            min-height: calc(100vh - 40px);
+        }
+        .topbar {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+        .topbar-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .title-block h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 800;
+            line-height: 1.15;
+        }
+        .title-block p {
+            margin: 8px 0 0;
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .control-btn {
+            border: 0;
+            border-radius: 999px;
+            padding: 8px 14px;
+            color: #fff;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.24);
+        }
+        .control-btn.secondary {
+            background: linear-gradient(135deg, #0f766e 0%, #0891b2 100%);
+            box-shadow: 0 10px 20px rgba(8, 145, 178, 0.2);
+        }
+        .stats-row, .legend-strip {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .stat-chip, .legend-item, .filter-chip {
+            padding: 8px 14px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+        }
+        .stat-chip .label {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-bottom: 2px;
+        }
+        .stat-chip .value {
+            font-size: 13px;
+            font-weight: 800;
+        }
+        .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 999px;
+            flex: 0 0 auto;
+        }
+        .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .filter-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--text-secondary);
+            user-select: none;
+        }
+        .filter-chip.active {
+            border-color: rgba(79, 70, 229, 0.36);
+            background: rgba(238, 242, 255, 0.9);
+            color: #312e81;
+            font-weight: 700;
+        }
+        #graph-container {
+            position: relative;
+            flex: 1;
+            min-height: 760px;
+            overflow: hidden;
+            border-radius: 22px;
+            background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.12), transparent 30%), linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(248, 250, 252, 0.95) 100%);
+            border: 1px solid rgba(148, 163, 184, 0.18);
+        }
+        .canvas-grid {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+            background-size: 48px 48px;
+            pointer-events: none;
+        }
+        .empty-state {
+            position: absolute;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 10px;
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+        .empty-state.show { display: flex; }
+        .tooltip {
+            position: fixed;
+            z-index: 20;
+            max-width: 320px;
+            padding: 12px 14px;
+            border-radius: 14px;
+            background: rgba(15, 23, 42, 0.92);
+            color: #fff;
+            font-size: 12px;
+            line-height: 1.6;
+            pointer-events: none;
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity 0.15s ease, transform 0.15s ease;
+        }
+        .tooltip.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .detail-card {
+            padding: 12px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid rgba(148, 163, 184, 0.22);
+        }
+        .side-title, .detail-heading {
+            margin: 0;
+            font-weight: 800;
+        }
+        .detail-section-title {
+            margin: 0 0 10px;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .detail-heading {
+            font-size: 18px;
+            margin-top: 8px;
+        }
+        .detail-meta, .detail-content, .detail-empty {
+            color: var(--text-secondary);
+            font-size: 13px;
+            line-height: 1.7;
+            white-space: pre-line;
+        }
+        .detail-image {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #dbeafe 0%, #ede9fe 100%);
+            border: 1px solid rgba(148, 163, 184, 0.16);
+            margin-top: 0;
+        }
+        .detail-image.hidden { display: none; }
+        #detail-node-body.hidden { display: none; }
+        #detail-panel-placeholder.hidden { display: none; }
+        #detail-node-body {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .badge-row, .detail-fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .detail-field {
+            padding: 6px 10px;
+            border-radius: 12px;
+            background: rgba(248, 250, 252, 0.9);
+            border: 1px solid rgba(148, 163, 184, 0.16);
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .detail-field-label {
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 800;
+        }
+        .detail-field-value {
+            color: var(--text-main);
+            font-size: 12px;
+            font-weight: 700;
+            max-width: 280px;
+            word-break: break-word;
+        }
+        .detail-scroll-box {
+            max-height: 180px;
+            overflow-y: auto;
+            padding: 10px 12px;
+            border-radius: 12px;
+            background: rgba(248, 250, 252, 0.9);
+            border: 1px solid rgba(148, 163, 184, 0.16);
+            color: var(--text-secondary);
+            font-size: 12px;
+            line-height: 1.55;
+            white-space: pre-line;
+        }
+        .node-panel-box {
+            margin-top: 10px;
+            padding: 12px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(148, 163, 184, 0.22);
+        }
+        .node-connection-block {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 12px 12px 16px;
+            margin-bottom: 4px;
+            border-radius: 12px;
+            background: rgba(248, 250, 252, 0.95);
+            border: 1px solid rgba(148, 163, 184, 0.16);
+            max-height: 240px;
+            overflow-y: auto;
+        }
+        .node-connection-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .node-connection-group + .node-connection-group {
+            padding-top: 4px;
+            border-top: 1px solid rgba(148, 163, 184, 0.12);
+        }
+        .node-connection-label {
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: normal;
+            text-transform: none;
+        }
+        .node-id-list {
+            margin: 0;
+            padding: 0 0 2px;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .node-id-list li {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-main);
+            word-break: break-word;
+            line-height: 1.45;
+        }
+        .node-id-list li.is-jump {
+            color: #b91c1c;
+        }
+        .node-id-list li.is-empty {
+            color: var(--muted);
+            font-weight: 500;
+        }
+        .node-text-box {
+            padding: 12px;
+            border-radius: 12px;
+            background: rgba(248, 250, 252, 0.95);
+            border: 1px solid rgba(148, 163, 184, 0.16);
+        }
+        .node-text-box .detail-content {
+            margin: 0;
+        }
+        .detail-panel-empty {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        .edge {
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            opacity: 0.88;
+        }
+        .edge.main,
+        .edge.branch {
+            stroke: var(--line-branch);
+            stroke-width: 1.35;
+            stroke-linecap: butt;
+            stroke-linejoin: miter;
+            opacity: 0.92;
+            fill: none;
+            vector-effect: non-scaling-stroke;
+        }
+        .edge.edge-trunk {
+            stroke-width: 1.5;
+            opacity: 0.95;
+        }
+        .edge.edge-link {
+            stroke-width: 1.35;
+        }
+        .edge.jump {
+            stroke: #dc2626;
+            stroke-width: 2;
+            stroke-dasharray: 7 5;
+            stroke-linecap: round;
+            opacity: 0.96;
+            fill: none;
+            filter: drop-shadow(0 1px 2px rgba(220, 38, 38, 0.18));
+            pointer-events: none;
+        }
+        .edge-layer-jump-overlay {
+            pointer-events: none;
+        }
+        .node-group { cursor: pointer; }
+        .node-card {
+            fill: #ffffff;
+            stroke: rgba(148, 163, 184, 0.25);
+            stroke-width: 1.1;
+            filter: drop-shadow(0 12px 20px rgba(15, 23, 42, 0.08));
+        }
+        .node-group.active .node-card {
+            stroke: rgba(79, 70, 229, 0.56);
+            stroke-width: 2;
+            filter: drop-shadow(0 18px 28px rgba(79, 70, 229, 0.18));
+        }
+        .node-title {
+            fill: #0f172a;
+            font-size: 10px;
+            font-weight: 800;
+        }
+        .node-preview {
+            fill: #475569;
+            font-size: 10px;
+            font-weight: 500;
+        }
+        .node-id {
+            fill: #94a3b8;
+            font-size: 10px;
+            font-weight: 700;
+        }
+        .badge-pill {
+            stroke: rgba(255, 255, 255, 0.45);
+            stroke-width: 1;
+        }
+        .image-frame {
+            fill: #f8fafc;
+            stroke: rgba(148, 163, 184, 0.18);
+            stroke-width: 1;
+        }
+        @media (max-width: 1200px) {
+            .page-shell { grid-template-columns: 1fr; }
+            .side-panel { min-height: auto; }
+        }
+        @media (max-width: 768px) {
+            .page-shell { padding: 12px; gap: 12px; }
+            .main-panel, .side-panel { border-radius: 18px; padding: 14px; }
+            #graph-container { min-height: 620px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-shell">
+        <main class="main-panel">
+            <div class="topbar">
+                <div class="topbar-row">
+                    <div class="title-block">
+                        <h1>Educational Serious Game · Narrative Map</h1>
+                    </div>
+                    <div class="controls">
+                        <button id="goto-interactive" class="control-btn secondary">Play the Game</button>
+                    </div>
+                </div>
+                <div class="topbar-row">
+                    <div class="stats-row">
+                        <div class="stat-chip"><span class="label">Story Nodes</span><span id="stat-nodes" class="value">0</span></div>
+                        <div class="stat-chip"><span class="label">Edges</span><span id="stat-edges" class="value">0</span></div>
+                        <div class="stat-chip"><span class="label">Endings</span><span id="stat-endings" class="value">0</span></div>
+                    </div>
+                    <div class="controls">
+                        <button id="reset-view" class="control-btn">Reset View</button>
+                    </div>
+                </div>
+                <div class="legend-strip">
+                    <div class="legend-item"><span class="legend-dot" style="background:#8b5cf6"></span><span>Prologue</span></div>
+                    <div class="legend-item"><span class="legend-dot" style="background:#3b82f6"></span><span>Decision</span></div>
+                    <div class="legend-item"><span class="legend-dot" style="background:#22c55e"></span><span>Regular Event</span></div>
+                    <div class="legend-item"><span class="legend-dot" style="background:#f97316"></span><span>Success End</span></div>
+                    <div class="legend-item"><span class="legend-dot" style="background:#334155"></span><span>Failure End</span></div>
+                    <div class="legend-item"><span style="display:inline-block;width:28px;height:0;border-top:2.5px dashed #dc2626"></span><span>Jump</span></div>
+                </div>
+            </div>
+            <div id="graph-container">
+                <div class="canvas-grid"></div>
+                <div id="empty-state" class="empty-state">
+                    <strong>No story map available</strong>
+                    <span>Please confirm that `/api/story-graph` returns valid node data.</span>
+                </div>
+            </div>
+            <div id="tooltip" class="tooltip"></div>
+        </main>
+        <aside class="side-panel">
+            <div>
+                <h2 class="side-title">Node Details</h2>
+            </div>
+            <div class="detail-card">
+                <h3 class="detail-section-title">Summary</h3>
+                <div id="detail-fields" class="detail-fields"></div>
+            </div>
+            <div class="detail-card">
+                <h3 class="detail-section-title">Node</h3>
+                <div id="detail-node-panel" class="node-panel-box">
+                    <p id="detail-panel-placeholder" class="detail-panel-empty">Click any node card to inspect its details.</p>
+                    <div id="detail-node-body" class="hidden">
+                        <div class="node-connection-block">
+                            <div class="node-connection-group">
+                                <span class="node-connection-label">Incoming Node</span>
+                                <ul id="detail-incoming-list" class="node-id-list"></ul>
+                            </div>
+                            <div class="node-connection-group">
+                                <span class="node-connection-label">Outgoing Node</span>
+                                <ul id="detail-outgoing-list" class="node-id-list"></ul>
+                            </div>
+                        </div>
+                        <img id="detail-image" class="detail-image hidden" alt="Node preview" />
+                        <div class="node-text-box">
+                            <p id="detail-content" class="detail-content"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        const state = {
+            graph: null,
+            nodes: [],
+            nodeMap: new Map(),
+            positions: new Map(),
+            elkReady: false,
+            layoutPending: false,
+            activeTypeFilter: null,
+            svg: null,
+            graphLayer: null,
+            zoom: null,
+            currentTransform: d3.zoomIdentity.translate(60, 60).scale(1),
+            fittedTransform: d3.zoomIdentity.translate(60, 60).scale(1),
+            selectedNodeId: null,
+        };
+
+        const graphContainer = document.getElementById('graph-container');
+        const emptyState = document.getElementById('empty-state');
+        const tooltip = document.getElementById('tooltip');
+        const statNodes = document.getElementById('stat-nodes');
+        const statEdges = document.getElementById('stat-edges');
+        const statEndings = document.getElementById('stat-endings');
+        const detailFields = document.getElementById('detail-fields');
+        const detailPanelPlaceholder = document.getElementById('detail-panel-placeholder');
+        const detailNodeBody = document.getElementById('detail-node-body');
+        const detailIncomingList = document.getElementById('detail-incoming-list');
+        const detailOutgoingList = document.getElementById('detail-outgoing-list');
+        const detailImage = document.getElementById('detail-image');
+        const detailContent = document.getElementById('detail-content');
+
+        const SUMMARY_FIELD_LABELS = new Set(['Node ID', 'Node Type', 'Incoming', 'Outgoing']);
+
+        let cardWidth = 246;
+        let cardHeight = 176;
+        const imageWidth = 218;
+        const imageHeight = 92;
+        const IMAGE_INSET_X = 14;
+        const IMAGE_INSET_Y = 12;
+        const levelGapX = 388;
+        const levelGapY = 176;
+        const columnPaddingY = 20;
+
+        const ELK_CHILD_ORDER = {
+            beat_first_reaction: ['beat_choice_calm_to_door', 'beat_choice_early_balcony_rescue', 'beat_choice_call_emergency_first'],
+            beat_balcony_realize_and_choose: ['beat_choice_return_from_balcony', 'beat_choice_take_elevator_down'],
+            beat_at_door_assessment: ['beat_choice_test_door_knob', 'beat_choice_seal_without_knob_test', 'beat_choice_balcony_without_check', 'beat_choice_early_curtain_rope'],
+            beat_strategy_after_door_closed: ['beat_call_police_and_wet_towel', 'beat_choice_rush_to_bathroom'],
+            beat_call_police_and_wet_towel: ['beat_choice_hold_or_escape', 'beat_choice_climb_exterior_pipes', 'beat_choice_rush_elevator'],
+            beat_choice_hold_or_escape: ['beat_choice_seal_door_gap', 'beat_choice_break_window_rope', 'beat_choice_candle_light_wait'],
+            beat_rescue_signal_question: ['beat_choice_effective_rescue_signal', 'beat_choice_leap_to_neighbor', 'beat_choice_blind_sheet_rope'],
+            beat_judge_smoky_stairwell: ['beat_choice_rope_escape_ready', 'beat_choice_charge_smoky_hall', 'beat_choice_hasty_balcony_rope', 'beat_choice_use_extinguisher'],
+            beat_final_priority_question: ['beat_choice_evacuate_stairs_now', 'beat_choice_go_back_for_cat', 'beat_choice_signal_with_lighter'],
+            beat_elevator_doors_open_hot: ['beat_choice_wave_at_ladder', 'beat_choice_hide_elevator_shaft'],
+            beat_hold_inside_next_action: ['beat_choice_seal_door_gap', 'beat_choice_break_window_rope', 'beat_choice_candle_light_wait'],
+        };
+
+        const ELK_OPTS = {
+            'elk.algorithm': 'layered',
+            'elk.direction': 'RIGHT',
+            'elk.edgeRouting': 'ORTHOGONAL',
+            'elk.spacing.nodeNode': '72',
+            'elk.layered.spacing.nodeNodeBetweenLayers': '140',
+            'elk.layered.spacing.edgeNodeBetweenLayers': '48',
+            'elk.layered.nodePlacement.strategy': 'BRANDES_KOEPF',
+            'elk.layered.crossingMinimization.strategy': 'LAYER_SWEEP',
+            'elk.layered.considerModelOrder.strategy': 'NODES_AND_EDGES',
+            'elk.layered.thoroughness': '7',
+        };
+
+        function cleanText(text) {
+            return String(text || '').replace(/\r/g, '').replace(/\n{3,}/g, '\n\n').trim();
+        }
+
+        function truncateText(text, maxLength) {
+            const normalized = cleanText(text).replace(/\s+/g, ' ');
+            return normalized.length > maxLength ? normalized.slice(0, maxLength) + '...' : normalized;
+        }
+
+        function chunkText(text, lineLength, lineCount) {
+            const source = truncateText(text, lineLength * lineCount);
+            const lines = [];
+            let remaining = source;
+            while (remaining.length > 0 && lines.length < lineCount) {
+                lines.push(remaining.slice(0, lineLength));
+                remaining = remaining.slice(lineLength);
+            }
+            return lines;
+        }
+
+        function getFallbackImage(label) {
+            const text = encodeURIComponent(label || 'Story Node');
+            return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360"><defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="%23dbeafe"/><stop offset="1" stop-color="%23ede9fe"/></linearGradient></defs><rect width="640" height="360" fill="url(%23g)"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="28" fill="%23334155">${text}</text></svg>`;
+        }
+
+        function applyCardMetrics(layoutHints) {
+            const hints = layoutHints || {};
+            if (Number.isFinite(hints.card_width)) cardWidth = hints.card_width;
+            if (Number.isFinite(hints.card_height)) cardHeight = hints.card_height;
+        }
+
+        function updateStats(stats) {
+            statNodes.textContent = stats.node_count || 0;
+            statEdges.textContent = stats.edge_count || 0;
+            statEndings.textContent = stats.ending_count || 0;
+        }
+
+        function buildReverseEdges(edges) {
+            const reverse = new Map();
+            Object.entries(edges || {}).forEach(([source, targets]) => {
+                (targets || []).forEach(target => {
+                    if (!reverse.has(target)) reverse.set(target, []);
+                    reverse.get(target).push(source);
+                });
+            });
+            return reverse;
+        }
+
+        /** 用最长路径深度排布，避免汇合节点（如 beat_at_door_assessment）被短路径拉到左侧导致回折线。 */
+        function computeDepthMap(nodes, edges, startNodeId) {
+            const nodeIds = nodes.map(node => node.id);
+            const depthMap = new Map();
+            if (startNodeId && nodeIds.includes(startNodeId)) {
+                depthMap.set(startNodeId, 0);
+            }
+            let changed = true;
+            let guard = 0;
+            while (changed && guard < nodeIds.length + 8) {
+                changed = false;
+                guard += 1;
+                Object.entries(edges || {}).forEach(([sourceId, targets]) => {
+                    if (!depthMap.has(sourceId)) return;
+                    const nextDepth = (depthMap.get(sourceId) || 0) + 1;
+                    (targets || []).forEach(childId => {
+                        if (!depthMap.has(childId) || depthMap.get(childId) < nextDepth) {
+                            depthMap.set(childId, nextDepth);
+                            changed = true;
+                        }
+                    });
+                });
+            }
+            let fallbackDepth = (Math.max(...depthMap.values(), 0) || 0) + 1;
+            nodeIds.forEach(nodeId => {
+                if (!depthMap.has(nodeId)) {
+                    depthMap.set(nodeId, fallbackDepth);
+                    fallbackDepth += 1;
+                }
+            });
+            return depthMap;
+        }
+
+        function sortChildren(children, nodeMap) {
+            const priority = node => {
+                if (!node) return 99;
+                if (node.display_type_key === 'decision') return 0;
+                if (node.display_type_key === 'normal') return 1;
+                if (node.display_type_key === 'ending') return 2;
+                if (node.display_type_key === 'fatal') return 3;
+                return 4;
+            };
+            return [...children].sort((a, b) => {
+                const na = nodeMap.get(a);
+                const nb = nodeMap.get(b);
+                const delta = priority(na) - priority(nb);
+                if (delta !== 0) return delta;
+                return String(a).localeCompare(String(b));
+            });
+        }
+
+        function resolveColumnCollisions(nodes, positions, depthMap) {
+            const columns = new Map();
+            nodes.forEach(node => {
+                const depth = depthMap.get(node.id) || 0;
+                if (!columns.has(depth)) columns.set(depth, []);
+                columns.get(depth).push(node);
+            });
+            columns.forEach(columnNodes => {
+                columnNodes.sort((a, b) => (positions.get(a.id)?.y || 0) - (positions.get(b.id)?.y || 0));
+                let lastY = -Infinity;
+                columnNodes.forEach(node => {
+                    const point = positions.get(node.id);
+                    if (!point) return;
+                    const minY = lastY + cardHeight + columnPaddingY;
+                    if (point.y < minY) point.y = minY;
+                    lastY = point.y;
+                });
+            });
+        }
+
+        function relaxMergeNodes(nodes, positions, depthMap, reverseMap) {
+            nodes.forEach(node => {
+                const parents = reverseMap.get(node.id) || [];
+                if (parents.length < 2) return;
+                const point = positions.get(node.id);
+                if (!point) return;
+                const parentCenters = parents
+                    .map(parentId => positions.get(parentId))
+                    .filter(Boolean)
+                    .map(parentPoint => parentPoint.y + cardHeight / 2);
+                if (!parentCenters.length) return;
+                const avgCenter = parentCenters.reduce((sum, value) => sum + value, 0) / parentCenters.length;
+                point.y = avgCenter - cardHeight / 2;
+            });
+            resolveColumnCollisions(nodes, positions, depthMap);
+        }
+
+        function computePositions(nodes, edges, startNodeId) {
+            const nodeMap = new Map(nodes.map(node => [node.id, node]));
+            const reverseMap = buildReverseEdges(edges);
+            const depthMap = computeDepthMap(nodes, edges, startNodeId);
+            const positions = new Map();
+            const visited = new Set();
+            const visiting = new Set();
+            let leafIndex = 0;
+
+            function visit(nodeId) {
+                if (positions.has(nodeId)) {
+                    const existing = positions.get(nodeId);
+                    return existing.y + cardHeight / 2;
+                }
+                if (visiting.has(nodeId)) {
+                    const cycleCenterY = leafIndex * levelGapY + cardHeight / 2;
+                    leafIndex += 1;
+                    positions.set(nodeId, {
+                        x: (depthMap.get(nodeId) || 0) * levelGapX,
+                        y: cycleCenterY - cardHeight / 2,
+                    });
+                    return cycleCenterY;
+                }
+                visiting.add(nodeId);
+                visited.add(nodeId);
+                const children = sortChildren((edges[nodeId] || []).filter(childId => nodeMap.has(childId)), nodeMap);
+                let centerY;
+                if (!children.length) {
+                    centerY = leafIndex * levelGapY + cardHeight / 2;
+                    leafIndex += 1;
+                } else {
+                    const childCenters = children.map(childId => visit(childId));
+                    centerY = (childCenters[0] + childCenters[childCenters.length - 1]) / 2;
+                }
+                positions.set(nodeId, {
+                    x: (depthMap.get(nodeId) || 0) * levelGapX,
+                    y: centerY - cardHeight / 2,
+                });
+                visiting.delete(nodeId);
+                return centerY;
+            }
+
+            if (startNodeId && nodeMap.has(startNodeId)) {
+                visit(startNodeId);
+            }
+
+            nodes.forEach(node => {
+                if (!visited.has(node.id)) {
+                    visit(node.id);
+                }
+            });
+
+            relaxMergeNodes(nodes, positions, depthMap, reverseMap);
+            return positions;
+        }
+
+        function getLayoutHints(graph) {
+            if (!graph) return {};
+            return graph.layout_hints || (graph.metadata && graph.metadata.layout_hints) || {};
+        }
+
+        /** 跳转线：把岔路端的 source 拉到 target 同一水平带，主线节点尽量不动 */
+        function applyJumpLayoutAnchors(positions, jumpEdges, layoutHints, depthMap, nodes) {
+            if (!jumpEdges || !jumpEdges.length) return;
+
+            const stagger = layoutHints.source_stagger ?? 24;
+            const strength = layoutHints.align_strength ?? 1;
+            const pins = layoutHints.node_y_pins || {};
+            const pairOffsets = new Map(
+                (layoutHints.jump_pairs || []).map(item => [
+                    `${item.from}->${item.to}`,
+                    Number(item.offset_y) || 0,
+                ]),
+            );
+
+            const jumpsByTarget = new Map();
+            jumpEdges.forEach((jump, index) => {
+                const source = jump.source || jump.from;
+                const target = jump.target || jump.to;
+                if (!source || !target) return;
+                if (!jumpsByTarget.has(target)) jumpsByTarget.set(target, []);
+                jumpsByTarget.get(target).push({ source, target, index, jump });
+            });
+
+            jumpsByTarget.forEach((jumps, targetId) => {
+                const targetPos = positions.get(targetId);
+                if (!targetPos) return;
+                const targetCenterY = targetPos.y + cardHeight / 2;
+                const mid = (jumps.length - 1) / 2;
+
+                jumps.forEach((entry, i) => {
+                    const sourcePos = positions.get(entry.source);
+                    if (!sourcePos) return;
+                    const pairKey = `${entry.source}->${targetId}`;
+                    const offsetY = pairOffsets.get(pairKey) ?? (i - mid) * stagger;
+                    const desiredCenterY = targetCenterY + offsetY;
+                    const currentCenterY = sourcePos.y + cardHeight / 2;
+                    const newCenterY = currentCenterY * (1 - strength) + desiredCenterY * strength;
+                    sourcePos.y = newCenterY - cardHeight / 2;
+                });
+            });
+
+            Object.entries(pins).forEach(([nodeId, centerY]) => {
+                const pos = positions.get(nodeId);
+                if (!pos || !Number.isFinite(centerY)) return;
+                pos.y = centerY - cardHeight / 2;
+            });
+
+            resolveColumnCollisions(nodes, positions, depthMap);
+        }
+
+        /** 跳转枢纽：不参与 ELK 分层；bridge 排在 recover 右侧（与蓝实线顺序一致） */
+        function postProcessElkPositions(positions) {
+            const gap = 80;
+            const recover = positions.get('beat_choice_return_from_balcony');
+            const balcony = positions.get('beat_balcony_realize_and_choose');
+            if (recover) {
+                positions.set('beat_return_to_door_bridge', { x: recover.x + cardWidth + gap, y: recover.y });
+            } else if (balcony) {
+                positions.set('beat_return_to_door_bridge', { x: balcony.x + cardWidth + gap, y: balcony.y });
+            }
+        }
+
+        function applyFixedNodePositions(nodes, layoutHints) {
+            const pins = layoutHints.node_positions || {};
+            const positions = new Map();
+            nodes.forEach(node => {
+                const pin = pins[node.id];
+                if (pin && Number.isFinite(pin.x) && Number.isFinite(pin.y)) {
+                    positions.set(node.id, { x: pin.x, y: pin.y });
+                }
+            });
+            const missing = nodes.filter(node => !positions.has(node.id));
+            if (missing.length) {
+                console.warn(
+                    `[layout] missing hardcoded positions for ${missing.length} nodes; ` +
+                    'falling back to auto layout for the full graph.',
+                );
+            }
+            return positions;
+        }
+
+        function getHardcodedEdgePath(sourceId, targetId, layoutHints) {
+            const routes = layoutHints.edge_routes || {};
+            const pts = routes[`${sourceId}->${targetId}`];
+            if (!pts || !pts.length) return null;
+            return orthogonalPathFromPoints(pts.map(p => [p.x, p.y]));
+        }
+
+        function getHardcodedTrunkPaths(layoutHints) {
+            const trunks = layoutHints.edge_trunks || {};
+            return Object.values(trunks)
+                .filter(pts => pts && pts.length >= 2)
+                .map(pts => orthogonalPathFromPoints(pts.map(p => [p.x, p.y])));
+        }
+
+        function simplifyPolyline(points) {
+            if (!points || points.length < 2) return points || [];
+            const out = [points[0]];
+            for (let i = 1; i < points.length; i += 1) {
+                const cur = points[i];
+                const prev = out[out.length - 1];
+                if (prev[0] === cur[0] && prev[1] === cur[1]) continue;
+                out.push(cur);
+            }
+            return out;
+        }
+
+        function sortElkChildren(parent, children) {
+            const order = ELK_CHILD_ORDER[parent] || getLayoutHints(state.graph).child_order?.[parent];
+            if (!order) return [...children].sort();
+            const rank = Object.fromEntries(order.map((id, index) => [id, index]));
+            return [...children].sort((a, b) => (rank[a] ?? 99) - (rank[b] ?? 99));
+        }
+
+        function elkSectionToPoints(section) {
+            const pts = [[section.startPoint.x, section.startPoint.y]];
+            (section.bendPoints || []).forEach(bp => pts.push([bp.x, bp.y]));
+            pts.push([section.endPoint.x, section.endPoint.y]);
+            return pts;
+        }
+
+        function isElkLayout(graph) {
+            const hints = getLayoutHints(graph);
+            return Boolean(
+                hints.node_positions
+                && Object.keys(hints.node_positions).length > 0
+                && (hints.layout_engine === 'elk' || hints.layout_mode === 'elk_layered'),
+            );
+        }
+
+        function applyElkNodePositions(nodes, hints) {
+            const pins = hints.node_positions || {};
+            const positions = new Map();
+            nodes.forEach(node => {
+                const pin = pins[node.id];
+                if (pin) positions.set(node.id, { x: pin.x, y: pin.y });
+            });
+            return positions;
+        }
+
+        function buildElkGraph(nodes, edges, graph) {
+            const hints = getLayoutHints(graph);
+            const nodeIds = new Set(nodes.map(n => n.id));
+            const elkEdges = [];
+            Object.entries(edges || {}).forEach(([sourceId, targets]) => {
+                const sorted = sortElkChildren(
+                    sourceId,
+                    (targets || []).filter(targetId => nodeIds.has(targetId)),
+                );
+                sorted.forEach(targetId => {
+                    if (isJumpEdge(sourceId, targetId)) return;
+                    elkEdges.push({
+                        id: `${sourceId}->${targetId}`,
+                        sources: [sourceId],
+                        targets: [targetId],
+                    });
+                });
+            });
+
+            const ordered = topologicalNodeOrder(nodes.map(n => n.id), edges);
+            return {
+                id: 'root',
+                layoutOptions: { ...ELK_OPTS, ...(hints.elk || {}) },
+                children: ordered.map(id => ({
+                    id,
+                    width: cardWidth,
+                    height: cardHeight,
+                    layoutOptions: { 'elk.portConstraints': 'FIXED_SIDE' },
+                })),
+                edges: elkEdges,
+            };
+        }
+
+        function topologicalNodeOrder(nodeIds, edges) {
+            const ids = [...nodeIds];
+            const indeg = Object.fromEntries(ids.map(id => [id, 0]));
+            const adj = Object.fromEntries(ids.map(id => [id, []]));
+            Object.entries(edges || {}).forEach(([src, tgts]) => {
+                (tgts || []).forEach(tgt => {
+                    if (!(src in indeg) || !(tgt in indeg)) return;
+                    if (isJumpEdge(src, tgt)) return;
+                    indeg[tgt] += 1;
+                    adj[src].push(tgt);
+                });
+            });
+            const queue = ids.filter(id => indeg[id] === 0).sort();
+            const out = [];
+            while (queue.length) {
+                const u = queue.shift();
+                out.push(u);
+                (adj[u] || []).forEach(v => {
+                    indeg[v] -= 1;
+                    if (indeg[v] === 0) queue.push(v);
+                });
+            }
+            ids.forEach(id => {
+                if (!out.includes(id)) out.push(id);
+            });
+            return out;
+        }
+
+        function normalizeElkPositions(elkGraph) {
+            const positions = new Map();
+            let minX = Infinity;
+            let minY = Infinity;
+            (elkGraph.children || []).forEach(child => {
+                const x = Math.round((child.x ?? 0) - cardWidth / 2);
+                const y = Math.round((child.y ?? 0) - cardHeight / 2);
+                positions.set(child.id, { x, y });
+                minX = Math.min(minX, x);
+                minY = Math.min(minY, y);
+            });
+            const margin = 48;
+            positions.forEach((point, id) => {
+                positions.set(id, {
+                    x: point.x - minX + margin,
+                    y: point.y - minY + margin,
+                });
+            });
+            return positions;
+        }
+
+        function storeElkEdgeRoutes(elkGraph, hints) {
+            const routes = hints.edge_routes || {};
+            (elkGraph.edges || []).forEach(edge => {
+                const section = edge.sections?.[0];
+                if (!section) return;
+                routes[edge.id] = elkSectionToPoints(section).map(([x, y]) => ({
+                    x: Math.round(x),
+                    y: Math.round(y),
+                }));
+            });
+            hints.edge_routes = routes;
+            if (state.graph?.layout_hints) state.graph.layout_hints.edge_routes = routes;
+            if (state.graph?.metadata?.layout_hints) state.graph.metadata.layout_hints.edge_routes = routes;
+        }
+
+        async function computeElkLayout(nodes, edges, startNodeId, graph, forceRuntime = false) {
+            const hints = getLayoutHints(graph);
+            applyCardMetrics(hints);
+            if (!forceRuntime && isElkLayout(graph)) {
+                const fixed = applyElkNodePositions(nodes, hints);
+                if (fixed.size >= nodes.length) {
+                    postProcessElkPositions(fixed);
+                    state.elkReady = true;
+                    return fixed;
+                }
+            }
+            if (typeof ELK === 'undefined') {
+                throw new Error('ELK library failed to load');
+            }
+            const elk = new ELK();
+            const elkGraph = buildElkGraph(nodes, edges, graph);
+            const laidOut = await elk.layout(elkGraph);
+            const positions = normalizeElkPositions(laidOut);
+            postProcessElkPositions(positions);
+            storeElkEdgeRoutes(laidOut, hints);
+            const depthMap = computeDepthMap(nodes, edges, startNodeId);
+            applyJumpLayoutAnchors(
+                positions,
+                graph.jump_edges || [],
+                hints,
+                depthMap,
+                nodes,
+            );
+            state.elkReady = true;
+            return positions;
+        }
+
+        async function ensureLayout(forceRuntime = false) {
+            if (state.layoutPending) return state.positions;
+            state.layoutPending = true;
+            try {
+                state.positions = await computeElkLayout(
+                    state.nodes,
+                    state.graph.edges || {},
+                    state.graph.start_node_id,
+                    state.graph,
+                    forceRuntime,
+                );
+            } finally {
+                state.layoutPending = false;
+            }
+            return state.positions;
+        }
+
+        function getVisibleNodes() {
+            return state.nodes;
+        }
+
+        function isJumpEdge(sourceId, targetId) {
+            return (state.jumpEdgeKeys || new Set()).has(`${sourceId}->${targetId}`);
+        }
+
+        function edgeClass(sourceNode, sourceId, targetId) {
+            if (isJumpEdge(sourceId, targetId)) return 'edge jump';
+            return 'edge branch';
+        }
+
+        function edgeMarker(sourceNode, sourceId, targetId) {
+            if (isJumpEdge(sourceId, targetId)) return 'url(#arrowhead-jump)';
+            return 'url(#arrowhead-branch)';
+        }
+
+        const ARROW_MARKER_LEN = 11;
+        const JUMP_ARROW_MARKER_LEN = 12;
+
+        function createArrowMarkers(defsSelection) {
+            const specs = [
+                { id: 'arrowhead-main', fill: '#3b82f6', refX: ARROW_MARKER_LEN, size: 8 },
+                { id: 'arrowhead-branch', fill: '#3b82f6', refX: ARROW_MARKER_LEN, size: 8 },
+                { id: 'arrowhead-jump', fill: '#dc2626', refX: JUMP_ARROW_MARKER_LEN, size: 9 },
+            ];
+            specs.forEach(spec => {
+                defsSelection.append('marker')
+                    .attr('id', spec.id)
+                    .attr('viewBox', '0 -6 12 12')
+                    .attr('refX', spec.refX)
+                    .attr('refY', 0)
+                    .attr('markerWidth', spec.size)
+                    .attr('markerHeight', spec.size)
+                    .attr('markerUnits', 'userSpaceOnUse')
+                    .attr('orient', 'auto')
+                    .append('path')
+                    .attr('d', 'M0,-5.5L11,0L0,5.5')
+                    .attr('fill', spec.fill);
+            });
+        }
+
+        function collectObstacleRects(positions, nodes, skipIds = new Set()) {
+            return nodes
+                .map(node => {
+                    if (skipIds.has(node.id)) return null;
+                    const pos = positions.get(node.id);
+                    if (!pos) return null;
+                    return {
+                        id: node.id,
+                        x: pos.x,
+                        y: pos.y,
+                        x2: pos.x + cardWidth,
+                        y2: pos.y + cardHeight,
+                    };
+                })
+                .filter(Boolean);
+        }
+
+        /** 绕障以图像框为界（含留白），跳转线从图右出、指向图左 */
+        function collectImageObstacleRects(positions, nodes, skipIds = new Set(), margin = 14) {
+            return nodes
+                .map(node => {
+                    if (skipIds.has(node.id)) return null;
+                    const pos = positions.get(node.id);
+                    if (!pos) return null;
+                    return {
+                        id: node.id,
+                        x: pos.x + IMAGE_INSET_X - margin,
+                        y: pos.y + IMAGE_INSET_Y - margin,
+                        x2: pos.x + IMAGE_INSET_X + imageWidth + margin,
+                        y2: pos.y + IMAGE_INSET_Y + imageHeight + margin,
+                    };
+                })
+                .filter(Boolean);
+        }
+
+        function segmentIntersectsRect(x1, y1, x2, y2, rect, margin = 10) {
+            const rx1 = rect.x - margin;
+            const ry1 = rect.y - margin;
+            const rx2 = rect.x2 + margin;
+            const ry2 = rect.y2 + margin;
+            if (x1 === x2) {
+                const x = x1;
+                if (x < rx1 || x > rx2) return false;
+                return !(Math.max(y1, y2) < ry1 || Math.min(y1, y2) > ry2);
+            }
+            if (y1 === y2) {
+                const y = y1;
+                if (y < ry1 || y > ry2) return false;
+                return !(Math.max(x1, x2) < rx1 || Math.min(x1, x2) > rx2);
+            }
+            const minX = Math.min(x1, x2);
+            const maxX = Math.max(x1, x2);
+            const minY = Math.min(y1, y2);
+            const maxY = Math.max(y1, y2);
+            if (maxX < rx1 || minX > rx2 || maxY < ry1 || minY > ry2) return false;
+            const within = (x, y) => x >= rx1 && x <= rx2 && y >= ry1 && y <= ry2;
+            return within(x1, y1) || within(x2, y2);
+        }
+
+        function polylineHitsObstacles(points, obstacles) {
+            for (let i = 0; i < points.length - 1; i += 1) {
+                const [x1, y1] = points[i];
+                const [x2, y2] = points[i + 1];
+                for (const rect of obstacles) {
+                    if (segmentIntersectsRect(x1, y1, x2, y2, rect)) return true;
+                }
+            }
+            return false;
+        }
+
+        function dist2d(a, b) {
+            return Math.hypot(b[0] - a[0], b[1] - a[1]);
+        }
+
+        function sub2d(a, b) {
+            return [a[0] - b[0], a[1] - b[1]];
+        }
+
+        function add2d(a, b) {
+            return [a[0] + b[0], a[1] + b[1]];
+        }
+
+        function scale2d(v, s) {
+            return [v[0] * s, v[1] * s];
+        }
+
+        function normalize2d(v) {
+            const len = Math.hypot(v[0], v[1]) || 1;
+            return [v[0] / len, v[1] / len];
+        }
+
+        /** 折线拐点圆角化，避免直角“硬折” */
+        function smoothWaypointPath(points, radius = 26) {
+            if (!points || points.length < 2) return '';
+            if (points.length === 2) {
+                const [p0, p1] = points;
+                const mx = (p0[0] + p1[0]) / 2;
+                const my = (p0[1] + p1[1]) / 2;
+                return `M ${p0[0]} ${p0[1]} Q ${mx} ${my}, ${p1[0]} ${p1[1]}`;
+            }
+
+            let path = `M ${points[0][0]} ${points[0][1]}`;
+            for (let i = 1; i < points.length - 1; i += 1) {
+                const prev = points[i - 1];
+                const corner = points[i];
+                const next = points[i + 1];
+                const inVec = normalize2d(sub2d(corner, prev));
+                const outVec = normalize2d(sub2d(next, corner));
+                const rr = Math.min(
+                    radius,
+                    dist2d(prev, corner) * 0.42,
+                    dist2d(corner, next) * 0.42,
+                );
+                const before = add2d(corner, scale2d(inVec, -rr));
+                const after = add2d(corner, scale2d(outVec, rr));
+                path += ` L ${before[0]} ${before[1]}`;
+                path += ` Q ${corner[0]} ${corner[1]}, ${after[0]} ${after[1]}`;
+            }
+            const last = points[points.length - 1];
+            path += ` L ${last[0]} ${last[1]}`;
+            return path;
+        }
+
+        function collapseCollinearPoints(points) {
+            if (!points || points.length < 2) return points || [];
+            const out = [points[0]];
+            for (let i = 1; i < points.length; i += 1) {
+                const cur = points[i];
+                const prev = out[out.length - 1];
+                if (prev[0] === cur[0] && prev[1] === cur[1]) continue;
+                if (out.length >= 2) {
+                    const prev2 = out[out.length - 2];
+                    const collinearX = prev2[0] === prev[0] && prev[0] === cur[0];
+                    const collinearY = prev2[1] === prev[1] && prev[1] === cur[1];
+                    if (collinearX || collinearY) out.pop();
+                }
+                out.push(cur);
+            }
+            return out;
+        }
+
+        /** 两点不在同一行/列时，插入水平-竖直拐点（左→右布局优先先横后竖） */
+        function expandToOrthogonalHV(points) {
+            if (!points || points.length < 2) return points || [];
+            const out = [points[0]];
+            for (let i = 1; i < points.length; i += 1) {
+                const prev = out[out.length - 1];
+                const cur = points[i];
+                if (prev[0] !== cur[0] && prev[1] !== cur[1]) {
+                    out.push([cur[0], prev[1]]);
+                }
+                out.push(cur);
+            }
+            return collapseCollinearPoints(out);
+        }
+
+        /** 纯直角折线（仅水平/竖直段），禁止斜线 */
+        function orthogonalPathFromPoints(points) {
+            const expanded = expandToOrthogonalHV(points);
+            if (!expanded || expanded.length < 2) return '';
+            let d = `M ${expanded[0][0]} ${expanded[0][1]}`;
+            for (let i = 1; i < expanded.length; i += 1) {
+                d += ` L ${expanded[i][0]} ${expanded[i][1]}`;
+            }
+            return d;
+        }
+
+        function scoreOrthogonalPath(points, obstacles) {
+            if (!points || points.length < 2) return 1e9;
+            let hits = 0;
+            let bends = Math.max(0, points.length - 2);
+            for (let i = 0; i < points.length - 1; i += 1) {
+                const [x1, y1] = points[i];
+                const [x2, y2] = points[i + 1];
+                if (x1 !== x2 && y1 !== y2) return 1e9;
+                for (const rect of obstacles) {
+                    if (segmentIntersectsRect(x1, y1, x2, y2, rect, 12)) hits += 1;
+                }
+            }
+            return hits * 8000 + bends * 40;
+        }
+
+        function buildRoutedPoints(sourcePos, targetPos, obstacles, edgeIndex = 0, layoutHints = {}) {
+            const rh = routingHints(layoutHints);
+            const startX = sourcePos.x + cardWidth + rh.sourceOutset;
+            const startY = sourcePos.y + cardHeight / 2;
+            const targetX = linkTargetX(targetPos);
+            const endY = linkTargetY(targetPos);
+            const lane = edgeIndex || 0;
+            const outStub = 22;
+            const sameRow = Math.abs(startY - endY) < 6;
+            const sameCol = Math.abs(sourcePos.x - targetPos.x) < 14;
+
+            const candidates = [];
+
+            if (sameCol) {
+                candidates.push([[startX, startY], [targetX, endY]]);
+            } else if (sameRow && targetX > startX + 8) {
+                candidates.push([[startX, startY], [targetX, endY]]);
+            } else if (targetX > startX + 28) {
+                const midX = Math.round(
+                    startX + outStub + lane * 14 + Math.max(24, (targetX - startX - outStub) * 0.42),
+                );
+                candidates.push([
+                    [startX, startY],
+                    [midX, startY],
+                    [midX, endY],
+                    [targetX, endY],
+                ]);
+            }
+
+            const bottomBus = Math.max(
+                sourcePos.y + cardHeight,
+                targetPos.y + cardHeight,
+            ) + 44 + lane * 18;
+            const topBus = Math.min(sourcePos.y, targetPos.y) - 44 - lane * 18;
+            const midBus = Math.round((startY + endY) / 2);
+
+            [bottomBus, topBus, midBus].forEach(busY => {
+                const exitX = startX + outStub + lane * 10;
+                const enterX = targetX - 12 - lane * 10;
+                candidates.push([
+                    [startX, startY],
+                    [exitX, startY],
+                    [exitX, busY],
+                    [enterX, busY],
+                    [enterX, endY],
+                    [targetX, endY],
+                ]);
+            });
+
+            let best = candidates[0];
+            let bestScore = best ? scoreOrthogonalPath(best, obstacles) : 1e9;
+            candidates.forEach(points => {
+                const s = scoreOrthogonalPath(points, obstacles);
+                if (s < bestScore) {
+                    best = points;
+                    bestScore = s;
+                }
+            });
+
+            if (!best) {
+                best = [
+                    [startX, startY],
+                    [startX + outStub, startY],
+                    [startX + outStub, endY],
+                    [targetX, endY],
+                ];
+            }
+            return best;
+        }
+
+        function buildMainEdgePath(sourcePos, targetPos, obstacles, edgeIndex = 0, layoutHints = {}) {
+            const points = finalizeLinkPoints(
+                buildRoutedPoints(sourcePos, targetPos, obstacles, edgeIndex, layoutHints),
+                targetPos,
+            );
+            return orthogonalPathFromPoints(points);
+        }
+
+        /** 跳转线：从源图右侧出、指向目标图左侧 */
+        function linkJumpSourceX(sourcePos, layoutHints) {
+            const rh = routingHints(layoutHints || getLayoutHints(state.graph));
+            return sourcePos.x + IMAGE_INSET_X + imageWidth + rh.sourceOutset;
+        }
+
+        function linkJumpSourceY(sourcePos) {
+            return sourcePos.y + IMAGE_INSET_Y + imageHeight / 2;
+        }
+
+        function linkJumpTargetX(targetPos) {
+            return targetPos.x + IMAGE_INSET_X;
+        }
+
+        function linkJumpTargetY(targetPos) {
+            return targetPos.y + IMAGE_INSET_Y + imageHeight / 2;
+        }
+
+        function imagePortBounds(pos) {
+            const left = pos.x + IMAGE_INSET_X;
+            const top = pos.y + IMAGE_INSET_Y;
+            return {
+                left,
+                right: left + imageWidth,
+                top,
+                bottom: top + imageHeight,
+                cx: left + imageWidth / 2,
+                cy: top + imageHeight / 2,
+            };
+        }
+
+        function columnBottomBusY(positions, columnX, pad = 36) {
+            let maxBottom = 0;
+            positions.forEach(pos => {
+                if (Math.abs(pos.x - columnX) > 10) return;
+                maxBottom = Math.max(maxBottom, pos.y + IMAGE_INSET_Y + imageHeight);
+            });
+            return maxBottom + pad;
+        }
+
+        /** beat_choice_hold_or_escape → beat_hold_inside_next_action：先右移一小段，再下行 → 目标下方左行 → 沿左侧竖直贴入 */
+        function routeNode7ToBeatAct3Seal(sourcePos, targetPos, _positions) {
+            const src = imagePortBounds(sourcePos);
+            const tgt = imagePortBounds(targetPos);
+            const startX = src.right + 8;
+            const startY = src.cy;
+            const exitX = startX + 26;
+            const endX = tgt.left;
+            const endY = tgt.cy;
+            const mergeY = tgt.bottom + 28;
+            const leftBusX = tgt.left - 32;
+            return snapJumpRoutePoints([
+                [startX, startY],
+                [exitX, startY],
+                [exitX, mergeY],
+                [leftBusX, mergeY],
+                [leftBusX, endY],
+                [endX, endY],
+            ]);
+        }
+
+        /** 跳转折点取整，保证横线段同一 Y、竖线段同一 X，避免视觉上下弯 */
+        function snapJumpRoutePoints(points) {
+            const rounded = (points || []).map(p => [Math.round(p[0]), Math.round(p[1])]);
+            const out = [];
+            rounded.forEach(p => {
+                if (!out.length) {
+                    out.push(p);
+                    return;
+                }
+                const prev = out[out.length - 1];
+                if (prev[0] !== p[0] && prev[1] !== p[1]) {
+                    const prev2 = out.length >= 2 ? out[out.length - 2] : null;
+                    if (prev2 && prev2[0] === prev[0]) {
+                        out.push([prev[0], p[1]]);
+                    } else {
+                        out.push([p[0], prev[1]]);
+                    }
+                }
+                if (out[out.length - 1][0] !== p[0] || out[out.length - 1][1] !== p[1]) {
+                    out.push(p);
+                }
+            });
+            return collapseCollinearPoints(out);
+        }
+
+        /**
+         * beat_elevator_shaft_smoke → beat_return_to_door_bridge（绿色轨迹）：
+         * 右出 → 上抬到间隙 → 水平左行（同一 gapY）→ 上入 bridge 左侧
+         */
+        function routeGen27ToBridge(sourcePos, targetPos) {
+            const src = imagePortBounds(sourcePos);
+            const tgt = imagePortBounds(targetPos);
+            const startX = src.right + 8;
+            const startY = src.cy;
+            const endX = tgt.left;
+            const endY = tgt.cy;
+            const gapY = Math.round((tgt.bottom + src.top) / 2);
+            const westX = Math.min(tgt.left, src.left) - 44;
+            const exitX = startX + 32;
+            return snapJumpRoutePoints([
+                [startX, startY],
+                [exitX, startY],
+                [exitX, gapY],
+                [westX, gapY],
+                [westX, endY],
+                [endX, endY],
+            ]);
+        }
+
+        /** beat_return_to_door_bridge → beat_choice_test_door_knob：右出 → 底通道左行 → 沿主线左侧上行 → 从左入 beat_choice_test_door_knob */
+        function routeBridgeToNode4(sourcePos, targetPos, positions) {
+            const src = imagePortBounds(sourcePos);
+            const tgt = imagePortBounds(targetPos);
+            const startX = src.right + 8;
+            const startY = src.cy;
+            const endX = tgt.left;
+            const endY = tgt.cy;
+            const bottomBusY = columnBottomBusY(positions, targetPos.x, 58);
+            const leftBusX = tgt.left - 36;
+            const dropX = startX + 28;
+            const westX = Math.min(src.left, tgt.left) - 56;
+            return snapJumpRoutePoints([
+                [startX, startY],
+                [dropX, startY],
+                [dropX, bottomBusY],
+                [westX, bottomBusY],
+                [westX, endY],
+                [endX, endY],
+            ]);
+        }
+
+        const CUSTOM_JUMP_ROUTE_BUILDERS = {
+            'beat_choice_hold_or_escape->beat_hold_inside_next_action': (sourcePos, targetPos, _obstacles, _idx, _hints, positions) =>
+                routeNode7ToBeatAct3Seal(sourcePos, targetPos, positions),
+            'beat_elevator_shaft_smoke->beat_return_to_door_bridge': (sourcePos, targetPos) =>
+                routeGen27ToBridge(sourcePos, targetPos),
+            'beat_return_to_door_bridge->beat_choice_test_door_knob': (sourcePos, targetPos, _obstacles, _idx, _hints, positions) =>
+                routeBridgeToNode4(sourcePos, targetPos, positions),
+        };
+
+        function buildCustomJumpRoute(sourceId, targetId, sourcePos, targetPos, obstacles, jumpIndex, layoutHints) {
+            const builder = CUSTOM_JUMP_ROUTE_BUILDERS[`${sourceId}->${targetId}`];
+            if (!builder) return null;
+            const positions = state.positions || new Map();
+            return builder(sourcePos, targetPos, obstacles, jumpIndex, layoutHints, positions);
+        }
+
+        function finalizeJumpLinkPoints(points, targetPos, sourcePos, layoutHints) {
+            const startX = linkJumpSourceX(sourcePos, layoutHints);
+            const startY = linkJumpSourceY(sourcePos);
+            const endX = linkJumpTargetX(targetPos);
+            const endY = linkJumpTargetY(targetPos);
+            let pts = collapseCollinearPoints(points || []);
+            if (!pts.length) return [[endX, endY]];
+            if (pts[0][0] !== startX || pts[0][1] !== startY) {
+                pts.unshift([startX, startY]);
+                pts = collapseCollinearPoints(pts);
+            }
+
+            const last = pts[pts.length - 1];
+            if (last[0] !== endX || last[1] !== endY) {
+                if (pts.length >= 1 && pts[pts.length - 1][1] === endY) {
+                    pts[pts.length - 1] = [endX, endY];
+                } else {
+                    const prev = pts[pts.length - 1];
+                    if (prev[1] !== endY) pts.push([prev[0], endY]);
+                    pts.push([endX, endY]);
+                }
+                pts = collapseCollinearPoints(pts);
+            }
+
+            if (pts.length >= 2) {
+                const pa = pts[pts.length - 2];
+                const pb = pts[pts.length - 1];
+                const fromRight = endX >= startX - 6;
+                const stub = Math.min(36, Math.max(14, Math.abs(pb[0] - endX) + 18));
+                const approachX = fromRight ? endX - stub : endX + stub;
+                const onTargetLeftRail = pa[0] <= endX + 4 && pa[0] >= endX - 72;
+                if (pa[0] === pb[0] && pa[1] !== pb[1]) {
+                    if (onTargetLeftRail) {
+                        pts[pts.length - 1] = [endX, endY];
+                    } else {
+                        pts.splice(pts.length - 1, 0, [approachX, endY]);
+                        pts = collapseCollinearPoints(pts);
+                    }
+                }
+                if (pts[pts.length - 1][0] !== endX) {
+                    pts.push([endX, endY]);
+                }
+            }
+            return pts;
+        }
+
+        function buildJumpRoutedPoints(
+            sourceId,
+            targetId,
+            sourcePos,
+            targetPos,
+            obstacles,
+            jumpIndex = 0,
+            layoutHints = {},
+        ) {
+            const custom = buildCustomJumpRoute(
+                sourceId,
+                targetId,
+                sourcePos,
+                targetPos,
+                obstacles,
+                jumpIndex,
+                layoutHints,
+            );
+            if (custom) {
+                const finalized = finalizeJumpLinkPoints(custom, targetPos, sourcePos, layoutHints);
+                return snapJumpRoutePoints(finalized);
+            }
+
+            const startX = linkJumpSourceX(sourcePos, layoutHints);
+            const startY = linkJumpSourceY(sourcePos);
+            const endX = linkJumpTargetX(targetPos);
+            const endY = linkJumpTargetY(targetPos);
+            const lane = jumpIndex || 0;
+            const outStub = 22 + lane * 10;
+            const inStub = 22 + lane * 10;
+            const fromRight = endX >= startX - 6;
+            const sameRow = Math.abs(startY - endY) < 8;
+            const exitX = startX + outStub;
+            const enterX = fromRight ? endX - inStub : endX + inStub;
+            const candidates = [];
+
+            if (fromRight && sameRow && endX > startX + outStub + inStub + 10) {
+                candidates.push([[startX, startY], [endX, endY]]);
+            }
+            if (fromRight && endX > startX + 32) {
+                const midX = Math.round(
+                    startX + outStub + lane * 12 + Math.max(28, (endX - startX - outStub) * 0.42),
+                );
+                candidates.push([
+                    [startX, startY],
+                    [midX, startY],
+                    [midX, endY],
+                    [endX, endY],
+                ]);
+            }
+
+            const imageTop = pos => pos.y + IMAGE_INSET_Y;
+            const imageBottom = pos => pos.y + IMAGE_INSET_Y + imageHeight;
+            const corridorMinX = Math.min(startX, endX, exitX, enterX) - 28;
+            const corridorMaxX = Math.max(startX, endX, exitX, enterX) + 28;
+            const blocking = (obstacles || []).filter(
+                rect => rect.x2 >= corridorMinX && rect.x <= corridorMaxX,
+            );
+
+            const minBlockTop = blocking.length
+                ? Math.min(...blocking.map(r => r.y))
+                : Math.min(imageTop(sourcePos), imageTop(targetPos));
+            const maxBlockBottom = blocking.length
+                ? Math.max(...blocking.map(r => r.y2))
+                : Math.max(imageBottom(sourcePos), imageBottom(targetPos));
+
+            const topBus = minBlockTop - 44 - lane * 24;
+            const bottomBus = maxBlockBottom + 44 + lane * 24;
+            const midBus = Math.round((startY + endY) / 2);
+
+            [topBus, bottomBus, midBus].forEach(busY => {
+                candidates.push([
+                    [startX, startY],
+                    [exitX, startY],
+                    [exitX, busY],
+                    [enterX, busY],
+                    [enterX, endY],
+                    [endX, endY],
+                ]);
+            });
+
+            if (!fromRight) {
+                const maxObsRight = blocking.reduce(
+                    (m, r) => Math.max(m, r.x2),
+                    Math.max(startX, endX) + cardWidth,
+                );
+                const sideBusX = maxObsRight + 52 + lane * 18;
+                candidates.push([
+                    [startX, startY],
+                    [exitX, startY],
+                    [sideBusX, startY],
+                    [sideBusX, endY],
+                    [enterX, endY],
+                    [endX, endY],
+                ]);
+                candidates.push([
+                    [startX, startY],
+                    [exitX, startY],
+                    [exitX, topBus],
+                    [sideBusX, topBus],
+                    [sideBusX, endY],
+                    [enterX, endY],
+                    [endX, endY],
+                ]);
+            }
+
+            let best = null;
+            let bestScore = 1e9;
+            candidates.forEach(points => {
+                const pts = collapseCollinearPoints(points);
+                const s = scoreOrthogonalPath(pts, obstacles);
+                if (s < bestScore) {
+                    best = pts;
+                    bestScore = s;
+                }
+            });
+
+            if (!best) {
+                best = [
+                    [startX, startY],
+                    [exitX, startY],
+                    [exitX, endY],
+                    [endX, endY],
+                ];
+            }
+            return finalizeJumpLinkPoints(best, targetPos, sourcePos, layoutHints);
+        }
+
+        function buildJumpEdgePath(
+            sourceId,
+            targetId,
+            sourcePos,
+            targetPos,
+            obstacles,
+            jumpIndex = 0,
+            layoutHints = {},
+        ) {
+            const points = buildJumpRoutedPoints(
+                sourceId,
+                targetId,
+                sourcePos,
+                targetPos,
+                obstacles,
+                jumpIndex,
+                layoutHints,
+            );
+            return orthogonalPathFromPoints(points);
+        }
+
+        const STRAIGHT_Y_EPS = 32;
+        const FORK_STUB_MIN = 32;
+        const FORK_STUB_MAX = 88;
+        const BRANCH_GAP_DEFAULT = 132;
+        const RIGHT_BUS_GAP_DEFAULT = 168;
+        const EDGE_TARGET_INSET_DEFAULT = 32;
+        const EDGE_SOURCE_OUTSET_DEFAULT = 8;
+        const EDGE_ARROW_TIP_PAD_DEFAULT = 12;
+
+        function routingHints(layoutHints) {
+            const hints = layoutHints || {};
+            return {
+                forkStub: hints.fork_stub ?? FORK_STUB_MAX,
+                branchGap: hints.branch_gap ?? BRANCH_GAP_DEFAULT,
+                rightGap: hints.right_bus_gap ?? RIGHT_BUS_GAP_DEFAULT,
+                targetInset: hints.edge_target_inset ?? EDGE_TARGET_INSET_DEFAULT,
+                sourceOutset: hints.edge_source_outset ?? EDGE_SOURCE_OUTSET_DEFAULT,
+                arrowTipPad: hints.edge_arrow_tip_pad ?? EDGE_ARROW_TIP_PAD_DEFAULT,
+            };
+        }
+
+        /** 连线终点 = 卡片左缘；箭头 marker 的 refX 对齐尖端，贴框 */
+        function linkTargetX(targetPos) {
+            return targetPos.x;
+        }
+
+        function linkTargetY(targetPos) {
+            return targetPos.y + cardHeight / 2;
+        }
+
+        function finalizeLinkPoints(points, targetPos) {
+            const targetX = linkTargetX(targetPos);
+            const endY = linkTargetY(targetPos);
+            let pts = collapseCollinearPoints(points || []);
+            if (!pts.length) {
+                return [[targetX, endY]];
+            }
+
+            const last = pts[pts.length - 1];
+            if (last[0] !== targetX || last[1] !== endY) {
+                if (pts.length >= 1 && pts[pts.length - 1][1] === endY) {
+                    pts[pts.length - 1] = [targetX, endY];
+                } else {
+                    const prev = pts[pts.length - 1];
+                    if (prev[1] !== endY) pts.push([prev[0], endY]);
+                    pts.push([targetX, endY]);
+                }
+                pts = collapseCollinearPoints(pts);
+            }
+
+            if (pts.length >= 2) {
+                const a = pts[pts.length - 2];
+                const b = pts[pts.length - 1];
+                if (a[0] === b[0] && a[1] !== b[1]) {
+                    pts.splice(pts.length - 2, 0, [a[0], endY]);
+                    if (pts[pts.length - 2][0] !== targetX) {
+                        pts.splice(pts.length - 1, 0, [targetX, endY]);
+                    }
+                    pts = collapseCollinearPoints(pts);
+                }
+                const pa = pts[pts.length - 2];
+                const pb = pts[pts.length - 1];
+                if (pb[0] - pa[0] < 10) {
+                    pts.splice(pts.length - 2, 1);
+                    pts = collapseCollinearPoints(pts);
+                    if (pts[pts.length - 1][0] !== targetX) {
+                        pts.push([targetX, endY]);
+                    }
+                }
+            }
+            return pts;
+        }
+
+        /** 按源节点汇总分叉：共用出口 (startX,trunkY) 与共顶点 (forkX,trunkY) */
+        function computeFanoutBySource(edgeList, positions) {
+            const bySource = new Map();
+            edgeList.forEach(edge => {
+                if (!bySource.has(edge.sourceId)) bySource.set(edge.sourceId, []);
+                bySource.get(edge.sourceId).push(edge);
+            });
+
+            const fanoutBySource = new Map();
+            bySource.forEach((outEdges, sourceId) => {
+                const sourcePos = positions.get(sourceId);
+                if (!sourcePos) return;
+
+                const rh = routingHints(getLayoutHints(state.graph));
+                const startX = sourcePos.x + cardWidth + rh.sourceOutset;
+                const trunkY = sourcePos.y + cardHeight / 2;
+                const childYs = outEdges.map(edge => {
+                    const tp = positions.get(edge.targetId);
+                    return tp ? tp.y + cardHeight / 2 : trunkY;
+                });
+                const forkStub = rh.forkStub;
+                const branchGap = rh.branchGap;
+                const minChildX = Math.min(...outEdges.map(edge => {
+                    const tp = positions.get(edge.targetId);
+                    return tp ? tp.x : startX + cardWidth + forkStub + branchGap;
+                }));
+                const rightGap = rh.rightGap;
+                const maxForkX = minChildX - branchGap;
+                const forkX = Math.round(Math.min(
+                    maxForkX,
+                    Math.max(
+                        startX + FORK_STUB_MIN,
+                        startX + Math.min(forkStub, rightGap),
+                    ),
+                ));
+
+                fanoutBySource.set(sourceId, {
+                    startX,
+                    trunkY,
+                    forkX,
+                    childCount: outEdges.length,
+                    minChildY: Math.min(...childYs),
+                    maxChildY: Math.max(...childYs),
+                });
+            });
+            return fanoutBySource;
+        }
+
+        /** 多子节点：只画父节点到共顶点 (forkX,trunkY) 的横干；分叉从同一点出发 */
+        function buildSharedTrunkPaths(fanoutBySource) {
+            const paths = [];
+            fanoutBySource.forEach(fanout => {
+                if (fanout.childCount < 2) return;
+                paths.push([[fanout.startX, fanout.trunkY], [fanout.forkX, fanout.trunkY]]);
+            });
+            return paths.map(pts => orthogonalPathFromPoints(pts));
+        }
+
+        function busXForTarget(startX, endX, layoutHints) {
+            const rh = routingHints(layoutHints);
+            const branchGap = rh.branchGap;
+            const rightGap = rh.rightGap;
+            if (endX >= startX + 12) {
+                return Math.min(
+                    endX - Math.max(24, branchGap * 0.35),
+                    Math.max(startX + FORK_STUB_MIN, startX + rightGap),
+                );
+            }
+            if (endX + cardWidth < startX - 12) {
+                return Math.min(startX - FORK_STUB_MIN, endX + branchGap);
+            }
+            return Math.max(startX + FORK_STUB_MIN, Math.min(startX + FORK_STUB_MAX, endX - branchGap));
+        }
+
+        /** 从 fork 竖线拐出，末段必须水平进入 target 左缘（避免箭头朝下） */
+        function buildFanoutLegPoints(forkX, trunkY, targetPos) {
+            const targetX = linkTargetX(targetPos);
+            const endY = linkTargetY(targetPos);
+            if (Math.abs(trunkY - endY) <= 4) {
+                return [[forkX, endY], [targetX, endY]];
+            }
+            return [[forkX, trunkY], [forkX, endY], [targetX, endY]];
+        }
+
+        /** 多叉只画 fork→target；单线从源右缘画到 target 左缘 */
+        function buildFanoutLinkPoints(sourcePos, targetPos, fanout, layoutHints) {
+            const rh = routingHints(layoutHints);
+            const startX = fanout?.startX ?? sourcePos.x + cardWidth + rh.sourceOutset;
+            const trunkY = fanout?.trunkY ?? sourcePos.y + cardHeight / 2;
+            const targetX = linkTargetX(targetPos);
+            const endY = linkTargetY(targetPos);
+            let forkX = fanout?.forkX ?? busXForTarget(startX, targetX, layoutHints);
+            if (forkX >= targetX - 16) {
+                forkX = busXForTarget(startX, targetX, layoutHints);
+            }
+
+            if (fanout && fanout.childCount >= 2) {
+                return buildFanoutLegPoints(forkX, trunkY, targetPos);
+            }
+
+            const sameRow = Math.abs(trunkY - endY) <= 4;
+            if (targetX <= startX + 6) {
+                return [[startX, trunkY], [targetX, endY]];
+            }
+            if (targetX + cardWidth < startX - 12) {
+                const leftBus = busXForTarget(startX, targetX, layoutHints);
+                if (sameRow) return [[startX, endY], [targetX, endY]];
+                return [[startX, trunkY], [leftBus, trunkY], [leftBus, endY], [targetX, endY]];
+            }
+            if (sameRow) {
+                if (forkX > startX + 16 && forkX < targetX - 12) {
+                    return [[startX, trunkY], [forkX, endY], [targetX, endY]];
+                }
+                return [[startX, endY], [targetX, endY]];
+            }
+            return [[startX, trunkY], [forkX, trunkY], [forkX, endY], [targetX, endY]];
+        }
+
+        function buildFanoutLinkPath(sourcePos, targetPos, fanout, layoutHints) {
+            const pts = finalizeLinkPoints(
+                buildFanoutLinkPoints(sourcePos, targetPos, fanout, layoutHints),
+                targetPos,
+            );
+            return orthogonalPathFromPoints(pts);
+        }
+
+        function buildEdgePath(edge, obstacles, layoutHints) {
+            if (edge.isJump) {
+                const skip = new Set([edge.sourceId, edge.targetId]);
+                const jumpObstacles = (obstacles || []).filter(rect => !skip.has(rect.id));
+                return buildJumpEdgePath(
+                    edge.sourceId,
+                    edge.targetId,
+                    edge.sourcePos,
+                    edge.targetPos,
+                    jumpObstacles,
+                    edge.jumpIndex || 0,
+                    layoutHints,
+                );
+            }
+            const fanout = (state.fanoutBySource || new Map()).get(edge.sourceId);
+            if (fanout) {
+                return buildFanoutLinkPath(edge.sourcePos, edge.targetPos, fanout, layoutHints);
+            }
+            return buildMainEdgePath(
+                edge.sourcePos,
+                edge.targetPos,
+                obstacles,
+                edge.laneIndex || 0,
+                layoutHints,
+            );
+        }
+
+        function renderNeighborList(listEl, neighbors) {
+            listEl.innerHTML = '';
+            const items = neighbors || [];
+            if (!items.length) {
+                const li = document.createElement('li');
+                li.className = 'is-empty';
+                li.textContent = '—';
+                listEl.appendChild(li);
+                return;
+            }
+            items.forEach(entry => {
+                const li = document.createElement('li');
+                const id = typeof entry === 'string' ? entry : entry.id;
+                const isJump = typeof entry === 'object' && entry.jump;
+                li.className = isJump ? 'is-jump' : '';
+                li.textContent = isJump ? `${id} (jump)` : id;
+                listEl.appendChild(li);
+            });
+        }
+
+        function getNodeNeighbors(node) {
+            if (node.incoming_nodes || node.outgoing_nodes) {
+                return {
+                    incoming: node.incoming_nodes || [],
+                    outgoing: node.outgoing_nodes || [],
+                };
+            }
+            const edges = state.graph?.edges || {};
+            const jumps = state.graph?.jump_edges || [];
+            const incoming = [];
+            const outgoing = [];
+            const seenIn = new Set();
+            const seenOut = new Set();
+            Object.entries(edges).forEach(([sourceId, targets]) => {
+                if (!(targets || []).includes(node.id)) return;
+                if (!seenIn.has(sourceId)) {
+                    seenIn.add(sourceId);
+                    incoming.push({ id: sourceId, jump: false });
+                }
+            });
+            (edges[node.id] || []).forEach(targetId => {
+                if (!seenOut.has(targetId)) {
+                    seenOut.add(targetId);
+                    outgoing.push({ id: targetId, jump: false });
+                }
+            });
+            jumps.forEach(item => {
+                const source = item.source || item.from;
+                const target = item.target || item.to;
+                if (target === node.id && source && !seenIn.has(source)) {
+                    seenIn.add(source);
+                    incoming.push({ id: source, jump: true });
+                }
+                if (source === node.id && target && !seenOut.has(target)) {
+                    seenOut.add(target);
+                    outgoing.push({ id: target, jump: true });
+                }
+            });
+            return { incoming, outgoing };
+        }
+
+        function renderNodeDetails(node) {
+            if (!node) {
+                detailFields.innerHTML = '';
+                detailPanelPlaceholder.classList.remove('hidden');
+                detailNodeBody.classList.add('hidden');
+                detailContent.textContent = '';
+                detailImage.classList.add('hidden');
+                detailImage.removeAttribute('src');
+                return;
+            }
+
+            detailPanelPlaceholder.classList.add('hidden');
+            detailNodeBody.classList.remove('hidden');
+
+            detailFields.innerHTML = '';
+            const summaryFields = (node.detail_fields || []).filter(
+                field => SUMMARY_FIELD_LABELS.has(field.label),
+            );
+            const fieldsToShow = summaryFields.length
+                ? summaryFields
+                : [
+                    { label: 'Node ID', value: node.id },
+                    { label: 'Node Type', value: node.display_type || node.type },
+                    { label: 'Incoming', value: String(node.incoming_count ?? 0) },
+                    { label: 'Outgoing', value: String(node.outgoing_count ?? 0) },
+                ];
+            fieldsToShow.forEach(field => {
+                const el = document.createElement('div');
+                el.className = 'detail-field';
+                el.innerHTML = `<span class="detail-field-label">${field.label}</span><span class="detail-field-value">${field.value}</span>`;
+                detailFields.appendChild(el);
+            });
+
+            const neighbors = getNodeNeighbors(node);
+            renderNeighborList(detailIncomingList, neighbors.incoming);
+            renderNeighborList(detailOutgoingList, neighbors.outgoing);
+
+            detailContent.textContent = cleanText(node.content || 'No content available.');
+
+            const imageSrc = node.image_url || node.metadata?.image_path;
+            if (imageSrc) {
+                detailImage.src = imageSrc;
+                detailImage.classList.remove('hidden');
+            } else {
+                detailImage.classList.add('hidden');
+                detailImage.removeAttribute('src');
+            }
+        }
+
+        function computeGraphBounds(nodes, positions) {
+            if (!nodes.length) {
+                return { minX: 0, minY: 0, maxX: 0, maxY: 0, width: 0, height: 0 };
+            }
+            let minX = Infinity;
+            let minY = Infinity;
+            let maxX = -Infinity;
+            let maxY = -Infinity;
+            nodes.forEach(node => {
+                const point = positions.get(node.id);
+                if (!point) return;
+                minX = Math.min(minX, point.x);
+                minY = Math.min(minY, point.y);
+                maxX = Math.max(maxX, point.x + cardWidth);
+                maxY = Math.max(maxY, point.y + cardHeight);
+            });
+            return {
+                minX,
+                minY,
+                maxX,
+                maxY,
+                width: Math.max(0, maxX - minX),
+                height: Math.max(0, maxY - minY),
+            };
+        }
+
+        function fitGraphToViewport(nodes, positions, animate = false) {
+            if (!state.svg || !state.zoom || !nodes.length) return;
+            const bounds = computeGraphBounds(nodes, positions);
+            const jumpLanePad = 28;
+            bounds.minY -= jumpLanePad;
+            bounds.maxY += jumpLanePad;
+            const width = graphContainer.clientWidth || 1200;
+            const height = graphContainer.clientHeight || 760;
+            const padding = 48;
+            const graphWidth = Math.max(bounds.width, 1);
+            const graphHeight = Math.max(bounds.height, 1);
+            const scale = Math.max(0.18, Math.min(1, Math.min((width - padding * 2) / graphWidth, (height - padding * 2) / graphHeight)));
+            const tx = padding + (width - padding * 2 - graphWidth * scale) / 2 - bounds.minX * scale;
+            const ty = padding + (height - padding * 2 - graphHeight * scale) / 2 - bounds.minY * scale;
+            state.fittedTransform = d3.zoomIdentity.translate(tx, ty).scale(scale);
+            state.currentTransform = state.fittedTransform;
+            const selection = animate ? state.svg.transition().duration(260) : state.svg;
+            selection.call(state.zoom.transform, state.fittedTransform);
+        }
+
+        function showTooltip(event, node) {
+            tooltip.innerHTML = `<strong>${node.display_type}</strong><div style="margin-top:4px;">${truncateText(node.content || node.preview || node.id, 120)}</div>`;
+            tooltip.style.left = `${event.clientX + 14}px`;
+            tooltip.style.top = `${event.clientY + 14}px`;
+            tooltip.classList.add('show');
+        }
+
+        function hideTooltip() {
+            tooltip.classList.remove('show');
+        }
+
+        function renderGraph() {
+            const visibleNodes = getVisibleNodes();
+            const visibleNodeIdSet = new Set(visibleNodes.map(node => node.id));
+            if (!state.positions || !state.positions.size) {
+                return;
+            }
+            state.graphLayer.selectAll('*').remove();
+
+            const edges = [];
+            const edgeKeys = new Set();
+            const addEdge = (sourceId, targetId, isJump = false, jumpIndex = 0, laneIndex = 0) => {
+                if (!sourceId || !targetId) return;
+                if (!visibleNodeIdSet.has(sourceId) || !visibleNodeIdSet.has(targetId)) return;
+                const key = `${sourceId}->${targetId}`;
+                if (edgeKeys.has(key)) return;
+                const sourcePos = state.positions.get(sourceId);
+                const targetPos = state.positions.get(targetId);
+                if (!sourcePos || !targetPos) return;
+                edgeKeys.add(key);
+                edges.push({
+                    sourceId,
+                    targetId,
+                    sourcePos,
+                    targetPos,
+                    sourceNode: state.nodeMap.get(sourceId),
+                    isJump,
+                    jumpIndex,
+                    laneIndex,
+                });
+            };
+            Object.entries(state.graph.edges || {}).forEach(([sourceId, targets]) => {
+                const sortedTargets = sortChildren(
+                    (targets || []).filter(targetId => visibleNodeIdSet.has(targetId)),
+                    state.nodeMap,
+                );
+                sortedTargets.forEach((targetId, laneIndex) => {
+                    if (!isJumpEdge(sourceId, targetId)) {
+                        addEdge(sourceId, targetId, false, 0, laneIndex);
+                    }
+                });
+            });
+            (state.graph.jump_edges || []).forEach((item, index) => {
+                addEdge(item.source, item.target, true, index);
+            });
+
+            const normalEdges = edges.filter(edge => !edge.isJump);
+            const jumpEdges = edges.filter(edge => edge.isJump);
+            const layoutHints = getLayoutHints(state.graph);
+            state.fanoutBySource = computeFanoutBySource(normalEdges, state.positions);
+            const trunkPaths = buildSharedTrunkPaths(state.fanoutBySource);
+
+            const edgeLayer = state.graphLayer.append('g').attr('class', 'edge-layer');
+            const normalLayer = edgeLayer.append('g').attr('class', 'edge-layer-normal');
+            if (trunkPaths.length) {
+                normalLayer.selectAll('path.edge-trunk')
+                    .data(trunkPaths)
+                    .enter()
+                    .append('path')
+                    .attr('class', 'edge branch edge-trunk')
+                    .attr('d', d => d);
+            }
+            normalLayer.selectAll('path.edge-link')
+                .data(normalEdges)
+                .enter()
+                .append('path')
+                .attr('class', d => `${edgeClass(d.sourceNode, d.sourceId, d.targetId)} edge-link`)
+                .attr('marker-end', d => edgeMarker(d.sourceNode, d.sourceId, d.targetId))
+                .attr('d', d => buildEdgePath(d, [], layoutHints));
+
+            const imageObstacles = collectImageObstacleRects(
+                state.positions,
+                visibleNodes,
+                new Set(),
+            );
+
+            const nodeLayer = state.graphLayer.append('g');
+            const nodeGroups = nodeLayer.selectAll('g')
+                .data(visibleNodes)
+                .enter()
+                .append('g')
+                .attr('class', d => `node-group${state.selectedNodeId === d.id ? ' active' : ''}`)
+                .attr('transform', d => {
+                    const pos = state.positions.get(d.id);
+                    return `translate(${pos.x}, ${pos.y})`;
+                })
+                .on('click', (event, d) => {
+                    state.selectedNodeId = d.id;
+                    renderNodeDetails(d);
+                    renderGraph();
+                })
+                .on('mouseenter', (event, d) => showTooltip(event, d))
+                .on('mousemove', (event, d) => showTooltip(event, d))
+                .on('mouseleave', hideTooltip);
+
+            nodeGroups.append('rect')
+                .attr('class', 'node-card')
+                .attr('rx', 18)
+                .attr('ry', 18)
+                .attr('width', cardWidth)
+                .attr('height', cardHeight);
+
+            nodeGroups.append('rect')
+                .attr('class', 'badge-pill')
+                .attr('x', 0)
+                .attr('y', -30)
+                .attr('rx', 18)
+                .attr('ry', 18)
+                .attr('width', cardWidth)
+                .attr('height', 30)
+                .attr('fill', d => d.type_color);
+
+            nodeGroups.append('text')
+                .attr('x', cardWidth / 2)
+                .attr('y', -15)
+                .attr('text-anchor', 'middle')
+                .attr('dominant-baseline', 'middle')
+                .attr('fill', '#ffffff')
+                .attr('font-size', 12)
+                .attr('font-weight', 800)
+                .text(d => truncateText(d.display_type, 14));
+
+            nodeGroups.append('rect')
+                .attr('class', 'image-frame')
+                .attr('x', IMAGE_INSET_X)
+                .attr('y', IMAGE_INSET_Y)
+                .attr('rx', 12)
+                .attr('ry', 12)
+                .attr('width', imageWidth)
+                .attr('height', imageHeight);
+
+            nodeGroups.append('image')
+                .attr('x', IMAGE_INSET_X)
+                .attr('y', IMAGE_INSET_Y)
+                .attr('width', imageWidth)
+                .attr('height', imageHeight)
+                .attr('clip-path', 'none')
+                .attr('preserveAspectRatio', 'xMidYMid slice')
+                .attr('href', d => d.thumbnail_url || d.image_url || d.metadata?.image_path || getFallbackImage(d.display_type));
+
+            nodeGroups.append('text')
+                .attr('class', 'node-title')
+                .attr('x', 18)
+                .attr('y', 126)
+                .text(d => truncateText(d.id, 24));
+
+            nodeGroups.each(function(d) {
+                const group = d3.select(this);
+                const previewLines = chunkText(d.content || d.preview || '', 30, 3);
+                previewLines.forEach((line, index) => {
+                    group.append('text')
+                        .attr('class', 'node-preview')
+                        .attr('x', 18)
+                        .attr('y', 144 + index * 12)
+                        .text(line);
+                });
+            });
+
+            const jumpOverlay = state.graphLayer.append('g').attr('class', 'edge-layer-jump-overlay');
+            jumpOverlay.selectAll('path')
+                .data(jumpEdges)
+                .enter()
+                .append('path')
+                .attr('class', d => edgeClass(d.sourceNode, d.sourceId, d.targetId))
+                .attr('marker-end', 'url(#arrowhead-jump)')
+                .attr('d', d => buildEdgePath(d, imageObstacles, layoutHints));
+
+            fitGraphToViewport(visibleNodes, state.positions, false);
+        }
+
+        function initializeCanvas() {
+            if (state.svg) return;
+            const width = graphContainer.clientWidth;
+            const height = graphContainer.clientHeight;
+            state.svg = d3.select('#graph-container')
+                .append('svg')
+                .attr('viewBox', `0 0 ${width} ${height}`)
+                .attr('preserveAspectRatio', 'xMidYMid meet');
+            createArrowMarkers(state.svg.append('defs'));
+            state.graphLayer = state.svg.append('g');
+            state.zoom = d3.zoom()
+                .scaleExtent([0.08, 2.4])
+                .on('zoom', event => {
+                    state.currentTransform = event.transform;
+                    state.graphLayer.attr('transform', event.transform);
+                });
+            state.svg.call(state.zoom);
+            state.svg.call(state.zoom.transform, state.currentTransform);
+        }
+
+        async function loadGraph(forceRuntime = false) {
+            const response = await fetch(`/api/story-graph?_=${Date.now()}`);
+            const graph = await response.json();
+            state.graph = graph;
+            const layoutHints = getLayoutHints(graph);
+            applyCardMetrics(layoutHints);
+            state.nodes = graph.nodes || [];
+            state.nodeMap = new Map(state.nodes.map(node => [node.id, node]));
+            state.jumpEdgeKeys = new Set(
+                (graph.jump_edges || []).map(item => `${item.source}->${item.target}`),
+            );
+
+            if (!state.nodes.length) {
+                emptyState.classList.add('show');
+                return;
+            }
+
+            emptyState.classList.remove('show');
+            updateStats(graph.stats || {});
+            initializeCanvas();
+            await ensureLayout(forceRuntime);
+            renderGraph();
+            const startNode = state.nodeMap.get(graph.start_node_id) || state.nodes[0];
+            state.selectedNodeId = startNode.id;
+            renderNodeDetails(startNode);
+        }
+
+        document.getElementById('reset-view').addEventListener('click', () => {
+            if (state.svg && state.zoom) {
+                state.currentTransform = state.fittedTransform;
+                state.svg.transition().duration(260).call(state.zoom.transform, state.fittedTransform);
+            }
+        });
+
+        document.getElementById('goto-interactive').addEventListener('click', () => {
+            window.location.href = '/interactive-story';
+        });
+
+        loadGraph(false).catch(error => {
+            emptyState.classList.add('show');
+            emptyState.innerHTML = `<strong>Failed to load story map</strong><span>${error.message}</span>`;
+        });
+    </script>
+</body>
+</html>

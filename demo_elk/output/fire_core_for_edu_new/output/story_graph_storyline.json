@@ -1,0 +1,1401 @@
+{
+  "nodes": [
+    {
+      "id": "beat_prologue_alarm",
+      "content": "You are lounging on the apartment sofa, scrolling on your phone as the night deepens outside. A piercing fire alarm shatters the quiet, followed by running footsteps and muffled screams in the hallway. You sit up sharply—acrid smoke is already seeping through the door gap, and your heart races.",
+      "type": "normal",
+      "metadata": {
+        "display_role": "prologue",
+        "story_beat": "Act I · Alarm",
+        "story_act": "Opening",
+        "image_path": "output_images/node_1.png"
+      }
+    },
+    {
+      "id": "beat_first_reaction",
+      "content": "Smoke blurs your vision, and firelight climbs the building below. You must decide immediately: what is the single most important thing to do right now?",
+      "type": "normal",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "First response",
+        "story_act": "Act I",
+        "knowledge_point": "Recognizing fire risk and judging danger",
+        "image_path": "output_images/node_2.png"
+      }
+    },
+    {
+      "id": "beat_choice_calm_to_door",
+      "content": "Calm yourself, move to the door, and check whether the hallway is passable before opening it.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Check before the door",
+        "story_act": "Act II",
+        "image_path": "output_images/node_3_new.png",
+        "choice_option": "Stay calm, go to the door, and assess the hallway—do not rush out, call for help, or dial emergency services first."
+      }
+    },
+    {
+      "id": "beat_choice_early_balcony_rescue",
+      "content": "Rush to the balcony, shout for help, and wave clothing to get attention from below.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Calling for help too soon",
+        "story_act": "Act I · Branch",
+        "image_path": "output_images/node_2_branch_1.png",
+        "choice_option": "Rush to the balcony, shout, and wave clothing to be seen from below."
+      }
+    },
+    {
+      "id": "beat_choice_call_emergency_first",
+      "content": "Check your phone signal and call emergency services with your floor and location.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Call emergency services first",
+        "story_act": "Act I · Branch",
+        "image_path": "output_images/node_2_branch_2.png",
+        "choice_option": "Check signal and call emergency services with your location and floor."
+      }
+    },
+    {
+      "id": "beat_balcony_smoke_trap",
+      "content": "You hear sirens in the distance, but smoke is already pouring onto the balcony. You cough violently, vision swimming. You realize you exposed your escape route to the fire before even checking whether the hallway was safe.",
+      "type": "normal",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Balcony fills with smoke",
+        "story_act": "Act I · Branch",
+        "image_path": "output_images/generated_node_19.png"
+      }
+    },
+    {
+      "id": "beat_elevator_shaft_smoke",
+      "content": "The elevator doors slide open—and a blast of smoke and heat hits you in the face. You stagger back, coughing. The shaft has become a deadly chimney.",
+      "type": "normal",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Smoke in the elevator shaft",
+        "story_act": "Act I · Branch",
+        "image_path": "output_images/generated_node_27.png"
+      }
+    },
+    {
+      "id": "beat_wait_after_emergency_call",
+      "content": "Dispatch tells you to seal the door gap with a wet towel and wait. But the bathroom tap is barely a trickle now, and smoke keeps pushing through the door.",
+      "type": "normal",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Waiting after the call",
+        "story_act": "Act I · Branch",
+        "image_path": "output_images/generated_node_92.png"
+      }
+    },
+    {
+      "id": "beat_choice_test_door_knob",
+      "content": "Test the door handle with the back of your hand before deciding whether to open the door.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Door-handle check",
+        "story_act": "Act II",
+        "knowledge_point": "Recognizing fire risk and judging danger",
+        "image_path": "output_images/node_4.png",
+        "choice_option": "Test the door handle with the back of your hand before opening the door."
+      }
+    },
+    {
+      "id": "beat_hot_knob_retreat_indoors",
+      "content": "The metal handle burns the instant your hand touches it. This is no longer ordinary smoke—flame and heat are right outside. You force yourself to stay calm and retreat inside.",
+      "type": "normal",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Retreat indoors",
+        "story_act": "Act II",
+        "image_path": "output_images/node_5.png"
+      }
+    },
+    {
+      "id": "beat_choice_seal_without_knob_test",
+      "content": "Skip the temperature check and immediately plug the door gap with wet towels.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Skipped the check",
+        "story_act": "Act II · Branch",
+        "image_path": "output_images/node_4_branch_1.png",
+        "choice_option": "Do not test the handle; seal the door gap with wet towels at once."
+      }
+    },
+    {
+      "id": "beat_choice_balcony_without_check",
+      "content": "Turn and run to the balcony to shout and wave for attention.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Shout without checking",
+        "story_act": "Act II · Branch",
+        "image_path": "output_images/node_4_branch_2.png",
+        "choice_option": "Run to the balcony and shout for help."
+      }
+    },
+    {
+      "id": "beat_peek_through_door_crack",
+      "content": "The handle feels cool, so you ease the door open a crack—and the hallway is a wall of fire. Heat rolls in; you slam the door shut.",
+      "type": "normal",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Peek through the door crack",
+        "story_act": "Act II · Branch",
+        "image_path": "output_images/generated_node_95.png"
+      }
+    },
+    {
+      "id": "beat_choice_rush_to_bathroom",
+      "content": "Smoke keeps seeping in. You dash for the bathroom to soak more towels—without securing the door behind you.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Rush to the bathroom",
+        "story_act": "Act II · Branch",
+        "choice_option": "Sprint to the bathroom for water and neglect sealing the door.",
+        "image_path": "output_images/generated_node_95.png"
+      }
+    },
+    {
+      "id": "beat_end_suffocate_indoors",
+      "content": "You try to reach the bathroom, but after only a few steps the smoke drops you to the floor. Darkness closes in.",
+      "type": "ending",
+      "metadata": {
+        "display_role": "failure_end",
+        "story_beat": "Ending · Suffocation indoors",
+        "story_act": "Act II · Branch",
+        "outcome_type": "failure",
+        "image_path": "output_images/generated_node_99.png"
+      }
+    },
+    {
+      "id": "beat_end_balcony_sealed",
+      "content": "You wave your jacket desperately, coughing uncontrollably. Flames have reached the fifth-floor balcony; heat washes over you. Every way out is gone.",
+      "type": "ending",
+      "metadata": {
+        "display_role": "failure_end",
+        "story_beat": "Ending · Balcony cut off",
+        "story_act": "Act II · Branch",
+        "outcome_type": "failure",
+        "image_path": "output_images/generated_node_106.png"
+      }
+    },
+    {
+      "id": "beat_seal_door_after_call",
+      "content": "Dispatch tells you to seal the gap and wait. You press wet fabric along the door frame and hold the smoke back—for now.",
+      "type": "normal",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Seal after calling",
+        "story_act": "Act III · Branch",
+        "image_path": "output_images/generated_node_130_branch_1.png"
+      }
+    },
+    {
+      "id": "beat_strategy_after_door_closed",
+      "content": "You shut the door firmly and retreat inside. Smoke still creeps through the gap; the hallway is clearly unusable. What do you do next?",
+      "type": "normal",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Strategy after closing the door",
+        "story_act": "Act II · Branch",
+        "image_path": "output_images/generated_node_140.png"
+      }
+    },
+    {
+      "id": "beat_call_police_and_wet_towel",
+      "content": "You call for help, then soak a towel and cover your mouth. Smoke pushes under the door. The hallway is gone—what is your next move?",
+      "type": "normal",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Strategy after calling",
+        "story_act": "Act III",
+        "knowledge_point": "Sheltering indoors when smoke blocks the door",
+        "image_path": "output_images/node_6.png"
+      }
+    },
+    {
+      "id": "beat_choice_hold_or_escape",
+      "content": "Shelter in place: seal the door gap, cool the door, then consider other options.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Shelter or flee",
+        "story_act": "Act III",
+        "knowledge_point": "Sheltering indoors when smoke blocks the door",
+        "image_path": "output_images/node_7.png",
+        "choice_option": "Shelter in place—seal the gap and cool the door first."
+      }
+    },
+    {
+      "id": "beat_choice_seal_door_gap",
+      "content": "Drag a wet quilt against the door gap and splash water on the door to cool it.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Seal the door gap",
+        "story_act": "Act III",
+        "image_path": "output_images/node_8.png",
+        "choice_option": "Block the gap with a wet quilt and splash water on the door."
+      }
+    },
+    {
+      "id": "beat_choice_climb_exterior_pipes",
+      "content": "Open the window and climb down an exterior pipe or drain line.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Climb the exterior",
+        "story_act": "Act III · Branch",
+        "image_path": "output_images/node_7_branch_1.png",
+        "choice_option": "Open the window and climb down an exterior pipe or drain line."
+      }
+    },
+    {
+      "id": "beat_choice_rush_elevator",
+      "content": "Sprint for the elevator and try to get downstairs before the power fails.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Rush the elevator",
+        "story_act": "Act III · Branch",
+        "image_path": "output_images/node_7_branch_2.png",
+        "choice_option": "Sprint for the elevator before the power goes out."
+      }
+    },
+    {
+      "id": "beat_exterior_pipe_breaks",
+      "content": "You swing outside and grab the pipe—then metal shrieks and gives way. The old drain line cannot hold your weight.",
+      "type": "normal",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Pipe breaks",
+        "story_act": "Act III · Branch",
+        "image_path": "output_images/generated_node_114.png"
+      }
+    },
+    {
+      "id": "beat_retreat_to_rooftop",
+      "content": "You abandon the climb and head for the roof, hoping for air rescue—but the landing pad is blocked by debris.",
+      "type": "normal",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Retreat to the roof",
+        "story_act": "Act III · Branch",
+        "image_path": "output_images/generated_node_114_branch_2.png"
+      }
+    },
+    {
+      "id": "beat_stairwell_smoke_blocked",
+      "content": "You turn for the fire stairs, but smoke has swallowed the way down. You can only go up—to the roof.",
+      "type": "normal",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Stairs lost in smoke",
+        "story_act": "Act III · Branch",
+        "image_path": "output_images/generated_node_119.png"
+      }
+    },
+    {
+      "id": "beat_rooftop_exit_locked",
+      "content": "You force the roof door open. The only bridge to the next building is chained shut, and smoke is climbing the stairwell behind you.",
+      "type": "normal",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Roof exit blocked",
+        "story_act": "Act III · Branch",
+        "image_path": "output_images/generated_node_120.png"
+      }
+    },
+    {
+      "id": "beat_enter_ventilation_duct",
+      "content": "You scan the roof, spot a loose vent grille, tear it off, and try to crawl into the duct to get lower.",
+      "type": "normal",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Enter the vent duct",
+        "story_act": "Act III · Branch",
+        "image_path": "output_images/generated_node_120_branch_1.png"
+      }
+    },
+    {
+      "id": "beat_end_trapped_in_vent_duct",
+      "content": "You squeeze into the narrow duct. Rusted supports snap; the section drops and pins you in the dark metal tube.",
+      "type": "ending",
+      "metadata": {
+        "display_role": "failure_end",
+        "story_beat": "Ending · Trapped in the vent",
+        "story_act": "Act III · Branch",
+        "outcome_type": "failure",
+        "image_path": "output_images/generated_node_123.png"
+      }
+    },
+    {
+      "id": "beat_elevator_buttons_dead",
+      "content": "The buttons do nothing. Only then do you remember: never use elevators in a fire. Smoke already makes your head spin and your sight blur.",
+      "type": "normal",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Elevator dead",
+        "story_act": "Act III · Branch",
+        "image_path": "output_images/generated_node_130.png"
+      }
+    },
+    {
+      "id": "beat_elevator_doors_open_hot",
+      "content": "Smoke burns your eyes. In panic you press the button—and the doors open onto a blistering, smoke-filled shaft.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Elevator doors open",
+        "story_act": "Act III · Branch",
+        "image_path": "output_images/generated_node_134.png"
+      }
+    },
+    {
+      "id": "beat_choice_wave_at_ladder",
+      "content": "You run to the balcony, see a ladder rising, and wave a wet towel while shouting.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Signal the ladder",
+        "story_act": "Act III · Branch",
+        "image_path": "output_images/generated_node_134_branch_1.png",
+        "choice_option": "Run to the balcony, spot the fire ladder, and wave a wet towel while shouting."
+      }
+    },
+    {
+      "id": "beat_choice_hide_elevator_shaft",
+      "content": "Dizzy from smoke, you instinctively move toward the elevator shaft—then heat knocks you down.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Hide in the shaft",
+        "story_act": "Act III · Branch",
+        "choice_option": "Move into the open elevator shaft, blinded by smoke.",
+        "image_path": "output_images/generated_node_134_branch_2.png"
+      }
+    },
+    {
+      "id": "beat_end_rescued_by_ladder",
+      "content": "Firefighters bring you down the ladder. You collapse on the ground, lungs scorched by smoke.",
+      "type": "ending",
+      "metadata": {
+        "display_role": "success_end",
+        "story_beat": "Ending · Ladder rescue",
+        "story_act": "Act III · Branch",
+        "outcome_type": "success",
+        "image_path": "output_images/generated_node_137.png"
+      }
+    },
+    {
+      "id": "beat_end_die_in_elevator_shaft",
+      "content": "Choking, you stumble toward the elevator. A wave of heat throws you down; consciousness fades.",
+      "type": "ending",
+      "metadata": {
+        "display_role": "failure_end",
+        "story_beat": "Ending · Elevator shaft",
+        "story_act": "Act III · Branch",
+        "outcome_type": "failure",
+        "image_path": "output_images/generated_node_139.png"
+      }
+    },
+    {
+      "id": "beat_seal_balcony_glass",
+      "content": "You seal the balcony glass as fire rolls below. Heat presses against the doors. You need the outside world to know you are here.",
+      "type": "normal",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Hold the balcony",
+        "story_act": "Act IV",
+        "image_path": "output_images/node_9.png"
+      }
+    },
+    {
+      "id": "beat_rescue_signal_question",
+      "content": "While sheltering on the balcony, which way of calling for help works best?",
+      "type": "normal",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Rescue signals",
+        "story_act": "Act IV",
+        "knowledge_point": "Signaling from a balcony",
+        "image_path": "output_images/node_10.png"
+      }
+    },
+    {
+      "id": "beat_fire_reaches_apartment_door",
+      "content": "Minutes later, fire climbs toward your front door. You are on the third floor—jumping crosses your mind, but it is far too dangerous.",
+      "type": "normal",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Fire reaches the door",
+        "story_act": "Act IV",
+        "image_path": "output_images/node_11.png"
+      }
+    },
+    {
+      "id": "beat_choice_leap_to_neighbor",
+      "content": "Try to jump to a neighboring building or a lower ledge.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Leap across",
+        "story_act": "Act IV · Branch",
+        "image_path": "output_images/node_10_branch_1.png",
+        "choice_option": "Try to jump to a neighboring building or lower ledge."
+      }
+    },
+    {
+      "id": "beat_end_fall_from_building",
+      "content": "You judge the gap and leap—but the towel over your face hides the landing. Your hands miss the rail; you fall.",
+      "type": "ending",
+      "metadata": {
+        "display_role": "failure_end",
+        "story_beat": "Ending · Fall",
+        "story_act": "Act IV · Branch",
+        "outcome_type": "failure",
+        "image_path": "output_images/generated_node_147.png"
+      }
+    },
+    {
+      "id": "beat_choice_blind_sheet_rope",
+      "content": "Give up signaling and tie bedsheets to the AC unit to climb down.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Improvised rope descent",
+        "story_act": "Act IV · Branch",
+        "image_path": "output_images/node_10_branch_2.png",
+        "choice_option": "Stop signaling; tie sheets to the AC unit and climb down."
+      }
+    },
+    {
+      "id": "beat_end_sheet_rope_snaps",
+      "content": "You secure the sheet rope to the AC bracket. The rusted mount tears free—you plunge six floors with it.",
+      "type": "ending",
+      "metadata": {
+        "display_role": "failure_end",
+        "story_beat": "Ending · Rope snaps",
+        "story_act": "Act IV · Branch",
+        "outcome_type": "failure",
+        "image_path": "output_images/generated_node_148.png"
+      }
+    },
+    {
+      "id": "beat_judge_smoky_stairwell",
+      "content": "The stairwell is full of smoke and heat. How should you judge your next move?",
+      "type": "normal",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Resist the smoky stairs",
+        "story_act": "Act V",
+        "knowledge_point": "Common high-rise fire escape mistakes",
+        "image_path": "output_images/node_12.png"
+      }
+    },
+    {
+      "id": "beat_choice_rope_escape_ready",
+      "content": "Confirm the anchor is solid, check the path below, and descend on the rope.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Rope escape ready",
+        "story_act": "Act V",
+        "image_path": "output_images/node_13.png",
+        "choice_option": "Confirm the anchor, then descend and take the evacuation stairs."
+      }
+    },
+    {
+      "id": "beat_choice_charge_smoky_hall",
+      "content": "Wrap a wet towel around your face and charge into the smoky hallway.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Charge into smoke",
+        "story_act": "Act V · Branch",
+        "image_path": "output_images/node_12_branch_1.png",
+        "choice_option": "Wrap a wet towel and run into the smoky hallway."
+      }
+    },
+    {
+      "id": "beat_end_overcome_in_hall_smoke",
+      "content": "You burst into the hall and immediately choke. Heat slams you down; you lose consciousness.",
+      "type": "ending",
+      "metadata": {
+        "display_role": "failure_end",
+        "story_beat": "Ending · Overcome in the hall",
+        "story_act": "Act V · Branch",
+        "outcome_type": "failure",
+        "image_path": "output_images/generated_node_151.png"
+      }
+    },
+    {
+      "id": "beat_choice_hasty_balcony_rope",
+      "content": "Tie bedsheets into a rope and climb down from the balcony.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Hasty sheet rope",
+        "story_act": "Act V · Branch",
+        "image_path": "output_images/node_12_branch_2.png",
+        "choice_option": "Tie bedsheets into a rope and climb down from the balcony."
+      }
+    },
+    {
+      "id": "beat_end_collapse_on_balcony",
+      "content": "You try to crawl back inside, but your limbs give out. You slump against the balcony rail and fade out.",
+      "type": "ending",
+      "metadata": {
+        "display_role": "failure_end",
+        "story_beat": "Ending · Collapse on the balcony",
+        "story_act": "Act V · Branch",
+        "outcome_type": "failure",
+        "image_path": "output_images/generated_node_42.png"
+      }
+    },
+    {
+      "id": "beat_choice_use_extinguisher",
+      "content": "Sprint to the kitchen for a fire extinguisher and try to fight flames at the door gap.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Fight with extinguisher",
+        "story_act": "Act V · Branch",
+        "image_path": "output_images/node_13_branch_1.png",
+        "choice_option": "Grab an extinguisher and try to fight fire at the door gap."
+      }
+    },
+    {
+      "id": "beat_end_extinguisher_fails",
+      "content": "You cannot breathe. Blinded, you crawl toward the balcony, but flame blocks the way. Toxic smoke takes you down.",
+      "type": "ending",
+      "metadata": {
+        "display_role": "failure_end",
+        "story_beat": "Ending · Extinguisher fails",
+        "story_act": "Act V · Branch",
+        "outcome_type": "failure",
+        "image_path": "output_images/generated_node_158.png"
+      }
+    },
+    {
+      "id": "beat_choice_candle_light_wait",
+      "content": "Seal vents, light a candle, and wait for rescue.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Candle light",
+        "story_act": "Act III · Branch",
+        "image_path": "output_images/node_8_branch_2.png",
+        "choice_option": "Seal vents, light a candle, and wait for rescue."
+      }
+    },
+    {
+      "id": "beat_end_rescued_while_holding",
+      "content": "Smoke thickens; each breath is harder. Just as the wet towel fails, voices and a ladder truck rise outside the balcony.",
+      "type": "ending",
+      "metadata": {
+        "display_role": "success_end",
+        "story_beat": "Ending · Rescued while sheltering",
+        "story_act": "Act III · Branch",
+        "outcome_type": "success",
+        "image_path": "output_images/generated_node_144.png"
+      }
+    },
+    {
+      "id": "beat_choice_break_window_rope",
+      "content": "Break the window and twist bedsheets into a rope to lower yourself.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Break window and rope down",
+        "story_act": "Act III · Branch",
+        "image_path": "output_images/node_8_branch_1.png",
+        "choice_option": "Break the window and lower yourself on a sheet rope."
+      }
+    },
+    {
+      "id": "beat_end_sheet_rope_tears",
+      "content": "Midway down, the sheet tears. You drop from the fourth floor and hit the pavement.",
+      "type": "ending",
+      "metadata": {
+        "display_role": "failure_end",
+        "story_beat": "Ending · Sheet tears",
+        "story_act": "Act III · Branch",
+        "outcome_type": "failure",
+        "image_path": "output_images/generated_node_143.png"
+      }
+    },
+    {
+      "id": "beat_rope_escape_to_platform",
+      "content": "The anchor holds. You study the drop, slide down, and land on a second-floor platform. You sprint for the stairwell as sirens wail behind you.",
+      "type": "normal",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Rope escape succeeds",
+        "story_act": "Act VI",
+        "image_path": "output_images/node_14.png"
+      }
+    },
+    {
+      "id": "beat_final_priority_question",
+      "content": "What is the correct priority now?",
+      "type": "normal",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Final priorities",
+        "story_act": "Act VI",
+        "knowledge_point": "Priorities after escape",
+        "image_path": "output_images/node_15.png"
+      }
+    },
+    {
+      "id": "beat_end_safe_ground_evacuation",
+      "content": "On the ground you collapse, gasping, and watch flame swallow your window. In that moment you understand: seconds and knowledge really can steal you back from death.",
+      "type": "ending",
+      "metadata": {
+        "display_role": "success_end",
+        "story_beat": "Ending · Safe evacuation",
+        "story_act": "Act VI",
+        "outcome_type": "success",
+        "image_path": "output_images/node_16.png"
+      }
+    },
+    {
+      "id": "beat_choice_go_back_for_cat",
+      "content": "You remember your cat in the bedroom and run back to grab it before taking the stairs.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Go back for the cat",
+        "story_act": "Act VI · Branch",
+        "image_path": "output_images/node_15_branch_1.png",
+        "choice_option": "Run back for the cat, then head for the stairs."
+      }
+    },
+    {
+      "id": "beat_hallway_fire_blocks_exit",
+      "content": "You clutch the cat and reach the stairwell—but the second-floor landing is a furnace of smoke. Heat drives you back.",
+      "type": "normal",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Hallway blocked by fire",
+        "story_act": "Act VI · Branch",
+        "image_path": "output_images/generated_node_164.png"
+      }
+    },
+    {
+      "id": "beat_wait_in_place_with_cat",
+      "content": "You crouch in place, waiting for rescue, a wet towel over yourself and the cat.",
+      "type": "normal",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Wait in place",
+        "story_act": "Act VI · Branch",
+        "image_path": "output_images/generated_node_164_branch_2.png"
+      }
+    },
+    {
+      "id": "beat_end_firefighters_breach_door",
+      "content": "Smoke dulls your senses—then water and voices crash through the door. Hands pull you into clean air.",
+      "type": "ending",
+      "metadata": {
+        "display_role": "success_end",
+        "story_beat": "Ending · Door breached",
+        "story_act": "Act VI · Branch",
+        "outcome_type": "success",
+        "image_path": "output_images/generated_node_168.png"
+      }
+    },
+    {
+      "id": "beat_choice_signal_with_lighter",
+      "content": "You light tissue with a lighter and toss it downward for a signal—and ignite newspapers stacked on the balcony.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Extra ignition",
+        "story_act": "Act VI · Branch",
+        "image_path": "output_images/node_15_branch_2.png",
+        "choice_option": "Light tissue with a lighter and throw it as a signal."
+      }
+    },
+    {
+      "id": "beat_end_escape_rope_burns",
+      "content": "Flame seals the room. You hang from your escape line over the rail—but sparks catch the fabric, and it burns through.",
+      "type": "ending",
+      "metadata": {
+        "display_role": "failure_end",
+        "story_beat": "Ending · Escape rope burns",
+        "story_act": "Act VI · Branch",
+        "outcome_type": "failure",
+        "image_path": "output_images/generated_node_182.png"
+      }
+    },
+    {
+      "id": "beat_choice_early_curtain_rope",
+      "content": "In panic you tear down curtains, twist them into a rope, and try to lower yourself from the sixth-floor window.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Descend too early",
+        "story_act": "Act II · Branch",
+        "image_path": "output_images/node_5_branch_1.png",
+        "choice_option": "Twist curtains into a rope and lower yourself from the window."
+      }
+    },
+    {
+      "id": "beat_end_curtain_rope_breaks",
+      "content": "The curtain rope snaps halfway. You fall four stories onto concrete.",
+      "type": "ending",
+      "metadata": {
+        "display_role": "failure_end",
+        "story_beat": "Ending · Curtain rope breaks",
+        "story_act": "Act II · Branch",
+        "outcome_type": "failure",
+        "image_path": "output_images/generated_node_109.png"
+      }
+    },
+    {
+      "id": "beat_balcony_realize_and_choose",
+      "content": "Smoke floods the balcony; you can barely stand. What do you do next—go back inside to assess the door, or head for the elevator?",
+      "type": "normal",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Realize on the balcony",
+        "story_act": "Act I · Branch",
+        "image_path": "output_images/generated_node_118.png"
+      }
+    },
+    {
+      "id": "beat_choice_return_from_balcony",
+      "content": "The balcony is no longer safe. You go back inside, wet towel over your mouth, and move to the door to follow the escape guide.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Return to the door",
+        "story_act": "Act I · Branch",
+        "choice_option": "Go back inside and check whether the hallway is passable before opening the door.",
+        "image_path": "output_images/generated_node_43.png"
+      }
+    },
+    {
+      "id": "beat_choice_take_elevator_down",
+      "content": "You rush to the elevator and stab the button—but nothing responds; the panel is dark.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Elevator mistake",
+        "story_act": "Act I · Branch",
+        "choice_option": "Try to take the elevator downstairs.",
+        "image_path": "output_images/generated_node_19_branch_2.png"
+      }
+    },
+    {
+      "id": "beat_return_to_door_bridge",
+      "content": "You step back inside, cover your mouth with a wet towel, and reach the door to judge whether the hallway is still passable.",
+      "type": "normal",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Return to the door",
+        "story_act": "Act I · Branch",
+        "image_path": "output_images/generated_node_19_branch_1.png"
+      }
+    },
+    {
+      "id": "beat_at_door_assessment",
+      "content": "At the door, the handle is too hot to touch blindly. The guide is clear: before you open it, you must know whether the hallway is survivable. Smoke presses in—what do you do?",
+      "type": "normal",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Assess at the door",
+        "story_act": "Act II",
+        "image_path": "output_images/node_3.png"
+      }
+    },
+    {
+      "id": "beat_hold_inside_next_action",
+      "content": "You choose to shelter in place. Smoke still pours in. Among sealing the gap, breaking a window to rope down, or lighting a candle—which action matters most right now?",
+      "type": "normal",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Next move while sheltering",
+        "story_act": "Act III",
+        "image_path": "output_images/generated_node_111.png"
+      }
+    },
+    {
+      "id": "beat_choice_effective_rescue_signal",
+      "content": "Wave a bright red jacket and shout; when the street is too noisy, switch to flashing a phone light at the window.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Effective signaling",
+        "story_act": "Act IV",
+        "choice_option": "Shout and wave clothing, then flash a phone light at the window.",
+        "image_path": "output_images/generated_node_138.png"
+      }
+    },
+    {
+      "id": "beat_choice_evacuate_stairs_now",
+      "content": "Run for the evacuation stairs without looking back—life matters more than phone or wallet.",
+      "type": "decision",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Take the stairs now",
+        "story_act": "Act VI",
+        "choice_option": "Take the evacuation stairs immediately; leave belongings behind.",
+        "image_path": "output_images/merged_node_7.png"
+      }
+    }
+  ],
+  "edges": {
+    "beat_prologue_alarm": [
+      "beat_first_reaction"
+    ],
+    "beat_first_reaction": [
+      "beat_choice_calm_to_door",
+      "beat_choice_early_balcony_rescue",
+      "beat_choice_call_emergency_first"
+    ],
+    "beat_choice_calm_to_door": [
+      "beat_at_door_assessment"
+    ],
+    "beat_choice_early_balcony_rescue": [
+      "beat_balcony_smoke_trap"
+    ],
+    "beat_balcony_smoke_trap": [
+      "beat_balcony_realize_and_choose"
+    ],
+    "beat_balcony_realize_and_choose": [
+      "beat_choice_return_from_balcony",
+      "beat_choice_take_elevator_down"
+    ],
+    "beat_choice_return_from_balcony": [
+      "beat_return_to_door_bridge"
+    ],
+    "beat_choice_take_elevator_down": [
+      "beat_elevator_shaft_smoke"
+    ],
+    "beat_elevator_shaft_smoke": [],
+    "beat_choice_call_emergency_first": [
+      "beat_wait_after_emergency_call"
+    ],
+    "beat_wait_after_emergency_call": [
+      "beat_seal_door_after_call"
+    ],
+    "beat_choice_test_door_knob": [
+      "beat_hot_knob_retreat_indoors"
+    ],
+    "beat_choice_seal_without_knob_test": [
+      "beat_peek_through_door_crack"
+    ],
+    "beat_peek_through_door_crack": [
+      "beat_strategy_after_door_closed"
+    ],
+    "beat_choice_balcony_without_check": [
+      "beat_end_balcony_sealed"
+    ],
+    "beat_hot_knob_retreat_indoors": [
+      "beat_call_police_and_wet_towel"
+    ],
+    "beat_choice_early_curtain_rope": [
+      "beat_end_curtain_rope_breaks"
+    ],
+    "beat_call_police_and_wet_towel": [
+      "beat_choice_hold_or_escape",
+      "beat_choice_climb_exterior_pipes",
+      "beat_choice_rush_elevator"
+    ],
+    "beat_choice_hold_or_escape": [],
+    "beat_choice_seal_door_gap": [
+      "beat_seal_balcony_glass"
+    ],
+    "beat_choice_climb_exterior_pipes": [
+      "beat_exterior_pipe_breaks"
+    ],
+    "beat_exterior_pipe_breaks": [
+      "beat_retreat_to_rooftop"
+    ],
+    "beat_retreat_to_rooftop": [
+      "beat_stairwell_smoke_blocked"
+    ],
+    "beat_stairwell_smoke_blocked": [
+      "beat_rooftop_exit_locked"
+    ],
+    "beat_rooftop_exit_locked": [
+      "beat_enter_ventilation_duct"
+    ],
+    "beat_enter_ventilation_duct": [
+      "beat_end_trapped_in_vent_duct"
+    ],
+    "beat_choice_rush_elevator": [
+      "beat_elevator_buttons_dead"
+    ],
+    "beat_elevator_buttons_dead": [
+      "beat_elevator_doors_open_hot"
+    ],
+    "beat_elevator_doors_open_hot": [
+      "beat_choice_wave_at_ladder",
+      "beat_choice_hide_elevator_shaft"
+    ],
+    "beat_choice_wave_at_ladder": [
+      "beat_end_rescued_by_ladder"
+    ],
+    "beat_choice_break_window_rope": [
+      "beat_end_sheet_rope_tears"
+    ],
+    "beat_choice_candle_light_wait": [
+      "beat_end_rescued_while_holding"
+    ],
+    "beat_seal_balcony_glass": [
+      "beat_rescue_signal_question"
+    ],
+    "beat_rescue_signal_question": [
+      "beat_choice_effective_rescue_signal",
+      "beat_choice_leap_to_neighbor",
+      "beat_choice_blind_sheet_rope"
+    ],
+    "beat_choice_leap_to_neighbor": [
+      "beat_end_fall_from_building"
+    ],
+    "beat_choice_blind_sheet_rope": [
+      "beat_end_sheet_rope_snaps"
+    ],
+    "beat_fire_reaches_apartment_door": [
+      "beat_judge_smoky_stairwell"
+    ],
+    "beat_judge_smoky_stairwell": [
+      "beat_choice_rope_escape_ready",
+      "beat_choice_charge_smoky_hall",
+      "beat_choice_hasty_balcony_rope",
+      "beat_choice_use_extinguisher"
+    ],
+    "beat_choice_charge_smoky_hall": [
+      "beat_end_overcome_in_hall_smoke"
+    ],
+    "beat_choice_hasty_balcony_rope": [
+      "beat_end_collapse_on_balcony"
+    ],
+    "beat_choice_rope_escape_ready": [
+      "beat_rope_escape_to_platform"
+    ],
+    "beat_choice_use_extinguisher": [
+      "beat_end_extinguisher_fails"
+    ],
+    "beat_rope_escape_to_platform": [
+      "beat_final_priority_question"
+    ],
+    "beat_final_priority_question": [
+      "beat_choice_evacuate_stairs_now",
+      "beat_choice_go_back_for_cat",
+      "beat_choice_signal_with_lighter"
+    ],
+    "beat_choice_go_back_for_cat": [
+      "beat_hallway_fire_blocks_exit"
+    ],
+    "beat_hallway_fire_blocks_exit": [
+      "beat_wait_in_place_with_cat"
+    ],
+    "beat_wait_in_place_with_cat": [
+      "beat_end_firefighters_breach_door"
+    ],
+    "beat_choice_signal_with_lighter": [
+      "beat_end_escape_rope_burns"
+    ],
+    "beat_at_door_assessment": [
+      "beat_choice_test_door_knob",
+      "beat_choice_seal_without_knob_test",
+      "beat_choice_balcony_without_check",
+      "beat_choice_early_curtain_rope"
+    ],
+    "beat_hold_inside_next_action": [
+      "beat_choice_seal_door_gap",
+      "beat_choice_break_window_rope",
+      "beat_choice_candle_light_wait"
+    ],
+    "beat_choice_effective_rescue_signal": [
+      "beat_fire_reaches_apartment_door"
+    ],
+    "beat_choice_evacuate_stairs_now": [
+      "beat_end_safe_ground_evacuation"
+    ],
+    "beat_return_to_door_bridge": [],
+    "beat_seal_door_after_call": [
+      "beat_hold_inside_next_action"
+    ],
+    "beat_strategy_after_door_closed": [
+      "beat_choice_rush_to_bathroom"
+    ],
+    "beat_choice_rush_to_bathroom": [
+      "beat_end_suffocate_indoors"
+    ],
+    "beat_choice_hide_elevator_shaft": [
+      "beat_end_die_in_elevator_shaft"
+    ]
+  },
+  "start_node_id": "beat_prologue_alarm",
+  "ending_node_ids": [
+    "beat_end_safe_ground_evacuation",
+    "beat_end_balcony_sealed",
+    "beat_end_curtain_rope_breaks",
+    "beat_end_trapped_in_vent_duct",
+    "beat_end_rescued_by_ladder",
+    "beat_end_die_in_elevator_shaft",
+    "beat_end_sheet_rope_tears",
+    "beat_end_rescued_while_holding",
+    "beat_end_fall_from_building",
+    "beat_end_sheet_rope_snaps",
+    "beat_end_overcome_in_hall_smoke",
+    "beat_end_collapse_on_balcony",
+    "beat_end_extinguisher_fails",
+    "beat_end_firefighters_breach_door",
+    "beat_end_escape_rope_burns",
+    "beat_end_suffocate_indoors"
+  ],
+  "metadata": {
+    "model": "storyline",
+    "no_levels": true,
+    "storyline_title": "High-Rise Fire: Every Second Counts",
+    "hand_authored": true,
+    "source_reference": "DecisionTheater/Output1/test2509261553_text_only.json",
+    "node_count": 73,
+    "story_outline": "Act I · Alarm and first response → Act II · Door assessment → Act III · Shelter in place / common mistakes → Act IV · Balcony signaling → Act V · Resisting impulse and rope escape → Act VI · Evacuation endings. Prompts = regular nodes, parallel branches = decision nodes; red dashed lines = cross-act jumps.",
+    "layout_hints": {
+      "layout_mode": "fully_hardcoded",
+      "layout_style": "orthogonal_fork",
+      "layout_version": "orthogonal_fork_v6",
+      "card_width": 246,
+      "card_height": 176,
+      "fork_stub": 64,
+      "branch_gap": 96,
+      "right_bus_gap": 128,
+      "chain_lead": 112,
+      "node_positions": {
+        "beat_prologue_alarm": {
+          "x": 48,
+          "y": 1248
+        },
+        "beat_first_reaction": {
+          "x": 508,
+          "y": 1248
+        },
+        "beat_choice_calm_to_door": {
+          "x": 968,
+          "y": 468
+        },
+        "beat_at_door_assessment": {
+          "x": 1428,
+          "y": 468
+        },
+        "beat_choice_test_door_knob": {
+          "x": 1888,
+          "y": 1176
+        },
+        "beat_hot_knob_retreat_indoors": {
+          "x": 2348,
+          "y": 2501
+        },
+        "beat_call_police_and_wet_towel": {
+          "x": 2808,
+          "y": 2501
+        },
+        "beat_choice_hold_or_escape": {
+          "x": 3268,
+          "y": 2501
+        },
+        "beat_choice_seal_door_gap": {
+          "x": 3728,
+          "y": 1176
+        },
+        "beat_seal_balcony_glass": {
+          "x": 4188,
+          "y": 2328
+        },
+        "beat_rescue_signal_question": {
+          "x": 4648,
+          "y": 2328
+        },
+        "beat_choice_effective_rescue_signal": {
+          "x": 5108,
+          "y": 1176
+        },
+        "beat_fire_reaches_apartment_door": {
+          "x": 5568,
+          "y": 2155
+        },
+        "beat_judge_smoky_stairwell": {
+          "x": 6028,
+          "y": 2155
+        },
+        "beat_choice_rope_escape_ready": {
+          "x": 6488,
+          "y": 1176
+        },
+        "beat_rope_escape_to_platform": {
+          "x": 6948,
+          "y": 2155
+        },
+        "beat_final_priority_question": {
+          "x": 7408,
+          "y": 2155
+        },
+        "beat_choice_evacuate_stairs_now": {
+          "x": 7868,
+          "y": 888
+        },
+        "beat_end_safe_ground_evacuation": {
+          "x": 8328,
+          "y": 888
+        },
+        "beat_choice_early_balcony_rescue": {
+          "x": 1080,
+          "y": 1248
+        },
+        "beat_choice_call_emergency_first": {
+          "x": 1080,
+          "y": 2501
+        },
+        "beat_balcony_smoke_trap": {
+          "x": 1540,
+          "y": 1248
+        },
+        "beat_balcony_realize_and_choose": {
+          "x": 2000,
+          "y": 1248
+        },
+        "beat_choice_return_from_balcony": {
+          "x": 2460,
+          "y": 1138
+        },
+        "beat_choice_take_elevator_down": {
+          "x": 2460,
+          "y": 1358
+        },
+        "beat_elevator_shaft_smoke": {
+          "x": 2920,
+          "y": 1358
+        },
+        "beat_return_to_door_bridge": {
+          "x": 1888,
+          "y": 1138
+        },
+        "beat_wait_after_emergency_call": {
+          "x": 1540,
+          "y": 2501
+        },
+        "beat_seal_door_after_call": {
+          "x": 2000,
+          "y": 2501
+        },
+        "beat_hold_inside_next_action": {
+          "x": 2460,
+          "y": 2501
+        },
+        "beat_choice_seal_without_knob_test": {
+          "x": 2000,
+          "y": 48
+        },
+        "beat_peek_through_door_crack": {
+          "x": 2460,
+          "y": 1274
+        },
+        "beat_strategy_after_door_closed": {
+          "x": 2920,
+          "y": 1274
+        },
+        "beat_choice_rush_to_bathroom": {
+          "x": 3380,
+          "y": 48
+        },
+        "beat_end_suffocate_indoors": {
+          "x": 3840,
+          "y": 48
+        },
+        "beat_choice_balcony_without_check": {
+          "x": 2000,
+          "y": 328
+        },
+        "beat_end_balcony_sealed": {
+          "x": 2460,
+          "y": 328
+        },
+        "beat_choice_early_curtain_rope": {
+          "x": 2000,
+          "y": 608
+        },
+        "beat_end_curtain_rope_breaks": {
+          "x": 2460,
+          "y": 608
+        },
+        "beat_exterior_pipe_breaks": {
+          "x": 5568,
+          "y": 2328
+        },
+        "beat_retreat_to_rooftop": {
+          "x": 6028,
+          "y": 1982
+        },
+        "beat_stairwell_smoke_blocked": {
+          "x": 6488,
+          "y": 1982
+        },
+        "beat_rooftop_exit_locked": {
+          "x": 6948,
+          "y": 2328
+        },
+        "beat_enter_ventilation_duct": {
+          "x": 7408,
+          "y": 2328
+        },
+        "beat_end_trapped_in_vent_duct": {
+          "x": 7868,
+          "y": 2328
+        },
+        "beat_elevator_buttons_dead": {
+          "x": 5568,
+          "y": 2328
+        },
+        "beat_elevator_doors_open_hot": {
+          "x": 6028,
+          "y": 2328
+        },
+        "beat_choice_wave_at_ladder": {
+          "x": 6488,
+          "y": 2218
+        },
+        "beat_end_rescued_by_ladder": {
+          "x": 6948,
+          "y": 1629
+        },
+        "beat_choice_hide_elevator_shaft": {
+          "x": 6488,
+          "y": 2438
+        },
+        "beat_end_die_in_elevator_shaft": {
+          "x": 6948,
+          "y": 3027
+        },
+        "beat_end_sheet_rope_tears": {
+          "x": 6028,
+          "y": 2847
+        },
+        "beat_end_rescued_while_holding": {
+          "x": 6028,
+          "y": 2501
+        },
+        "beat_end_fall_from_building": {
+          "x": 7408,
+          "y": 2328
+        },
+        "beat_end_sheet_rope_snaps": {
+          "x": 7408,
+          "y": 2674
+        },
+        "beat_end_overcome_in_hall_smoke": {
+          "x": 8788,
+          "y": 1982
+        },
+        "beat_end_collapse_on_balcony": {
+          "x": 8788,
+          "y": 2328
+        },
+        "beat_end_extinguisher_fails": {
+          "x": 8788,
+          "y": 2674
+        },
+        "beat_hallway_fire_blocks_exit": {
+          "x": 10168,
+          "y": 2328
+        },
+        "beat_wait_in_place_with_cat": {
+          "x": 10628,
+          "y": 2328
+        },
+        "beat_end_firefighters_breach_door": {
+          "x": 11088,
+          "y": 2328
+        },
+        "beat_end_escape_rope_burns": {
+          "x": 10168,
+          "y": 2501
+        },
+        "beat_choice_leap_to_neighbor": {
+          "x": 6948,
+          "y": 2328
+        },
+        "beat_choice_blind_sheet_rope": {
+          "x": 6948,
+          "y": 2674
+        },
+        "beat_choice_charge_smoky_hall": {
+          "x": 8328,
+          "y": 1982
+        },
+        "beat_choice_hasty_balcony_rope": {
+          "x": 8328,
+          "y": 2328
+        },
+        "beat_choice_use_extinguisher": {
+          "x": 8328,
+          "y": 2674
+        },
+        "beat_choice_go_back_for_cat": {
+          "x": 9708,
+          "y": 2155
+        },
+        "beat_choice_signal_with_lighter": {
+          "x": 9708,
+          "y": 2501
+        },
+        "beat_choice_climb_exterior_pipes": {
+          "x": 5108,
+          "y": 2155
+        },
+        "beat_choice_rush_elevator": {
+          "x": 5108,
+          "y": 2501
+        },
+        "beat_choice_break_window_rope": {
+          "x": 5568,
+          "y": 2847
+        },
+        "beat_choice_candle_light_wait": {
+          "x": 5568,
+          "y": 2501
+        }
+      }
+    },
+    "jump_edges": [
+      {
+        "from": "beat_return_to_door_bridge",
+        "to": "beat_choice_test_door_knob",
+        "label": "Cross-area link"
+      },
+      {
+        "from": "beat_elevator_shaft_smoke",
+        "to": "beat_return_to_door_bridge",
+        "label": "Cross-area link"
+      },
+      {
+        "from": "beat_choice_hold_or_escape",
+        "to": "beat_hold_inside_next_action",
+        "label": "Cross-area link"
+      }
+    ],
+    "display_role_counts": {
+      "prologue": 1,
+      "normal": 28,
+      "decision": 27,
+      "failure_end": 13,
+      "success_end": 4
+    },
+    "jump_edge_count": 3
+  }
+}
