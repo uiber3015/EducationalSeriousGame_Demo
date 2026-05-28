@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Serious Game</title>
+    <!-- 引入KaTeX库以支持LaTeX数学公式渲染（替代MathJax，更轻量稳定） -->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.7/katex.min.css">
+    <script defer src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.7/katex.min.js" onerror="loadKaTeXFallback()"></script>
+    <script defer src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js" onerror="loadKaTeXFallback()"></script>
+    
+    <!-- KaTeX Fallback 本地备用方案 -->
+    <script>
+    function loadKaTeXFallback() {
+        console.log('CDN加载失败，切换到本地备用方案');
+        // 动态创建本地脚本标签作为fallback
+        const localKaTeX = document.createElement('script');
+        localKaTeX.src = 'static/katex/katex.min.js';
+        document.head.appendChild(localKaTeX);
+        
+        const localAutoRender = document.createElement('script');
+        localAutoRender.src = 'static/katex/auto-render.min.js';
+        document.head.appendChild(localAutoRender);
+        
+        const localCSS = document.createElement('link');
+        localCSS.rel = 'stylesheet';
+        localCSS.href = 'static/katex/katex.min.css';
+        document.head.appendChild(localCSS);
+    }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .game-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .image-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            background-color: #111;
+        }
+        
+        .story-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: opacity 1s ease-in-out;
+        }
+        
+        .story-content-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0) 100%);
+            padding: 18px 24px 22px;
+            transform: translateY(-100%);
+            transition: transform 0.5s ease-out;
+            min-height: 82px;
+            --top-text-left-safe: 180px;
+            --top-text-right-safe: 168px;
+        }
+        
+        .story-content {
+            position: absolute;
+            top: 18px;
+            left: var(--top-text-left-safe);
+            right: var(--top-text-right-safe);
+            font-size: 18px;
+            line-height: 1.34;
+            text-align: center;
+            width: auto;
+            max-width: none;
+            margin: 0;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+            display: block;
+            overflow: hidden;
+            max-height: calc(1.34em * 3);
+            text-overflow: clip;
+        }
+        
+        .choices-container {
+            position: absolute;
+            bottom: 16px;
+            left: 0;
+            right: 0;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            justify-content: center;
+            align-items: stretch;
+            gap: 12px;
+            padding: 0 16px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+            max-width: 1520px;
+            margin: 0 auto;
+        }
+        
+        .choice-button {
+            background: linear-gradient(180deg, rgba(92, 122, 217, 0.94), rgba(70, 97, 192, 0.95));
+            border: 1px solid rgba(232, 240, 255, 0.42);
+            color: white;
+            padding: 11px 16px;
+            text-align: left;
+            font-size: 17px;
+            line-height: 1.35;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(16px);
+            width: 100%;
+            min-width: 0;
+            max-width: none;
+            min-height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 18px 38px rgba(15, 29, 80, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+        }
+
+        .choice-button-text {
+            display: -webkit-box;
+            line-clamp: 2;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: clip;
+            text-align: left;
+            width: 100%;
+        }
+        
+        .choice-button:hover {
+            background: linear-gradient(180deg, rgba(112, 142, 236, 0.98), rgba(84, 112, 209, 0.98));
+            border-color: rgba(245, 248, 255, 0.74);
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 24px 46px rgba(16, 31, 85, 0.36), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        
+        .ending-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(76, 175, 80, 0.9);
+            padding: 30px 50px;
+            border-radius: 10px;
+            font-size: 24px;
+            text-align: center;
+            display: none;
+            backdrop-filter: blur(5px);
+        }
+        
+        .fatal-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: transparent;
+            padding: 30px 50px;
+            border-radius: 10px;
+            font-size: 24px;
+            text-align: center;
+            display: none;
+            backdrop-filter: blur(5px);
+            z-index: 100;
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+        
+        .retry-button {
+            background-color: rgba(33, 150, 243, 0.8);
+            border: 2px solid #2196f3;
+            color: white;
+            padding: 15px 25px;
+            text-align: center;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            margin-top: 20px;
+            width: auto;
+            min-width: 140px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        
+        .retry-button:hover {
+            background-color: rgba(11, 125, 218, 0.9);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(33, 150, 243, 0.6);
+        }
+        
+        .restart-button {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background-color: rgba(76, 175, 80, 0.8);
+            border: 2px solid #4caf50;
+            color: white;
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            display: none;
+        }
+        
+        .restart-button:hover {
+            background-color: rgba(69, 160, 73, 0.9);
+            transform: scale(1.05);
+        }
+        
+        .graph-button {
+            position: absolute;
+            top: 22px;
+            right: 18px;
+            background-color: rgba(9, 132, 83, 0.8);
+            border: 2px solid #067638;
+            color: white;
+            padding: 8px 12px;
+            font-size: 15px;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        .graph-button,
+        .next-page-button {
+            width: 158px;
+            min-width: 158px;
+            box-sizing: border-box;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .graph-button:hover {
+            background-color: rgba(11, 218, 90, 0.9);
+            transform: scale(1.05);
+        }
+
+        .next-page-button {
+            position: absolute;
+            top: 72px;
+            right: 18px;
+            background: linear-gradient(180deg, rgba(25, 151, 216, 0.96), rgba(13, 110, 184, 0.96));
+            border: 1px solid rgba(232, 240, 255, 0.58);
+            color: white;
+            padding: 8px 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 30px;
+            display: block;
+            z-index: 120;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.28);
+        }
+
+        .next-page-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 16px 30px rgba(0, 0, 0, 0.34);
+        }
+        
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: #fff;
+        }
+        
+        .node-id {
+            position: absolute;
+            top: 30px;
+            left: 18px;
+            font-size: 16px;
+            color: rgba(255,255,255,0.85);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+            z-index: 10;
+            border-radius: 15px;
+        }
+        
+        /* 章节标题字幕样式 */
+        .chapter-title-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 36px;
+            font-weight: bold;
+            text-align: center;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 20px 40px;
+            border-radius: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
+            z-index: 100;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+        
+        .chapter-title-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .chapter-title-overlay.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .fade-in {
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .show-content {
+            transform: translateY(0);
+        }
+        
+        .show-choices {
+            opacity: 1;
+        }
+        
+        /* 透明的物理知识点显示样式 - 只显示文字 */
+        .physics-knowledge-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+            z-index: 1000;
+        }
+        
+        .physics-knowledge-content-simple {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 28px 32px;
+            width: min(86vw, calc(76vh * 1.618));
+            max-width: 980px;
+            min-width: min(86vw, 620px);
+            text-align: left;
+            margin: 20px auto;
+            box-sizing: border-box;
+            border-radius: 18px;
+            max-height: min(82vh, calc(86vw / 1.618));
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.3);
+        }
+
+        .physics-knowledge-title {
+            font-size: 34px;
+            line-height: 1.2;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+        
+        .physics-knowledge-text-simple {
+            font-size: 18px;
+            line-height: 1.75;
+            color: #fff;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            font-weight: 400;
+            max-width: 100%;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            text-align: left;
+        }
+        
+        .physics-knowledge-close-simple {
+            background: rgba(0, 123, 255, 0.9);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 6px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            display: block;
+            margin: 0 auto;
+            min-width: 140px;
+            text-align: center;
+        }
+        
+        .physics-knowledge-close-simple:hover {
+            background: rgba(0, 86, 179, 0.9);
+        }
+        
+        /* 轻微的背景模糊效果 */
+        .blur-background {
+            filter: blur(2px);
+            transition: filter 0.3s ease-in-out;
+        }
+        
+        /* 显示状态 */
+        .physics-knowledge-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* 失败分析覆盖层样式 - 参考物理知识点样式 */
+        .failure-analysis-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+            z-index: 1000;
+        }
+        
+        .failure-analysis-content {
+            background: rgba(0, 0, 0, 0.7); /* 与物理知识点一致的背景色 */
+            padding: 28px 32px;
+            width: min(86vw, calc(76vh * 1.618));
+            max-width: 980px;
+            min-width: min(86vw, 620px);
+            text-align: left;
+            margin: 20px auto;
+            box-sizing: border-box;
+            border-radius: 18px;
+            max-height: min(82vh, calc(86vw / 1.618));
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.3);
+        }
+        
+        .failure-analysis-title {
+            font-size: 34px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 10px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .failure-analysis-subtitle {
+            font-size: 20px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.86);
+            margin-bottom: 22px;
+            text-align: center;
+        }
+        
+        .failure-analysis-text {
+            font-size: 18px;
+            line-height: 1.75;
+            color: #fff;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            font-weight: 400;
+            max-width: 100%;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            text-align: left;
+        }
+
+        .formatted-content {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .formatted-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .formatted-section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.01em;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .formatted-paragraph {
+            font-size: 18px;
+            line-height: 1.72;
+            color: rgba(255, 255, 255, 0.96);
+        }
+
+        .inline-emphasis {
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .physics-knowledge-text-simple .katex-display,
+        .failure-analysis-text .katex-display {
+            margin: 0.5em 0 0.2em;
+            text-align: center;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .physics-knowledge-text-simple .formatted-paragraph .katex-display,
+        .failure-analysis-text .formatted-paragraph .katex-display {
+            margin-top: 0.45em;
+            margin-bottom: 0.12em;
+        }
+
+        .physics-knowledge-text-simple .katex,
+        .failure-analysis-text .katex {
+            font-size: 1.05em;
+        }
+
+        .physics-knowledge-text-simple .formatted-paragraph .katex,
+        .failure-analysis-text .formatted-paragraph .katex {
+            margin: 0 0.08em;
+            vertical-align: baseline;
+        }
+        
+        .failure-analysis-close {
+            background: rgba(0, 123, 255, 0.9); /* 与物理知识点一致的按钮颜色 */
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 6px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            display: block;
+            margin: 0 auto;
+            min-width: 140px;
+            text-align: center;
+        }
+        
+        .failure-analysis-close:hover {
+            background: rgba(0, 86, 179, 0.9); /* 与物理知识点一致的按钮悬停颜色 */
+        }
+        
+        /* 失败分析覆盖层显示状态 */
+        .failure-analysis-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* 响应式设计 - 针对小屏幕设备 */
+        @media (max-width: 768px) {
+            .choices-container {
+                grid-template-columns: 1fr;
+                gap: 14px;
+                padding: 0 18px;
+            }
+
+            .story-content-overlay {
+                padding: 12px 16px 20px;
+                --top-text-right-safe: 104px;
+            }
+
+            .story-content {
+                top: 8px;
+                left: var(--top-text-left-safe);
+                right: var(--top-text-right-safe);
+                width: auto;
+                max-width: none;
+                font-size: 16px;
+                margin: 0;
+            }
+
+            .physics-knowledge-content-simple {
+                width: 94vw;
+                min-width: 0;
+                max-width: 94vw;
+                max-height: 82vh;
+                padding: 18px;
+                margin: 10px auto;
+            }
+            
+            .physics-knowledge-text-simple {
+                font-size: 17px;
+                line-height: 1.6;
+            }
+
+            .failure-analysis-content {
+                width: 94vw;
+                min-width: 0;
+                max-width: 94vw;
+                max-height: 82vh;
+                padding: 18px;
+            }
+
+            .choice-button {
+                min-height: 88px;
+                font-size: 17px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .physics-knowledge-content-simple {
+                width: 96vw;
+                min-width: 0;
+                max-width: 96vw;
+                max-height: 84vh;
+                padding: 10px;
+                margin: 5px auto;
+            }
+            
+            .physics-knowledge-text-simple {
+                font-size: 16px;
+                line-height: 1.5;
+            }
+
+            .failure-analysis-content {
+                width: 96vw;
+                min-width: 0;
+                max-width: 96vw;
+                max-height: 84vh;
+            }
+        }
+        
+        /* MathJax 数学公式样式优化 */
+        .physics-knowledge-text-simple .MathJax {
+            font-size: 1.1em !important;
+            color: #fff !important;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+        
+        .physics-knowledge-text-simple .MathJax_Display {
+            margin: 1em 0 !important;
+            text-align: center !important;
+        }
+        
+        /* 确保数学公式在不同屏幕尺寸下都能正确显示 */
+        @media (max-width: 768px) {
+            .physics-knowledge-text-simple .MathJax {
+                font-size: 1em !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .physics-knowledge-text-simple .MathJax {
+                font-size: 0.9em !important;
+            }
+        }
+    </style>
+    <script>
+        // 动态内容更新后的数学公式渲染函数
+        function renderMathInElementCustom(element) {
+            if (typeof renderMathInElement !== 'undefined' && element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        {left: "$$", right: "$$", display: false},
+                        {left: "$", right: "$", display: false},
+                        {left: "\\(", right: "\\)", display: false},
+                        {left: "\\[", right: "\\]", display: true}
+                    ],
+                    throwOnError: false,
+                    errorColor: "#cc0000",
+                    strict: false
+                });
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="game-container" class="game-container">
+        <div id="image-container" class="image-container">
+            <img id="story-image" class="story-image" src="" alt="">
+            <div id="story-content-overlay" class="story-content-overlay">
+                <div id="story-content" class="story-content"></div>
+            </div>
+            <div id="choices-container" class="choices-container"></div>
+            <div id="ending-message" class="ending-message">The story is complete!</div>
+            <div id="fatal-message" class="fatal-message">
+                Failure Ending
+                <button id="retry-button" class="retry-button">Choose Again</button>
+            </div>
+            <button id="restart-button" class="restart-button">Restart</button>
+            <button id="goto-graph" class="graph-button">Narrative Map</button>
+            <div id="node-id" class="node-id"></div>
+            
+            <!-- 章节标题字幕层 -->
+            <div id="chapter-title-overlay" class="chapter-title-overlay"></div>
+            
+        </div>
+        
+        <div id="loading" class="loading">Loading...</div>
+        <button id="next-page-button" class="next-page-button">Continue</button>
+    </div>
+    
+    <!-- 物理知识点浮现效果层 - 简化版本 -->
+    <div id="physics-knowledge-overlay" class="physics-knowledge-overlay">
+        <div class="physics-knowledge-content-simple">
+            <div id="physics-knowledge-title" class="physics-knowledge-title"></div>
+            <div id="physics-knowledge-text" class="physics-knowledge-text-simple"></div>
+            <button id="physics-knowledge-close" class="physics-knowledge-close-simple">Continue</button>
+        </div>
+    </div>
+    
+    <!-- 失败分析覆盖层 -->
+    <div id="failure-analysis-overlay" class="failure-analysis-overlay">
+        <div class="failure-analysis-content">
+            <div id="failure-analysis-title" class="failure-analysis-title">Failure Ending</div>
+            <div id="failure-analysis-subtitle" class="failure-analysis-subtitle"></div>
+            <div id="failure-analysis-text" class="failure-analysis-text"></div>
+            <button id="failure-analysis-close" class="failure-analysis-close">Choose Again</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let storyGraph = null;
+            let currentNodeId = null;
+            let pendingNextNodeId = null;
+            let autoNextTimer = null;
+
+function getSiteBase() {
+    const parts = location.pathname.split('/').filter(Boolean);
+    while (parts.length) {
+        const last = parts[parts.length - 1];
+        if (last === 'zh' || last === 'en' || last.endsWith('.html')) {
+            parts.pop();
+            continue;
+        }
+        break;
+    }
+    return parts.length ? '/' + parts.join('/') + '/' : '/';
+}
+
+function sitePath(relativePath) {
+    const clean = String(relativePath || '').replace(/^\/+/, '');
+    return getSiteBase() + clean;
+}
+
+            const staticParams = new URLSearchParams(window.location.search);
+            const staticLang = ['zh', 'en'].includes(staticParams.get('lang')) ? staticParams.get('lang') : (localStorage.getItem('hub_lang') || 'zh');
+            const staticGame = staticParams.get('game') || localStorage.getItem('hub_game') || 'tech_education';
+            localStorage.setItem('hub_lang', staticLang);
+            localStorage.setItem('hub_game', staticGame);
+            const graphDataUrl = sitePath(`static/story_graph/${staticLang}/${staticGame}.json`);
+            const mapPage = staticGame === 'fire_rescue' ? 'narrative-map-elk.html' : 'narrative-map-classic.html';
+            const narrativeMapUrl = `${sitePath(mapPage)}?lang=${encodeURIComponent(staticLang)}&game=${encodeURIComponent(staticGame)}`;
+            function resolveAssetUrl(url) {
+                if (!url) return url;
+                if (/^(https?:|data:)/i.test(url)) return url;
+                return sitePath(String(url).replace(/^\/+/, ''));
+            }
+            function staticLoadErrorMessage() {
+                if (location.protocol === 'file:') {
+                    return '请用本地 HTTP 服务打开，不要直接双击 HTML。在 On_use 目录运行: python -m http.server 8765';
+                }
+                return `无法加载数据: ${graphDataUrl}`;
+            }
+
+            const gameContainerEl = document.getElementById('game-container');
+            const storyContentEl = document.getElementById('story-content');
+            const storyContentOverlayEl = document.getElementById('story-content-overlay');
+            const storyImageEl = document.getElementById('story-image');
+            const nodeIdEl = document.getElementById('node-id');
+            const choicesContainerEl = document.getElementById('choices-container');
+            const endingMessageEl = document.getElementById('ending-message');
+            const fatalMessageEl = document.getElementById('fatal-message');
+            const retryButtonEl = document.getElementById('retry-button');
+            const restartButtonEl = document.getElementById('restart-button');
+            const loadingEl = document.getElementById('loading');
+            const nextPageButtonEl = document.getElementById('next-page-button');
+            
+            // 物理知识点相关元素（简化版本）
+            const physicsKnowledgeOverlayEl = document.getElementById('physics-knowledge-overlay');
+            const physicsKnowledgeTitleEl = document.getElementById('physics-knowledge-title');
+            const physicsKnowledgeTextEl = document.getElementById('physics-knowledge-text');
+            const physicsKnowledgeCloseBtnEl = document.getElementById('physics-knowledge-close');
+            
+            // 失败分析相关元素
+            const failureAnalysisOverlayEl = document.getElementById('failure-analysis-overlay');
+            const failureAnalysisSubtitleEl = document.getElementById('failure-analysis-subtitle');
+            const failureAnalysisTextEl = document.getElementById('failure-analysis-text');
+            const failureAnalysisCloseBtnEl = document.getElementById('failure-analysis-close');
+
+            function updateTopTextSafeArea() {
+                const leftBase = window.innerWidth <= 768 ? 76 : 20;
+                const leftGap = window.innerWidth <= 768 ? 12 : 18;
+                const measuredNodeWidth = nodeIdEl ? Math.ceil(nodeIdEl.getBoundingClientRect().width) : 0;
+                const leftSafe = leftBase + measuredNodeWidth + leftGap;
+                storyContentOverlayEl.style.setProperty('--top-text-left-safe', `${leftSafe}px`);
+            }
+
+            window.addEventListener('resize', updateTopTextSafeArea);
+
+            function escapeHtml(text) {
+                return String(text || '')
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#39;');
+            }
+
+            function decorateInlineEmphasis(text) {
+                return text.replace(/\*\*([^*]+)\*\*/g, '<span class="inline-emphasis">$1</span>');
+            }
+
+            function preprocessRichText(rawText) {
+                let text = rawText || '';
+                text = text.replace(/\\\\/g, '\\');
+                text = text.replace(/\\\(/g, '\\(');
+                text = text.replace(/\\\)/g, '\\)');
+                return text.trim();
+            }
+
+            function stripDuplicateLeadingTitle(rawText, titleText) {
+                const text = preprocessRichText(rawText);
+                const title = String(titleText || '').trim();
+                if (!text || !title) {
+                    return text;
+                }
+
+                const lines = text.split('\n');
+                if (!lines.length) {
+                    return text;
+                }
+
+                const firstLine = lines[0].trim().replace(/^\*\*|\*\*$/g, '').replace(/:$/, '');
+                if (firstLine.toLowerCase() !== title.toLowerCase()) {
+                    return text;
+                }
+
+                return lines.slice(1).join('\n').trim();
+            }
+
+            function getChoiceButtonLabel(node) {
+                if (node && node.metadata && node.metadata.choice_option) {
+                    return node.metadata.choice_option;
+                }
+                return (node && node.content) || '';
+            }
+
+            function createChoiceButton(nextNodeId) {
+                const nextNode = findNodeById(nextNodeId);
+                if (!nextNode) {
+                    return null;
+                }
+
+                const button = document.createElement('button');
+                button.className = 'choice-button';
+                const label = document.createElement('span');
+                label.className = 'choice-button-text';
+                label.textContent = getChoiceButtonLabel(nextNode);
+                button.appendChild(label);
+                button.onclick = () => {
+                    currentNodeId = nextNodeId;
+                    displayNode(currentNodeId);
+                };
+                return button;
+            }
+
+            function formatRichText(rawText, options = {}) {
+                const text = preprocessRichText(rawText);
+                if (!text) {
+                    return '';
+                }
+
+                const knownLabels = ['Analysis', 'Knowledge Point', 'Cause of Error', 'Reason for Error', 'Failure Analysis', 'Explanation'];
+                const normalizedText = text
+                    .replace(/\*\*\s*(Analysis|Knowledge Point|Cause of Error|Reason for Error|Failure Analysis|Explanation)\s*:\s*\*\*/gi, '**$1:** ')
+                    .replace(/(\*\*(?:Analysis|Knowledge Point|Cause of Error|Reason for Error|Failure Analysis|Explanation):\*\*)\s*\*\*\s*/gi, '$1 ')
+                    .replace(/([^\n])(\*\*\s*(?:Analysis|Knowledge Point|Cause of Error|Reason for Error|Failure Analysis|Explanation)\s*:\s*)/gi, '$1\n$2')
+                    .replace(/([^\n])((?:Analysis|Knowledge Point|Cause of Error|Reason for Error|Failure Analysis|Explanation)\s*:)/gi, '$1\n$2')
+                    .replace(/\n{3,}/g, '\n\n');
+                const lines = normalizedText.split('\n');
+                const htmlParts = [];
+
+                let currentSection = null;
+                let looseParagraphs = [];
+
+                function pushLooseParagraphs() {
+                    if (!looseParagraphs.length) {
+                        return;
+                    }
+                    const paragraphHtml = decorateInlineEmphasis(escapeHtml(looseParagraphs.join(' ').trim()));
+                    if (paragraphHtml) {
+                        htmlParts.push(`<div class="formatted-paragraph">${paragraphHtml}</div>`);
+                    }
+                    looseParagraphs = [];
+                }
+
+                function flushCurrentSection() {
+                    if (!currentSection) {
+                        return;
+                    }
+                    const sanitizedLines = currentSection.lines
+                        .map(line => line.replace(/^\*\*\s+(?=[^*])/, '').replace(/\s+\*\*$/, '').trimEnd())
+                        .filter((line, index, arr) => line !== '**' && (line !== '' || (index > 0 && index < arr.length - 1)));
+                    const bodyText = sanitizedLines.join('\n').trim();
+                    const bodyHtml = bodyText ? `<div class="formatted-paragraph">${decorateInlineEmphasis(escapeHtml(bodyText)).replace(/\n/g, '<br>')}</div>` : '';
+                    htmlParts.push(`<section class="formatted-section"><div class="formatted-section-title">${currentSection.title}</div>${bodyHtml}</section>`);
+                    currentSection = null;
+                }
+
+                lines.forEach(rawLine => {
+                    let line = rawLine.trim();
+                    if (!line || line === '**') {
+                        if (currentSection && currentSection.lines.length) {
+                            currentSection.lines.push('');
+                        }
+                        return;
+                    }
+
+                    line = line.replace(/^\*\*\s+(?=[^*])/, '');
+                    line = line.replace(/\s+\*\*$/, '');
+
+                    const headingMatch = line.match(/^\*\*\s*(Analysis|Knowledge Point|Cause of Error|Reason for Error|Failure Analysis|Explanation)\s*:\s*\*\*?\s*(.*)$/i)
+                        || line.match(/^(Analysis|Knowledge Point|Cause of Error|Reason for Error|Failure Analysis|Explanation)\s*:\s*(.*)$/i);
+
+                    if (headingMatch) {
+                        pushLooseParagraphs();
+                        flushCurrentSection();
+                        currentSection = {
+                            title: headingMatch[1],
+                            lines: headingMatch[2] ? [headingMatch[2].trim()] : []
+                        };
+                        return;
+                    }
+
+                    if (currentSection) {
+                        currentSection.lines.push(line);
+                        return;
+                    }
+
+                    if (knownLabels.some(label => line.replace(/[*:]/g, '').toLowerCase() === label.toLowerCase().replace(/[*:]/g, ''))) {
+                        pushLooseParagraphs();
+                        flushCurrentSection();
+                        currentSection = { title: line.replace(/^\*\*|\*\*$/g, '').replace(/:$/, ''), lines: [] };
+                        return;
+                    }
+
+                    looseParagraphs.push(line);
+                });
+
+                pushLooseParagraphs();
+                flushCurrentSection();
+
+                return `<div class="formatted-content">${htmlParts.join('')}</div>`;
+            }
+            
+            // 使用API端点加载故事图数据
+            fetch(graphDataUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    storyGraph = data;
+                    loadingEl.style.display = 'none';
+                    startStory();
+                })
+                .catch(error => {
+                    console.error('Error loading story graph:', error);
+                    loadingEl.textContent = staticLoadErrorMessage();
+                });
+            
+            // 开始故事
+            function startStory() {
+                currentNodeId = storyGraph.start_node_id;
+                displayNode(currentNodeId);
+            }
+            
+            // 显示节点内容
+            function displayNode(nodeId) {
+                const node = findNodeById(nodeId);
+                if (!node) return;
+                
+                // 重置UI状态
+                choicesContainerEl.innerHTML = '';
+                choicesContainerEl.classList.remove('show-choices');
+                endingMessageEl.style.display = 'none';
+                fatalMessageEl.style.display = 'none';
+                restartButtonEl.style.display = 'none';
+                nextPageButtonEl.style.display = 'none';
+                pendingNextNodeId = null;
+                if (autoNextTimer) {
+                    clearTimeout(autoNextTimer);
+                    autoNextTimer = null;
+                }
+                
+                // 清除可能存在的失败分析内容
+                const existingFailureAnalysis = fatalMessageEl.querySelector('div');
+                if (existingFailureAnalysis) {
+                    fatalMessageEl.removeChild(existingFailureAnalysis);
+                }
+                
+                // 重置物理知识点显示状态
+                physicsKnowledgeOverlayEl.classList.remove('show');
+                gameContainerEl.classList.remove('blur-background');
+                physicsKnowledgeTitleEl.textContent = '';
+                physicsKnowledgeTextEl.innerHTML = '';
+                
+                // 重置失败分析显示状态
+                failureAnalysisOverlayEl.classList.remove('show');
+                gameContainerEl.classList.remove('blur-background');
+                failureAnalysisSubtitleEl.textContent = '';
+                failureAnalysisTextEl.innerHTML = '';
+                
+                // 重置章节标题显示状态
+                const chapterTitleOverlayEl = document.getElementById('chapter-title-overlay');
+                chapterTitleOverlayEl.classList.remove('show', 'fade-out');
+                
+                // 保存当前内容，用于在收起动画期间保持显示
+                const currentContent = storyContentEl.textContent;
+                const currentNodeIdText = nodeIdEl.textContent;
+                
+                // 先移除show-content类，触发收起动画
+                storyContentOverlayEl.classList.remove('show-content');
+                
+                // 等待收起动画完成后，再更新内容并展开
+                setTimeout(() => {
+                    // 更新节点内容 - 在展开动画开始前更新内容
+                    storyContentEl.textContent = (node.content || '').replace(/\s+/g, ' ').trim();
+                    nodeIdEl.textContent = `Node ID: ${node.id}`;
+                    requestAnimationFrame(updateTopTextSafeArea);
+                    
+                    // 触发展开动画
+                    storyContentOverlayEl.classList.add('show-content');
+                    
+                    // 显示节点图片（如果有）
+                    if (node.metadata && node.metadata.image_path) {
+                        // 将反斜杠转换为正斜杠，并确保路径格式正确
+                        console.log('Original image path:', node.metadata.image_path);
+                        // 处理JSON中的双斜杠
+                        let imagePath = node.metadata.image_path.replace(/\\/g, '/');
+                        // 处理单反斜杠
+                        imagePath = imagePath.replace(/\\/g, '/');
+                        let fullImagePath = imagePath;
+                        if (!imagePath.startsWith('/')) {
+                            if (imagePath.startsWith('output/')) {
+                                imagePath = imagePath.substring(7);
+                            }
+                            fullImagePath = '/' + imagePath;
+                        }
+                        console.log('Processed image path:', fullImagePath);
+                        storyImageEl.src = resolveAssetUrl(fullImagePath);
+                        storyImageEl.classList.add('fade-in');
+                        
+                        // 添加图片加载错误处理
+                        storyImageEl.onerror = function() {
+                            console.error('Failed to load image:', fullImagePath);
+                            // 使用默认背景
+                            storyImageEl.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1200 800"><rect width="100%" height="100%" fill="%23222"/><text x="50%" y="50%" font-size="30" fill="%23fff" text-anchor="middle" dominant-baseline="middle">Educational Serious Game</text></svg>';
+                        };
+                        
+                        // 添加图片加载成功处理
+                        storyImageEl.onload = function() {
+                            console.log('Successfully loaded image:', fullImagePath);
+                        };
+                    } else {
+                        // 如果没有图片，使用默认背景
+                        storyImageEl.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1200 800"><rect width="100%" height="100%" fill="%23222"/><text x="50%" y="50%" font-size="30" fill="%23fff" text-anchor="middle" dominant-baseline="middle">Educational Serious Game</text></svg>';
+                    }
+                    
+                    // 检查是否是ep_start节点，显示章节标题字幕
+                    if (node.type === 'ep_start' && node.metadata && node.metadata.chapter_title) {
+                        setTimeout(() => {
+                            // 设置章节标题内容
+                            chapterTitleOverlayEl.textContent = node.metadata.chapter_title;
+                            // 显示章节标题字幕
+                            chapterTitleOverlayEl.classList.add('show');
+                            
+                            // 4秒后淡出字幕
+                            setTimeout(() => {
+                                chapterTitleOverlayEl.classList.add('fade-out');
+                                // 淡出动画完成后移除show类
+                                setTimeout(() => {
+                                    chapterTitleOverlayEl.classList.remove('show', 'fade-out');
+                                }, 1000);
+                            }, 4000);
+                        }, 500); // 延迟500ms开始显示字幕
+                    }
+                    
+                    // 检查是否是ep_end节点
+                    if (node.type === 'ep_end') {
+                        // 延迟显示物理知识点或暂停提示（简化版本）
+                        setTimeout(() => {
+                            // 检查是否还有后续节点
+                            const nextNodeIds = storyGraph.edges[nodeId] || [];
+                            const hasNextNode = nextNodeIds.length > 0;
+                            
+                            // 如果有物理知识点，显示知识点
+                            if (node.metadata && node.metadata.physics_knowledge) {
+                                // 添加轻微背景模糊效果
+                                gameContainerEl.classList.add('blur-background');
+                                
+                                physicsKnowledgeTitleEl.textContent = (node.metadata && node.metadata.knowledge_point) || '';
+                                const physicsKnowledgeText = stripDuplicateLeadingTitle(node.metadata.physics_knowledge, (node.metadata && node.metadata.knowledge_point) || '');
+                                physicsKnowledgeTextEl.innerHTML = formatRichText(physicsKnowledgeText, { mode: 'knowledge' });
+                                
+                                // 显示物理知识点覆盖层
+                                physicsKnowledgeOverlayEl.classList.add('show');
+                                
+                                // 使用KaTeX渲染数学公式
+                                setTimeout(() => {
+                                    if (typeof renderMathInElement !== 'undefined') {
+                                        try {
+                                            renderMathInElementCustom(physicsKnowledgeTextEl);
+                                            console.log('KaTeX物理知识点公式渲染完成');
+                                        } catch (err) {
+                                            console.error('KaTeX渲染出错:', err);
+                                        }
+                                    } else {
+                                        console.warn('KaTeX未加载完成，延迟渲染...');
+                                        // 如果KaTeX还未加载，延迟重试
+                                        setTimeout(() => {
+                                            if (typeof renderMathInElement !== 'undefined') {
+                                                try {
+                                                    renderMathInElementCustom(physicsKnowledgeTextEl);
+                                                    console.log('KaTeX物理知识点公式渲染完成（延迟重试）');
+                                                } catch (err) {
+                                                    console.error('KaTeX渲染出错:', err);
+                                                }
+                                            }
+                                        }, 500);
+                                    }
+                                }, 100);
+                            } else {
+                                // 没有物理知识点，显示暂停提示
+                                gameContainerEl.classList.add('blur-background');
+                                // 根据是否有下一个节点显示不同的提示信息
+                                let promptText = '';
+                                if (hasNextNode) {
+                                    promptText = 'Level complete - click Continue to keep reading.';
+                                } else {
+                                    promptText = 'Story complete - click Continue to view the result.';
+                                }
+                                physicsKnowledgeTextEl.innerHTML = promptText;
+                                physicsKnowledgeTitleEl.textContent = '';
+                                
+                                // 显示物理知识点覆盖层
+                                physicsKnowledgeOverlayEl.classList.add('show');
+                                
+                                // 使用KaTeX渲染（即使没有公式也保持一致性）
+                                setTimeout(() => {
+                                    if (typeof renderMathInElement !== 'undefined') {
+                                        try {
+                                            renderMathInElementCustom(physicsKnowledgeTextEl);
+                                            console.log('KaTeX提示文本渲染完成');
+                                        } catch (err) {
+                                            console.error('KaTeX渲染出错:', err);
+                                        }
+                                    } else {
+                                        console.warn('KaTeX未加载完成，延迟渲染...');
+                                        // 如果KaTeX还未加载，延迟重试
+                                        setTimeout(() => {
+                                            if (typeof renderMathInElement !== 'undefined') {
+                                                try {
+                                                    renderMathInElementCustom(physicsKnowledgeTextEl);
+                                                    console.log('KaTeX提示文本渲染完成（延迟重试）');
+                                                } catch (err) {
+                                                    console.error('KaTeX渲染出错:', err);
+                                                }
+                                            }
+                                        }, 500);
+                                    }
+                                }, 100);
+                            }
+                        }, 4000); // 4秒后开始显示
+                    }
+                    
+                    // 根据节点类型显示不同内容
+                    if (node.type === 'ending') {
+                        // 结束节点
+                        setTimeout(() => {
+                            endingMessageEl.style.display = 'block';
+                            restartButtonEl.style.display = 'block';
+                        }, 1500);
+                    } else if (node.type === 'fatal') {
+                        // fatal节点 - 显示失败信息和重新选择按钮
+                        setTimeout(() => {
+                            // 添加背景模糊效果
+                            gameContainerEl.classList.add('blur-background');
+                            
+                            // 添加失败分析内容（优先 failure_analysis，其次 physics_knowledge）
+                            const failureSource = node.metadata && (node.metadata.failure_analysis || node.metadata.physics_knowledge);
+                            if (failureSource) {
+                                failureAnalysisSubtitleEl.textContent = (node.metadata && node.metadata.knowledge_point) || '';
+                                const failureText = stripDuplicateLeadingTitle(failureSource, (node.metadata && node.metadata.knowledge_point) || '');
+                                failureAnalysisTextEl.innerHTML = formatRichText(failureText, { mode: 'failure' });
+                                
+                                // 显示失败分析覆盖层
+                                failureAnalysisOverlayEl.classList.add('show');
+                                
+                                // 使用KaTeX渲染数学公式
+                                setTimeout(() => {
+                                    if (typeof renderMathInElement !== 'undefined') {
+                                        try {
+                                            renderMathInElementCustom(failureAnalysisTextEl);
+                                            console.log('KaTeX失败分析公式渲染完成');
+                                        } catch (err) {
+                                            console.error('KaTeX渲染出错:', err);
+                                        }
+                                    } else {
+                                        console.warn('KaTeX未加载完成，延迟渲染...');
+                                        // 如果KaTeX还未加载，延迟重试
+                                        setTimeout(() => {
+                                            if (typeof renderMathInElement !== 'undefined') {
+                                                try {
+                                                    renderMathInElementCustom(failureAnalysisTextEl);
+                                                    console.log('KaTeX失败分析公式渲染完成（延迟重试）');
+                                                } catch (err) {
+                                                    console.error('KaTeX渲染出错:', err);
+                                                }
+                                            }
+                                        }, 500);
+                                    }
+                                }, 100);
+                            } else {
+                                // 没有失败分析内容，显示基本失败信息
+                                failureAnalysisTextEl.innerHTML = 'That choice was incorrect. Please choose again.';
+                                failureAnalysisSubtitleEl.textContent = (node.metadata && node.metadata.knowledge_point) || '';
+                                
+                                // 显示失败分析覆盖层
+                                failureAnalysisOverlayEl.classList.add('show');
+                            }
+                        }, 1500);
+                        
+                        // 仍然检查是否有多个连接边，显示选择按钮
+                        const nextNodeIds = storyGraph.edges[nodeId] || [];
+                        if (nextNodeIds.length > 1) {
+                            // 有多个连接边，显示选择按钮
+                            setTimeout(() => {
+                                nextNodeIds.forEach((nextNodeId, index) => {
+                                    const button = createChoiceButton(nextNodeId);
+                                    if (button) {
+                                        choicesContainerEl.appendChild(button);
+                                    }
+                                });
+                                choicesContainerEl.classList.add('show-choices');
+                            }, 4000);
+                        }
+                    } else {
+                        // 任何类型的节点，只要有多于一个连接边，就显示选择按钮
+                        const nextNodeIds = storyGraph.edges[nodeId] || [];
+                        
+                        // 检查是否是ep_end节点，如果是则暂停等待用户点击
+                        if (node.type === 'ep_end') {
+                            // ep_end节点不自动继续，等待用户点击物理知识点覆盖层的继续按钮（简化版本）
+                            nextPageButtonEl.style.display = 'none';
+                            physicsKnowledgeCloseBtnEl.textContent = 'Continue';
+                            physicsKnowledgeCloseBtnEl.onclick = () => {
+                                physicsKnowledgeOverlayEl.classList.remove('show');
+                                gameContainerEl.classList.remove('blur-background');
+                                // 清空物理知识点内容，防止残留
+                                physicsKnowledgeTextEl.innerHTML = '';
+                                // 检查是否还有下一个节点
+                                if (nextNodeIds.length > 0) {
+                                    // 继续到下一个节点
+                                    currentNodeId = nextNodeIds[0];
+                                    displayNode(currentNodeId);
+                                }
+                                // 如果没有下一个节点，则保持当前状态，不执行任何操作
+                            };
+                        } else {
+                            // 如果只有一个连接边，直接跳转，不显示选项
+                            if (nextNodeIds.length === 1) {
+                                // 非ep_end节点，正常自动继续
+                                pendingNextNodeId = nextNodeIds[0];
+                                nextPageButtonEl.textContent = 'Continue';
+                                nextPageButtonEl.style.display = 'block';
+                                if (autoNextTimer) {
+                                    clearTimeout(autoNextTimer);
+                                }
+                                autoNextTimer = setTimeout(() => {
+                                    if (pendingNextNodeId === nextNodeIds[0]) {
+                                        currentNodeId = nextNodeIds[0];
+                                        pendingNextNodeId = null;
+                                        autoNextTimer = null;
+                                        displayNode(currentNodeId);
+                                    }
+                                }, 5000); // 延迟5秒自动进入下一页，期间可点击 Continue 立即跳转
+                            } else if (nextNodeIds.length > 1) {
+                                // 有多个连接边，显示选择按钮
+                                nextPageButtonEl.style.display = 'none';
+                                setTimeout(() => {
+                                    nextNodeIds.forEach((nextNodeId, index) => {
+                                        const button = createChoiceButton(nextNodeId);
+                                        if (button) {
+                                            choicesContainerEl.appendChild(button);
+                                        }
+                                    });
+                                    choicesContainerEl.classList.add('show-choices');
+                                }, 4000);
+                            } else {
+                                // 没有连接边，显示结束信息
+                                setTimeout(() => {
+                                    endingMessageEl.style.display = 'block';
+                                    restartButtonEl.style.display = 'block';
+                                }, 1500);
+                            }
+                        }
+                    }
+                }, 500);
+
+            }
+            
+            // 根据ID查找节点
+            function findNodeById(nodeId) {
+                return storyGraph.nodes.find(node => node.id === nodeId);
+            }
+            
+            // 重新开始按钮点击事件
+            restartButtonEl.addEventListener('click', startStory);
+
+            // 等待 6 秒后由用户手动进入下一页
+            nextPageButtonEl.addEventListener('click', () => {
+                const nextNodeIds = (storyGraph && storyGraph.edges && storyGraph.edges[currentNodeId]) || [];
+                const targetNodeId = pendingNextNodeId || (nextNodeIds.length === 1 ? nextNodeIds[0] : null);
+                if (!targetNodeId) return;
+                if (autoNextTimer) {
+                    clearTimeout(autoNextTimer);
+                    autoNextTimer = null;
+                }
+                currentNodeId = targetNodeId;
+                pendingNextNodeId = null;
+                displayNode(currentNodeId);
+            });
+            
+            // 重新选择按钮点击事件
+            retryButtonEl.addEventListener('click', () => {
+                fatalMessageEl.style.display = 'none';
+                
+                // 清除可能存在的失败分析内容
+                const existingFailureAnalysis = fatalMessageEl.querySelector('div');
+                if (existingFailureAnalysis) {
+                    fatalMessageEl.removeChild(existingFailureAnalysis);
+                }
+                
+                // 继续播放到下一个节点
+                const nextNodeIds = storyGraph.edges[currentNodeId] || [];
+                if (nextNodeIds.length > 0) {
+                    // 如果只有一个连接的节点，直接显示它
+                    if (nextNodeIds.length === 1) {
+                        currentNodeId = nextNodeIds[0];
+                        displayNode(currentNodeId);
+                    }
+                    // 如果有多个连接的节点，显示选择按钮
+                    else {
+                        nextNodeIds.forEach((nextNodeId, index) => {
+                            const button = createChoiceButton(nextNodeId);
+                            if (button) {
+                                choicesContainerEl.appendChild(button);
+                            }
+                        });
+                        choicesContainerEl.classList.add('show-choices');
+                    }
+                }
+            });
+            
+            // 物理知识点关闭按钮点击事件（简化版本默认行为）
+            physicsKnowledgeCloseBtnEl.addEventListener('click', () => {
+                physicsKnowledgeOverlayEl.classList.remove('show');
+                gameContainerEl.classList.remove('blur-background');
+                
+                // 清空物理知识点内容，防止残留
+                physicsKnowledgeTextEl.innerHTML = '';
+                
+                // 检查当前节点是否还有后续节点，如果没有则显示结束信息
+                const currentNode = findNodeById(currentNodeId);
+                if (currentNode && currentNode.type === 'ep_end') {
+                    const nextNodeIds = storyGraph.edges[currentNodeId] || [];
+                    if (nextNodeIds.length === 0) {
+                        // 没有连接边，显示结束信息
+                        setTimeout(() => {
+                            endingMessageEl.style.display = 'block';
+                            restartButtonEl.style.display = 'block';
+                        }, 500);
+                    }
+                }
+            });
+            
+            // 失败分析关闭按钮点击事件
+            failureAnalysisCloseBtnEl.addEventListener('click', () => {
+                failureAnalysisOverlayEl.classList.remove('show');
+                gameContainerEl.classList.remove('blur-background');
+                
+                // 清空失败分析内容，防止残留
+                failureAnalysisTextEl.innerHTML = '';
+                
+                // 继续播放到下一个节点
+                const nextNodeIds = storyGraph.edges[currentNodeId] || [];
+                if (nextNodeIds.length > 0) {
+                    // 如果只有一个连接的节点，直接显示它
+                    if (nextNodeIds.length === 1) {
+                        currentNodeId = nextNodeIds[0];
+                        displayNode(currentNodeId);
+                    }
+                    // 如果有多个连接的节点，显示选择按钮
+                    else {
+                        nextNodeIds.forEach((nextNodeId, index) => {
+                            const button = createChoiceButton(nextNodeId);
+                            if (button) {
+                                choicesContainerEl.appendChild(button);
+                            }
+                        });
+                        choicesContainerEl.classList.add('show-choices');
+                    }
+                }
+            });
+            
+            // 跳转到当前游戏的静态叙事地图
+            document.getElementById('goto-graph').addEventListener('click', () => {
+                window.location.href = narrativeMapUrl;
+            });
+        });
+    </script>
+</body>
+</html>

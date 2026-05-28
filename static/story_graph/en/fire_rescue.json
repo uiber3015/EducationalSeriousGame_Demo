@@ -1,0 +1,6552 @@
+{
+  "nodes": [
+    {
+      "id": "beat_prologue_alarm",
+      "type": "prologue",
+      "display_type": "Prologue",
+      "display_type_key": "prologue",
+      "type_color": "#8b5cf6",
+      "content": "You are lounging on the apartment sofa, scrolling on your phone as the night deepens outside. A piercing fire alarm shatters the quiet, followed by running footsteps and muffled screams in the hallway. You sit up sharply—acrid smoke is already seeping through the door gap, and your heart races.",
+      "preview": "You are lounging on the apartment sofa, scrolling on your phone as the night deepens out",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_1.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_1.png",
+      "metadata": {
+        "display_role": "prologue",
+        "story_beat": "Act I · Alarm",
+        "story_act": "Opening",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_1.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_1.png"
+      },
+      "incoming_count": 0,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_prologue_alarm"
+        },
+        {
+          "label": "Node Type",
+          "value": "Prologue"
+        },
+        {
+          "label": "Incoming",
+          "value": "0"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [],
+      "outgoing_nodes": [
+        {
+          "id": "beat_first_reaction",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_first_reaction",
+      "type": "normal",
+      "display_type": "Regular Event",
+      "display_type_key": "normal",
+      "type_color": "#22c55e",
+      "content": "Smoke blurs your vision, and firelight climbs the building below. You must decide immediately: what is the single most important thing to do right now?",
+      "preview": "Smoke blurs your vision, and firelight climbs the building below. You must decide immedi",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_2.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_2.png",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "First response",
+        "story_act": "Act I",
+        "knowledge_point": "Recognizing fire risk and judging danger",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_2.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_2.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 3,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_first_reaction"
+        },
+        {
+          "label": "Node Type",
+          "value": "Regular Event"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "3"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_prologue_alarm",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_choice_calm_to_door",
+          "jump": false
+        },
+        {
+          "id": "beat_choice_early_balcony_rescue",
+          "jump": false
+        },
+        {
+          "id": "beat_choice_call_emergency_first",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_choice_calm_to_door",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "Calm yourself, move to the door, and check whether the hallway is passable before opening it.",
+      "preview": "Calm yourself, move to the door, and check whether the hallway is passable before openin",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_3_new.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_3_new.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Check before the door",
+        "story_act": "Act II",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_3_new.png",
+        "choice_option": "Stay calm, go to the door, and assess the hallway—do not rush out, call for help, or dial emergency services first.",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_3_new.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_choice_calm_to_door"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_first_reaction",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_at_door_assessment",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_choice_early_balcony_rescue",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "Rush to the balcony, shout for help, and wave clothing to get attention from below.",
+      "preview": "Rush to the balcony, shout for help, and wave clothing to get attention from below.",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_2_branch_1.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_2_branch_1.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Calling for help too soon",
+        "story_act": "Act I · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_2_branch_1.png",
+        "choice_option": "Rush to the balcony, shout, and wave clothing to be seen from below.",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_2_branch_1.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_choice_early_balcony_rescue"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_first_reaction",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_balcony_smoke_trap",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_choice_call_emergency_first",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "Check your phone signal and call emergency services with your floor and location.",
+      "preview": "Check your phone signal and call emergency services with your floor and location.",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_2_branch_2.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_2_branch_2.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Call emergency services first",
+        "story_act": "Act I · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_2_branch_2.png",
+        "choice_option": "Check signal and call emergency services with your location and floor.",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_2_branch_2.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_choice_call_emergency_first"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_first_reaction",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_wait_after_emergency_call",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_balcony_smoke_trap",
+      "type": "normal",
+      "display_type": "Regular Event",
+      "display_type_key": "normal",
+      "type_color": "#22c55e",
+      "content": "You hear sirens in the distance, but smoke is already pouring onto the balcony. You cough violently, vision swimming. You realize you exposed your escape route to the fire before even checking whether the hallway was safe.",
+      "preview": "You hear sirens in the distance, but smoke is already pouring onto the balcony. You coug",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_19.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_19.png",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Balcony fills with smoke",
+        "story_act": "Act I · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_19.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_19.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_balcony_smoke_trap"
+        },
+        {
+          "label": "Node Type",
+          "value": "Regular Event"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_choice_early_balcony_rescue",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_balcony_realize_and_choose",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_elevator_shaft_smoke",
+      "type": "normal",
+      "display_type": "Regular Event",
+      "display_type_key": "normal",
+      "type_color": "#22c55e",
+      "content": "The elevator doors slide open—and a blast of smoke and heat hits you in the face. You stagger back, coughing. The shaft has become a deadly chimney.",
+      "preview": "The elevator doors slide open—and a blast of smoke and heat hits you in the face. You st",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_27.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_27.png",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Smoke in the elevator shaft",
+        "story_act": "Act I · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_27.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_27.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 0,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_elevator_shaft_smoke"
+        },
+        {
+          "label": "Node Type",
+          "value": "Regular Event"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "0"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_choice_take_elevator_down",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_return_to_door_bridge",
+          "jump": true
+        }
+      ]
+    },
+    {
+      "id": "beat_wait_after_emergency_call",
+      "type": "normal",
+      "display_type": "Regular Event",
+      "display_type_key": "normal",
+      "type_color": "#22c55e",
+      "content": "Dispatch tells you to seal the door gap with a wet towel and wait. But the bathroom tap is barely a trickle now, and smoke keeps pushing through the door.",
+      "preview": "Dispatch tells you to seal the door gap with a wet towel and wait. But the bathroom tap ",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_92.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_92.png",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Waiting after the call",
+        "story_act": "Act I · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_92.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_92.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_wait_after_emergency_call"
+        },
+        {
+          "label": "Node Type",
+          "value": "Regular Event"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_choice_call_emergency_first",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_seal_door_after_call",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_choice_test_door_knob",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "Test the door handle with the back of your hand before deciding whether to open the door.",
+      "preview": "Test the door handle with the back of your hand before deciding whether to open the door",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_4.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_4.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Door-handle check",
+        "story_act": "Act II",
+        "knowledge_point": "Recognizing fire risk and judging danger",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_4.png",
+        "choice_option": "Test the door handle with the back of your hand before opening the door.",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_4.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_choice_test_door_knob"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_at_door_assessment",
+          "jump": false
+        },
+        {
+          "id": "beat_return_to_door_bridge",
+          "jump": true
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_hot_knob_retreat_indoors",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_hot_knob_retreat_indoors",
+      "type": "normal",
+      "display_type": "Regular Event",
+      "display_type_key": "normal",
+      "type_color": "#22c55e",
+      "content": "The metal handle burns the instant your hand touches it. This is no longer ordinary smoke—flame and heat are right outside. You force yourself to stay calm and retreat inside.",
+      "preview": "The metal handle burns the instant your hand touches it. This is no longer ordinary smok",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_5.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_5.png",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Retreat indoors",
+        "story_act": "Act II",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_5.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_5.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_hot_knob_retreat_indoors"
+        },
+        {
+          "label": "Node Type",
+          "value": "Regular Event"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_choice_test_door_knob",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_call_police_and_wet_towel",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_choice_seal_without_knob_test",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "Skip the temperature check and immediately plug the door gap with wet towels.",
+      "preview": "Skip the temperature check and immediately plug the door gap with wet towels.",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_4_branch_1.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_4_branch_1.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Skipped the check",
+        "story_act": "Act II · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_4_branch_1.png",
+        "choice_option": "Do not test the handle; seal the door gap with wet towels at once.",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_4_branch_1.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_choice_seal_without_knob_test"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_at_door_assessment",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_peek_through_door_crack",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_choice_balcony_without_check",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "Turn and run to the balcony to shout and wave for attention.",
+      "preview": "Turn and run to the balcony to shout and wave for attention.",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_4_branch_2.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_4_branch_2.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Shout without checking",
+        "story_act": "Act II · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_4_branch_2.png",
+        "choice_option": "Run to the balcony and shout for help.",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_4_branch_2.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_choice_balcony_without_check"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_at_door_assessment",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_end_balcony_sealed",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_peek_through_door_crack",
+      "type": "normal",
+      "display_type": "Regular Event",
+      "display_type_key": "normal",
+      "type_color": "#22c55e",
+      "content": "The handle feels cool, so you ease the door open a crack—and the hallway is a wall of fire. Heat rolls in; you slam the door shut.",
+      "preview": "The handle feels cool, so you ease the door open a crack—and the hallway is a wall of fi",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_95.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_95.png",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Peek through the door crack",
+        "story_act": "Act II · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_95.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_95.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_peek_through_door_crack"
+        },
+        {
+          "label": "Node Type",
+          "value": "Regular Event"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_choice_seal_without_knob_test",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_strategy_after_door_closed",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_choice_rush_to_bathroom",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "Smoke keeps seeping in. You dash for the bathroom to soak more towels—without securing the door behind you.",
+      "preview": "Smoke keeps seeping in. You dash for the bathroom to soak more towels—without securing t",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_95.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_95.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Rush to the bathroom",
+        "story_act": "Act II · Branch",
+        "choice_option": "Sprint to the bathroom for water and neglect sealing the door.",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_95.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_95.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_choice_rush_to_bathroom"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_strategy_after_door_closed",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_end_suffocate_indoors",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_end_suffocate_indoors",
+      "type": "failure_end",
+      "display_type": "Failure End",
+      "display_type_key": "fatal",
+      "type_color": "#334155",
+      "content": "You try to reach the bathroom, but after only a few steps the smoke drops you to the floor. Darkness closes in.",
+      "preview": "You try to reach the bathroom, but after only a few steps the smoke drops you to the flo",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_99.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_99.png",
+      "metadata": {
+        "display_role": "failure_end",
+        "story_beat": "Ending · Suffocation indoors",
+        "story_act": "Act II · Branch",
+        "outcome_type": "failure",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_99.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_99.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 0,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_end_suffocate_indoors"
+        },
+        {
+          "label": "Node Type",
+          "value": "Failure End"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "0"
+        }
+      ],
+      "is_ending": true,
+      "incoming_nodes": [
+        {
+          "id": "beat_choice_rush_to_bathroom",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": []
+    },
+    {
+      "id": "beat_end_balcony_sealed",
+      "type": "failure_end",
+      "display_type": "Failure End",
+      "display_type_key": "fatal",
+      "type_color": "#334155",
+      "content": "You wave your jacket desperately, coughing uncontrollably. Flames have reached the fifth-floor balcony; heat washes over you. Every way out is gone.",
+      "preview": "You wave your jacket desperately, coughing uncontrollably. Flames have reached the fifth",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_106.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_106.png",
+      "metadata": {
+        "display_role": "failure_end",
+        "story_beat": "Ending · Balcony cut off",
+        "story_act": "Act II · Branch",
+        "outcome_type": "failure",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_106.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_106.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 0,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_end_balcony_sealed"
+        },
+        {
+          "label": "Node Type",
+          "value": "Failure End"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "0"
+        }
+      ],
+      "is_ending": true,
+      "incoming_nodes": [
+        {
+          "id": "beat_choice_balcony_without_check",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": []
+    },
+    {
+      "id": "beat_seal_door_after_call",
+      "type": "normal",
+      "display_type": "Regular Event",
+      "display_type_key": "normal",
+      "type_color": "#22c55e",
+      "content": "Dispatch tells you to seal the gap and wait. You press wet fabric along the door frame and hold the smoke back—for now.",
+      "preview": "Dispatch tells you to seal the gap and wait. You press wet fabric along the door frame a",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_130_branch_1.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_130_branch_1.png",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Seal after calling",
+        "story_act": "Act III · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_130_branch_1.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_130_branch_1.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_seal_door_after_call"
+        },
+        {
+          "label": "Node Type",
+          "value": "Regular Event"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_wait_after_emergency_call",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_hold_inside_next_action",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_strategy_after_door_closed",
+      "type": "normal",
+      "display_type": "Regular Event",
+      "display_type_key": "normal",
+      "type_color": "#22c55e",
+      "content": "You shut the door firmly and retreat inside. Smoke still creeps through the gap; the hallway is clearly unusable. What do you do next?",
+      "preview": "You shut the door firmly and retreat inside. Smoke still creeps through the gap; the hal",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_140.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_140.png",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Strategy after closing the door",
+        "story_act": "Act II · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_140.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_140.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_strategy_after_door_closed"
+        },
+        {
+          "label": "Node Type",
+          "value": "Regular Event"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_peek_through_door_crack",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_choice_rush_to_bathroom",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_call_police_and_wet_towel",
+      "type": "normal",
+      "display_type": "Regular Event",
+      "display_type_key": "normal",
+      "type_color": "#22c55e",
+      "content": "You call for help, then soak a towel and cover your mouth. Smoke pushes under the door. The hallway is gone—what is your next move?",
+      "preview": "You call for help, then soak a towel and cover your mouth. Smoke pushes under the door. ",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_6.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_6.png",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Strategy after calling",
+        "story_act": "Act III",
+        "knowledge_point": "Sheltering indoors when smoke blocks the door",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_6.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_6.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 3,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_call_police_and_wet_towel"
+        },
+        {
+          "label": "Node Type",
+          "value": "Regular Event"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "3"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_hot_knob_retreat_indoors",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_choice_hold_or_escape",
+          "jump": false
+        },
+        {
+          "id": "beat_choice_climb_exterior_pipes",
+          "jump": false
+        },
+        {
+          "id": "beat_choice_rush_elevator",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_choice_hold_or_escape",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "Shelter in place: seal the door gap, cool the door, then consider other options.",
+      "preview": "Shelter in place: seal the door gap, cool the door, then consider other options.",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_7.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_7.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Shelter or flee",
+        "story_act": "Act III",
+        "knowledge_point": "Sheltering indoors when smoke blocks the door",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_7.png",
+        "choice_option": "Shelter in place—seal the gap and cool the door first.",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_7.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 0,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_choice_hold_or_escape"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "0"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_call_police_and_wet_towel",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_hold_inside_next_action",
+          "jump": true
+        }
+      ]
+    },
+    {
+      "id": "beat_choice_seal_door_gap",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "Drag a wet quilt against the door gap and splash water on the door to cool it.",
+      "preview": "Drag a wet quilt against the door gap and splash water on the door to cool it.",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_8.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_8.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Seal the door gap",
+        "story_act": "Act III",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_8.png",
+        "choice_option": "Block the gap with a wet quilt and splash water on the door.",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_8.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_choice_seal_door_gap"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_hold_inside_next_action",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_seal_balcony_glass",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_choice_climb_exterior_pipes",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "Open the window and climb down an exterior pipe or drain line.",
+      "preview": "Open the window and climb down an exterior pipe or drain line.",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_7_branch_1.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_7_branch_1.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Climb the exterior",
+        "story_act": "Act III · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_7_branch_1.png",
+        "choice_option": "Open the window and climb down an exterior pipe or drain line.",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_7_branch_1.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_choice_climb_exterior_pipes"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_call_police_and_wet_towel",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_exterior_pipe_breaks",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_choice_rush_elevator",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "Sprint for the elevator and try to get downstairs before the power fails.",
+      "preview": "Sprint for the elevator and try to get downstairs before the power fails.",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_7_branch_2.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_7_branch_2.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Rush the elevator",
+        "story_act": "Act III · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_7_branch_2.png",
+        "choice_option": "Sprint for the elevator before the power goes out.",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_7_branch_2.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_choice_rush_elevator"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_call_police_and_wet_towel",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_elevator_buttons_dead",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_exterior_pipe_breaks",
+      "type": "normal",
+      "display_type": "Regular Event",
+      "display_type_key": "normal",
+      "type_color": "#22c55e",
+      "content": "You swing outside and grab the pipe—then metal shrieks and gives way. The old drain line cannot hold your weight.",
+      "preview": "You swing outside and grab the pipe—then metal shrieks and gives way. The old drain line",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_114.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_114.png",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Pipe breaks",
+        "story_act": "Act III · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_114.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_114.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_exterior_pipe_breaks"
+        },
+        {
+          "label": "Node Type",
+          "value": "Regular Event"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_choice_climb_exterior_pipes",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_retreat_to_rooftop",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_retreat_to_rooftop",
+      "type": "normal",
+      "display_type": "Regular Event",
+      "display_type_key": "normal",
+      "type_color": "#22c55e",
+      "content": "You abandon the climb and head for the roof, hoping for air rescue—but the landing pad is blocked by debris.",
+      "preview": "You abandon the climb and head for the roof, hoping for air rescue—but the landing pad i",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_114_branch_2.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_114_branch_2.png",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Retreat to the roof",
+        "story_act": "Act III · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_114_branch_2.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_114_branch_2.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_retreat_to_rooftop"
+        },
+        {
+          "label": "Node Type",
+          "value": "Regular Event"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_exterior_pipe_breaks",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_stairwell_smoke_blocked",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_stairwell_smoke_blocked",
+      "type": "normal",
+      "display_type": "Regular Event",
+      "display_type_key": "normal",
+      "type_color": "#22c55e",
+      "content": "You turn for the fire stairs, but smoke has swallowed the way down. You can only go up—to the roof.",
+      "preview": "You turn for the fire stairs, but smoke has swallowed the way down. You can only go up—t",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_119.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_119.png",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Stairs lost in smoke",
+        "story_act": "Act III · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_119.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_119.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_stairwell_smoke_blocked"
+        },
+        {
+          "label": "Node Type",
+          "value": "Regular Event"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_retreat_to_rooftop",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_rooftop_exit_locked",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_rooftop_exit_locked",
+      "type": "normal",
+      "display_type": "Regular Event",
+      "display_type_key": "normal",
+      "type_color": "#22c55e",
+      "content": "You force the roof door open. The only bridge to the next building is chained shut, and smoke is climbing the stairwell behind you.",
+      "preview": "You force the roof door open. The only bridge to the next building is chained shut, and ",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_120.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_120.png",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Roof exit blocked",
+        "story_act": "Act III · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_120.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_120.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_rooftop_exit_locked"
+        },
+        {
+          "label": "Node Type",
+          "value": "Regular Event"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_stairwell_smoke_blocked",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_enter_ventilation_duct",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_enter_ventilation_duct",
+      "type": "normal",
+      "display_type": "Regular Event",
+      "display_type_key": "normal",
+      "type_color": "#22c55e",
+      "content": "You scan the roof, spot a loose vent grille, tear it off, and try to crawl into the duct to get lower.",
+      "preview": "You scan the roof, spot a loose vent grille, tear it off, and try to crawl into the duct",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_120_branch_1.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_120_branch_1.png",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Enter the vent duct",
+        "story_act": "Act III · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_120_branch_1.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_120_branch_1.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_enter_ventilation_duct"
+        },
+        {
+          "label": "Node Type",
+          "value": "Regular Event"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_rooftop_exit_locked",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_end_trapped_in_vent_duct",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_end_trapped_in_vent_duct",
+      "type": "failure_end",
+      "display_type": "Failure End",
+      "display_type_key": "fatal",
+      "type_color": "#334155",
+      "content": "You squeeze into the narrow duct. Rusted supports snap; the section drops and pins you in the dark metal tube.",
+      "preview": "You squeeze into the narrow duct. Rusted supports snap; the section drops and pins you i",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_123.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_123.png",
+      "metadata": {
+        "display_role": "failure_end",
+        "story_beat": "Ending · Trapped in the vent",
+        "story_act": "Act III · Branch",
+        "outcome_type": "failure",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_123.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_123.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 0,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_end_trapped_in_vent_duct"
+        },
+        {
+          "label": "Node Type",
+          "value": "Failure End"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "0"
+        }
+      ],
+      "is_ending": true,
+      "incoming_nodes": [
+        {
+          "id": "beat_enter_ventilation_duct",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": []
+    },
+    {
+      "id": "beat_elevator_buttons_dead",
+      "type": "normal",
+      "display_type": "Regular Event",
+      "display_type_key": "normal",
+      "type_color": "#22c55e",
+      "content": "The buttons do nothing. Only then do you remember: never use elevators in a fire. Smoke already makes your head spin and your sight blur.",
+      "preview": "The buttons do nothing. Only then do you remember: never use elevators in a fire. Smoke ",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_130.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_130.png",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Elevator dead",
+        "story_act": "Act III · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_130.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_130.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_elevator_buttons_dead"
+        },
+        {
+          "label": "Node Type",
+          "value": "Regular Event"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_choice_rush_elevator",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_elevator_doors_open_hot",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_elevator_doors_open_hot",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "Smoke burns your eyes. In panic you press the button—and the doors open onto a blistering, smoke-filled shaft.",
+      "preview": "Smoke burns your eyes. In panic you press the button—and the doors open onto a blisterin",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_134.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_134.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Elevator doors open",
+        "story_act": "Act III · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_134.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_134.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 2,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_elevator_doors_open_hot"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "2"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_elevator_buttons_dead",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_choice_wave_at_ladder",
+          "jump": false
+        },
+        {
+          "id": "beat_choice_hide_elevator_shaft",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_choice_wave_at_ladder",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "You run to the balcony, see a ladder rising, and wave a wet towel while shouting.",
+      "preview": "You run to the balcony, see a ladder rising, and wave a wet towel while shouting.",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_134_branch_1.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_134_branch_1.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Signal the ladder",
+        "story_act": "Act III · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_134_branch_1.png",
+        "choice_option": "Run to the balcony, spot the fire ladder, and wave a wet towel while shouting.",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_134_branch_1.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_choice_wave_at_ladder"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_elevator_doors_open_hot",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_end_rescued_by_ladder",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_choice_hide_elevator_shaft",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "Dizzy from smoke, you instinctively move toward the elevator shaft—then heat knocks you down.",
+      "preview": "Dizzy from smoke, you instinctively move toward the elevator shaft—then heat knocks you ",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_134_branch_2.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_134_branch_2.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Hide in the shaft",
+        "story_act": "Act III · Branch",
+        "choice_option": "Move into the open elevator shaft, blinded by smoke.",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_134_branch_2.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_134_branch_2.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_choice_hide_elevator_shaft"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_elevator_doors_open_hot",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_end_die_in_elevator_shaft",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_end_rescued_by_ladder",
+      "type": "success_end",
+      "display_type": "Success End",
+      "display_type_key": "ending",
+      "type_color": "#f97316",
+      "content": "Firefighters bring you down the ladder. You collapse on the ground, lungs scorched by smoke.",
+      "preview": "Firefighters bring you down the ladder. You collapse on the ground, lungs scorched by sm",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_137.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_137.png",
+      "metadata": {
+        "display_role": "success_end",
+        "story_beat": "Ending · Ladder rescue",
+        "story_act": "Act III · Branch",
+        "outcome_type": "success",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_137.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_137.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 0,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_end_rescued_by_ladder"
+        },
+        {
+          "label": "Node Type",
+          "value": "Success End"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "0"
+        }
+      ],
+      "is_ending": true,
+      "incoming_nodes": [
+        {
+          "id": "beat_choice_wave_at_ladder",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": []
+    },
+    {
+      "id": "beat_end_die_in_elevator_shaft",
+      "type": "failure_end",
+      "display_type": "Failure End",
+      "display_type_key": "fatal",
+      "type_color": "#334155",
+      "content": "Choking, you stumble toward the elevator. A wave of heat throws you down; consciousness fades.",
+      "preview": "Choking, you stumble toward the elevator. A wave of heat throws you down; consciousness ",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_139.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_139.png",
+      "metadata": {
+        "display_role": "failure_end",
+        "story_beat": "Ending · Elevator shaft",
+        "story_act": "Act III · Branch",
+        "outcome_type": "failure",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_139.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_139.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 0,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_end_die_in_elevator_shaft"
+        },
+        {
+          "label": "Node Type",
+          "value": "Failure End"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "0"
+        }
+      ],
+      "is_ending": true,
+      "incoming_nodes": [
+        {
+          "id": "beat_choice_hide_elevator_shaft",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": []
+    },
+    {
+      "id": "beat_seal_balcony_glass",
+      "type": "normal",
+      "display_type": "Regular Event",
+      "display_type_key": "normal",
+      "type_color": "#22c55e",
+      "content": "You seal the balcony glass as fire rolls below. Heat presses against the doors. You need the outside world to know you are here.",
+      "preview": "You seal the balcony glass as fire rolls below. Heat presses against the doors. You need",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_9.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_9.png",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Hold the balcony",
+        "story_act": "Act IV",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_9.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_9.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_seal_balcony_glass"
+        },
+        {
+          "label": "Node Type",
+          "value": "Regular Event"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_choice_seal_door_gap",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_rescue_signal_question",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_rescue_signal_question",
+      "type": "normal",
+      "display_type": "Regular Event",
+      "display_type_key": "normal",
+      "type_color": "#22c55e",
+      "content": "While sheltering on the balcony, which way of calling for help works best?",
+      "preview": "While sheltering on the balcony, which way of calling for help works best?",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_10.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_10.png",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Rescue signals",
+        "story_act": "Act IV",
+        "knowledge_point": "Signaling from a balcony",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_10.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_10.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 3,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_rescue_signal_question"
+        },
+        {
+          "label": "Node Type",
+          "value": "Regular Event"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "3"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_seal_balcony_glass",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_choice_effective_rescue_signal",
+          "jump": false
+        },
+        {
+          "id": "beat_choice_leap_to_neighbor",
+          "jump": false
+        },
+        {
+          "id": "beat_choice_blind_sheet_rope",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_fire_reaches_apartment_door",
+      "type": "normal",
+      "display_type": "Regular Event",
+      "display_type_key": "normal",
+      "type_color": "#22c55e",
+      "content": "Minutes later, fire climbs toward your front door. You are on the third floor—jumping crosses your mind, but it is far too dangerous.",
+      "preview": "Minutes later, fire climbs toward your front door. You are on the third floor—jumping cr",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_11.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_11.png",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Fire reaches the door",
+        "story_act": "Act IV",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_11.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_11.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_fire_reaches_apartment_door"
+        },
+        {
+          "label": "Node Type",
+          "value": "Regular Event"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_choice_effective_rescue_signal",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_judge_smoky_stairwell",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_choice_leap_to_neighbor",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "Try to jump to a neighboring building or a lower ledge.",
+      "preview": "Try to jump to a neighboring building or a lower ledge.",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_10_branch_1.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_10_branch_1.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Leap across",
+        "story_act": "Act IV · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_10_branch_1.png",
+        "choice_option": "Try to jump to a neighboring building or lower ledge.",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_10_branch_1.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_choice_leap_to_neighbor"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_rescue_signal_question",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_end_fall_from_building",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_end_fall_from_building",
+      "type": "failure_end",
+      "display_type": "Failure End",
+      "display_type_key": "fatal",
+      "type_color": "#334155",
+      "content": "You judge the gap and leap—but the towel over your face hides the landing. Your hands miss the rail; you fall.",
+      "preview": "You judge the gap and leap—but the towel over your face hides the landing. Your hands mi",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_147.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_147.png",
+      "metadata": {
+        "display_role": "failure_end",
+        "story_beat": "Ending · Fall",
+        "story_act": "Act IV · Branch",
+        "outcome_type": "failure",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_147.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_147.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 0,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_end_fall_from_building"
+        },
+        {
+          "label": "Node Type",
+          "value": "Failure End"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "0"
+        }
+      ],
+      "is_ending": true,
+      "incoming_nodes": [
+        {
+          "id": "beat_choice_leap_to_neighbor",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": []
+    },
+    {
+      "id": "beat_choice_blind_sheet_rope",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "Give up signaling and tie bedsheets to the AC unit to climb down.",
+      "preview": "Give up signaling and tie bedsheets to the AC unit to climb down.",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_10_branch_2.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_10_branch_2.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Improvised rope descent",
+        "story_act": "Act IV · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_10_branch_2.png",
+        "choice_option": "Stop signaling; tie sheets to the AC unit and climb down.",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_10_branch_2.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_choice_blind_sheet_rope"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_rescue_signal_question",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_end_sheet_rope_snaps",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_end_sheet_rope_snaps",
+      "type": "failure_end",
+      "display_type": "Failure End",
+      "display_type_key": "fatal",
+      "type_color": "#334155",
+      "content": "You secure the sheet rope to the AC bracket. The rusted mount tears free—you plunge six floors with it.",
+      "preview": "You secure the sheet rope to the AC bracket. The rusted mount tears free—you plunge six ",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_148.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_148.png",
+      "metadata": {
+        "display_role": "failure_end",
+        "story_beat": "Ending · Rope snaps",
+        "story_act": "Act IV · Branch",
+        "outcome_type": "failure",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_148.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_148.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 0,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_end_sheet_rope_snaps"
+        },
+        {
+          "label": "Node Type",
+          "value": "Failure End"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "0"
+        }
+      ],
+      "is_ending": true,
+      "incoming_nodes": [
+        {
+          "id": "beat_choice_blind_sheet_rope",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": []
+    },
+    {
+      "id": "beat_judge_smoky_stairwell",
+      "type": "normal",
+      "display_type": "Regular Event",
+      "display_type_key": "normal",
+      "type_color": "#22c55e",
+      "content": "The stairwell is full of smoke and heat. How should you judge your next move?",
+      "preview": "The stairwell is full of smoke and heat. How should you judge your next move?",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_12.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_12.png",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Resist the smoky stairs",
+        "story_act": "Act V",
+        "knowledge_point": "Common high-rise fire escape mistakes",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_12.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_12.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 4,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_judge_smoky_stairwell"
+        },
+        {
+          "label": "Node Type",
+          "value": "Regular Event"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "4"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_fire_reaches_apartment_door",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_choice_rope_escape_ready",
+          "jump": false
+        },
+        {
+          "id": "beat_choice_charge_smoky_hall",
+          "jump": false
+        },
+        {
+          "id": "beat_choice_hasty_balcony_rope",
+          "jump": false
+        },
+        {
+          "id": "beat_choice_use_extinguisher",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_choice_rope_escape_ready",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "Confirm the anchor is solid, check the path below, and descend on the rope.",
+      "preview": "Confirm the anchor is solid, check the path below, and descend on the rope.",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_13.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_13.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Rope escape ready",
+        "story_act": "Act V",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_13.png",
+        "choice_option": "Confirm the anchor, then descend and take the evacuation stairs.",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_13.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_choice_rope_escape_ready"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_judge_smoky_stairwell",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_rope_escape_to_platform",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_choice_charge_smoky_hall",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "Wrap a wet towel around your face and charge into the smoky hallway.",
+      "preview": "Wrap a wet towel around your face and charge into the smoky hallway.",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_12_branch_1.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_12_branch_1.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Charge into smoke",
+        "story_act": "Act V · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_12_branch_1.png",
+        "choice_option": "Wrap a wet towel and run into the smoky hallway.",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_12_branch_1.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_choice_charge_smoky_hall"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_judge_smoky_stairwell",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_end_overcome_in_hall_smoke",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_end_overcome_in_hall_smoke",
+      "type": "failure_end",
+      "display_type": "Failure End",
+      "display_type_key": "fatal",
+      "type_color": "#334155",
+      "content": "You burst into the hall and immediately choke. Heat slams you down; you lose consciousness.",
+      "preview": "You burst into the hall and immediately choke. Heat slams you down; you lose consciousne",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_151.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_151.png",
+      "metadata": {
+        "display_role": "failure_end",
+        "story_beat": "Ending · Overcome in the hall",
+        "story_act": "Act V · Branch",
+        "outcome_type": "failure",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_151.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_151.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 0,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_end_overcome_in_hall_smoke"
+        },
+        {
+          "label": "Node Type",
+          "value": "Failure End"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "0"
+        }
+      ],
+      "is_ending": true,
+      "incoming_nodes": [
+        {
+          "id": "beat_choice_charge_smoky_hall",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": []
+    },
+    {
+      "id": "beat_choice_hasty_balcony_rope",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "Tie bedsheets into a rope and climb down from the balcony.",
+      "preview": "Tie bedsheets into a rope and climb down from the balcony.",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_12_branch_2.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_12_branch_2.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Hasty sheet rope",
+        "story_act": "Act V · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_12_branch_2.png",
+        "choice_option": "Tie bedsheets into a rope and climb down from the balcony.",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_12_branch_2.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_choice_hasty_balcony_rope"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_judge_smoky_stairwell",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_end_collapse_on_balcony",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_end_collapse_on_balcony",
+      "type": "failure_end",
+      "display_type": "Failure End",
+      "display_type_key": "fatal",
+      "type_color": "#334155",
+      "content": "You try to crawl back inside, but your limbs give out. You slump against the balcony rail and fade out.",
+      "preview": "You try to crawl back inside, but your limbs give out. You slump against the balcony rai",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_42.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_42.png",
+      "metadata": {
+        "display_role": "failure_end",
+        "story_beat": "Ending · Collapse on the balcony",
+        "story_act": "Act V · Branch",
+        "outcome_type": "failure",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_42.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_42.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 0,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_end_collapse_on_balcony"
+        },
+        {
+          "label": "Node Type",
+          "value": "Failure End"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "0"
+        }
+      ],
+      "is_ending": true,
+      "incoming_nodes": [
+        {
+          "id": "beat_choice_hasty_balcony_rope",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": []
+    },
+    {
+      "id": "beat_choice_use_extinguisher",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "Sprint to the kitchen for a fire extinguisher and try to fight flames at the door gap.",
+      "preview": "Sprint to the kitchen for a fire extinguisher and try to fight flames at the door gap.",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_13_branch_1.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_13_branch_1.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Fight with extinguisher",
+        "story_act": "Act V · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_13_branch_1.png",
+        "choice_option": "Grab an extinguisher and try to fight fire at the door gap.",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_13_branch_1.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_choice_use_extinguisher"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_judge_smoky_stairwell",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_end_extinguisher_fails",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_end_extinguisher_fails",
+      "type": "failure_end",
+      "display_type": "Failure End",
+      "display_type_key": "fatal",
+      "type_color": "#334155",
+      "content": "You cannot breathe. Blinded, you crawl toward the balcony, but flame blocks the way. Toxic smoke takes you down.",
+      "preview": "You cannot breathe. Blinded, you crawl toward the balcony, but flame blocks the way. Tox",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_158.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_158.png",
+      "metadata": {
+        "display_role": "failure_end",
+        "story_beat": "Ending · Extinguisher fails",
+        "story_act": "Act V · Branch",
+        "outcome_type": "failure",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_158.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_158.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 0,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_end_extinguisher_fails"
+        },
+        {
+          "label": "Node Type",
+          "value": "Failure End"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "0"
+        }
+      ],
+      "is_ending": true,
+      "incoming_nodes": [
+        {
+          "id": "beat_choice_use_extinguisher",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": []
+    },
+    {
+      "id": "beat_choice_candle_light_wait",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "Seal vents, light a candle, and wait for rescue.",
+      "preview": "Seal vents, light a candle, and wait for rescue.",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_8_branch_2.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_8_branch_2.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Candle light",
+        "story_act": "Act III · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_8_branch_2.png",
+        "choice_option": "Seal vents, light a candle, and wait for rescue.",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_8_branch_2.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_choice_candle_light_wait"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_hold_inside_next_action",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_end_rescued_while_holding",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_end_rescued_while_holding",
+      "type": "success_end",
+      "display_type": "Success End",
+      "display_type_key": "ending",
+      "type_color": "#f97316",
+      "content": "Smoke thickens; each breath is harder. Just as the wet towel fails, voices and a ladder truck rise outside the balcony.",
+      "preview": "Smoke thickens; each breath is harder. Just as the wet towel fails, voices and a ladder ",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_144.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_144.png",
+      "metadata": {
+        "display_role": "success_end",
+        "story_beat": "Ending · Rescued while sheltering",
+        "story_act": "Act III · Branch",
+        "outcome_type": "success",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_144.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_144.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 0,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_end_rescued_while_holding"
+        },
+        {
+          "label": "Node Type",
+          "value": "Success End"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "0"
+        }
+      ],
+      "is_ending": true,
+      "incoming_nodes": [
+        {
+          "id": "beat_choice_candle_light_wait",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": []
+    },
+    {
+      "id": "beat_choice_break_window_rope",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "Break the window and twist bedsheets into a rope to lower yourself.",
+      "preview": "Break the window and twist bedsheets into a rope to lower yourself.",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_8_branch_1.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_8_branch_1.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Break window and rope down",
+        "story_act": "Act III · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_8_branch_1.png",
+        "choice_option": "Break the window and lower yourself on a sheet rope.",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_8_branch_1.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_choice_break_window_rope"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_hold_inside_next_action",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_end_sheet_rope_tears",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_end_sheet_rope_tears",
+      "type": "failure_end",
+      "display_type": "Failure End",
+      "display_type_key": "fatal",
+      "type_color": "#334155",
+      "content": "Midway down, the sheet tears. You drop from the fourth floor and hit the pavement.",
+      "preview": "Midway down, the sheet tears. You drop from the fourth floor and hit the pavement.",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_143.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_143.png",
+      "metadata": {
+        "display_role": "failure_end",
+        "story_beat": "Ending · Sheet tears",
+        "story_act": "Act III · Branch",
+        "outcome_type": "failure",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_143.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_143.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 0,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_end_sheet_rope_tears"
+        },
+        {
+          "label": "Node Type",
+          "value": "Failure End"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "0"
+        }
+      ],
+      "is_ending": true,
+      "incoming_nodes": [
+        {
+          "id": "beat_choice_break_window_rope",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": []
+    },
+    {
+      "id": "beat_rope_escape_to_platform",
+      "type": "normal",
+      "display_type": "Regular Event",
+      "display_type_key": "normal",
+      "type_color": "#22c55e",
+      "content": "The anchor holds. You study the drop, slide down, and land on a second-floor platform. You sprint for the stairwell as sirens wail behind you.",
+      "preview": "The anchor holds. You study the drop, slide down, and land on a second-floor platform. Y",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_14.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_14.png",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Rope escape succeeds",
+        "story_act": "Act VI",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_14.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_14.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_rope_escape_to_platform"
+        },
+        {
+          "label": "Node Type",
+          "value": "Regular Event"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_choice_rope_escape_ready",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_final_priority_question",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_final_priority_question",
+      "type": "normal",
+      "display_type": "Regular Event",
+      "display_type_key": "normal",
+      "type_color": "#22c55e",
+      "content": "What is the correct priority now?",
+      "preview": "What is the correct priority now?",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_15.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_15.png",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Final priorities",
+        "story_act": "Act VI",
+        "knowledge_point": "Priorities after escape",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_15.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_15.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 3,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_final_priority_question"
+        },
+        {
+          "label": "Node Type",
+          "value": "Regular Event"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "3"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_rope_escape_to_platform",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_choice_evacuate_stairs_now",
+          "jump": false
+        },
+        {
+          "id": "beat_choice_go_back_for_cat",
+          "jump": false
+        },
+        {
+          "id": "beat_choice_signal_with_lighter",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_end_safe_ground_evacuation",
+      "type": "success_end",
+      "display_type": "Success End",
+      "display_type_key": "ending",
+      "type_color": "#f97316",
+      "content": "On the ground you collapse, gasping, and watch flame swallow your window. In that moment you understand: seconds and knowledge really can steal you back from death.",
+      "preview": "On the ground you collapse, gasping, and watch flame swallow your window. In that moment",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_16.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_16.png",
+      "metadata": {
+        "display_role": "success_end",
+        "story_beat": "Ending · Safe evacuation",
+        "story_act": "Act VI",
+        "outcome_type": "success",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_16.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_16.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 0,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_end_safe_ground_evacuation"
+        },
+        {
+          "label": "Node Type",
+          "value": "Success End"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "0"
+        }
+      ],
+      "is_ending": true,
+      "incoming_nodes": [
+        {
+          "id": "beat_choice_evacuate_stairs_now",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": []
+    },
+    {
+      "id": "beat_choice_go_back_for_cat",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "You remember your cat in the bedroom and run back to grab it before taking the stairs.",
+      "preview": "You remember your cat in the bedroom and run back to grab it before taking the stairs.",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_15_branch_1.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_15_branch_1.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Go back for the cat",
+        "story_act": "Act VI · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_15_branch_1.png",
+        "choice_option": "Run back for the cat, then head for the stairs.",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_15_branch_1.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_choice_go_back_for_cat"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_final_priority_question",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_hallway_fire_blocks_exit",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_hallway_fire_blocks_exit",
+      "type": "normal",
+      "display_type": "Regular Event",
+      "display_type_key": "normal",
+      "type_color": "#22c55e",
+      "content": "You clutch the cat and reach the stairwell—but the second-floor landing is a furnace of smoke. Heat drives you back.",
+      "preview": "You clutch the cat and reach the stairwell—but the second-floor landing is a furnace of ",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_164.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_164.png",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Hallway blocked by fire",
+        "story_act": "Act VI · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_164.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_164.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_hallway_fire_blocks_exit"
+        },
+        {
+          "label": "Node Type",
+          "value": "Regular Event"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_choice_go_back_for_cat",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_wait_in_place_with_cat",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_wait_in_place_with_cat",
+      "type": "normal",
+      "display_type": "Regular Event",
+      "display_type_key": "normal",
+      "type_color": "#22c55e",
+      "content": "You crouch in place, waiting for rescue, a wet towel over yourself and the cat.",
+      "preview": "You crouch in place, waiting for rescue, a wet towel over yourself and the cat.",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_164_branch_2.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_164_branch_2.png",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Wait in place",
+        "story_act": "Act VI · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_164_branch_2.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_164_branch_2.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_wait_in_place_with_cat"
+        },
+        {
+          "label": "Node Type",
+          "value": "Regular Event"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_hallway_fire_blocks_exit",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_end_firefighters_breach_door",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_end_firefighters_breach_door",
+      "type": "success_end",
+      "display_type": "Success End",
+      "display_type_key": "ending",
+      "type_color": "#f97316",
+      "content": "Smoke dulls your senses—then water and voices crash through the door. Hands pull you into clean air.",
+      "preview": "Smoke dulls your senses—then water and voices crash through the door. Hands pull you int",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_168.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_168.png",
+      "metadata": {
+        "display_role": "success_end",
+        "story_beat": "Ending · Door breached",
+        "story_act": "Act VI · Branch",
+        "outcome_type": "success",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_168.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_168.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 0,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_end_firefighters_breach_door"
+        },
+        {
+          "label": "Node Type",
+          "value": "Success End"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "0"
+        }
+      ],
+      "is_ending": true,
+      "incoming_nodes": [
+        {
+          "id": "beat_wait_in_place_with_cat",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": []
+    },
+    {
+      "id": "beat_choice_signal_with_lighter",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "You light tissue with a lighter and toss it downward for a signal—and ignite newspapers stacked on the balcony.",
+      "preview": "You light tissue with a lighter and toss it downward for a signal—and ignite newspapers ",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_15_branch_2.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_15_branch_2.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Extra ignition",
+        "story_act": "Act VI · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_15_branch_2.png",
+        "choice_option": "Light tissue with a lighter and throw it as a signal.",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_15_branch_2.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_choice_signal_with_lighter"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_final_priority_question",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_end_escape_rope_burns",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_end_escape_rope_burns",
+      "type": "failure_end",
+      "display_type": "Failure End",
+      "display_type_key": "fatal",
+      "type_color": "#334155",
+      "content": "Flame seals the room. You hang from your escape line over the rail—but sparks catch the fabric, and it burns through.",
+      "preview": "Flame seals the room. You hang from your escape line over the rail—but sparks catch the ",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_182.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_182.png",
+      "metadata": {
+        "display_role": "failure_end",
+        "story_beat": "Ending · Escape rope burns",
+        "story_act": "Act VI · Branch",
+        "outcome_type": "failure",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_182.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_182.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 0,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_end_escape_rope_burns"
+        },
+        {
+          "label": "Node Type",
+          "value": "Failure End"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "0"
+        }
+      ],
+      "is_ending": true,
+      "incoming_nodes": [
+        {
+          "id": "beat_choice_signal_with_lighter",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": []
+    },
+    {
+      "id": "beat_choice_early_curtain_rope",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "In panic you tear down curtains, twist them into a rope, and try to lower yourself from the sixth-floor window.",
+      "preview": "In panic you tear down curtains, twist them into a rope, and try to lower yourself from ",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_5_branch_1.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_5_branch_1.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Descend too early",
+        "story_act": "Act II · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_5_branch_1.png",
+        "choice_option": "Twist curtains into a rope and lower yourself from the window.",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_5_branch_1.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_choice_early_curtain_rope"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_at_door_assessment",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_end_curtain_rope_breaks",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_end_curtain_rope_breaks",
+      "type": "failure_end",
+      "display_type": "Failure End",
+      "display_type_key": "fatal",
+      "type_color": "#334155",
+      "content": "The curtain rope snaps halfway. You fall four stories onto concrete.",
+      "preview": "The curtain rope snaps halfway. You fall four stories onto concrete.",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_109.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_109.png",
+      "metadata": {
+        "display_role": "failure_end",
+        "story_beat": "Ending · Curtain rope breaks",
+        "story_act": "Act II · Branch",
+        "outcome_type": "failure",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_109.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_109.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 0,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_end_curtain_rope_breaks"
+        },
+        {
+          "label": "Node Type",
+          "value": "Failure End"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "0"
+        }
+      ],
+      "is_ending": true,
+      "incoming_nodes": [
+        {
+          "id": "beat_choice_early_curtain_rope",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": []
+    },
+    {
+      "id": "beat_balcony_realize_and_choose",
+      "type": "normal",
+      "display_type": "Regular Event",
+      "display_type_key": "normal",
+      "type_color": "#22c55e",
+      "content": "Smoke floods the balcony; you can barely stand. What do you do next—go back inside to assess the door, or head for the elevator?",
+      "preview": "Smoke floods the balcony; you can barely stand. What do you do next—go back inside to as",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_118.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_118.png",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Realize on the balcony",
+        "story_act": "Act I · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_118.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_118.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 2,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_balcony_realize_and_choose"
+        },
+        {
+          "label": "Node Type",
+          "value": "Regular Event"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "2"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_balcony_smoke_trap",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_choice_return_from_balcony",
+          "jump": false
+        },
+        {
+          "id": "beat_choice_take_elevator_down",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_choice_return_from_balcony",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "The balcony is no longer safe. You go back inside, wet towel over your mouth, and move to the door to follow the escape guide.",
+      "preview": "The balcony is no longer safe. You go back inside, wet towel over your mouth, and move t",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_43.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_43.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Return to the door",
+        "story_act": "Act I · Branch",
+        "choice_option": "Go back inside and check whether the hallway is passable before opening the door.",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_43.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_43.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_choice_return_from_balcony"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_balcony_realize_and_choose",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_return_to_door_bridge",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_choice_take_elevator_down",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "You rush to the elevator and stab the button—but nothing responds; the panel is dark.",
+      "preview": "You rush to the elevator and stab the button—but nothing responds; the panel is dark.",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_19_branch_2.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_19_branch_2.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Elevator mistake",
+        "story_act": "Act I · Branch",
+        "choice_option": "Try to take the elevator downstairs.",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_19_branch_2.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_19_branch_2.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_choice_take_elevator_down"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_balcony_realize_and_choose",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_elevator_shaft_smoke",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_return_to_door_bridge",
+      "type": "normal",
+      "display_type": "Regular Event",
+      "display_type_key": "normal",
+      "type_color": "#22c55e",
+      "content": "You step back inside, cover your mouth with a wet towel, and reach the door to judge whether the hallway is still passable.",
+      "preview": "You step back inside, cover your mouth with a wet towel, and reach the door to judge whe",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_19_branch_1.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_19_branch_1.png",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Return to the door",
+        "story_act": "Act I · Branch",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_19_branch_1.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_19_branch_1.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 0,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_return_to_door_bridge"
+        },
+        {
+          "label": "Node Type",
+          "value": "Regular Event"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "0"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_choice_return_from_balcony",
+          "jump": false
+        },
+        {
+          "id": "beat_elevator_shaft_smoke",
+          "jump": true
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_choice_test_door_knob",
+          "jump": true
+        }
+      ]
+    },
+    {
+      "id": "beat_at_door_assessment",
+      "type": "normal",
+      "display_type": "Regular Event",
+      "display_type_key": "normal",
+      "type_color": "#22c55e",
+      "content": "At the door, the handle is too hot to touch blindly. The guide is clear: before you open it, you must know whether the hallway is survivable. Smoke presses in—what do you do?",
+      "preview": "At the door, the handle is too hot to touch blindly. The guide is clear: before you open",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_3.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_3.png",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Assess at the door",
+        "story_act": "Act II",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/node_3.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/node_3.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 4,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_at_door_assessment"
+        },
+        {
+          "label": "Node Type",
+          "value": "Regular Event"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "4"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_choice_calm_to_door",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_choice_test_door_knob",
+          "jump": false
+        },
+        {
+          "id": "beat_choice_seal_without_knob_test",
+          "jump": false
+        },
+        {
+          "id": "beat_choice_balcony_without_check",
+          "jump": false
+        },
+        {
+          "id": "beat_choice_early_curtain_rope",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_hold_inside_next_action",
+      "type": "normal",
+      "display_type": "Regular Event",
+      "display_type_key": "normal",
+      "type_color": "#22c55e",
+      "content": "You choose to shelter in place. Smoke still pours in. Among sealing the gap, breaking a window to rope down, or lighting a candle—which action matters most right now?",
+      "preview": "You choose to shelter in place. Smoke still pours in. Among sealing the gap, breaking a ",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_111.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_111.png",
+      "metadata": {
+        "display_role": "normal",
+        "story_beat": "Next move while sheltering",
+        "story_act": "Act III",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_111.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_111.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 3,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_hold_inside_next_action"
+        },
+        {
+          "label": "Node Type",
+          "value": "Regular Event"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "3"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_seal_door_after_call",
+          "jump": false
+        },
+        {
+          "id": "beat_choice_hold_or_escape",
+          "jump": true
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_choice_seal_door_gap",
+          "jump": false
+        },
+        {
+          "id": "beat_choice_break_window_rope",
+          "jump": false
+        },
+        {
+          "id": "beat_choice_candle_light_wait",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_choice_effective_rescue_signal",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "Wave a bright red jacket and shout; when the street is too noisy, switch to flashing a phone light at the window.",
+      "preview": "Wave a bright red jacket and shout; when the street is too noisy, switch to flashing a p",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_138.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_138.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Effective signaling",
+        "story_act": "Act IV",
+        "choice_option": "Shout and wave clothing, then flash a phone light at the window.",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_138.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/generated_node_138.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_choice_effective_rescue_signal"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_rescue_signal_question",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_fire_reaches_apartment_door",
+          "jump": false
+        }
+      ]
+    },
+    {
+      "id": "beat_choice_evacuate_stairs_now",
+      "type": "decision",
+      "display_type": "Decision",
+      "display_type_key": "decision",
+      "type_color": "#3b82f6",
+      "content": "Run for the evacuation stairs without looking back—life matters more than phone or wallet.",
+      "preview": "Run for the evacuation stairs without looking back—life matters more than phone or walle",
+      "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/merged_node_7.png",
+      "thumbnail_url": "demo_elk/output/fire_core_for_edu_new/output_images/merged_node_7.png",
+      "metadata": {
+        "display_role": "decision",
+        "story_beat": "Take the stairs now",
+        "story_act": "Act VI",
+        "choice_option": "Take the evacuation stairs immediately; leave belongings behind.",
+        "image_path": "demo_elk/output/fire_core_for_edu_new/output_images/merged_node_7.png",
+        "image_url": "demo_elk/output/fire_core_for_edu_new/output_images/merged_node_7.png"
+      },
+      "incoming_count": 1,
+      "outgoing_count": 1,
+      "detail_fields": [
+        {
+          "label": "Node ID",
+          "value": "beat_choice_evacuate_stairs_now"
+        },
+        {
+          "label": "Node Type",
+          "value": "Decision"
+        },
+        {
+          "label": "Incoming",
+          "value": "1"
+        },
+        {
+          "label": "Outgoing",
+          "value": "1"
+        }
+      ],
+      "is_ending": false,
+      "incoming_nodes": [
+        {
+          "id": "beat_final_priority_question",
+          "jump": false
+        }
+      ],
+      "outgoing_nodes": [
+        {
+          "id": "beat_end_safe_ground_evacuation",
+          "jump": false
+        }
+      ]
+    }
+  ],
+  "edges": {
+    "beat_prologue_alarm": [
+      "beat_first_reaction"
+    ],
+    "beat_first_reaction": [
+      "beat_choice_calm_to_door",
+      "beat_choice_early_balcony_rescue",
+      "beat_choice_call_emergency_first"
+    ],
+    "beat_choice_calm_to_door": [
+      "beat_at_door_assessment"
+    ],
+    "beat_choice_early_balcony_rescue": [
+      "beat_balcony_smoke_trap"
+    ],
+    "beat_balcony_smoke_trap": [
+      "beat_balcony_realize_and_choose"
+    ],
+    "beat_balcony_realize_and_choose": [
+      "beat_choice_return_from_balcony",
+      "beat_choice_take_elevator_down"
+    ],
+    "beat_choice_return_from_balcony": [
+      "beat_return_to_door_bridge"
+    ],
+    "beat_choice_take_elevator_down": [
+      "beat_elevator_shaft_smoke"
+    ],
+    "beat_elevator_shaft_smoke": [],
+    "beat_choice_call_emergency_first": [
+      "beat_wait_after_emergency_call"
+    ],
+    "beat_wait_after_emergency_call": [
+      "beat_seal_door_after_call"
+    ],
+    "beat_choice_test_door_knob": [
+      "beat_hot_knob_retreat_indoors"
+    ],
+    "beat_choice_seal_without_knob_test": [
+      "beat_peek_through_door_crack"
+    ],
+    "beat_peek_through_door_crack": [
+      "beat_strategy_after_door_closed"
+    ],
+    "beat_choice_balcony_without_check": [
+      "beat_end_balcony_sealed"
+    ],
+    "beat_hot_knob_retreat_indoors": [
+      "beat_call_police_and_wet_towel"
+    ],
+    "beat_choice_early_curtain_rope": [
+      "beat_end_curtain_rope_breaks"
+    ],
+    "beat_call_police_and_wet_towel": [
+      "beat_choice_hold_or_escape",
+      "beat_choice_climb_exterior_pipes",
+      "beat_choice_rush_elevator"
+    ],
+    "beat_choice_hold_or_escape": [],
+    "beat_choice_seal_door_gap": [
+      "beat_seal_balcony_glass"
+    ],
+    "beat_choice_climb_exterior_pipes": [
+      "beat_exterior_pipe_breaks"
+    ],
+    "beat_exterior_pipe_breaks": [
+      "beat_retreat_to_rooftop"
+    ],
+    "beat_retreat_to_rooftop": [
+      "beat_stairwell_smoke_blocked"
+    ],
+    "beat_stairwell_smoke_blocked": [
+      "beat_rooftop_exit_locked"
+    ],
+    "beat_rooftop_exit_locked": [
+      "beat_enter_ventilation_duct"
+    ],
+    "beat_enter_ventilation_duct": [
+      "beat_end_trapped_in_vent_duct"
+    ],
+    "beat_choice_rush_elevator": [
+      "beat_elevator_buttons_dead"
+    ],
+    "beat_elevator_buttons_dead": [
+      "beat_elevator_doors_open_hot"
+    ],
+    "beat_elevator_doors_open_hot": [
+      "beat_choice_wave_at_ladder",
+      "beat_choice_hide_elevator_shaft"
+    ],
+    "beat_choice_wave_at_ladder": [
+      "beat_end_rescued_by_ladder"
+    ],
+    "beat_choice_break_window_rope": [
+      "beat_end_sheet_rope_tears"
+    ],
+    "beat_choice_candle_light_wait": [
+      "beat_end_rescued_while_holding"
+    ],
+    "beat_seal_balcony_glass": [
+      "beat_rescue_signal_question"
+    ],
+    "beat_rescue_signal_question": [
+      "beat_choice_effective_rescue_signal",
+      "beat_choice_leap_to_neighbor",
+      "beat_choice_blind_sheet_rope"
+    ],
+    "beat_choice_leap_to_neighbor": [
+      "beat_end_fall_from_building"
+    ],
+    "beat_choice_blind_sheet_rope": [
+      "beat_end_sheet_rope_snaps"
+    ],
+    "beat_fire_reaches_apartment_door": [
+      "beat_judge_smoky_stairwell"
+    ],
+    "beat_judge_smoky_stairwell": [
+      "beat_choice_rope_escape_ready",
+      "beat_choice_charge_smoky_hall",
+      "beat_choice_hasty_balcony_rope",
+      "beat_choice_use_extinguisher"
+    ],
+    "beat_choice_charge_smoky_hall": [
+      "beat_end_overcome_in_hall_smoke"
+    ],
+    "beat_choice_hasty_balcony_rope": [
+      "beat_end_collapse_on_balcony"
+    ],
+    "beat_choice_rope_escape_ready": [
+      "beat_rope_escape_to_platform"
+    ],
+    "beat_choice_use_extinguisher": [
+      "beat_end_extinguisher_fails"
+    ],
+    "beat_rope_escape_to_platform": [
+      "beat_final_priority_question"
+    ],
+    "beat_final_priority_question": [
+      "beat_choice_evacuate_stairs_now",
+      "beat_choice_go_back_for_cat",
+      "beat_choice_signal_with_lighter"
+    ],
+    "beat_choice_go_back_for_cat": [
+      "beat_hallway_fire_blocks_exit"
+    ],
+    "beat_hallway_fire_blocks_exit": [
+      "beat_wait_in_place_with_cat"
+    ],
+    "beat_wait_in_place_with_cat": [
+      "beat_end_firefighters_breach_door"
+    ],
+    "beat_choice_signal_with_lighter": [
+      "beat_end_escape_rope_burns"
+    ],
+    "beat_at_door_assessment": [
+      "beat_choice_test_door_knob",
+      "beat_choice_seal_without_knob_test",
+      "beat_choice_balcony_without_check",
+      "beat_choice_early_curtain_rope"
+    ],
+    "beat_hold_inside_next_action": [
+      "beat_choice_seal_door_gap",
+      "beat_choice_break_window_rope",
+      "beat_choice_candle_light_wait"
+    ],
+    "beat_choice_effective_rescue_signal": [
+      "beat_fire_reaches_apartment_door"
+    ],
+    "beat_choice_evacuate_stairs_now": [
+      "beat_end_safe_ground_evacuation"
+    ],
+    "beat_return_to_door_bridge": [],
+    "beat_seal_door_after_call": [
+      "beat_hold_inside_next_action"
+    ],
+    "beat_strategy_after_door_closed": [
+      "beat_choice_rush_to_bathroom"
+    ],
+    "beat_choice_rush_to_bathroom": [
+      "beat_end_suffocate_indoors"
+    ],
+    "beat_choice_hide_elevator_shaft": [
+      "beat_end_die_in_elevator_shaft"
+    ],
+    "beat_end_suffocate_indoors": [],
+    "beat_end_balcony_sealed": [],
+    "beat_end_trapped_in_vent_duct": [],
+    "beat_end_rescued_by_ladder": [],
+    "beat_end_die_in_elevator_shaft": [],
+    "beat_end_fall_from_building": [],
+    "beat_end_sheet_rope_snaps": [],
+    "beat_end_overcome_in_hall_smoke": [],
+    "beat_end_collapse_on_balcony": [],
+    "beat_end_extinguisher_fails": [],
+    "beat_end_rescued_while_holding": [],
+    "beat_end_sheet_rope_tears": [],
+    "beat_end_safe_ground_evacuation": [],
+    "beat_end_firefighters_breach_door": [],
+    "beat_end_escape_rope_burns": [],
+    "beat_end_curtain_rope_breaks": []
+  },
+  "start_node_id": "beat_prologue_alarm",
+  "ending_node_ids": [
+    "beat_end_suffocate_indoors",
+    "beat_end_balcony_sealed",
+    "beat_end_trapped_in_vent_duct",
+    "beat_end_rescued_by_ladder",
+    "beat_end_die_in_elevator_shaft",
+    "beat_end_fall_from_building",
+    "beat_end_sheet_rope_snaps",
+    "beat_end_overcome_in_hall_smoke",
+    "beat_end_collapse_on_balcony",
+    "beat_end_extinguisher_fails",
+    "beat_end_rescued_while_holding",
+    "beat_end_sheet_rope_tears",
+    "beat_end_safe_ground_evacuation",
+    "beat_end_firefighters_breach_door",
+    "beat_end_escape_rope_burns",
+    "beat_end_curtain_rope_breaks"
+  ],
+  "jump_edges": [
+    {
+      "source": "beat_return_to_door_bridge",
+      "target": "beat_choice_test_door_knob",
+      "label": "Cross-area link"
+    },
+    {
+      "source": "beat_elevator_shaft_smoke",
+      "target": "beat_return_to_door_bridge",
+      "label": "Cross-area link"
+    },
+    {
+      "source": "beat_choice_hold_or_escape",
+      "target": "beat_hold_inside_next_action",
+      "label": "Cross-area link"
+    }
+  ],
+  "layout_hints": {
+    "layout_mode": "elk_layered",
+    "layout_style": "orthogonal",
+    "layout_version": "elk_layered_v1",
+    "card_width": 246,
+    "card_height": 176,
+    "fork_stub": 64,
+    "branch_gap": 96,
+    "right_bus_gap": 128,
+    "chain_lead": 112,
+    "node_positions": {
+      "beat_prologue_alarm": {
+        "x": 48,
+        "y": 1595
+      },
+      "beat_first_reaction": {
+        "x": 434,
+        "y": 1595
+      },
+      "beat_choice_calm_to_door": {
+        "x": 820,
+        "y": 839
+      },
+      "beat_choice_early_balcony_rescue": {
+        "x": 820,
+        "y": 1595
+      },
+      "beat_choice_call_emergency_first": {
+        "x": 820,
+        "y": 2309
+      },
+      "beat_at_door_assessment": {
+        "x": 1206,
+        "y": 839
+      },
+      "beat_balcony_smoke_trap": {
+        "x": 1206,
+        "y": 1595
+      },
+      "beat_wait_after_emergency_call": {
+        "x": 1206,
+        "y": 2309
+      },
+      "beat_choice_test_door_knob": {
+        "x": 1592,
+        "y": 296
+      },
+      "beat_choice_seal_without_knob_test": {
+        "x": 1592,
+        "y": 821
+      },
+      "beat_choice_balcony_without_check": {
+        "x": 1592,
+        "y": 1069
+      },
+      "beat_choice_early_curtain_rope": {
+        "x": 1592,
+        "y": 1317
+      },
+      "beat_balcony_realize_and_choose": {
+        "x": 1592,
+        "y": 1595
+      },
+      "beat_seal_door_after_call": {
+        "x": 1592,
+        "y": 2309
+      },
+      "beat_hot_knob_retreat_indoors": {
+        "x": 1978,
+        "y": 296
+      },
+      "beat_peek_through_door_crack": {
+        "x": 1978,
+        "y": 821
+      },
+      "beat_end_balcony_sealed": {
+        "x": 1978,
+        "y": 1069
+      },
+      "beat_end_curtain_rope_breaks": {
+        "x": 1978,
+        "y": 1317
+      },
+      "beat_choice_return_from_balcony": {
+        "x": 1978,
+        "y": 1565
+      },
+      "beat_choice_take_elevator_down": {
+        "x": 1978,
+        "y": 1813
+      },
+      "beat_hold_inside_next_action": {
+        "x": 1978,
+        "y": 2309
+      },
+      "beat_call_police_and_wet_towel": {
+        "x": 2364,
+        "y": 296
+      },
+      "beat_strategy_after_door_closed": {
+        "x": 2364,
+        "y": 821
+      },
+      "beat_elevator_shaft_smoke": {
+        "x": 2364,
+        "y": 1813
+      },
+      "beat_choice_seal_door_gap": {
+        "x": 2364,
+        "y": 2061
+      },
+      "beat_choice_break_window_rope": {
+        "x": 2364,
+        "y": 2309
+      },
+      "beat_choice_candle_light_wait": {
+        "x": 2364,
+        "y": 2557
+      },
+      "beat_choice_hold_or_escape": {
+        "x": 2750,
+        "y": 48
+      },
+      "beat_choice_climb_exterior_pipes": {
+        "x": 2750,
+        "y": 296
+      },
+      "beat_choice_rush_elevator": {
+        "x": 2750,
+        "y": 573
+      },
+      "beat_choice_rush_to_bathroom": {
+        "x": 2750,
+        "y": 821
+      },
+      "beat_seal_balcony_glass": {
+        "x": 2750,
+        "y": 2061
+      },
+      "beat_end_sheet_rope_tears": {
+        "x": 2750,
+        "y": 2309
+      },
+      "beat_end_rescued_while_holding": {
+        "x": 2750,
+        "y": 2557
+      },
+      "beat_exterior_pipe_breaks": {
+        "x": 3136,
+        "y": 296
+      },
+      "beat_elevator_buttons_dead": {
+        "x": 3136,
+        "y": 573
+      },
+      "beat_end_suffocate_indoors": {
+        "x": 3136,
+        "y": 821
+      },
+      "beat_rescue_signal_question": {
+        "x": 3136,
+        "y": 2061
+      },
+      "beat_retreat_to_rooftop": {
+        "x": 3522,
+        "y": 296
+      },
+      "beat_elevator_doors_open_hot": {
+        "x": 3522,
+        "y": 573
+      },
+      "beat_choice_effective_rescue_signal": {
+        "x": 3522,
+        "y": 1813
+      },
+      "beat_choice_leap_to_neighbor": {
+        "x": 3522,
+        "y": 2061
+      },
+      "beat_choice_blind_sheet_rope": {
+        "x": 3522,
+        "y": 2309
+      },
+      "beat_stairwell_smoke_blocked": {
+        "x": 3908,
+        "y": 296
+      },
+      "beat_choice_wave_at_ladder": {
+        "x": 3908,
+        "y": 544
+      },
+      "beat_choice_hide_elevator_shaft": {
+        "x": 3908,
+        "y": 792
+      },
+      "beat_fire_reaches_apartment_door": {
+        "x": 3908,
+        "y": 1813
+      },
+      "beat_end_fall_from_building": {
+        "x": 3908,
+        "y": 2061
+      },
+      "beat_end_sheet_rope_snaps": {
+        "x": 3908,
+        "y": 2309
+      },
+      "beat_rooftop_exit_locked": {
+        "x": 4294,
+        "y": 296
+      },
+      "beat_end_rescued_by_ladder": {
+        "x": 4294,
+        "y": 544
+      },
+      "beat_end_die_in_elevator_shaft": {
+        "x": 4294,
+        "y": 792
+      },
+      "beat_judge_smoky_stairwell": {
+        "x": 4294,
+        "y": 1813
+      },
+      "beat_enter_ventilation_duct": {
+        "x": 4680,
+        "y": 296
+      },
+      "beat_choice_rope_escape_ready": {
+        "x": 4680,
+        "y": 1548
+      },
+      "beat_choice_charge_smoky_hall": {
+        "x": 4680,
+        "y": 1796
+      },
+      "beat_choice_hasty_balcony_rope": {
+        "x": 4680,
+        "y": 2044
+      },
+      "beat_choice_use_extinguisher": {
+        "x": 4680,
+        "y": 2292
+      },
+      "beat_end_trapped_in_vent_duct": {
+        "x": 5066,
+        "y": 296
+      },
+      "beat_rope_escape_to_platform": {
+        "x": 5066,
+        "y": 1548
+      },
+      "beat_end_overcome_in_hall_smoke": {
+        "x": 5066,
+        "y": 1796
+      },
+      "beat_end_collapse_on_balcony": {
+        "x": 5066,
+        "y": 2044
+      },
+      "beat_end_extinguisher_fails": {
+        "x": 5066,
+        "y": 2292
+      },
+      "beat_final_priority_question": {
+        "x": 5452,
+        "y": 1548
+      },
+      "beat_choice_evacuate_stairs_now": {
+        "x": 5838,
+        "y": 1300
+      },
+      "beat_choice_go_back_for_cat": {
+        "x": 5838,
+        "y": 1548
+      },
+      "beat_choice_signal_with_lighter": {
+        "x": 5838,
+        "y": 1796
+      },
+      "beat_end_safe_ground_evacuation": {
+        "x": 6224,
+        "y": 1300
+      },
+      "beat_hallway_fire_blocks_exit": {
+        "x": 6224,
+        "y": 1548
+      },
+      "beat_end_escape_rope_burns": {
+        "x": 6224,
+        "y": 1796
+      },
+      "beat_wait_in_place_with_cat": {
+        "x": 6610,
+        "y": 1548
+      },
+      "beat_end_firefighters_breach_door": {
+        "x": 6996,
+        "y": 1548
+      },
+      "beat_return_to_door_bridge": {
+        "x": 2304,
+        "y": 1565
+      }
+    },
+    "layout_engine": "elk",
+    "child_order": {
+      "beat_first_reaction": [
+        "beat_choice_calm_to_door",
+        "beat_choice_early_balcony_rescue",
+        "beat_choice_call_emergency_first"
+      ],
+      "beat_balcony_realize_and_choose": [
+        "beat_choice_return_from_balcony",
+        "beat_choice_take_elevator_down"
+      ],
+      "beat_at_door_assessment": [
+        "beat_choice_test_door_knob",
+        "beat_choice_seal_without_knob_test",
+        "beat_choice_balcony_without_check",
+        "beat_choice_early_curtain_rope"
+      ],
+      "beat_strategy_after_door_closed": [
+        "beat_choice_rush_to_bathroom"
+      ],
+      "beat_call_police_and_wet_towel": [
+        "beat_choice_hold_or_escape",
+        "beat_choice_climb_exterior_pipes",
+        "beat_choice_rush_elevator"
+      ],
+      "beat_rescue_signal_question": [
+        "beat_choice_effective_rescue_signal",
+        "beat_choice_leap_to_neighbor",
+        "beat_choice_blind_sheet_rope"
+      ],
+      "beat_judge_smoky_stairwell": [
+        "beat_choice_rope_escape_ready",
+        "beat_choice_charge_smoky_hall",
+        "beat_choice_hasty_balcony_rope",
+        "beat_choice_use_extinguisher"
+      ],
+      "beat_final_priority_question": [
+        "beat_choice_evacuate_stairs_now",
+        "beat_choice_go_back_for_cat",
+        "beat_choice_signal_with_lighter"
+      ],
+      "beat_elevator_doors_open_hot": [
+        "beat_choice_wave_at_ladder",
+        "beat_choice_hide_elevator_shaft"
+      ],
+      "beat_hold_inside_next_action": [
+        "beat_choice_seal_door_gap",
+        "beat_choice_break_window_rope",
+        "beat_choice_candle_light_wait"
+      ]
+    },
+    "elk": {
+      "elk.algorithm": "layered",
+      "elk.direction": "RIGHT",
+      "elk.edgeRouting": "ORTHOGONAL",
+      "elk.spacing.nodeNode": "72",
+      "elk.layered.spacing.nodeNodeBetweenLayers": "140",
+      "elk.layered.spacing.edgeNodeBetweenLayers": "48",
+      "elk.layered.nodePlacement.strategy": "BRANDES_KOEPF",
+      "elk.layered.crossingMinimization.strategy": "LAYER_SWEEP",
+      "elk.layered.considerModelOrder.strategy": "NODES_AND_EDGES",
+      "elk.layered.thoroughness": "7"
+    },
+    "edge_routes": {
+      "beat_prologue_alarm->beat_first_reaction": [
+        {
+          "x": 258,
+          "y": 1647
+        },
+        {
+          "x": 398,
+          "y": 1647
+        }
+      ],
+      "beat_first_reaction->beat_choice_calm_to_door": [
+        {
+          "x": 644,
+          "y": 1603
+        },
+        {
+          "x": 692,
+          "y": 1603
+        },
+        {
+          "x": 692,
+          "y": 891
+        },
+        {
+          "x": 784,
+          "y": 891
+        }
+      ],
+      "beat_first_reaction->beat_choice_early_balcony_rescue": [
+        {
+          "x": 644,
+          "y": 1647
+        },
+        {
+          "x": 784,
+          "y": 1647
+        }
+      ],
+      "beat_first_reaction->beat_choice_call_emergency_first": [
+        {
+          "x": 644,
+          "y": 1691
+        },
+        {
+          "x": 692,
+          "y": 1691
+        },
+        {
+          "x": 692,
+          "y": 2361
+        },
+        {
+          "x": 784,
+          "y": 2361
+        }
+      ],
+      "beat_choice_calm_to_door->beat_at_door_assessment": [
+        {
+          "x": 1030,
+          "y": 891
+        },
+        {
+          "x": 1170,
+          "y": 891
+        }
+      ],
+      "beat_choice_early_balcony_rescue->beat_balcony_smoke_trap": [
+        {
+          "x": 1030,
+          "y": 1647
+        },
+        {
+          "x": 1170,
+          "y": 1647
+        }
+      ],
+      "beat_balcony_smoke_trap->beat_balcony_realize_and_choose": [
+        {
+          "x": 1416,
+          "y": 1647
+        },
+        {
+          "x": 1556,
+          "y": 1647
+        }
+      ],
+      "beat_balcony_realize_and_choose->beat_choice_return_from_balcony": [
+        {
+          "x": 1802,
+          "y": 1617
+        },
+        {
+          "x": 1942,
+          "y": 1617
+        }
+      ],
+      "beat_balcony_realize_and_choose->beat_choice_take_elevator_down": [
+        {
+          "x": 1802,
+          "y": 1676
+        },
+        {
+          "x": 1850,
+          "y": 1676
+        },
+        {
+          "x": 1850,
+          "y": 1865
+        },
+        {
+          "x": 1942,
+          "y": 1865
+        }
+      ],
+      "beat_choice_take_elevator_down->beat_elevator_shaft_smoke": [
+        {
+          "x": 2188,
+          "y": 1865
+        },
+        {
+          "x": 2328,
+          "y": 1865
+        }
+      ],
+      "beat_choice_call_emergency_first->beat_wait_after_emergency_call": [
+        {
+          "x": 1030,
+          "y": 2361
+        },
+        {
+          "x": 1170,
+          "y": 2361
+        }
+      ],
+      "beat_wait_after_emergency_call->beat_seal_door_after_call": [
+        {
+          "x": 1416,
+          "y": 2361
+        },
+        {
+          "x": 1556,
+          "y": 2361
+        }
+      ],
+      "beat_choice_test_door_knob->beat_hot_knob_retreat_indoors": [
+        {
+          "x": 1802,
+          "y": 348
+        },
+        {
+          "x": 1942,
+          "y": 348
+        }
+      ],
+      "beat_choice_seal_without_knob_test->beat_peek_through_door_crack": [
+        {
+          "x": 1802,
+          "y": 873
+        },
+        {
+          "x": 1942,
+          "y": 873
+        }
+      ],
+      "beat_peek_through_door_crack->beat_strategy_after_door_closed": [
+        {
+          "x": 2188,
+          "y": 873
+        },
+        {
+          "x": 2328,
+          "y": 873
+        }
+      ],
+      "beat_choice_balcony_without_check->beat_end_balcony_sealed": [
+        {
+          "x": 1802,
+          "y": 1121
+        },
+        {
+          "x": 1942,
+          "y": 1121
+        }
+      ],
+      "beat_hot_knob_retreat_indoors->beat_call_police_and_wet_towel": [
+        {
+          "x": 2188,
+          "y": 348
+        },
+        {
+          "x": 2328,
+          "y": 348
+        }
+      ],
+      "beat_choice_early_curtain_rope->beat_end_curtain_rope_breaks": [
+        {
+          "x": 1802,
+          "y": 1369
+        },
+        {
+          "x": 1942,
+          "y": 1369
+        }
+      ],
+      "beat_call_police_and_wet_towel->beat_choice_hold_or_escape": [
+        {
+          "x": 2574,
+          "y": 304
+        },
+        {
+          "x": 2622,
+          "y": 304
+        },
+        {
+          "x": 2622,
+          "y": 100
+        },
+        {
+          "x": 2714,
+          "y": 100
+        }
+      ],
+      "beat_call_police_and_wet_towel->beat_choice_climb_exterior_pipes": [
+        {
+          "x": 2574,
+          "y": 348
+        },
+        {
+          "x": 2714,
+          "y": 348
+        }
+      ],
+      "beat_call_police_and_wet_towel->beat_choice_rush_elevator": [
+        {
+          "x": 2574,
+          "y": 392
+        },
+        {
+          "x": 2622,
+          "y": 392
+        },
+        {
+          "x": 2622,
+          "y": 625
+        },
+        {
+          "x": 2714,
+          "y": 625
+        }
+      ],
+      "beat_choice_seal_door_gap->beat_seal_balcony_glass": [
+        {
+          "x": 2574,
+          "y": 2113
+        },
+        {
+          "x": 2714,
+          "y": 2113
+        }
+      ],
+      "beat_choice_climb_exterior_pipes->beat_exterior_pipe_breaks": [
+        {
+          "x": 2960,
+          "y": 348
+        },
+        {
+          "x": 3100,
+          "y": 348
+        }
+      ],
+      "beat_exterior_pipe_breaks->beat_retreat_to_rooftop": [
+        {
+          "x": 3346,
+          "y": 348
+        },
+        {
+          "x": 3486,
+          "y": 348
+        }
+      ],
+      "beat_retreat_to_rooftop->beat_stairwell_smoke_blocked": [
+        {
+          "x": 3732,
+          "y": 348
+        },
+        {
+          "x": 3872,
+          "y": 348
+        }
+      ],
+      "beat_stairwell_smoke_blocked->beat_rooftop_exit_locked": [
+        {
+          "x": 4118,
+          "y": 348
+        },
+        {
+          "x": 4258,
+          "y": 348
+        }
+      ],
+      "beat_rooftop_exit_locked->beat_enter_ventilation_duct": [
+        {
+          "x": 4504,
+          "y": 348
+        },
+        {
+          "x": 4644,
+          "y": 348
+        }
+      ],
+      "beat_enter_ventilation_duct->beat_end_trapped_in_vent_duct": [
+        {
+          "x": 4890,
+          "y": 348
+        },
+        {
+          "x": 5030,
+          "y": 348
+        }
+      ],
+      "beat_choice_rush_elevator->beat_elevator_buttons_dead": [
+        {
+          "x": 2960,
+          "y": 625
+        },
+        {
+          "x": 3100,
+          "y": 625
+        }
+      ],
+      "beat_elevator_buttons_dead->beat_elevator_doors_open_hot": [
+        {
+          "x": 3346,
+          "y": 625
+        },
+        {
+          "x": 3486,
+          "y": 625
+        }
+      ],
+      "beat_elevator_doors_open_hot->beat_choice_wave_at_ladder": [
+        {
+          "x": 3732,
+          "y": 596
+        },
+        {
+          "x": 3872,
+          "y": 596
+        }
+      ],
+      "beat_elevator_doors_open_hot->beat_choice_hide_elevator_shaft": [
+        {
+          "x": 3732,
+          "y": 655
+        },
+        {
+          "x": 3780,
+          "y": 655
+        },
+        {
+          "x": 3780,
+          "y": 844
+        },
+        {
+          "x": 3872,
+          "y": 844
+        }
+      ],
+      "beat_choice_wave_at_ladder->beat_end_rescued_by_ladder": [
+        {
+          "x": 4118,
+          "y": 596
+        },
+        {
+          "x": 4258,
+          "y": 596
+        }
+      ],
+      "beat_choice_break_window_rope->beat_end_sheet_rope_tears": [
+        {
+          "x": 2574,
+          "y": 2361
+        },
+        {
+          "x": 2714,
+          "y": 2361
+        }
+      ],
+      "beat_choice_candle_light_wait->beat_end_rescued_while_holding": [
+        {
+          "x": 2574,
+          "y": 2609
+        },
+        {
+          "x": 2714,
+          "y": 2609
+        }
+      ],
+      "beat_seal_balcony_glass->beat_rescue_signal_question": [
+        {
+          "x": 2960,
+          "y": 2113
+        },
+        {
+          "x": 3100,
+          "y": 2113
+        }
+      ],
+      "beat_rescue_signal_question->beat_choice_effective_rescue_signal": [
+        {
+          "x": 3346,
+          "y": 2069
+        },
+        {
+          "x": 3394,
+          "y": 2069
+        },
+        {
+          "x": 3394,
+          "y": 1865
+        },
+        {
+          "x": 3486,
+          "y": 1865
+        }
+      ],
+      "beat_rescue_signal_question->beat_choice_leap_to_neighbor": [
+        {
+          "x": 3346,
+          "y": 2113
+        },
+        {
+          "x": 3486,
+          "y": 2113
+        }
+      ],
+      "beat_rescue_signal_question->beat_choice_blind_sheet_rope": [
+        {
+          "x": 3346,
+          "y": 2157
+        },
+        {
+          "x": 3394,
+          "y": 2157
+        },
+        {
+          "x": 3394,
+          "y": 2361
+        },
+        {
+          "x": 3486,
+          "y": 2361
+        }
+      ],
+      "beat_choice_leap_to_neighbor->beat_end_fall_from_building": [
+        {
+          "x": 3732,
+          "y": 2113
+        },
+        {
+          "x": 3872,
+          "y": 2113
+        }
+      ],
+      "beat_choice_blind_sheet_rope->beat_end_sheet_rope_snaps": [
+        {
+          "x": 3732,
+          "y": 2361
+        },
+        {
+          "x": 3872,
+          "y": 2361
+        }
+      ],
+      "beat_fire_reaches_apartment_door->beat_judge_smoky_stairwell": [
+        {
+          "x": 4118,
+          "y": 1865
+        },
+        {
+          "x": 4258,
+          "y": 1865
+        }
+      ],
+      "beat_judge_smoky_stairwell->beat_choice_rope_escape_ready": [
+        {
+          "x": 4504,
+          "y": 1813
+        },
+        {
+          "x": 4552,
+          "y": 1813
+        },
+        {
+          "x": 4552,
+          "y": 1600
+        },
+        {
+          "x": 4644,
+          "y": 1600
+        }
+      ],
+      "beat_judge_smoky_stairwell->beat_choice_charge_smoky_hall": [
+        {
+          "x": 4504,
+          "y": 1848
+        },
+        {
+          "x": 4644,
+          "y": 1848
+        }
+      ],
+      "beat_judge_smoky_stairwell->beat_choice_hasty_balcony_rope": [
+        {
+          "x": 4504,
+          "y": 1883
+        },
+        {
+          "x": 4562,
+          "y": 1883
+        },
+        {
+          "x": 4562,
+          "y": 2096
+        },
+        {
+          "x": 4644,
+          "y": 2096
+        }
+      ],
+      "beat_judge_smoky_stairwell->beat_choice_use_extinguisher": [
+        {
+          "x": 4504,
+          "y": 1918
+        },
+        {
+          "x": 4552,
+          "y": 1918
+        },
+        {
+          "x": 4552,
+          "y": 2344
+        },
+        {
+          "x": 4644,
+          "y": 2344
+        }
+      ],
+      "beat_choice_charge_smoky_hall->beat_end_overcome_in_hall_smoke": [
+        {
+          "x": 4890,
+          "y": 1848
+        },
+        {
+          "x": 5030,
+          "y": 1848
+        }
+      ],
+      "beat_choice_hasty_balcony_rope->beat_end_collapse_on_balcony": [
+        {
+          "x": 4890,
+          "y": 2096
+        },
+        {
+          "x": 5030,
+          "y": 2096
+        }
+      ],
+      "beat_choice_rope_escape_ready->beat_rope_escape_to_platform": [
+        {
+          "x": 4890,
+          "y": 1600
+        },
+        {
+          "x": 5030,
+          "y": 1600
+        }
+      ],
+      "beat_choice_use_extinguisher->beat_end_extinguisher_fails": [
+        {
+          "x": 4890,
+          "y": 2344
+        },
+        {
+          "x": 5030,
+          "y": 2344
+        }
+      ],
+      "beat_rope_escape_to_platform->beat_final_priority_question": [
+        {
+          "x": 5276,
+          "y": 1600
+        },
+        {
+          "x": 5416,
+          "y": 1600
+        }
+      ],
+      "beat_final_priority_question->beat_choice_evacuate_stairs_now": [
+        {
+          "x": 5662,
+          "y": 1556
+        },
+        {
+          "x": 5710,
+          "y": 1556
+        },
+        {
+          "x": 5710,
+          "y": 1352
+        },
+        {
+          "x": 5802,
+          "y": 1352
+        }
+      ],
+      "beat_final_priority_question->beat_choice_go_back_for_cat": [
+        {
+          "x": 5662,
+          "y": 1600
+        },
+        {
+          "x": 5802,
+          "y": 1600
+        }
+      ],
+      "beat_final_priority_question->beat_choice_signal_with_lighter": [
+        {
+          "x": 5662,
+          "y": 1644
+        },
+        {
+          "x": 5710,
+          "y": 1644
+        },
+        {
+          "x": 5710,
+          "y": 1848
+        },
+        {
+          "x": 5802,
+          "y": 1848
+        }
+      ],
+      "beat_choice_go_back_for_cat->beat_hallway_fire_blocks_exit": [
+        {
+          "x": 6048,
+          "y": 1600
+        },
+        {
+          "x": 6188,
+          "y": 1600
+        }
+      ],
+      "beat_hallway_fire_blocks_exit->beat_wait_in_place_with_cat": [
+        {
+          "x": 6434,
+          "y": 1600
+        },
+        {
+          "x": 6574,
+          "y": 1600
+        }
+      ],
+      "beat_wait_in_place_with_cat->beat_end_firefighters_breach_door": [
+        {
+          "x": 6820,
+          "y": 1600
+        },
+        {
+          "x": 6960,
+          "y": 1600
+        }
+      ],
+      "beat_choice_signal_with_lighter->beat_end_escape_rope_burns": [
+        {
+          "x": 6048,
+          "y": 1848
+        },
+        {
+          "x": 6188,
+          "y": 1848
+        }
+      ],
+      "beat_at_door_assessment->beat_choice_test_door_knob": [
+        {
+          "x": 1416,
+          "y": 838
+        },
+        {
+          "x": 1464,
+          "y": 838
+        },
+        {
+          "x": 1464,
+          "y": 348
+        },
+        {
+          "x": 1556,
+          "y": 348
+        }
+      ],
+      "beat_at_door_assessment->beat_choice_seal_without_knob_test": [
+        {
+          "x": 1416,
+          "y": 873
+        },
+        {
+          "x": 1556,
+          "y": 873
+        }
+      ],
+      "beat_at_door_assessment->beat_choice_balcony_without_check": [
+        {
+          "x": 1416,
+          "y": 909
+        },
+        {
+          "x": 1474,
+          "y": 909
+        },
+        {
+          "x": 1474,
+          "y": 1121
+        },
+        {
+          "x": 1556,
+          "y": 1121
+        }
+      ],
+      "beat_at_door_assessment->beat_choice_early_curtain_rope": [
+        {
+          "x": 1416,
+          "y": 944
+        },
+        {
+          "x": 1464,
+          "y": 944
+        },
+        {
+          "x": 1464,
+          "y": 1369
+        },
+        {
+          "x": 1556,
+          "y": 1369
+        }
+      ],
+      "beat_hold_inside_next_action->beat_choice_seal_door_gap": [
+        {
+          "x": 2188,
+          "y": 2317
+        },
+        {
+          "x": 2236,
+          "y": 2317
+        },
+        {
+          "x": 2236,
+          "y": 2113
+        },
+        {
+          "x": 2328,
+          "y": 2113
+        }
+      ],
+      "beat_hold_inside_next_action->beat_choice_break_window_rope": [
+        {
+          "x": 2188,
+          "y": 2361
+        },
+        {
+          "x": 2328,
+          "y": 2361
+        }
+      ],
+      "beat_hold_inside_next_action->beat_choice_candle_light_wait": [
+        {
+          "x": 2188,
+          "y": 2405
+        },
+        {
+          "x": 2236,
+          "y": 2405
+        },
+        {
+          "x": 2236,
+          "y": 2609
+        },
+        {
+          "x": 2328,
+          "y": 2609
+        }
+      ],
+      "beat_choice_effective_rescue_signal->beat_fire_reaches_apartment_door": [
+        {
+          "x": 3732,
+          "y": 1865
+        },
+        {
+          "x": 3872,
+          "y": 1865
+        }
+      ],
+      "beat_choice_evacuate_stairs_now->beat_end_safe_ground_evacuation": [
+        {
+          "x": 6048,
+          "y": 1352
+        },
+        {
+          "x": 6188,
+          "y": 1352
+        }
+      ],
+      "beat_seal_door_after_call->beat_hold_inside_next_action": [
+        {
+          "x": 1802,
+          "y": 2361
+        },
+        {
+          "x": 1942,
+          "y": 2361
+        }
+      ],
+      "beat_strategy_after_door_closed->beat_choice_rush_to_bathroom": [
+        {
+          "x": 2574,
+          "y": 873
+        },
+        {
+          "x": 2714,
+          "y": 873
+        }
+      ],
+      "beat_choice_rush_to_bathroom->beat_end_suffocate_indoors": [
+        {
+          "x": 2960,
+          "y": 873
+        },
+        {
+          "x": 3100,
+          "y": 873
+        }
+      ],
+      "beat_choice_hide_elevator_shaft->beat_end_die_in_elevator_shaft": [
+        {
+          "x": 4118,
+          "y": 844
+        },
+        {
+          "x": 4258,
+          "y": 844
+        }
+      ],
+      "beat_choice_return_from_balcony->beat_return_to_door_bridge": [
+        {
+          "x": 2224,
+          "y": 1653
+        },
+        {
+          "x": 2304,
+          "y": 1653
+        }
+      ]
+    }
+  },
+  "metadata": {
+    "model": "storyline",
+    "no_levels": true,
+    "storyline_title": "High-Rise Fire: Every Second Counts",
+    "hand_authored": true,
+    "source_reference": "DecisionTheater/Output1/test2509261553_text_only.json",
+    "node_count": 73,
+    "story_outline": "Act I · Alarm and first response → Act II · Door assessment → Act III · Shelter in place / common mistakes → Act IV · Balcony signaling → Act V · Resisting impulse and rope escape → Act VI · Evacuation endings. Prompts = regular nodes, parallel branches = decision nodes; red dashed lines = cross-act jumps.",
+    "layout_hints": {
+      "layout_mode": "elk_layered",
+      "layout_style": "orthogonal",
+      "layout_version": "elk_layered_v1",
+      "card_width": 246,
+      "card_height": 176,
+      "fork_stub": 64,
+      "branch_gap": 96,
+      "right_bus_gap": 128,
+      "chain_lead": 112,
+      "node_positions": {
+        "beat_prologue_alarm": {
+          "x": 48,
+          "y": 1595
+        },
+        "beat_first_reaction": {
+          "x": 434,
+          "y": 1595
+        },
+        "beat_choice_calm_to_door": {
+          "x": 820,
+          "y": 839
+        },
+        "beat_choice_early_balcony_rescue": {
+          "x": 820,
+          "y": 1595
+        },
+        "beat_choice_call_emergency_first": {
+          "x": 820,
+          "y": 2309
+        },
+        "beat_at_door_assessment": {
+          "x": 1206,
+          "y": 839
+        },
+        "beat_balcony_smoke_trap": {
+          "x": 1206,
+          "y": 1595
+        },
+        "beat_wait_after_emergency_call": {
+          "x": 1206,
+          "y": 2309
+        },
+        "beat_choice_test_door_knob": {
+          "x": 1592,
+          "y": 296
+        },
+        "beat_choice_seal_without_knob_test": {
+          "x": 1592,
+          "y": 821
+        },
+        "beat_choice_balcony_without_check": {
+          "x": 1592,
+          "y": 1069
+        },
+        "beat_choice_early_curtain_rope": {
+          "x": 1592,
+          "y": 1317
+        },
+        "beat_balcony_realize_and_choose": {
+          "x": 1592,
+          "y": 1595
+        },
+        "beat_seal_door_after_call": {
+          "x": 1592,
+          "y": 2309
+        },
+        "beat_hot_knob_retreat_indoors": {
+          "x": 1978,
+          "y": 296
+        },
+        "beat_peek_through_door_crack": {
+          "x": 1978,
+          "y": 821
+        },
+        "beat_end_balcony_sealed": {
+          "x": 1978,
+          "y": 1069
+        },
+        "beat_end_curtain_rope_breaks": {
+          "x": 1978,
+          "y": 1317
+        },
+        "beat_choice_return_from_balcony": {
+          "x": 1978,
+          "y": 1565
+        },
+        "beat_choice_take_elevator_down": {
+          "x": 1978,
+          "y": 1813
+        },
+        "beat_hold_inside_next_action": {
+          "x": 1978,
+          "y": 2309
+        },
+        "beat_call_police_and_wet_towel": {
+          "x": 2364,
+          "y": 296
+        },
+        "beat_strategy_after_door_closed": {
+          "x": 2364,
+          "y": 821
+        },
+        "beat_elevator_shaft_smoke": {
+          "x": 2364,
+          "y": 1813
+        },
+        "beat_choice_seal_door_gap": {
+          "x": 2364,
+          "y": 2061
+        },
+        "beat_choice_break_window_rope": {
+          "x": 2364,
+          "y": 2309
+        },
+        "beat_choice_candle_light_wait": {
+          "x": 2364,
+          "y": 2557
+        },
+        "beat_choice_hold_or_escape": {
+          "x": 2750,
+          "y": 48
+        },
+        "beat_choice_climb_exterior_pipes": {
+          "x": 2750,
+          "y": 296
+        },
+        "beat_choice_rush_elevator": {
+          "x": 2750,
+          "y": 573
+        },
+        "beat_choice_rush_to_bathroom": {
+          "x": 2750,
+          "y": 821
+        },
+        "beat_seal_balcony_glass": {
+          "x": 2750,
+          "y": 2061
+        },
+        "beat_end_sheet_rope_tears": {
+          "x": 2750,
+          "y": 2309
+        },
+        "beat_end_rescued_while_holding": {
+          "x": 2750,
+          "y": 2557
+        },
+        "beat_exterior_pipe_breaks": {
+          "x": 3136,
+          "y": 296
+        },
+        "beat_elevator_buttons_dead": {
+          "x": 3136,
+          "y": 573
+        },
+        "beat_end_suffocate_indoors": {
+          "x": 3136,
+          "y": 821
+        },
+        "beat_rescue_signal_question": {
+          "x": 3136,
+          "y": 2061
+        },
+        "beat_retreat_to_rooftop": {
+          "x": 3522,
+          "y": 296
+        },
+        "beat_elevator_doors_open_hot": {
+          "x": 3522,
+          "y": 573
+        },
+        "beat_choice_effective_rescue_signal": {
+          "x": 3522,
+          "y": 1813
+        },
+        "beat_choice_leap_to_neighbor": {
+          "x": 3522,
+          "y": 2061
+        },
+        "beat_choice_blind_sheet_rope": {
+          "x": 3522,
+          "y": 2309
+        },
+        "beat_stairwell_smoke_blocked": {
+          "x": 3908,
+          "y": 296
+        },
+        "beat_choice_wave_at_ladder": {
+          "x": 3908,
+          "y": 544
+        },
+        "beat_choice_hide_elevator_shaft": {
+          "x": 3908,
+          "y": 792
+        },
+        "beat_fire_reaches_apartment_door": {
+          "x": 3908,
+          "y": 1813
+        },
+        "beat_end_fall_from_building": {
+          "x": 3908,
+          "y": 2061
+        },
+        "beat_end_sheet_rope_snaps": {
+          "x": 3908,
+          "y": 2309
+        },
+        "beat_rooftop_exit_locked": {
+          "x": 4294,
+          "y": 296
+        },
+        "beat_end_rescued_by_ladder": {
+          "x": 4294,
+          "y": 544
+        },
+        "beat_end_die_in_elevator_shaft": {
+          "x": 4294,
+          "y": 792
+        },
+        "beat_judge_smoky_stairwell": {
+          "x": 4294,
+          "y": 1813
+        },
+        "beat_enter_ventilation_duct": {
+          "x": 4680,
+          "y": 296
+        },
+        "beat_choice_rope_escape_ready": {
+          "x": 4680,
+          "y": 1548
+        },
+        "beat_choice_charge_smoky_hall": {
+          "x": 4680,
+          "y": 1796
+        },
+        "beat_choice_hasty_balcony_rope": {
+          "x": 4680,
+          "y": 2044
+        },
+        "beat_choice_use_extinguisher": {
+          "x": 4680,
+          "y": 2292
+        },
+        "beat_end_trapped_in_vent_duct": {
+          "x": 5066,
+          "y": 296
+        },
+        "beat_rope_escape_to_platform": {
+          "x": 5066,
+          "y": 1548
+        },
+        "beat_end_overcome_in_hall_smoke": {
+          "x": 5066,
+          "y": 1796
+        },
+        "beat_end_collapse_on_balcony": {
+          "x": 5066,
+          "y": 2044
+        },
+        "beat_end_extinguisher_fails": {
+          "x": 5066,
+          "y": 2292
+        },
+        "beat_final_priority_question": {
+          "x": 5452,
+          "y": 1548
+        },
+        "beat_choice_evacuate_stairs_now": {
+          "x": 5838,
+          "y": 1300
+        },
+        "beat_choice_go_back_for_cat": {
+          "x": 5838,
+          "y": 1548
+        },
+        "beat_choice_signal_with_lighter": {
+          "x": 5838,
+          "y": 1796
+        },
+        "beat_end_safe_ground_evacuation": {
+          "x": 6224,
+          "y": 1300
+        },
+        "beat_hallway_fire_blocks_exit": {
+          "x": 6224,
+          "y": 1548
+        },
+        "beat_end_escape_rope_burns": {
+          "x": 6224,
+          "y": 1796
+        },
+        "beat_wait_in_place_with_cat": {
+          "x": 6610,
+          "y": 1548
+        },
+        "beat_end_firefighters_breach_door": {
+          "x": 6996,
+          "y": 1548
+        },
+        "beat_return_to_door_bridge": {
+          "x": 2304,
+          "y": 1565
+        }
+      },
+      "layout_engine": "elk",
+      "child_order": {
+        "beat_first_reaction": [
+          "beat_choice_calm_to_door",
+          "beat_choice_early_balcony_rescue",
+          "beat_choice_call_emergency_first"
+        ],
+        "beat_balcony_realize_and_choose": [
+          "beat_choice_return_from_balcony",
+          "beat_choice_take_elevator_down"
+        ],
+        "beat_at_door_assessment": [
+          "beat_choice_test_door_knob",
+          "beat_choice_seal_without_knob_test",
+          "beat_choice_balcony_without_check",
+          "beat_choice_early_curtain_rope"
+        ],
+        "beat_strategy_after_door_closed": [
+          "beat_choice_rush_to_bathroom"
+        ],
+        "beat_call_police_and_wet_towel": [
+          "beat_choice_hold_or_escape",
+          "beat_choice_climb_exterior_pipes",
+          "beat_choice_rush_elevator"
+        ],
+        "beat_rescue_signal_question": [
+          "beat_choice_effective_rescue_signal",
+          "beat_choice_leap_to_neighbor",
+          "beat_choice_blind_sheet_rope"
+        ],
+        "beat_judge_smoky_stairwell": [
+          "beat_choice_rope_escape_ready",
+          "beat_choice_charge_smoky_hall",
+          "beat_choice_hasty_balcony_rope",
+          "beat_choice_use_extinguisher"
+        ],
+        "beat_final_priority_question": [
+          "beat_choice_evacuate_stairs_now",
+          "beat_choice_go_back_for_cat",
+          "beat_choice_signal_with_lighter"
+        ],
+        "beat_elevator_doors_open_hot": [
+          "beat_choice_wave_at_ladder",
+          "beat_choice_hide_elevator_shaft"
+        ],
+        "beat_hold_inside_next_action": [
+          "beat_choice_seal_door_gap",
+          "beat_choice_break_window_rope",
+          "beat_choice_candle_light_wait"
+        ]
+      },
+      "elk": {
+        "elk.algorithm": "layered",
+        "elk.direction": "RIGHT",
+        "elk.edgeRouting": "ORTHOGONAL",
+        "elk.spacing.nodeNode": "72",
+        "elk.layered.spacing.nodeNodeBetweenLayers": "140",
+        "elk.layered.spacing.edgeNodeBetweenLayers": "48",
+        "elk.layered.nodePlacement.strategy": "BRANDES_KOEPF",
+        "elk.layered.crossingMinimization.strategy": "LAYER_SWEEP",
+        "elk.layered.considerModelOrder.strategy": "NODES_AND_EDGES",
+        "elk.layered.thoroughness": "7"
+      },
+      "edge_routes": {
+        "beat_prologue_alarm->beat_first_reaction": [
+          {
+            "x": 258,
+            "y": 1647
+          },
+          {
+            "x": 398,
+            "y": 1647
+          }
+        ],
+        "beat_first_reaction->beat_choice_calm_to_door": [
+          {
+            "x": 644,
+            "y": 1603
+          },
+          {
+            "x": 692,
+            "y": 1603
+          },
+          {
+            "x": 692,
+            "y": 891
+          },
+          {
+            "x": 784,
+            "y": 891
+          }
+        ],
+        "beat_first_reaction->beat_choice_early_balcony_rescue": [
+          {
+            "x": 644,
+            "y": 1647
+          },
+          {
+            "x": 784,
+            "y": 1647
+          }
+        ],
+        "beat_first_reaction->beat_choice_call_emergency_first": [
+          {
+            "x": 644,
+            "y": 1691
+          },
+          {
+            "x": 692,
+            "y": 1691
+          },
+          {
+            "x": 692,
+            "y": 2361
+          },
+          {
+            "x": 784,
+            "y": 2361
+          }
+        ],
+        "beat_choice_calm_to_door->beat_at_door_assessment": [
+          {
+            "x": 1030,
+            "y": 891
+          },
+          {
+            "x": 1170,
+            "y": 891
+          }
+        ],
+        "beat_choice_early_balcony_rescue->beat_balcony_smoke_trap": [
+          {
+            "x": 1030,
+            "y": 1647
+          },
+          {
+            "x": 1170,
+            "y": 1647
+          }
+        ],
+        "beat_balcony_smoke_trap->beat_balcony_realize_and_choose": [
+          {
+            "x": 1416,
+            "y": 1647
+          },
+          {
+            "x": 1556,
+            "y": 1647
+          }
+        ],
+        "beat_balcony_realize_and_choose->beat_choice_return_from_balcony": [
+          {
+            "x": 1802,
+            "y": 1617
+          },
+          {
+            "x": 1942,
+            "y": 1617
+          }
+        ],
+        "beat_balcony_realize_and_choose->beat_choice_take_elevator_down": [
+          {
+            "x": 1802,
+            "y": 1676
+          },
+          {
+            "x": 1850,
+            "y": 1676
+          },
+          {
+            "x": 1850,
+            "y": 1865
+          },
+          {
+            "x": 1942,
+            "y": 1865
+          }
+        ],
+        "beat_choice_take_elevator_down->beat_elevator_shaft_smoke": [
+          {
+            "x": 2188,
+            "y": 1865
+          },
+          {
+            "x": 2328,
+            "y": 1865
+          }
+        ],
+        "beat_choice_call_emergency_first->beat_wait_after_emergency_call": [
+          {
+            "x": 1030,
+            "y": 2361
+          },
+          {
+            "x": 1170,
+            "y": 2361
+          }
+        ],
+        "beat_wait_after_emergency_call->beat_seal_door_after_call": [
+          {
+            "x": 1416,
+            "y": 2361
+          },
+          {
+            "x": 1556,
+            "y": 2361
+          }
+        ],
+        "beat_choice_test_door_knob->beat_hot_knob_retreat_indoors": [
+          {
+            "x": 1802,
+            "y": 348
+          },
+          {
+            "x": 1942,
+            "y": 348
+          }
+        ],
+        "beat_choice_seal_without_knob_test->beat_peek_through_door_crack": [
+          {
+            "x": 1802,
+            "y": 873
+          },
+          {
+            "x": 1942,
+            "y": 873
+          }
+        ],
+        "beat_peek_through_door_crack->beat_strategy_after_door_closed": [
+          {
+            "x": 2188,
+            "y": 873
+          },
+          {
+            "x": 2328,
+            "y": 873
+          }
+        ],
+        "beat_choice_balcony_without_check->beat_end_balcony_sealed": [
+          {
+            "x": 1802,
+            "y": 1121
+          },
+          {
+            "x": 1942,
+            "y": 1121
+          }
+        ],
+        "beat_hot_knob_retreat_indoors->beat_call_police_and_wet_towel": [
+          {
+            "x": 2188,
+            "y": 348
+          },
+          {
+            "x": 2328,
+            "y": 348
+          }
+        ],
+        "beat_choice_early_curtain_rope->beat_end_curtain_rope_breaks": [
+          {
+            "x": 1802,
+            "y": 1369
+          },
+          {
+            "x": 1942,
+            "y": 1369
+          }
+        ],
+        "beat_call_police_and_wet_towel->beat_choice_hold_or_escape": [
+          {
+            "x": 2574,
+            "y": 304
+          },
+          {
+            "x": 2622,
+            "y": 304
+          },
+          {
+            "x": 2622,
+            "y": 100
+          },
+          {
+            "x": 2714,
+            "y": 100
+          }
+        ],
+        "beat_call_police_and_wet_towel->beat_choice_climb_exterior_pipes": [
+          {
+            "x": 2574,
+            "y": 348
+          },
+          {
+            "x": 2714,
+            "y": 348
+          }
+        ],
+        "beat_call_police_and_wet_towel->beat_choice_rush_elevator": [
+          {
+            "x": 2574,
+            "y": 392
+          },
+          {
+            "x": 2622,
+            "y": 392
+          },
+          {
+            "x": 2622,
+            "y": 625
+          },
+          {
+            "x": 2714,
+            "y": 625
+          }
+        ],
+        "beat_choice_seal_door_gap->beat_seal_balcony_glass": [
+          {
+            "x": 2574,
+            "y": 2113
+          },
+          {
+            "x": 2714,
+            "y": 2113
+          }
+        ],
+        "beat_choice_climb_exterior_pipes->beat_exterior_pipe_breaks": [
+          {
+            "x": 2960,
+            "y": 348
+          },
+          {
+            "x": 3100,
+            "y": 348
+          }
+        ],
+        "beat_exterior_pipe_breaks->beat_retreat_to_rooftop": [
+          {
+            "x": 3346,
+            "y": 348
+          },
+          {
+            "x": 3486,
+            "y": 348
+          }
+        ],
+        "beat_retreat_to_rooftop->beat_stairwell_smoke_blocked": [
+          {
+            "x": 3732,
+            "y": 348
+          },
+          {
+            "x": 3872,
+            "y": 348
+          }
+        ],
+        "beat_stairwell_smoke_blocked->beat_rooftop_exit_locked": [
+          {
+            "x": 4118,
+            "y": 348
+          },
+          {
+            "x": 4258,
+            "y": 348
+          }
+        ],
+        "beat_rooftop_exit_locked->beat_enter_ventilation_duct": [
+          {
+            "x": 4504,
+            "y": 348
+          },
+          {
+            "x": 4644,
+            "y": 348
+          }
+        ],
+        "beat_enter_ventilation_duct->beat_end_trapped_in_vent_duct": [
+          {
+            "x": 4890,
+            "y": 348
+          },
+          {
+            "x": 5030,
+            "y": 348
+          }
+        ],
+        "beat_choice_rush_elevator->beat_elevator_buttons_dead": [
+          {
+            "x": 2960,
+            "y": 625
+          },
+          {
+            "x": 3100,
+            "y": 625
+          }
+        ],
+        "beat_elevator_buttons_dead->beat_elevator_doors_open_hot": [
+          {
+            "x": 3346,
+            "y": 625
+          },
+          {
+            "x": 3486,
+            "y": 625
+          }
+        ],
+        "beat_elevator_doors_open_hot->beat_choice_wave_at_ladder": [
+          {
+            "x": 3732,
+            "y": 596
+          },
+          {
+            "x": 3872,
+            "y": 596
+          }
+        ],
+        "beat_elevator_doors_open_hot->beat_choice_hide_elevator_shaft": [
+          {
+            "x": 3732,
+            "y": 655
+          },
+          {
+            "x": 3780,
+            "y": 655
+          },
+          {
+            "x": 3780,
+            "y": 844
+          },
+          {
+            "x": 3872,
+            "y": 844
+          }
+        ],
+        "beat_choice_wave_at_ladder->beat_end_rescued_by_ladder": [
+          {
+            "x": 4118,
+            "y": 596
+          },
+          {
+            "x": 4258,
+            "y": 596
+          }
+        ],
+        "beat_choice_break_window_rope->beat_end_sheet_rope_tears": [
+          {
+            "x": 2574,
+            "y": 2361
+          },
+          {
+            "x": 2714,
+            "y": 2361
+          }
+        ],
+        "beat_choice_candle_light_wait->beat_end_rescued_while_holding": [
+          {
+            "x": 2574,
+            "y": 2609
+          },
+          {
+            "x": 2714,
+            "y": 2609
+          }
+        ],
+        "beat_seal_balcony_glass->beat_rescue_signal_question": [
+          {
+            "x": 2960,
+            "y": 2113
+          },
+          {
+            "x": 3100,
+            "y": 2113
+          }
+        ],
+        "beat_rescue_signal_question->beat_choice_effective_rescue_signal": [
+          {
+            "x": 3346,
+            "y": 2069
+          },
+          {
+            "x": 3394,
+            "y": 2069
+          },
+          {
+            "x": 3394,
+            "y": 1865
+          },
+          {
+            "x": 3486,
+            "y": 1865
+          }
+        ],
+        "beat_rescue_signal_question->beat_choice_leap_to_neighbor": [
+          {
+            "x": 3346,
+            "y": 2113
+          },
+          {
+            "x": 3486,
+            "y": 2113
+          }
+        ],
+        "beat_rescue_signal_question->beat_choice_blind_sheet_rope": [
+          {
+            "x": 3346,
+            "y": 2157
+          },
+          {
+            "x": 3394,
+            "y": 2157
+          },
+          {
+            "x": 3394,
+            "y": 2361
+          },
+          {
+            "x": 3486,
+            "y": 2361
+          }
+        ],
+        "beat_choice_leap_to_neighbor->beat_end_fall_from_building": [
+          {
+            "x": 3732,
+            "y": 2113
+          },
+          {
+            "x": 3872,
+            "y": 2113
+          }
+        ],
+        "beat_choice_blind_sheet_rope->beat_end_sheet_rope_snaps": [
+          {
+            "x": 3732,
+            "y": 2361
+          },
+          {
+            "x": 3872,
+            "y": 2361
+          }
+        ],
+        "beat_fire_reaches_apartment_door->beat_judge_smoky_stairwell": [
+          {
+            "x": 4118,
+            "y": 1865
+          },
+          {
+            "x": 4258,
+            "y": 1865
+          }
+        ],
+        "beat_judge_smoky_stairwell->beat_choice_rope_escape_ready": [
+          {
+            "x": 4504,
+            "y": 1813
+          },
+          {
+            "x": 4552,
+            "y": 1813
+          },
+          {
+            "x": 4552,
+            "y": 1600
+          },
+          {
+            "x": 4644,
+            "y": 1600
+          }
+        ],
+        "beat_judge_smoky_stairwell->beat_choice_charge_smoky_hall": [
+          {
+            "x": 4504,
+            "y": 1848
+          },
+          {
+            "x": 4644,
+            "y": 1848
+          }
+        ],
+        "beat_judge_smoky_stairwell->beat_choice_hasty_balcony_rope": [
+          {
+            "x": 4504,
+            "y": 1883
+          },
+          {
+            "x": 4562,
+            "y": 1883
+          },
+          {
+            "x": 4562,
+            "y": 2096
+          },
+          {
+            "x": 4644,
+            "y": 2096
+          }
+        ],
+        "beat_judge_smoky_stairwell->beat_choice_use_extinguisher": [
+          {
+            "x": 4504,
+            "y": 1918
+          },
+          {
+            "x": 4552,
+            "y": 1918
+          },
+          {
+            "x": 4552,
+            "y": 2344
+          },
+          {
+            "x": 4644,
+            "y": 2344
+          }
+        ],
+        "beat_choice_charge_smoky_hall->beat_end_overcome_in_hall_smoke": [
+          {
+            "x": 4890,
+            "y": 1848
+          },
+          {
+            "x": 5030,
+            "y": 1848
+          }
+        ],
+        "beat_choice_hasty_balcony_rope->beat_end_collapse_on_balcony": [
+          {
+            "x": 4890,
+            "y": 2096
+          },
+          {
+            "x": 5030,
+            "y": 2096
+          }
+        ],
+        "beat_choice_rope_escape_ready->beat_rope_escape_to_platform": [
+          {
+            "x": 4890,
+            "y": 1600
+          },
+          {
+            "x": 5030,
+            "y": 1600
+          }
+        ],
+        "beat_choice_use_extinguisher->beat_end_extinguisher_fails": [
+          {
+            "x": 4890,
+            "y": 2344
+          },
+          {
+            "x": 5030,
+            "y": 2344
+          }
+        ],
+        "beat_rope_escape_to_platform->beat_final_priority_question": [
+          {
+            "x": 5276,
+            "y": 1600
+          },
+          {
+            "x": 5416,
+            "y": 1600
+          }
+        ],
+        "beat_final_priority_question->beat_choice_evacuate_stairs_now": [
+          {
+            "x": 5662,
+            "y": 1556
+          },
+          {
+            "x": 5710,
+            "y": 1556
+          },
+          {
+            "x": 5710,
+            "y": 1352
+          },
+          {
+            "x": 5802,
+            "y": 1352
+          }
+        ],
+        "beat_final_priority_question->beat_choice_go_back_for_cat": [
+          {
+            "x": 5662,
+            "y": 1600
+          },
+          {
+            "x": 5802,
+            "y": 1600
+          }
+        ],
+        "beat_final_priority_question->beat_choice_signal_with_lighter": [
+          {
+            "x": 5662,
+            "y": 1644
+          },
+          {
+            "x": 5710,
+            "y": 1644
+          },
+          {
+            "x": 5710,
+            "y": 1848
+          },
+          {
+            "x": 5802,
+            "y": 1848
+          }
+        ],
+        "beat_choice_go_back_for_cat->beat_hallway_fire_blocks_exit": [
+          {
+            "x": 6048,
+            "y": 1600
+          },
+          {
+            "x": 6188,
+            "y": 1600
+          }
+        ],
+        "beat_hallway_fire_blocks_exit->beat_wait_in_place_with_cat": [
+          {
+            "x": 6434,
+            "y": 1600
+          },
+          {
+            "x": 6574,
+            "y": 1600
+          }
+        ],
+        "beat_wait_in_place_with_cat->beat_end_firefighters_breach_door": [
+          {
+            "x": 6820,
+            "y": 1600
+          },
+          {
+            "x": 6960,
+            "y": 1600
+          }
+        ],
+        "beat_choice_signal_with_lighter->beat_end_escape_rope_burns": [
+          {
+            "x": 6048,
+            "y": 1848
+          },
+          {
+            "x": 6188,
+            "y": 1848
+          }
+        ],
+        "beat_at_door_assessment->beat_choice_test_door_knob": [
+          {
+            "x": 1416,
+            "y": 838
+          },
+          {
+            "x": 1464,
+            "y": 838
+          },
+          {
+            "x": 1464,
+            "y": 348
+          },
+          {
+            "x": 1556,
+            "y": 348
+          }
+        ],
+        "beat_at_door_assessment->beat_choice_seal_without_knob_test": [
+          {
+            "x": 1416,
+            "y": 873
+          },
+          {
+            "x": 1556,
+            "y": 873
+          }
+        ],
+        "beat_at_door_assessment->beat_choice_balcony_without_check": [
+          {
+            "x": 1416,
+            "y": 909
+          },
+          {
+            "x": 1474,
+            "y": 909
+          },
+          {
+            "x": 1474,
+            "y": 1121
+          },
+          {
+            "x": 1556,
+            "y": 1121
+          }
+        ],
+        "beat_at_door_assessment->beat_choice_early_curtain_rope": [
+          {
+            "x": 1416,
+            "y": 944
+          },
+          {
+            "x": 1464,
+            "y": 944
+          },
+          {
+            "x": 1464,
+            "y": 1369
+          },
+          {
+            "x": 1556,
+            "y": 1369
+          }
+        ],
+        "beat_hold_inside_next_action->beat_choice_seal_door_gap": [
+          {
+            "x": 2188,
+            "y": 2317
+          },
+          {
+            "x": 2236,
+            "y": 2317
+          },
+          {
+            "x": 2236,
+            "y": 2113
+          },
+          {
+            "x": 2328,
+            "y": 2113
+          }
+        ],
+        "beat_hold_inside_next_action->beat_choice_break_window_rope": [
+          {
+            "x": 2188,
+            "y": 2361
+          },
+          {
+            "x": 2328,
+            "y": 2361
+          }
+        ],
+        "beat_hold_inside_next_action->beat_choice_candle_light_wait": [
+          {
+            "x": 2188,
+            "y": 2405
+          },
+          {
+            "x": 2236,
+            "y": 2405
+          },
+          {
+            "x": 2236,
+            "y": 2609
+          },
+          {
+            "x": 2328,
+            "y": 2609
+          }
+        ],
+        "beat_choice_effective_rescue_signal->beat_fire_reaches_apartment_door": [
+          {
+            "x": 3732,
+            "y": 1865
+          },
+          {
+            "x": 3872,
+            "y": 1865
+          }
+        ],
+        "beat_choice_evacuate_stairs_now->beat_end_safe_ground_evacuation": [
+          {
+            "x": 6048,
+            "y": 1352
+          },
+          {
+            "x": 6188,
+            "y": 1352
+          }
+        ],
+        "beat_seal_door_after_call->beat_hold_inside_next_action": [
+          {
+            "x": 1802,
+            "y": 2361
+          },
+          {
+            "x": 1942,
+            "y": 2361
+          }
+        ],
+        "beat_strategy_after_door_closed->beat_choice_rush_to_bathroom": [
+          {
+            "x": 2574,
+            "y": 873
+          },
+          {
+            "x": 2714,
+            "y": 873
+          }
+        ],
+        "beat_choice_rush_to_bathroom->beat_end_suffocate_indoors": [
+          {
+            "x": 2960,
+            "y": 873
+          },
+          {
+            "x": 3100,
+            "y": 873
+          }
+        ],
+        "beat_choice_hide_elevator_shaft->beat_end_die_in_elevator_shaft": [
+          {
+            "x": 4118,
+            "y": 844
+          },
+          {
+            "x": 4258,
+            "y": 844
+          }
+        ],
+        "beat_choice_return_from_balcony->beat_return_to_door_bridge": [
+          {
+            "x": 2224,
+            "y": 1653
+          },
+          {
+            "x": 2304,
+            "y": 1653
+          }
+        ]
+      }
+    },
+    "jump_edges": [
+      {
+        "from": "beat_return_to_door_bridge",
+        "to": "beat_choice_test_door_knob",
+        "label": "Cross-area link"
+      },
+      {
+        "from": "beat_elevator_shaft_smoke",
+        "to": "beat_return_to_door_bridge",
+        "label": "Cross-area link"
+      },
+      {
+        "from": "beat_choice_hold_or_escape",
+        "to": "beat_hold_inside_next_action",
+        "label": "Cross-area link"
+      }
+    ],
+    "display_role_counts": {
+      "prologue": 1,
+      "normal": 28,
+      "decision": 27,
+      "failure_end": 13,
+      "success_end": 4
+    },
+    "jump_edge_count": 3
+  },
+  "legend": [
+    {
+      "key": "prologue",
+      "label": "Prologue",
+      "color": "#8b5cf6"
+    },
+    {
+      "key": "normal",
+      "label": "Regular Event",
+      "color": "#22c55e"
+    },
+    {
+      "key": "decision",
+      "label": "Decision",
+      "color": "#3b82f6"
+    },
+    {
+      "key": "fatal",
+      "label": "Failure End",
+      "color": "#334155"
+    },
+    {
+      "key": "ending",
+      "label": "Success End",
+      "color": "#f97316"
+    }
+  ],
+  "stats": {
+    "node_count": 73,
+    "edge_count": 72,
+    "ending_count": 16,
+    "image_count": 73,
+    "jump_edge_count": 3,
+    "layout_mode": "elk_layered",
+    "layout_version": "elk_layered_v1"
+  }
+}
