@@ -15,8 +15,8 @@ thumbnail_cache_dir = BASE_DIR / ".thumbnail_cache"
 app = Flask(__name__, template_folder=str(template_dir), static_folder=None)
 
 LANG_UI = {
-    "zh": {"title": "教育游戏", "subtitle": "选择一个互动故事，开始体验或查看叙事流程图。", "play": "进入游戏", "map": "查看地图"},
-    "en": {"title": "Educational Games", "subtitle": "Choose an interactive story to play or inspect its narrative map.", "play": "Play", "map": "Narrative Map"},
+    "zh": {"title": "教育游戏", "subtitle": "交互游戏，寓教于乐", "play": "进入游戏", "map": "查看地图"},
+    "en": {"title": "Educational Games", "subtitle": "Interactive games, playful learning", "play": "Play", "map": "Narrative Map"},
 }
 
 GAME_META = {

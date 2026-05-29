@@ -57,7 +57,7 @@ function sitePath(relativePath) {
 }
 
     const games = {"tech_education": {"zh": "科技教育", "en": "Tech Education", "desc_zh": "科学实践中的观察、判断与安全选择。", "desc_en": "Observation, judgment, and safe choices in science practice.", "map": "classic"}, "spring_outing": {"zh": "春游历险", "en": "Spring Outing Adventure", "desc_zh": "在户外探索中做出正确的风险判断。", "desc_en": "Make risk-aware decisions during an outdoor adventure.", "map": "classic"}, "moving_house": {"zh": "搬家风波", "en": "Moving Day Chaos", "desc_zh": "用科学方法解决搬家过程中的麻烦。", "desc_en": "Use scientific thinking to solve moving-day problems.", "map": "classic"}, "fire_rescue": {"zh": "火灾救援", "en": "Fire Rescue", "desc_zh": "高层火灾中的紧急避险与求生决策。", "desc_en": "Emergency survival choices during a high-rise fire.", "map": "elk"}};
-    const ui = {"zh": {"title": "教育游戏", "subtitle": "选择一个互动故事，开始体验或查看叙事流程图。", "play": "进入游戏", "map": "查看地图"}, "en": {"title": "Educational Games", "subtitle": "Choose an interactive story to play or inspect its narrative map.", "play": "Play", "map": "Narrative Map"}};
+    const ui = {"zh": {"title": "教育游戏", "subtitle": "交互游戏，寓教于乐", "play": "进入游戏", "map": "查看地图"}, "en": {"title": "Educational Games", "subtitle": "Interactive games, playful learning", "play": "Play", "map": "Narrative Map"}};
     const pathLang = location.pathname.split('/').filter(Boolean).find(part => part === 'zh' || part === 'en');
     let lang = pathLang || (localStorage.getItem('hub_lang') || 'zh');
     function renderHub() {
