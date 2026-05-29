@@ -420,6 +420,15 @@
             min-height: 176px;
             max-height: 240px;
         }
+        .node-detail-card.decision-compact .detail-scroll-box.plot-box {
+            min-height: 96px;
+            max-height: 150px;
+        }
+        .node-detail-card.has-decision-options .detail-scroll-box.plot-box,
+        .node-detail-card.has-decision-options #detail-secondary {
+            min-height: 92px;
+            max-height: 150px;
+        }
         svg {
             display: block;
             width: 100%;
@@ -820,17 +829,20 @@ function sitePath(relativePath) {
 
         function getDecisionOptions(node) {
             const sourceNodeId = getSourceNodeId(node.id);
-            const parentIds = state.parentMap.get(sourceNodeId) || [];
-            for (const parentId of parentIds) {
-                const siblingIds = state.childrenMap.get(parentId) || [];
-                const options = siblingIds
-                    .map(childId => state.nodeMap.get(childId))
-                    .filter(child => child && child.type === 'decision')
-                    .map((child, index) => `${index + 1}. ${cleanDisplayText(child.metadata?.choice_option || child.content || child.id)}`);
-                if (options.length) return options.join('\n\n');
-            }
+            const optionSourceIds = node.type === 'decision'
+                ? ((state.parentMap.get(sourceNodeId) || [])[0] ? state.childrenMap.get((state.parentMap.get(sourceNodeId) || [])[0]) : [])
+                : (state.childrenMap.get(sourceNodeId) || []);
+            const options = (optionSourceIds || [])
+                .map(childId => state.nodeMap.get(childId))
+                .filter(child => child && child.type === 'decision')
+                .map((child, index) => `${index + 1}. ${cleanDisplayText(child.metadata?.choice_option || child.content || child.id)}`);
+            if (options.length) return options.join('\n\n');
             const ownOption = cleanDisplayText(node.metadata?.choice_option || '');
             return ownOption ? `1. ${ownOption}` : '';
+        }
+
+        function getPlotText(node) {
+            return cleanDisplayText(node.content || '');
         }
 
         function getAnalysisText(node) {
@@ -2051,30 +2063,40 @@ function sitePath(relativePath) {
             detailContent.classList.add('hidden');
             detailFields.classList.add('hidden');
 
-            setScrollBoxContent(detailPlot, cleanDisplayText(node.content || ''), 'No plot details available.');
+            const nodeDetailCard = document.querySelector('.node-detail-card');
+            nodeDetailCard.classList.remove('single-pane', 'decision-compact', 'has-decision-options');
+            setScrollBoxContent(detailPlot, getPlotText(node), 'No plot details available.');
 
-            if (node.type === 'decision') {
-                detailSecondaryTitle.textContent = 'Decision';
-                setScrollBoxContent(detailSecondary, getDecisionOptions(node), 'No decision options available.');
-                detailSecondarySection.classList.remove('hidden');
-                detailPlot.classList.remove('large');
-                detailImage.classList.remove('hidden');
-                detailBadge.classList.remove('hidden');
-                document.querySelector('.node-detail-card').classList.remove('single-pane');
-            } else if (node.type === 'ep_end' || node.type === 'fatal') {
+            const decisionOptions = node.type === 'decision' ? '' : getDecisionOptions(node);
+
+            if (node.type === 'ep_end' || node.type === 'fatal') {
                 detailSecondaryTitle.textContent = 'Analysis';
                 setScrollBoxContent(detailSecondary, getAnalysisText(node), 'No analysis available.');
                 detailSecondarySection.classList.remove('hidden');
                 detailPlot.classList.remove('large');
                 detailImage.classList.remove('hidden');
                 detailBadge.classList.remove('hidden');
-                document.querySelector('.node-detail-card').classList.remove('single-pane');
+                nodeDetailCard.classList.remove('single-pane');
             } else {
                 detailSecondarySection.classList.add('hidden');
                 detailPlot.classList.add('large');
                 detailImage.classList.remove('hidden');
                 detailBadge.classList.remove('hidden');
-                document.querySelector('.node-detail-card').classList.add('single-pane');
+                if (node.type === 'decision') {
+                    detailSecondarySection.classList.add('hidden');
+                    detailPlot.classList.remove('large');
+                    nodeDetailCard.classList.add('decision-compact');
+                } else if (decisionOptions) {
+                    detailSecondaryTitle.textContent = 'Decision';
+                    setScrollBoxContent(detailSecondary, decisionOptions, 'No decision options available.');
+                    detailSecondarySection.classList.remove('hidden');
+                    detailPlot.classList.remove('large');
+                    nodeDetailCard.classList.add('has-decision-options');
+                } else {
+                    detailSecondarySection.classList.add('hidden');
+                    detailPlot.classList.add('large');
+                    nodeDetailCard.classList.add('single-pane');
+                }
             }
         }
 

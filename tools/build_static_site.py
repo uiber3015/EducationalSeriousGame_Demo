@@ -324,8 +324,7 @@ def build_interactive_page() -> None:
         "            background-color: rgba(11, 218, 90, 0.9);\n"
         "            transform: scale(1.05);\n"
         "        }\n",
-        "        .graph-button,\n"
-        "        .next-page-button {\n"
+        "        .graph-button {\n"
         "            width: 158px;\n"
         "            min-width: 158px;\n"
         "            box-sizing: border-box;\n"
@@ -340,24 +339,52 @@ def build_interactive_page() -> None:
         "\n"
         "        .next-page-button {\n"
         "            position: absolute;\n"
-        "            top: 72px;\n"
-        "            right: 18px;\n"
-        "            background: linear-gradient(180deg, rgba(25, 151, 216, 0.96), rgba(13, 110, 184, 0.96));\n"
-        "            border: 1px solid rgba(232, 240, 255, 0.58);\n"
+        "            top: 50%;\n"
+        "            right: 28px;\n"
+        "            transform: translateY(-50%);\n"
+        "            width: 58px;\n"
+        "            height: 58px;\n"
+        "            background: radial-gradient(circle at 32% 24%, rgba(255, 255, 255, 0.34), transparent 34%), linear-gradient(135deg, rgba(14, 165, 233, 0.96), rgba(37, 99, 235, 0.96));\n"
+        "            border: 1px solid rgba(255, 255, 255, 0.68);\n"
         "            color: white;\n"
-        "            padding: 8px 12px;\n"
-        "            font-size: 15px;\n"
+        "            padding: 0;\n"
+        "            font-size: 0;\n"
         "            font-weight: 700;\n"
         "            cursor: pointer;\n"
-        "            border-radius: 30px;\n"
+        "            border-radius: 50%;\n"
         "            display: block;\n"
         "            z-index: 120;\n"
-        "            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.28);\n"
+        "            box-shadow: 0 18px 34px rgba(15, 23, 42, 0.36), inset 0 1px 0 rgba(255, 255, 255, 0.28);\n"
+        "            line-height: 1;\n"
+        "            transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease;\n"
+        "        }\n"
+        "\n"
+        "        .next-page-button::before {\n"
+        "            content: \"\";\n"
+        "            position: absolute;\n"
+        "            left: 16px;\n"
+        "            top: 50%;\n"
+        "            width: 28px;\n"
+        "            height: 24px;\n"
+        "            border-radius: 999px;\n"
+        "            background: currentColor;\n"
+        "            clip-path: polygon(0 36%, 55% 36%, 55% 14%, 100% 50%, 55% 86%, 55% 64%, 0 64%);\n"
+        "            transform: translateY(-50%);\n"
+        "        }\n"
+        "\n"
+        "        .next-page-button::after {\n"
+        "            content: \"\";\n"
+        "            position: absolute;\n"
+        "            inset: 9px;\n"
+        "            border-radius: 50%;\n"
+        "            border: 1px solid rgba(255, 255, 255, 0.18);\n"
+        "            pointer-events: none;\n"
         "        }\n"
         "\n"
         "        .next-page-button:hover {\n"
-        "            transform: scale(1.05);\n"
-        "            box-shadow: 0 16px 30px rgba(0, 0, 0, 0.34);\n"
+        "            transform: translateY(-50%) scale(1.08);\n"
+        "            filter: brightness(1.06);\n"
+        "            box-shadow: 0 22px 40px rgba(15, 23, 42, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.34);\n"
         "        }\n",
     )
     bootstrap = (
@@ -387,7 +414,7 @@ def build_interactive_page() -> None:
     html = html.replace(
         "        <div id=\"loading\" class=\"loading\">Loading...</div>",
         "        <div id=\"loading\" class=\"loading\">Loading...</div>\n"
-        "        <button id=\"next-page-button\" class=\"next-page-button\">Continue</button>",
+        "        <button id=\"next-page-button\" class=\"next-page-button\" aria-label=\"Continue\">&#8594;</button>",
     )
     html = html.replace("            let storyGraph = null;\n            let currentNodeId = null;", "            let storyGraph = null;\n            let currentNodeId = null;\n            let pendingNextNodeId = null;\n            let autoNextTimer = null;\n" + bootstrap)
     html = html.replace(
@@ -422,7 +449,7 @@ def build_interactive_page() -> None:
         "                                    displayNode(currentNodeId);\n"
         "                                }, 3000); // 延迟3秒跳转，让用户有时间阅读过渡情节内容",
         "                                pendingNextNodeId = nextNodeIds[0];\n"
-        "                                nextPageButtonEl.textContent = 'Continue';\n"
+        "                                nextPageButtonEl.innerHTML = '&#8594;';\n"
         "                                nextPageButtonEl.style.display = 'block';\n"
         "                                if (autoNextTimer) {\n"
         "                                    clearTimeout(autoNextTimer);\n"
@@ -434,7 +461,7 @@ def build_interactive_page() -> None:
         "                                        autoNextTimer = null;\n"
         "                                        displayNode(currentNodeId);\n"
         "                                    }\n"
-        "                                }, 5000); // 延迟5秒自动进入下一页，期间可点击 Continue 立即跳转",
+        "                                }, 8000); // 延迟8秒自动进入下一页，期间可点击箭头立即跳转",
     )
     html = html.replace("                                }, 6000);", "                                }, 4000);")
     html = html.replace("                            }, 6000);", "                            }, 4000);")
@@ -525,7 +552,59 @@ def build_map_pages() -> None:
 """
     )
     classic = (TEMPLATE_DIR / "story_graph_visualization_classic.html").read_text(encoding="utf-8")
+    classic = classic.replace(
+        "        .node-detail-card.single-pane .detail-scroll-box.plot-box {\n"
+        "            min-height: 176px;\n"
+        "            max-height: 240px;\n"
+        "        }\n",
+        "        .node-detail-card.single-pane .detail-scroll-box.plot-box {\n"
+        "            min-height: 176px;\n"
+        "            max-height: 240px;\n"
+        "        }\n"
+        "        .node-detail-card.decision-compact .detail-scroll-box.plot-box {\n"
+        "            min-height: 96px;\n"
+        "            max-height: 150px;\n"
+        "        }\n"
+        "        .node-detail-card.has-decision-options .detail-scroll-box.plot-box,\n"
+        "        .node-detail-card.has-decision-options #detail-secondary {\n"
+        "            min-height: 92px;\n"
+        "            max-height: 150px;\n"
+        "        }\n",
+    )
     classic = classic.replace("        const state = {", bootstrap + "\n        const state = {")
+    classic = classic.replace(
+        "        function getDecisionOptions(node) {\n"
+        "            const sourceNodeId = getSourceNodeId(node.id);\n"
+        "            const parentIds = state.parentMap.get(sourceNodeId) || [];\n"
+        "            for (const parentId of parentIds) {\n"
+        "                const siblingIds = state.childrenMap.get(parentId) || [];\n"
+        "                const options = siblingIds\n"
+        "                    .map(childId => state.nodeMap.get(childId))\n"
+        "                    .filter(child => child && child.type === 'decision')\n"
+        "                    .map((child, index) => `${index + 1}. ${cleanDisplayText(child.metadata?.choice_option || child.content || child.id)}`);\n"
+        "                if (options.length) return options.join('\\n\\n');\n"
+        "            }\n"
+        "            const ownOption = cleanDisplayText(node.metadata?.choice_option || '');\n"
+        "            return ownOption ? `1. ${ownOption}` : '';\n"
+        "        }\n",
+        "        function getDecisionOptions(node) {\n"
+        "            const sourceNodeId = getSourceNodeId(node.id);\n"
+        "            const optionSourceIds = node.type === 'decision'\n"
+        "                ? ((state.parentMap.get(sourceNodeId) || [])[0] ? state.childrenMap.get((state.parentMap.get(sourceNodeId) || [])[0]) : [])\n"
+        "                : (state.childrenMap.get(sourceNodeId) || []);\n"
+        "            const options = (optionSourceIds || [])\n"
+        "                .map(childId => state.nodeMap.get(childId))\n"
+        "                .filter(child => child && child.type === 'decision')\n"
+        "                .map((child, index) => `${index + 1}. ${cleanDisplayText(child.metadata?.choice_option || child.content || child.id)}`);\n"
+        "            if (options.length) return options.join('\\n\\n');\n"
+        "            const ownOption = cleanDisplayText(node.metadata?.choice_option || '');\n"
+        "            return ownOption ? `1. ${ownOption}` : '';\n"
+        "        }\n"
+        "\n"
+        "        function getPlotText(node) {\n"
+        "            return cleanDisplayText(node.content || '');\n"
+        "        }\n",
+    )
     classic = classic.replace("fetch('/api/story-graph')", "fetch(graphDataUrl)")
     classic = classic.replace("Please confirm that `/api/story-graph` returns valid node data.", "Please confirm that the static story graph JSON file exists.")
     classic = classic.replace("Please confirm the server is running and `/api/story-graph` returns valid data.", "Please confirm the static story graph JSON file exists.")
@@ -534,6 +613,48 @@ def build_map_pages() -> None:
         "emptyState.innerHTML = `<strong>Failed to load story map</strong><span>${staticMapErrorMessage()}</span>`;",
     )
     classic = classic.replace("window.location.href = '/interactive-story';", "window.location.href = interactiveStoryUrl;")
+    classic = classic.replace(
+        "            setScrollBoxContent(detailPlot, cleanDisplayText(node.content || ''), 'No plot details available.');",
+        "            const nodeDetailCard = document.querySelector('.node-detail-card');\n"
+        "            nodeDetailCard.classList.remove('single-pane', 'decision-compact', 'has-decision-options');\n"
+        "            setScrollBoxContent(detailPlot, getPlotText(node), 'No plot details available.');",
+    )
+    classic = classic.replace(
+        "            if (node.type === 'decision') {\n"
+        "                detailSecondaryTitle.textContent = 'Decision';\n"
+        "                setScrollBoxContent(detailSecondary, getDecisionOptions(node), 'No decision options available.');\n"
+        "                detailSecondarySection.classList.remove('hidden');\n"
+        "                detailPlot.classList.remove('large');\n"
+        "                detailImage.classList.remove('hidden');\n"
+        "                detailBadge.classList.remove('hidden');\n"
+        "                document.querySelector('.node-detail-card').classList.remove('single-pane');\n"
+        "            } else if (node.type === 'ep_end' || node.type === 'fatal') {",
+        "            const decisionOptions = node.type === 'decision' ? '' : getDecisionOptions(node);\n"
+        "\n"
+        "            if (node.type === 'ep_end' || node.type === 'fatal') {",
+    )
+    classic = classic.replace(
+        "                document.querySelector('.node-detail-card').classList.remove('single-pane');",
+        "                nodeDetailCard.classList.remove('single-pane');",
+    )
+    classic = classic.replace(
+        "                document.querySelector('.node-detail-card').classList.add('single-pane');",
+        "                if (node.type === 'decision') {\n"
+        "                    detailSecondarySection.classList.add('hidden');\n"
+        "                    detailPlot.classList.remove('large');\n"
+        "                    nodeDetailCard.classList.add('decision-compact');\n"
+        "                } else if (decisionOptions) {\n"
+        "                    detailSecondaryTitle.textContent = 'Decision';\n"
+        "                    setScrollBoxContent(detailSecondary, decisionOptions, 'No decision options available.');\n"
+        "                    detailSecondarySection.classList.remove('hidden');\n"
+        "                    detailPlot.classList.remove('large');\n"
+        "                    nodeDetailCard.classList.add('has-decision-options');\n"
+        "                } else {\n"
+        "                    detailSecondarySection.classList.add('hidden');\n"
+        "                    detailPlot.classList.add('large');\n"
+        "                    nodeDetailCard.classList.add('single-pane');\n"
+        "                }",
+    )
     (ROOT / "narrative-map-classic.html").write_text(classic, encoding="utf-8")
 
     elk = (TEMPLATE_DIR / "story_graph_visualization_elk.html").read_text(encoding="utf-8")

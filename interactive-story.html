@@ -249,8 +249,7 @@
             backdrop-filter: blur(5px);
         }
         
-        .graph-button,
-        .next-page-button {
+        .graph-button {
             width: 158px;
             min-width: 158px;
             box-sizing: border-box;
@@ -265,24 +264,52 @@
 
         .next-page-button {
             position: absolute;
-            top: 72px;
-            right: 18px;
-            background: linear-gradient(180deg, rgba(25, 151, 216, 0.96), rgba(13, 110, 184, 0.96));
-            border: 1px solid rgba(232, 240, 255, 0.58);
+            top: 50%;
+            right: 28px;
+            transform: translateY(-50%);
+            width: 58px;
+            height: 58px;
+            background: radial-gradient(circle at 32% 24%, rgba(255, 255, 255, 0.34), transparent 34%), linear-gradient(135deg, rgba(14, 165, 233, 0.96), rgba(37, 99, 235, 0.96));
+            border: 1px solid rgba(255, 255, 255, 0.68);
             color: white;
-            padding: 8px 12px;
-            font-size: 15px;
+            padding: 0;
+            font-size: 0;
             font-weight: 700;
             cursor: pointer;
-            border-radius: 30px;
+            border-radius: 50%;
             display: block;
             z-index: 120;
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.28);
+            box-shadow: 0 18px 34px rgba(15, 23, 42, 0.36), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+            line-height: 1;
+            transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease;
+        }
+
+        .next-page-button::before {
+            content: "";
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            width: 28px;
+            height: 24px;
+            border-radius: 999px;
+            background: currentColor;
+            clip-path: polygon(0 36%, 55% 36%, 55% 14%, 100% 50%, 55% 86%, 55% 64%, 0 64%);
+            transform: translateY(-50%);
+        }
+
+        .next-page-button::after {
+            content: "";
+            position: absolute;
+            inset: 9px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            pointer-events: none;
         }
 
         .next-page-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 16px 30px rgba(0, 0, 0, 0.34);
+            transform: translateY(-50%) scale(1.08);
+            filter: brightness(1.06);
+            box-shadow: 0 22px 40px rgba(15, 23, 42, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.34);
         }
         
         .loading {
@@ -729,7 +756,7 @@
         </div>
         
         <div id="loading" class="loading">Loading...</div>
-        <button id="next-page-button" class="next-page-button">Continue</button>
+        <button id="next-page-button" class="next-page-button" aria-label="Continue">&#8594;</button>
     </div>
     
     <!-- 物理知识点浮现效果层 - 简化版本 -->
@@ -1308,7 +1335,7 @@ function sitePath(relativePath) {
                             if (nextNodeIds.length === 1) {
                                 // 非ep_end节点，正常自动继续
                                 pendingNextNodeId = nextNodeIds[0];
-                                nextPageButtonEl.textContent = 'Continue';
+                                nextPageButtonEl.innerHTML = '&#8594;';
                                 nextPageButtonEl.style.display = 'block';
                                 if (autoNextTimer) {
                                     clearTimeout(autoNextTimer);
@@ -1320,7 +1347,7 @@ function sitePath(relativePath) {
                                         autoNextTimer = null;
                                         displayNode(currentNodeId);
                                     }
-                                }, 5000); // 延迟5秒自动进入下一页，期间可点击 Continue 立即跳转
+                                }, 8000); // 延迟8秒自动进入下一页，期间可点击箭头立即跳转
                             } else if (nextNodeIds.length > 1) {
                                 // 有多个连接边，显示选择按钮
                                 nextPageButtonEl.style.display = 'none';
